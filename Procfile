@@ -1,1 +1,1 @@
-web: cd server && npm run server
+web: node index.js
