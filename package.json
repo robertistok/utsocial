@@ -4,11 +4,26 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-core": "^6.24.0",
+    "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "mongoose": "^4.9.0"
   },
   "scripts": {
-    "server": "node index.js"
+    "server": "nodemon server.js",
+    "client": "nodemon start-client.js",
+    "start": "concurrently \"npm run server\" \"npm run client \"",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "concurrently": "^3.4.0",
+    "eslint": "^3.18.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.2"
   }
 }
