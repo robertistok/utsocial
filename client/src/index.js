@@ -1,9 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import { Provider } from 'react-redux';
+
+import App from './views/App';
 import './index.css';
+import '../public/background.jpg';
+import '../semantic/dist/semantic.min.css';
+import makeStore from './redux/store';
+
+const store = makeStore();
+
+const Root = () => (
+	<Provider store={store}>
+		<App />
+	</Provider>
+);
 
 ReactDOM.render(
-  <App />,
-  document.getElementById('root')
+  <Root />,
+  document.getElementById('root'),
 );
