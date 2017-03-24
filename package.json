@@ -18,8 +18,8 @@
     "passport-local": "^1.0.0"
   },
   "scripts": {
-    "server": "nodemon server.js",
-    "client": "nodemon start-client.js",
+    "server": "node server.js",
+    "client": "node start-client.js",
     "start": "concurrently \"npm run server\" \"npm run client \"",
     "lint": "eslint ."
   },
