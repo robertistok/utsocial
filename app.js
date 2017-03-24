@@ -8,6 +8,12 @@ const router = require('./api/router');
 
 const app = express();
 
+app.set('port', process.env.PORT || 3001);
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
+
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/universocial');
 
@@ -16,11 +22,5 @@ app.use(cors());
 app.use(bodyParser.json({ type: '*/*' }));
 
 router(app);
-
-app.set('port', process.env.PORT || 3001);
-
-if (process.env.NODE_ENV === 'production') {
-	app.use(express.static('client/build'));
-}
 
 module.exports = app;
