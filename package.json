@@ -20,6 +20,7 @@
   },
   "scripts": {
     "server": "node server.js",
+		"install": "cd client && npm install && npm run build && cd ..",
     "client": "node start-client.js",
     "start": "concurrently \"npm run server\" \"npm run client \"",
     "lint": "eslint ."

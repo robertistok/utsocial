@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const morgan = require('morgan');
+const path = require('path');
 
 const router = require('./api/router');
 
@@ -11,7 +12,7 @@ const app = express();
 app.set('port', process.env.PORT || 3001);
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
+  app.use(express.static(path.join(__dirname, 'client/build')));
 }
 
 mongoose.Promise = global.Promise;
