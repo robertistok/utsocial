@@ -1,13 +1,44 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import Header from '../components/Header/index';
-import LoginForm from './components/LoginForm/container';
+import LoginForm from './components/LoginForm/index';
+import * as actions from '../../../redux/auth';
 
-const Login = () => (
-	<div>
-		<Header />
-		<LoginForm />
-	</div>
-);
+class Login extends Component {
+  constructor(props) {
+    super(props);
 
-export default Login;
+    this.authUser = this.authUser.bind(this);
+  }
+
+  componentWillMount() {
+    if (this.props.auth.authenticated) this.props.history.push('/myaccount');
+  }
+
+  componentWillUpdate() {
+    if (this.props.auth.authenticated) this.props.history.push('/myaccount');
+  }
+
+  authUser(values) {
+    this.props.loginUser(values);
+  }
+
+  render() {
+    if (this.props.auth.authenticated) return <Redirect to="/myaccount" />;
+
+    return (
+      <div>
+        <Header />
+        <LoginForm onSubmit={this.authUser} />
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, actions)(Login);
