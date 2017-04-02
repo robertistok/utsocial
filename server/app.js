@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
 
@@ -22,7 +21,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 app.use(morgan('combined'));
-app.use(cors());
 app.use(bodyParser.json({ type: '*/*' }));
 app.use(bodyParser.urlencoded({ extended: false }));
 
