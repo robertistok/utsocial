@@ -5,5 +5,5 @@ function addNew(req, res, next) {
 }
 
 module.exports = {
-  addNew,
+  addNew
 };

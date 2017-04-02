@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 
-import Table from './table';
+import TableContainer from './Table/index';
+import FilterContainer from './Filter/index';
 
 class Schedule extends Component {
   render() {
-    <thead>
-      <tr />
-    </thead>;
+    return (
+      <div>
+        <FilterContainer />
+        <TableContainer />
+      </div>
+    );
   }
 }
+
+export default Schedule;

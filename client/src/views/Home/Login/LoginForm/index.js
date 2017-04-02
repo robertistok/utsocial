@@ -2,35 +2,27 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 import './style.css';
-
-const renderTextInput = (
-  { input, label, placeholder, type, meta: { touched, error } },
-) => (
-  <div className="field">
-    <label htmlFor={input.name}>{label}</label>
-    <input {...input} type={type} placeholder={placeholder} />
-  </div>
-);
+import InputField from '../../../../components/FormComponents/InputField';
 
 const LoginForm = (props) => {
   const { handleSubmit } = props;
 
   return (
     <div>
-      <form className="ui form" onSubmit={handleSubmit}>
+      <form className="ui form login" onSubmit={handleSubmit}>
         <Field
           name="username"
           label="Username"
           placeholder="Enter your username"
           type="text"
-          component={renderTextInput}
+          component={InputField}
         />
         <Field
           name="password"
           label="Password"
           placeholder="Enter your password"
           type="password"
-          component={renderTextInput}
+          component={InputField}
         />
         <button className="ui button">Log In</button>
       </form>

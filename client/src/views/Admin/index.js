@@ -1,10 +1,11 @@
 import React from 'react';
-import Header from './components/Header/index';
+import Header from './Header/index';
+import ModalSwitcher from '../../components/Modals/ModalSwitcher';
 
 const Admin = props => (
   <div>
     <Header />
-    {props.children}
+    <ModalSwitcher />
   </div>
 );
 

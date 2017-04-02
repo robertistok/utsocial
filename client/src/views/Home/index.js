@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Header from './components/Header/index';
+import Header from './Header/index';
 
 const Home = props => (
   <div>

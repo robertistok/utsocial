@@ -11,7 +11,7 @@
     "react-redux": "^5.0.3",
     "react-router": "^4.0.0",
     "react-router-dom": "^4.0.0",
-		"react-scripts": "0.9.5",
+    "react-scripts": "0.9.5",
     "redux": "^3.6.0",
     "redux-form": "^6.5.0",
     "redux-logger": "^2.10.2",
@@ -20,7 +20,9 @@
     "redux-storage-decorator-filter": "^1.1.8",
     "redux-storage-engine-localstorage": "^1.1.4",
     "redux-thunk": "^2.2.0",
-    "semantic-ui": "^2.2.9"
+    "reselect": "^3.0.0",
+    "semantic-ui": "^2.2.9",
+    "semantic-ui-react": "^0.67.2"
   },
   "devDependencies": {
     "redux-immutable-state-invariant": "^2.0.0"

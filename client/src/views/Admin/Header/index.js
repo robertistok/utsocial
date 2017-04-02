@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink, Link, Route, Switch } from 'react-router-dom';
+import Schedule from '../../../components/Schedule/index';
 
 import './style.css';
 
@@ -30,7 +31,7 @@ const Header = () => (
       </NavLink>
     </div>
     <Switch>
-      <Route path="/myaccount/schedules" render={() => <h1>Schedules</h1>} />
+      <Route path="/myaccount/schedules" component={Schedule} />
       <Route path="/myaccount/teachers" render={() => <h1>Teachers</h1>} />
       <Route path="/myaccount/courses" render={() => <h1>Courses</h1>} />
     </Switch>

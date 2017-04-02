@@ -7,9 +7,7 @@ import { meFromToken } from './redux/auth';
 import './index.css';
 import '../public/background.jpg';
 import '../semantic/dist/semantic.min.css';
-import makeStore from './redux/store';
-
-const store = makeStore();
+import store from './redux/store';
 
 const token = sessionStorage.getItem('token');
 if (token) {

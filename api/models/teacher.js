@@ -17,7 +17,7 @@ const TeacherSchema = new Schema({
     {
       subject: {
         type: Schema.Types.ObjectId,
-        ref: 'course',
+        ref: 'course'
       },
       type: {
         type: String,
@@ -25,11 +25,11 @@ const TeacherSchema = new Schema({
         validate: {
           validator: type =>
             ['lecture', 'lab', 'project', 'seminar'].indexOf(type) > -1,
-          message: 'You can only assign a class of type lecture, lab, project or seminar',
-        },
-      },
-    },
-  ],
+          message: 'You can only assign a class of type lecture, lab, project or seminar'
+        }
+      }
+    }
+  ]
 });
 
 TeacherSchema.virtual('name').get(function () {

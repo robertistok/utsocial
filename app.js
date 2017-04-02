@@ -16,7 +16,10 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/universocial');
+
+if (process.env.NODE_ENV !== 'production') {
+  mongoose.connect('mongodb://localhost/universocial');
+}
 
 app.use(morgan('combined'));
 app.use(cors());

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import Header from '../components/Header/index';
-import LoginForm from './components/LoginForm/index';
+import Header from '../Header/index';
+import LoginForm from './LoginForm/index';
 import * as actions from '../../../redux/auth';
 
 class Login extends Component {
