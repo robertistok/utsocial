@@ -10,9 +10,12 @@ const app = express();
 
 app.set('port', process.env.PORT || 3001);
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
-}
+const staticFiles = express.static(path.join(__dirname, '../../client/build'));
+app.use(staticFiles);
+
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.join(__dirname, '../client/build')));
+// }
 
 mongoose.Promise = global.Promise;
 
