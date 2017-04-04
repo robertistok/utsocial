@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const ROOT_URL = 'http://localhost:3001/api/auth';
+const ROOT_URL = 'api/auth';
 
 const AUTH_USER = 'utsocial/auth/auth';
 const AUTH_ERROR = 'utsocial/auth/autherror';
@@ -10,7 +10,7 @@ const ME_FROM_TOKEN = 'utsocial/auth/mefromtoken';
 export function authError(err) {
   return {
     type: AUTH_ERROR,
-    payload: err,
+    payload: err
   };
 }
 
@@ -23,8 +23,8 @@ export function loginUser({ username, password }) {
           type: AUTH_USER,
           payload: {
             token: response.data.token,
-            user: response.data.user,
-          },
+            user: response.data.user
+          }
         });
         sessionStorage.setItem('token', response.data.token);
       })
@@ -36,7 +36,7 @@ export function meFromToken(token) {
   return (dispatch) => {
     axios
       .get(`${ROOT_URL}/mefromtoken`, {
-        headers: { authorization: token },
+        headers: { authorization: token }
       })
       .then(response =>
         dispatch({ type: ME_FROM_TOKEN, payload: response.data.user }));
@@ -52,7 +52,7 @@ export default function (state = INITIAL_STATE, action) {
         ...state,
         user: action.payload.user,
         authenticated: true,
-        error: '',
+        error: ''
       };
     case ME_FROM_TOKEN:
       return { ...state, user: action.payload, authenticated: true, error: '' };

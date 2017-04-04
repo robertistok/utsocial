@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const ROOT_URL = 'http://localhost:3001/api/groups';
+const ROOT_URL = '/api/groups';
 
 const FETCH_GROUPS = 'utsocial/schedule/fetchgroups';
 const FETCH_GROUPS_SUCCESS = 'utsocial/schedule/fetchgroups_succes';

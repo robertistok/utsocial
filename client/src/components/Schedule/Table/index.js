@@ -36,6 +36,10 @@ class TableContainer extends Component {
   }
 }
 
+TableContainer.propTypes = {
+  schedule: PropTypes.object
+};
+
 const mapStateToProps = state => ({
   schedule: state.schedule
 });

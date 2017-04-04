@@ -15,7 +15,7 @@ const FETCH_GROUP_SCHEDULE = 'utsocial/schedule/fetch-group-schedule';
 const FETCH_GROUP_SCHEDULE_SUCCESS = 'utsocial/schedule/fetch-group-schedule-success';
 const FETCH_GROUP_SCHEDULE_ERROR = 'utsocial/schedule/fetch-group-schedule-error';
 
-const ROOT_URL = 'http://localhost:3001/api/schedules';
+const ROOT_URL = '/api/schedules';
 
 export function changeSemigroup(semigroup) {
   return {
@@ -91,7 +91,7 @@ const INITIAL_STATE = {
   semigroup: SEMIGROUP.BOTH,
   week: FREQUENCY.BOTH,
   newSchedule: undefined,
-  schedule: [],
+  scheduleList: [],
   loading: false,
   error: undefined
 };
@@ -110,7 +110,7 @@ export default function (state = INITIAL_STATE, action) {
     case ADD_NEW_SCHEDULE_SUCCESS:
       return {
         ...state,
-        schedule: [...state.schedule, action.payload],
+        scheduleList: [...state.scheduleList, action.payload],
         loading: false
       };
     case ADD_NEW_SCHEDULE_ERROR:
@@ -126,7 +126,7 @@ export default function (state = INITIAL_STATE, action) {
     case FETCH_GROUP_SCHEDULE:
       return { ...state, loading: true };
     case FETCH_GROUP_SCHEDULE_SUCCESS:
-      return { ...state, schedule: action.payload, loading: false };
+      return { ...state, scheduleList: action.payload, loading: false };
     case FETCH_GROUP_SCHEDULE_ERROR:
       error = action.payload || { message: action.payload.message };
       return { ...state, loading: false, error };

@@ -26,7 +26,7 @@ class NewScheduleFormContainer extends Component {
           _error: result.payload.response.data.message
         });
       }
-      this.props.addNewScheduleSucces(result.data);
+      this.props.addNewScheduleSucces(result.payload.data);
     });
   }
 

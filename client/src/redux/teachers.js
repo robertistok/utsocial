@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const ROOT_URL = 'http://localhost:3001/api/teachers';
+const ROOT_URL = '/api/teachers';
 
 const FETCH_TEACHERS = 'utsocial/schedule/fetchteachers';
 const FETCH_TEACHERS_SUCCES = 'utsocial/schedule/fetchteachers_succes';

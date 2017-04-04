@@ -34,14 +34,19 @@ function addNew(req, res, next) {
 
   schedule
     .save()
-    .then(() => res.send(schedule))
+    .then(() => {
+      Schedule.populate(schedule, 'what.course').then(schedulePop =>
+        res.send(schedulePop));
+    })
     .catch(err => res.status(500).json({ message: err.message }));
 }
 
 function getOne(req, res, next) {
   const { id } = req.params;
 
-  Schedule.find({ whom: id }).then(schedules => res.send(schedules));
+  Schedule.find({ 'whom.group': id })
+    .populate('what.course')
+    .then(schedules => res.send(schedules));
 }
 
 module.exports = {

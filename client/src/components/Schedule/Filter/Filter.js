@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Form, Select, Button, Icon } from 'semantic-ui-react';
+import { Form, Select, Button, Icon, Message } from 'semantic-ui-react';
 
 import { SEMIGROUP, FREQUENCY } from '../../../constants';
 import './Filter.css';
@@ -27,7 +27,7 @@ const Filter = (props) => {
   } = props;
 
   return (
-    <Form size="big">
+    <Form size="big" className="filter-form">
       <Form.Group widths="equal">
         <Form.Field
           control={Select}
@@ -50,6 +50,12 @@ const Filter = (props) => {
           onChange={onWeekChange}
         />
       </Form.Group>
+      <div className="explanation">
+        <Message size="mini" className="type lecture" content="Lecture" />
+        <Message size="mini" className="type lab" content="Lab" />
+        <Message size="mini" className="type project" content="Project" />
+        <Message size="mini" className="type seminar" content="Seminar" />
+      </div>
       <Button
         animated
         className="add-button"
@@ -73,7 +79,9 @@ Filter.propTypes = {
   }),
   onGroupChange: PropTypes.func.isRequired,
   onSemigroupChange: PropTypes.func.isRequired,
-  onWeekChange: PropTypes.func.isRequired
+  onWeekChange: PropTypes.func.isRequired,
+  onAddButtonClick: PropTypes.func,
+  groupOptions: PropTypes.array
 };
 
 export default Filter;
