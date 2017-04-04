@@ -1,12 +1,13 @@
 import React from 'react';
+import { Form } from 'semantic-ui-react';
 
 const InputField = (
   { input, label, placeholder, type, meta: { touched, error } }
 ) => (
-  <div className="field">
+  <Form.Field error={touched && error}>
     <label htmlFor={input.name}>{label}</label>
     <input {...input} type={type} placeholder={placeholder} />
-  </div>
+  </Form.Field>
 );
 
 export default InputField;

@@ -19,6 +19,7 @@ module.exports = (app) => {
   );
 
   app.post('/api/schedules/new', requireAuth, SchedulesController.addNew);
+  app.get('/api/schedules/get/:id', requireAuth, SchedulesController.getOne);
 
   app.get('/api/groups/getall', requireAuth, GroupsController.getGroups);
   app.post('/api/groups/getbyid', requireAuth, GroupsController.getGroupById);

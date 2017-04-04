@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const ROOT_URL = 'http://localhost:3001/api/groups';
-const token = sessionStorage.getItem('token');
 
 const FETCH_GROUPS = 'utsocial/schedule/fetchgroups';
 const FETCH_GROUPS_SUCCESS = 'utsocial/schedule/fetchgroups_succes';
@@ -17,7 +16,7 @@ export function getGroups() {
       method: 'get',
       url: `${ROOT_URL}/getall`,
       headers: {
-        authorization: token
+        authorization: sessionStorage.getItem('token')
       }
     })
       .then((response) => {
@@ -40,7 +39,7 @@ export function getGroup(id) {
         id
       },
       headers: {
-        authorization: token
+        authorization: sessionStorage.getItem('token')
       }
     })
       .then(response =>

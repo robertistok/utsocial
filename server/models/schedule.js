@@ -8,7 +8,7 @@ const ScheduleSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: 'group'
     },
-    semiGroup: String
+    semigroup: String
   },
   who: {
     type: Schema.Types.ObjectId,
@@ -19,7 +19,9 @@ const ScheduleSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: 'course'
     },
-    type: String
+    type: {
+      type: String
+    }
   },
   when: {
     day: {
@@ -44,7 +46,7 @@ const ScheduleSchema = new Schema({
         message: 'Minimum 1 and maximum 4'
       }
     },
-    freq: {
+    frequency: {
       type: Number,
       validate: {
         validator: type => [0, 1, 2].indexOf(type) > -1,
@@ -55,5 +57,52 @@ const ScheduleSchema = new Schema({
   where: String
 });
 
+ScheduleSchema.pre('save', function (next) {
+  const semigroupOperator = this.whom.semigroup === '0'
+    ? ['0', '1', '2']
+    : ['0', this.whom.semigroup];
+  const frequencyOperator = this.whom.semigroup === '0'
+    ? ['0', '1', '2']
+    : ['0', this.whom.semigroup];
+
+  const queryForType = {
+    'whom.group': this.whom.group,
+    'whom.semigroup': { $in: semigroupOperator },
+    'what.course': this.what.course,
+    'what.type': this.what.type
+  };
+  const verifyIfTypeExists = Schedule.find(queryForType);
+
+  const queryForAvailibility = {
+    'whom.group': this.whom.group,
+    'whom.semigroup': { $in: semigroupOperator },
+    'when.day': this.when.day,
+    'when.from': {
+      $gte: this.when.from,
+      $lte: this.when.from + this.when.duration
+    },
+    'when.frequency': { $in: frequencyOperator }
+  };
+  const verifyIfAvailable = Schedule.find(queryForAvailibility);
+
+  Promise.all([verifyIfTypeExists, verifyIfAvailable])
+    .then((results) => {
+      const [isType, isAvailable] = results;
+      if (isType.length !== 0 && isAvailable.length !== 0) {
+        next(new Error('Everything went wrong, better try from scratch'));
+      } else if (isType.length !== 0) {
+        next(
+          new Error('A schedule already exists for this type of combination')
+        );
+      } else if (isAvailable.length !== 0) {
+        next(new Error('The group is busy for the selected period'));
+      } else {
+        next();
+      }
+    })
+    .catch(err => next(err));
+});
+
 const Schedule = mongoose.model('schedule', ScheduleSchema);
+
 module.exports = Schedule;

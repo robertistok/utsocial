@@ -78,7 +78,7 @@ const CourseSchema = new Schema(
   }
 );
 
-CourseSchema.virtual('teachingTypes').get(function () {
+CourseSchema.virtual('teachingTypes').get(function getTeachingTypes() {
   const lecture = this.lecturePerWeek > 0;
   const lab = this.labsPerWeek > 0;
   const seminar = this.seminarsPerWeek > 0;

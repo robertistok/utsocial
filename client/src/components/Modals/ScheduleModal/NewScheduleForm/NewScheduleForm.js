@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react';
 import { reduxForm, Field } from 'redux-form';
-import { Form, Loader } from 'semantic-ui-react';
+import { Form, Loader, Message } from 'semantic-ui-react';
 
 import { SEMIGROUP, FREQUENCY, DAYS, HOURS } from '../../../../constants';
 import RadioButton from '../../../FormComponents/Radio';
 import DropDownField from '../../../FormComponents/Dropdown';
 import InputField from '../../../FormComponents/InputField';
+import { required } from '../../../FormComponents/validation';
 import { teacherOptions, courseOptions, frequencyOptions } from './options';
 
 const between = (min, max) =>
@@ -18,7 +19,9 @@ const NewScheduleForm = (props) => {
   const {
     selectedGroup,
     formValues,
-    resetTypes
+    resetTypes,
+    handleSubmit,
+    error
   } = props;
 
   if (!selectedGroup) {
@@ -36,16 +39,30 @@ const NewScheduleForm = (props) => {
         key={index}
         value={type}
         type="radio"
-        name="subjectType"
+        name="type"
         disabled={!teachingTypes[type]}
         component={RadioButton}
         label={type}
+        validate={required}
       />
     ));
   };
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
+      <Message error visible={!!error} header="Invalid form" content={error} />
+      <Form.Group inline>
+        <Field
+          name="course"
+          component={DropDownField}
+          label="Course"
+          placeholder="Select a course"
+          options={selectedGroup.courses.map(courseOptions)}
+          customOnChange={resetTypes}
+          validate={required}
+        />
+        {formValues.course && renderTeachingTypes()}
+      </Form.Group>
       <Form.Group inline>
         <label htmlFor="semigroup">Semigroup</label>
         <Field
@@ -54,6 +71,7 @@ const NewScheduleForm = (props) => {
           label="Both"
           type="radio"
           value={SEMIGROUP.BOTH}
+          validate={required}
         />
         <Field
           name="semigroup"
@@ -70,27 +88,17 @@ const NewScheduleForm = (props) => {
           value={SEMIGROUP.SECOND}
         />
       </Form.Group>
-      <Form.Group inline>
-        <Field
-          name="course"
-          component={DropDownField}
-          label="Course"
-          placeholder="Select a course"
-          options={selectedGroup.courses.map(courseOptions)}
-          customOnChange={resetTypes}
-        />
-        {formValues.course && renderTeachingTypes()}
-      </Form.Group>
-      {formValues.subjectType &&
+      {formValues.type &&
         <Form.Group inline>
           <Field
             name="teacher"
             component={DropDownField}
             label="Teacher"
             placeholder="Select a course"
-            options={selectedCourse.teachers[formValues.subjectType].map(
+            options={selectedCourse.teachers[formValues.type].map(
               teacherOptions
             )}
+            validate={required}
           />
         </Form.Group>}
       {formValues.teacher &&
@@ -101,6 +109,7 @@ const NewScheduleForm = (props) => {
             component={DropDownField}
             placeholder="Select a day"
             options={DAYS}
+            validate={required}
           />
           {formValues.day &&
             <Field
@@ -109,6 +118,7 @@ const NewScheduleForm = (props) => {
               label="From"
               placeholder="Select an hour"
               options={HOURS}
+              validate={required}
             />}
           {formValues.from &&
             <Field
@@ -116,7 +126,9 @@ const NewScheduleForm = (props) => {
               label="Duration"
               type="number"
               normalize={between(1, 4)}
+              placeholder="Select the duration"
               component={InputField}
+              validate={required}
             />}
           {formValues.duration &&
             <Field
@@ -125,8 +137,20 @@ const NewScheduleForm = (props) => {
               label="Weeks"
               placeholder="Select the weeks"
               options={frequencyOptions()}
+              validate={required}
             />}
         </Form.Group>}
+      <Form.Group inline>
+        {formValues.frequency &&
+          <Field
+            name="where"
+            label="Where"
+            type="text"
+            placeholder="Type the location"
+            component={InputField}
+            validate={required}
+          />}
+      </Form.Group>
     </Form>
   );
 };

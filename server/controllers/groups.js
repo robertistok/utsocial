@@ -13,9 +13,11 @@ function getGroupById(req, res, next) {
   Group.findById(req.body.id)
     .populate({
       path: 'courses',
+      select: 'name teachers teachingTypes lecturePerWeek labsPerWeek seminarsPerWeek projectsPerWeek',
       match: { semester: { $eq: 2 } },
       populate: {
         path: 'teachers.lecture teachers.seminar teachers.lab teachers.project',
+        select: 'firstname lastname ',
         model: 'teacher'
       }
     })

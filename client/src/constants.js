@@ -38,7 +38,7 @@ export const DAYS = [
   {
     key: 'Friday',
     text: 'Friday',
-    value: 'Fridayy'
+    value: 'Friday'
   }
 ];
 

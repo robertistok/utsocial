@@ -33,6 +33,7 @@ class FilterContainer extends Component {
 
   onGroupChange(e, { value }) {
     this.props.changeGroup(value);
+    this.props.fechSchedulesForGroup(value);
   }
 
   onAddButtonClick(event) {
