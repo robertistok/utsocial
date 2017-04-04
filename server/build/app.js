@@ -15,7 +15,6 @@ app.set('port', process.env.PORT || 3001);
 if (process.env.NODE_ENV === 'production') {
   var staticFiles = express.static(path.join(__dirname, '/../client/build'));
   app.use(staticFiles);
-  // app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
 // MongodDb connection

@@ -35,7 +35,9 @@ function addNew(req, res, next) {
   });
 
   schedule.save().then(function () {
-    return res.send(schedule);
+    Schedule.populate(schedule, 'what.course').then(function (schedulePop) {
+      return res.send(schedulePop);
+    });
   }).catch(function (err) {
     return res.status(500).json({ message: err.message });
   });
@@ -45,7 +47,7 @@ function getOne(req, res, next) {
   var id = req.params.id;
 
 
-  Schedule.find({ whom: id }).then(function (schedules) {
+  Schedule.find({ 'whom.group': id }).populate('what.course').then(function (schedules) {
     return res.send(schedules);
   });
 }
