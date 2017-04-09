@@ -1,12 +1,45 @@
 import React from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import styled from 'styled-components';
 
-const Teacher = props => (
+import Header from '../../components/Header/Header';
+import ModalSwitcher from '../../components/Modals/ModalSwitcher';
+import Schedule from '../../components/Schedule/index';
+
+const Content = styled.div`
+	padding-top: 180px;
+	left: 0px;
+	right: 0px;
+	overflow: auto;
+`;
+
+const ForOhFor = () => <h1>No match found</h1>;
+
+const links = [
+  'home',
+  'courses',
+  'messages',
+  'schedules',
+  'performance',
+  'settings'
+];
+
+const Admin = () => (
   <div>
-    Im your best teacher ever, my name is {props.auth.user.username}
-    <Link to="/myaccount/schedule">Click me</Link>
-    <Route path="/myaccount/schedule" render={() => <h1>Daily schedule</h1>} />
+    <Header links={links} />
+    <ModalSwitcher />
+    <Content>
+      <Switch>
+        <Route path="/home" render={() => <h1>TeacherHome page</h1>} />
+        <Route path="/courses" render={() => <h1>TeacherCourses</h1>} />
+        <Route path="/messages" render={() => <h1>TeacherMessages</h1>} />
+        <Route path="/schedules" component={Schedule} />
+        <Route path="/performance" render={() => <h1>TeacherPerformance</h1>} />
+        <Route path="/settings" render={() => <h1>TeacherSettings</h1>} />
+        <Route component={ForOhFor} />
+      </Switch>
+    </Content>
   </div>
 );
 
-export default Teacher;
+export default Admin;

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Form, Select, Button, Icon, Message } from 'semantic-ui-react';
+import { Form, Select, Button, Icon, Label } from 'semantic-ui-react';
 
 import { SEMIGROUP, FREQUENCY } from '../../../constants';
 import './Filter.css';
@@ -19,6 +19,7 @@ const optionsSemigroup = [
 const Filter = (props) => {
   const {
     schedule: { semigroup, week, group },
+    auth,
     onSemigroupChange,
     onWeekChange,
     onGroupChange,
@@ -50,23 +51,25 @@ const Filter = (props) => {
           onChange={onWeekChange}
         />
       </Form.Group>
-      <div className="explanation">
-        <Message size="mini" className="type lecture" content="Lecture" />
-        <Message size="mini" className="type lab" content="Lab" />
-        <Message size="mini" className="type project" content="Project" />
-        <Message size="mini" className="type seminar" content="Seminar" />
-      </div>
-      <Button
-        animated
-        className="add-button"
-        disabled={!group}
-        onClick={onAddButtonClick}
-      >
-        <Button.Content visible>Add schedule</Button.Content>
-        <Button.Content hidden>
-          <Icon name="plus" size="large" />
-        </Button.Content>
-      </Button>
+      {group &&
+        <div className="explanation">
+          <Label size="large" className="type lecture" content="Lecture" />
+          <Label size="large" className="type lab" content="Lab" />
+          <Label size="large" className="type project" content="Project" />
+          <Label size="large" className="type seminar" content="Seminar" />
+        </div>}
+      {props.auth.user.type === 'admin' &&
+        <Button
+          animated
+          className="add-button"
+          disabled={!group}
+          onClick={onAddButtonClick}
+        >
+          <Button.Content visible>Add schedule</Button.Content>
+          <Button.Content hidden>
+            <Icon name="plus" size="large" />
+          </Button.Content>
+        </Button>}
     </Form>
   );
 };

@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import ScheduleModalContainer from './ScheduleModal/index';
+import AddScheduleContainer from './AddSchedule/index';
+import ShowSchedule from './ShowSchedule/ShowSchedule';
 
 import * as modalActions from '../../redux/modals';
 
@@ -12,7 +13,10 @@ const ModalSwitcher = (props) => {
   const { modals: { currentModal, customProps } } = props;
   switch (currentModal) {
     case MODALS.ADD_SCHEDULE:
-      Modal = ScheduleModalContainer;
+      Modal = AddScheduleContainer;
+      break;
+    case MODALS.SHOW_SCHEDULE:
+      Modal = ShowSchedule;
       break;
     default:
       return null;

@@ -15,7 +15,7 @@ const between = (min, max) =>
       ? value
       : previousValue;
 
-const NewScheduleForm = (props) => {
+const AddScheduleForm = (props) => {
   const {
     selectedGroup,
     formValues,
@@ -155,16 +155,16 @@ const NewScheduleForm = (props) => {
   );
 };
 
-NewScheduleForm.propTypes = {
+AddScheduleForm.propTypes = {
   formValues: PropTypes.object,
   selectedGroup: PropTypes.object,
   resetTypes: PropTypes.func
 };
 
-NewScheduleForm.defaultProps = {
+AddScheduleForm.defaultProps = {
   formValues: {}
 };
 
 export default reduxForm({
   form: 'addScheduleModalForm'
-})(NewScheduleForm);
+})(AddScheduleForm);

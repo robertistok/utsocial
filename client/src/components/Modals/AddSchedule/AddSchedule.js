@@ -1,15 +1,15 @@
 import React, { PropTypes } from 'react';
 import { Header, Modal, Button } from 'semantic-ui-react';
 
-import NewScheduleFormContainer from './NewScheduleForm/index';
+import AddScheduleFormContainer from './AddScheduleForm/index';
 
-const ScheduleModal = (props) => {
+const AddSchedule = (props) => {
   const { hideModal, group, submit, reset } = props;
   return (
     <Modal open onClose={hideModal} dimmer="blurring" size="large">
       <Header icon="calendar" content={`Schedule for ${group}`} />
       <Modal.Content>
-        <NewScheduleFormContainer />
+        <AddScheduleFormContainer />
       </Modal.Content>
       <Modal.Actions>
         <Button
@@ -27,9 +27,9 @@ const ScheduleModal = (props) => {
   );
 };
 
-ScheduleModal.propTypes = {
+AddSchedule.propTypes = {
   hideModal: PropTypes.func.isRequired,
   submit: PropTypes.func.isRequired
 };
 
-export default ScheduleModal;
+export default AddSchedule;

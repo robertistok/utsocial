@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 
+import ScheduleItem from './ScheduleItem';
 import './Table.css';
 import { DAYS, HOURS } from '../../../constants';
 
@@ -14,22 +15,23 @@ const findSchedule = ({ scheduleList, hour, week, semigroup }) => {
   return schedule;
 };
 
-const renderHours = ({ scheduleList, week, semigroup }) =>
-  HOURS.map((hour) => {
+const renderHours = ({ scheduleList, week, semigroup, day, handleCellClick }) =>
+  HOURS.map((hour, index) => {
     const schedule = findSchedule({ scheduleList, hour, week, semigroup });
+    const key = `${day + week + semigroup + hour + index}`;
+    if (!schedule) {
+      return <div className="class none" key={key} />;
+    }
+
     return (
-      <div
-        key={hour.key}
-        className={`class ${schedule && schedule.what.type}`}
-        data-hour={hour}
-        data-week={week}
-        data-semigroup={semigroup}
-        data-scheduleID={schedule ? schedule._id : undefined}
-      >
-        {schedule !== undefined
-          ? schedule.what.course.name.match(/\b([A-Z0-9])/g).join('')
-          : ''}
-      </div>
+      <ScheduleItem
+        onClick={handleCellClick}
+        key={key}
+        week={week}
+        hour={hour}
+        semigroup={semigroup}
+        schedule={schedule}
+      />
     );
   });
 
@@ -48,7 +50,13 @@ const Column = ({ day, week, semigroup, handleCellClick, scheduleList }) => {
               {weeks.map(week => (
                 <div className="week" key={week}>
                   <div className="week-number">{`W${week}`}</div>
-                  {renderHours({ scheduleList, week, semigroup })}
+                  {renderHours({
+                    scheduleList,
+                    week,
+                    semigroup,
+                    day,
+                    handleCellClick
+                  })}
                 </div>
               ))}
             </div>

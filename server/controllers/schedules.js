@@ -45,7 +45,20 @@ function getOne(req, res, next) {
   const { id } = req.params;
 
   Schedule.find({ 'whom.group': id })
-    .populate('what.course')
+    .populate([
+      {
+        path: 'what.course',
+        select: 'name'
+      },
+      {
+        path: 'who',
+        select: 'firstname lastname email'
+      },
+      {
+        path: 'whom.group',
+        select: 'id'
+      }
+    ])
     .then(schedules => res.send(schedules));
 }
 

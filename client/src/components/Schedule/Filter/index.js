@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 
 import * as scheduleActions from '../../../redux/schedule';
@@ -51,7 +52,9 @@ class FilterContainer extends Component {
     return this.props.groups.all.map(group => ({
       key: group._id,
       text: group.id,
-      value: group._id
+      value: group._id,
+      as: Link,
+      to: `/schedules/${group.id}`
     }));
   }
 
@@ -78,7 +81,8 @@ FilterContainer.propTypes = {
 
 const mapStateToProps = state => ({
   schedule: state.schedule,
-  groups: state.groups
+  groups: state.groups,
+  auth: state.auth
 });
 
 const mapDispatchToProps = dispatch =>

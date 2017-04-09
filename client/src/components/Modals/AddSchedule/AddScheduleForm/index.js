@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getFormValues, reset, SubmissionError } from 'redux-form';
 
-import NewScheduleForm from './NewScheduleForm';
+import AddScheduleForm from './AddScheduleForm';
 import * as scheduleActions from '../../../../redux/schedule';
 
-class NewScheduleFormContainer extends Component {
+class AddScheduleFormContainer extends Component {
   constructor(props) {
     super(props);
 
@@ -32,7 +32,7 @@ class NewScheduleFormContainer extends Component {
 
   render() {
     return (
-      <NewScheduleForm
+      <AddScheduleForm
         {...this.props}
         resetTypes={this.resetTypes}
         onSubmit={this.submitForm}
@@ -55,5 +55,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  NewScheduleFormContainer
+  AddScheduleFormContainer
 );

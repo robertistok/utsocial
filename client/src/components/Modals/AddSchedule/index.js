@@ -3,16 +3,16 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { submit, reset } from 'redux-form';
 
-import ScheduleModal from './ScheduleModal';
+import AddSchedule from './AddSchedule';
 import * as modalActions from '../../../redux/modals';
 import * as groupsActions from '../../../redux/groups';
 
-class ScheduleModalContainer extends Component {
+class AddScheduleContainer extends Component {
   componentDidMount() {
     this.props.getGroup(this.props.selectedGroupID);
   }
   render() {
-    return <ScheduleModal {...this.props} />;
+    return <AddSchedule {...this.props} />;
   }
 }
 
@@ -27,5 +27,5 @@ const mapDispatchToProps = dispatch =>
   );
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  ScheduleModalContainer
+  AddScheduleContainer
 );

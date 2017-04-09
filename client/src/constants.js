@@ -11,7 +11,8 @@ export const FREQUENCY = {
 };
 
 export const MODALS = {
-  ADD_SCHEDULE: 'modals/add-schedule'
+  ADD_SCHEDULE: 'modals/add-schedule',
+  SHOW_SCHEDULE: 'modals/show-schedule'
 };
 
 export const DAYS = [

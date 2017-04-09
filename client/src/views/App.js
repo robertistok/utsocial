@@ -3,47 +3,45 @@ import { connect } from 'react-redux';
 import {
   BrowserRouter as Router,
   Route,
-  Switch,
   Redirect,
+  Switch
 } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
 
-import Home from './Home/index';
-import Login from './Home/Login/index';
-import Student from './Student/index';
-import Admin from './Admin/index';
-import Teacher from './Teacher/index';
+import Authorized from './Authorized';
+import Login from '../components/Login/index';
 
 const history = createBrowserHistory();
+
+const ForOhFor = () => <h1>No match found</h1>;
 
 const App = props => (
   <Router history={history}>
     <div>
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={Login} />
-        <PrivateRoute path="/myaccount" auth={props.auth} />
-        <Route component={() => <h1>ForOhFor</h1>} />
+        <Route exact path="/" component={Login} />
+        <PrivateRoute to="/home" auth={props.auth} component={Authorized} />
+        <Route component={ForOhFor} />
       </Switch>
-
     </div>
   </Router>
 );
 
-const PrivateRoute = ({ auth, ...rest }) => (
+const PrivateRoute = ({ component, auth, ...rest }) => (
   <Route
     {...rest}
     render={(props) => {
       if (auth.authenticated) {
-        if (auth.user.type === 'teacher') {
-          return <Teacher {...props} auth={auth} />;
-        } else if (auth.user.type === 'student') {
-          return <Student {...props} auth={auth} />;
-        } else if (auth.user.type === 'admin') {
-          return <Admin {...props} auth={auth} />;
-        }
+        return React.createElement(component, props);
       }
-      return <Redirect to="/login" />;
+      return (
+        <Redirect
+          to={{
+            pathname: '/',
+            state: { from: props.location }
+          }}
+        />
+      );
     }}
   />
 );

@@ -1,7 +1,6 @@
 .filter-form {
 	padding-top: 20px;
 	margin: auto !important;
-	width: 90% !important;
 }
 
 .explanation {
@@ -13,7 +12,7 @@
 .explanation .type {
 	font-size: 0.8em;
 	text-align: center;
-	min-width: 100px;
+	min-width: 70px;
 	margin: 18px 5px !important;
 }
 

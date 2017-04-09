@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import Header from '../Header/index';
 import LoginForm from './LoginForm/index';
-import * as actions from '../../../redux/auth';
+import * as actions from '../../redux/auth';
 
 class Login extends Component {
   constructor(props) {
@@ -14,11 +13,11 @@ class Login extends Component {
   }
 
   componentWillMount() {
-    if (this.props.auth.authenticated) this.props.history.push('/myaccount');
+    if (this.props.auth.authenticated) this.props.history.push('/home');
   }
 
   componentWillUpdate() {
-    if (this.props.auth.authenticated) this.props.history.push('/myaccount');
+    if (this.props.auth.authenticated) this.props.history.push('/home');
   }
 
   authUser(values) {
@@ -26,11 +25,10 @@ class Login extends Component {
   }
 
   render() {
-    if (this.props.auth.authenticated) return <Redirect to="/myaccount" />;
+    if (this.props.auth.authenticated) return <Redirect to="/home" />;
 
     return (
       <div>
-        <Header />
         <LoginForm onSubmit={this.authUser} />
       </div>
     );
@@ -38,7 +36,7 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth,
+  auth: state.auth
 });
 
 export default connect(mapStateToProps, actions)(Login);
