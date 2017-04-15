@@ -20,7 +20,7 @@ const HeaderWrapper = styled.header`
 		min-height: 50px;
 	}
 
-	.ui.stackable.menu {
+	.ui.small.secondary.stackable.menu {
 		.active {
 			border-bottom: 1px solid #FF5722;
 			color: #eeeeee !important;
