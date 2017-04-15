@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
 import TableContainer from './Table/index';
 import FilterContainer from './Filter/index';
 

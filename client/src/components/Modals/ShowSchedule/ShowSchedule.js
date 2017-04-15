@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Header, Modal, Button, Segment, Label } from 'semantic-ui-react';
+import { Header, Modal, Label } from 'semantic-ui-react';
 
 import './ShowSchedule.css';
 
@@ -47,6 +47,11 @@ const ShowSchedule = (props) => {
 
     </Modal>
   );
+};
+
+ShowSchedule.propTypes = {
+  hideModal: PropTypes.func,
+  schedule: PropTypes.object
 };
 
 export default ShowSchedule;

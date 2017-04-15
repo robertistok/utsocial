@@ -1,25 +1,18 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import styled from 'styled-components';
 
-import Header from '../../components/Header/Header';
+import HeaderContainer from '../../components/Header/index';
 import ModalSwitcher from '../../components/Modals/ModalSwitcher';
 import Schedule from '../../components/Schedule/index';
-
-const Content = styled.div`
-	padding-top: 180px;
-	left: 0px;
-	right: 0px;
-	overflow: auto;
-`;
+import { Wrapper, Content } from '../wrappers';
 
 const ForOhFor = () => <h1>No match found</h1>;
 
 const links = ['home', 'schedules', 'courses', 'teachers'];
 
 const Admin = () => (
-  <div>
-    <Header links={links} />
+  <Wrapper>
+    <HeaderContainer links={links} />
     <ModalSwitcher />
     <Content>
       <Switch>
@@ -30,7 +23,7 @@ const Admin = () => (
         <Route component={ForOhFor} />
       </Switch>
     </Content>
-  </div>
+  </Wrapper>
 );
 
 export default Admin;

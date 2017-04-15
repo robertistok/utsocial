@@ -1,4 +1,4 @@
-import { SEMIGROUP, FREQUENCY, DAYS, HOURS } from '../../../../constants';
+import { FREQUENCY } from '../../../../constants';
 
 export const courseOptions = course => ({
   key: course._id,

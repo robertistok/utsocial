@@ -25,7 +25,17 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	min-height: 100%;
 }
+
+#root {
+	height: 100%;
+}
+
+[data-reactroot] {
+	height: 100% !important;
+}
+
 ol, ul {
 	list-style: none;
 }

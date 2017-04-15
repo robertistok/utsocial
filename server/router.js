@@ -5,6 +5,8 @@ const SchedulesController = require('./controllers/schedules');
 const GroupsController = require('./controllers/groups');
 const CoursesController = require('./controllers/courses');
 const TeachersController = require('./controllers/teachers');
+const ConversationsController = require('./controllers/conversations');
+
 const passportService = require('./services/passport');
 
 const requireSignin = passport.authenticate('local', { session: false });
@@ -30,5 +32,11 @@ module.exports = (app) => {
     '/api/courses/teachersforcoursetype',
     requireAuth,
     CoursesController.getCourseTeachingTeacher
+  );
+
+  app.get(
+    '/api/conversations/:username',
+    requireAuth,
+    ConversationsController.getConversationsOfUser
   );
 };

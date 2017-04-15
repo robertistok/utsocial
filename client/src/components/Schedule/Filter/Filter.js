@@ -19,7 +19,6 @@ const optionsSemigroup = [
 const Filter = (props) => {
   const {
     schedule: { semigroup, week, group },
-    auth,
     onSemigroupChange,
     onWeekChange,
     onGroupChange,

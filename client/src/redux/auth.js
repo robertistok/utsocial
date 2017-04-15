@@ -43,6 +43,13 @@ export function meFromToken(token) {
   };
 }
 
+export function logOutUser() {
+  sessionStorage.removeItem('token');
+  return {
+    type: DEAUTH_USER
+  };
+}
+
 const INITIAL_STATE = { user: null, authenticated: false, error: null };
 
 export default function (state = INITIAL_STATE, action) {
@@ -59,7 +66,7 @@ export default function (state = INITIAL_STATE, action) {
     case AUTH_ERROR:
       return { ...state, authenticated: false, error: action.payload };
     case DEAUTH_USER:
-      return { ...state, authenticated: false, error: '' };
+      return { ...state, user: null, authenticated: false, error: '' };
     default:
       return state;
   }

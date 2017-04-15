@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { SubmissionError } from 'redux-form';
 
 import { SEMIGROUP, FREQUENCY } from '../constants';
 
