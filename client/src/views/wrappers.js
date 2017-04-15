@@ -7,11 +7,11 @@ export const Wrapper = styled.div`
 `;
 
 export const Content = styled.div`
-	margin-top: 180px;
+	margin-top: 110px;
 	left: 0px;
 	right: 0px;
-	overflow: auto;
-	height: 100%;
+	min-height: calc(100% - 110px);
+	height: 1px;
 	width: 1178px;
 	margin: auto;
 

@@ -27,7 +27,7 @@ const Filter = (props) => {
   } = props;
 
   return (
-    <Form size="big" className="filter-form">
+    <Form className="filter-form">
       <Form.Group widths="equal">
         <Form.Field
           control={Select}
@@ -52,10 +52,10 @@ const Filter = (props) => {
       </Form.Group>
       {group &&
         <div className="explanation">
-          <Label size="large" className="type lecture" content="Lecture" />
-          <Label size="large" className="type lab" content="Lab" />
-          <Label size="large" className="type project" content="Project" />
-          <Label size="large" className="type seminar" content="Seminar" />
+          <Label className="type lecture" content="Lecture" />
+          <Label className="type lab" content="Lab" />
+          <Label className="type project" content="Project" />
+          <Label className="type seminar" content="Seminar" />
         </div>}
       {props.auth.user.type === 'admin' &&
         <Button
