@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
-	height: 80px;
-	border: solid 1px black;
+const MainWrapper = styled.div`
+	height: 70px;
 
 	&:hover {
 		background-color: #283593;
@@ -14,40 +13,45 @@ const Wrapper = styled.div`
 	}
 `;
 
-const Title = styled.h4`
+const Wrapper = styled.div`
+	display: flex;
+	justify-content: space-between;
 	margin: 0px;
 	padding: 0px 5px 0px 35px;
-	margin-top: 10px !important;
+	margin-top: 15px !important;
 	height: 20px;
+`;
+
+const Partner = styled.h4`
 	font-size: 16px;
 	color: #212121;
 `;
 
-const Partner = styled.h6`
-	margin: 0px;
-	padding: 0px 5px 0px 35px;
-	height: 21px;
-	font-size: 14px;
-	color: #424242;
+const Timestamp = styled.p`
+	font-size: 10px;
+	color: #616161;
 `;
 
-const Timestamp = styled.p`
+const Subject = styled.h6`
+	margin: 0px;
 	padding: 0px 5px 0px 35px;
-	height: 15px;
-	font-size: 10px;
-	margin-bottom: 14px !important;
-	color: #616161;
+	margin-bottom: 15px;
+	height: 20px;
+	font-size: 14px;
+	color: #424242;
 `;
 
 const Thread = (props) => {
   const { title, partner, timestamp } = props;
 
   return (
-    <Wrapper>
-      <Title>{title}</Title>
-      <Partner>{partner}</Partner>
-      <Timestamp>{timestamp}</Timestamp>
-    </Wrapper>
+    <MainWrapper>
+      <Wrapper>
+        <Partner>{partner}</Partner>
+        <Timestamp>{timestamp}</Timestamp>
+      </Wrapper>
+      <Subject>{title}</Subject>
+    </MainWrapper>
   );
 };
 

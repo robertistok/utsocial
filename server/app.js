@@ -1,12 +1,12 @@
 const express = require('express');
+
+const app = express();
+
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const path = require('path');
-
 const router = require('./router');
-
-const app = express();
 
 app.set('port', process.env.PORT || 3001);
 

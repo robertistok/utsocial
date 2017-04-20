@@ -8,7 +8,7 @@ const ConversationSchema = new Schema({
   messages: [
     {
       sender: String,
-      message: String,
+      text: String,
       timestamp: {
         type: Date,
         default: Date.now,

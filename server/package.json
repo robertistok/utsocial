@@ -18,10 +18,11 @@
     "morgan": "^1.8.1",
     "passport": "^0.3.2",
     "passport-jwt": "^2.2.1",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "socket.io": "^1.7.3"
   },
   "scripts": {
-		"build": "babel . --ignore node_modules,build --out-dir build",
+    "build": "babel . --ignore node_modules,build --out-dir build",
     "start": "nodemon -r dotenv/config -r babel-register server.js",
     "start:prod": "node -r dotenv/config -r build/server.js"
   },
