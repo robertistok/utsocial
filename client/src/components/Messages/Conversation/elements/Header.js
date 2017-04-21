@@ -10,9 +10,9 @@ const Wrapper = styled.div`
 `;
 
 const InfoLogo = styled.img`
-	width: 30px;
-	height: 30px;
-	margin: 10px;
+	width: 20px;
+	height: 20px;
+	margin: 15px;
 `;
 
 const Header = props => (

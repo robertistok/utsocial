@@ -9,7 +9,7 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	height: 100%;
-	background-color: #e8eaf6;
+	background-color: #e3f2fd;
 `;
 
 const NewThread = props => (

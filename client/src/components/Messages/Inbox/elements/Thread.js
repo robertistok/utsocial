@@ -5,11 +5,11 @@ const MainWrapper = styled.div`
 	height: 70px;
 
 	&:hover {
-		background-color: #283593;
+		background-color: #C5CAE9;
 	}
 
 	&:active {
-		background-color: #1a237e;
+		background-color: #9FA8DA;
 	}
 `;
 

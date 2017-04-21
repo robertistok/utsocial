@@ -16,9 +16,9 @@ const Wrapper = styled.div`
 `;
 
 const Logo = styled.img`
-	width: 30px;
-	height: 30px;
-	margin: 10px;
+	width: 20px;
+	height: 20px;
+	margin: 15px;
 
 	&.compose {
 		margin: 0px;
@@ -26,9 +26,9 @@ const Logo = styled.img`
 `;
 
 const StyledLink = styled(Link)`
-	margin: 10px;
-	height: 30px;
-	width: 30px;
+	margin: 15px;
+	height: 20px;
+	width: 20px;
 	margin-left: auto;
 `;
 

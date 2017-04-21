@@ -2,6 +2,8 @@ import axios from 'axios';
 
 import { SEMIGROUP, FREQUENCY } from '../constants';
 
+const ROOT_URL = '/api/schedules';
+
 const CHANGE_GROUP = 'utsocial/scehdule/changegroup';
 const CHANGE_SEMIGROUP = 'utsocial/scehdule/changesemigroup';
 const CHANGE_WEEK = 'utsocial/scehdule/changeweek';
@@ -13,8 +15,6 @@ const ADD_NEW_SCHEDULE_ERROR = 'utsocial/schedule/add-new-schedule-error';
 const FETCH_GROUP_SCHEDULE = 'utsocial/schedule/fetch-group-schedule';
 const FETCH_GROUP_SCHEDULE_SUCCESS = 'utsocial/schedule/fetch-group-schedule-success';
 const FETCH_GROUP_SCHEDULE_ERROR = 'utsocial/schedule/fetch-group-schedule-error';
-
-const ROOT_URL = '/api/schedules';
 
 export function changeSemigroup(semigroup) {
   return {

@@ -12,14 +12,14 @@ const Wrapper = styled.div`
 `;
 
 const Logo = styled.img`
-	width: 30px;
-	height: 30px;
+	width: 20px;
+	height: 20px;
 `;
 
 const StyledLink = styled(Link)`
-	margin: 10px;
-	height: 30px;
-	width: 30px;
+	margin: 15px;
+	height: 20px;
+	width: 20px;
 `;
 
 const Header = props => (

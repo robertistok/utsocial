@@ -11,12 +11,13 @@ const Wrapper = styled.div`
 	height: 100%;
 	flex: 1;
 	border-right: 0.5px solid grey;
-	background-color: #c5cae9;
+	background-color: #E8EAF6;
 `;
 
 const ThreadsContainer = styled.div`
 	display: flex;
-	flex-direction: column;
+	flex-direction: column-reverse;
+	justify-content: flex-end;
 	overflow: auto;
 	height: calc(100% - 50px)
 `;
