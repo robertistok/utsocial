@@ -17,13 +17,13 @@ app.use((req, res, next) => {
   next();
 });
 
-app.set('port', process.env.PORT || 3001);
+const staticFiles = express.static(path.join(__dirname, '../../client/build'));
+app.use(staticFiles);
 
-if (process.env.NODE_ENV === 'production') {
-  const staticFiles = express.static(path.join(__dirname, '../client/build'));
-  app.use(staticFiles);
-  app.use('/*', staticFiles);
-}
+// if (process.env.NODE_ENV === 'production') {
+//
+//   app.use('/*', staticFiles);
+// }
 
 // MongodDb connection
 mongoose.Promise = global.Promise;
@@ -36,5 +36,9 @@ app.use(bodyParser.json({ type: '*/*' }));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 router(app);
+
+app.use('/*', staticFiles);
+
+app.set('port', process.env.PORT || 3001);
 
 module.exports = app;
