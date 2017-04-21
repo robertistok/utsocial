@@ -14,7 +14,10 @@ const ConversationSchema = new Schema({
         default: Date.now,
         required: true
       },
-      isRed: Boolean,
+      isRed: {
+        type: Boolean,
+        default: false
+      },
       archived: [String]
     }
   ],

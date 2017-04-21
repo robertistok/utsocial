@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Conversation from './Conversation';
-import { socket } from '../../views/Authorized';
+import { socket } from '../../../views/Authorized';
 
 class ConversationContainer extends Component {
   sendMessage(values) {

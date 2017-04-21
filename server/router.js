@@ -5,7 +5,8 @@ const SchedulesController = require('./controllers/schedules');
 const GroupsController = require('./controllers/groups');
 const CoursesController = require('./controllers/courses');
 const TeachersController = require('./controllers/teachers');
-const ConversationsController = require('./controllers/conversations');
+const MessagesController = require('./controllers/messages');
+const UsersController = require('./controllers/users');
 
 const passportService = require('./services/passport');
 
@@ -35,8 +36,15 @@ module.exports = (app) => {
   );
 
   app.get(
-    '/api/conversations/:username',
+    '/api/messages/:username',
     requireAuth,
-    ConversationsController.getConversationsOfUser
+    MessagesController.getConversationsOfUser
+  );
+
+  app.get('/api/users/all', requireAuth, UsersController.getAll);
+  app.get(
+    '/api/users/autocomplete/:term',
+    requireAuth,
+    UsersController.usersForAutocomplete
   );
 };

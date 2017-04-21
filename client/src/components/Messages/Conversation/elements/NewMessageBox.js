@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import styled from 'styled-components';
 import { Form, Button } from 'semantic-ui-react';
 
-import InputField from '../../FormComponents/InputField';
+import InputField from '../../../FormComponents/InputField';
 
 const StyledForm = styled(Form)`
 	height: 40px;

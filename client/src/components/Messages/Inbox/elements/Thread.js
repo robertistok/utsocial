@@ -42,7 +42,7 @@ const Subject = styled.h6`
 `;
 
 const Thread = (props) => {
-  const { title, partner, timestamp } = props;
+  const { subject, partner, timestamp } = props;
 
   return (
     <MainWrapper>
@@ -50,7 +50,7 @@ const Thread = (props) => {
         <Partner>{partner}</Partner>
         <Timestamp>{timestamp}</Timestamp>
       </Wrapper>
-      <Subject>{title}</Subject>
+      <Subject>{subject}</Subject>
     </MainWrapper>
   );
 };

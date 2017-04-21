@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Route, Switch } from 'react-router-dom';
 
-import Inbox from './Inbox';
-import ConversationContainer from './ConversationContainer';
+import InboxContainer from './Inbox/index';
+import ConversationContainer from './Conversation/index';
+import NewThreadContainer from './NewThread/index';
 
 const Wrapper = styled.div`
 	width: 100%;
@@ -14,8 +16,11 @@ const Wrapper = styled.div`
 
 const Messages = props => (
   <Wrapper>
-    <Inbox />
-    <ConversationContainer />
+    <InboxContainer />
+    <Switch>
+      <Route exact path="/messages" component={ConversationContainer} />
+      <Route path="/messages/new" component={NewThreadContainer} />
+    </Switch>
   </Wrapper>
 );
 

@@ -32,7 +32,7 @@ const Breadcrumbs = (props) => {
         return section;
       }
       section.as = Link;
-      section.to = path;
+      section.to = `/${path}`;
       return section;
     });
   };

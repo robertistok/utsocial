@@ -12,7 +12,7 @@ export const Content = styled.div`
 	right: 0px;
 	min-height: calc(100% - 110px);
 	height: 1px;
-	width: 1178px;
+	max-width: 1178px;
 	margin: auto;
 
 	${media.tablet`width: 100%`}

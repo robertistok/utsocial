@@ -13,7 +13,7 @@ const connectedUsers = {};
 
 io.on('connection', (socket) => {
   socket.on('join', (user) => {
-    connectedUsers[user.username] = socket;
+    connectedUsers[user.username] = socket.id;
     console.log(Object.keys(connectedUsers));
   });
 
@@ -37,14 +37,25 @@ io.on('connection', (socket) => {
         });
 
         conversation.save();
-      } else {
-        const newConversation = new Conversation({
-          participants,
-          subject
-        });
-
-        newConversation.save();
       }
     });
+  });
+
+  socket.on('new:thread', (value) => {
+    const { target, sender, text, subject } = value;
+    const newConversation = new Conversation({
+      participants: [sender, target],
+      subject
+    });
+
+    newConversation.messages.push({
+      sender,
+      text
+    });
+
+    socket.emit('new:thread', newConversation);
+    io.to(connectedUsers[target]).emit('new:thread', newConversation);
+
+    newConversation.save();
   });
 });

@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import infoLogo from '../../../../public/info.svg';
+import infoLogo from '../../../../../public/info.svg';
 
 const Wrapper = styled.div`
-	height: 50px;
-	border-bottom: 0.5px solid grey;
+	height: 49px;
 	display: flex;
 	justify-content: flex-end;
 `;
@@ -16,10 +15,10 @@ const InfoLogo = styled.img`
 	margin: 10px;
 `;
 
-const ConversationHeader = props => (
+const Header = props => (
   <Wrapper>
     <InfoLogo src={infoLogo} alt="info" />
   </Wrapper>
 );
 
-export default ConversationHeader;
+export default Header;

@@ -6,6 +6,8 @@ import scheduleReducer from './schedule';
 import groupsReducer from './groups';
 import teachersReducer from './teachers';
 import modalsReducer from './modals';
+import usersReducer from './users';
+import messagesReducer from './messages';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -13,7 +15,9 @@ const rootReducer = combineReducers({
   groups: groupsReducer,
   modals: modalsReducer,
   teachers: teachersReducer,
-  form: formReducer
+  form: formReducer,
+  users: usersReducer,
+  messages: messagesReducer
 });
 
 export default rootReducer;
