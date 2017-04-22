@@ -1,23 +1,19 @@
-// const mongoose = require('mongoose');
-// const morgan = require('morgan');
 import bodyParser from 'body-parser';
 import express from 'express';
 import path from 'path';
+import mongoose from 'mongoose';
+import morgan from 'morgan';
 
-// const router = require('./router');
+const router = require('./router');
 
 const app = express();
 
-// app.use(morgan('combined'));
+app.use(morgan('combined'));
 app.use(bodyParser.json({ type: '*/*' }));
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const router = express.Router();
-
 const staticFiles = express.static(path.join(__dirname, '../../client/build'));
 app.use(staticFiles);
-
-// router(app);
 
 app.use(router);
 
@@ -34,21 +30,13 @@ app.use('/*', staticFiles);
 // });
 //
 //
-// // if (process.env.NODE_ENV === 'production') {
-// //
-// //   app.use('/*', staticFiles);
-// // }
-//
-// // MongodDb connection
-// mongoose.Promise = global.Promise;
-// if (process.env.NODE_ENV !== 'production') {
-//   mongoose.connect('mongodb://localhost/universocial');
-// }
-//
-//
-//
-// app.use('/*', staticFiles);
-//
+
+// MongodDb connection
+mongoose.Promise = global.Promise;
+if (process.env.NODE_ENV !== 'production') {
+  mongoose.connect('mongodb://localhost/universocial');
+}
+
 app.set('port', process.env.PORT || 3001);
 
 app.listen(app.get('port'), () => {

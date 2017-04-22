@@ -1,4 +1,5 @@
 const passport = require('passport');
+const express = require('express');
 
 const AuthenticationController = require('./controllers/authentication');
 const SchedulesController = require('./controllers/schedules');
@@ -13,38 +14,40 @@ const passportService = require('./services/passport');
 const requireSignin = passport.authenticate('local', { session: false });
 const requireAuth = passport.authenticate('jwt', { session: false });
 
-module.exports = (app) => {
-  app.post('/api/auth/login', requireSignin, AuthenticationController.signIn);
-  app.get(
-    '/api/auth/mefromtoken',
-    requireAuth,
-    AuthenticationController.meFromToken
-  );
+const router = express.Router();
 
-  app.post('/api/schedules/new', requireAuth, SchedulesController.addNew);
-  app.get('/api/schedules/get/:id', requireAuth, SchedulesController.getOne);
+router.post('/api/auth/login', requireSignin, AuthenticationController.signIn);
+router.get(
+  '/api/auth/mefromtoken',
+  requireAuth,
+  AuthenticationController.meFromToken
+);
 
-  app.get('/api/groups/getall', requireAuth, GroupsController.getGroups);
-  app.post('/api/groups/getbyid', requireAuth, GroupsController.getGroupById);
+router.post('/api/schedules/new', requireAuth, SchedulesController.addNew);
+router.get('/api/schedules/get/:id', requireAuth, SchedulesController.getOne);
 
-  app.get('/api/teachers/getall', TeachersController.getTeachers);
+router.get('/api/groups/getall', requireAuth, GroupsController.getGroups);
+router.post('/api/groups/getbyid', requireAuth, GroupsController.getGroupById);
 
-  app.post(
-    '/api/courses/teachersforcoursetype',
-    requireAuth,
-    CoursesController.getCourseTeachingTeacher
-  );
+router.get('/api/teachers/getall', TeachersController.getTeachers);
 
-  app.get(
-    '/api/messages/:username',
-    requireAuth,
-    MessagesController.getConversationsOfUser
-  );
+router.post(
+  '/api/courses/teachersforcoursetype',
+  requireAuth,
+  CoursesController.getCourseTeachingTeacher
+);
 
-  app.get('/api/users/all', requireAuth, UsersController.getAll);
-  app.get(
-    '/api/users/autocomplete/:term',
-    requireAuth,
-    UsersController.usersForAutocomplete
-  );
-};
+router.get(
+  '/api/messages/:username',
+  requireAuth,
+  MessagesController.getConversationsOfUser
+);
+
+router.get('/api/users/all', requireAuth, UsersController.getAll);
+router.get(
+  '/api/users/autocomplete/:term',
+  requireAuth,
+  UsersController.usersForAutocomplete
+);
+
+module.exports = router;
