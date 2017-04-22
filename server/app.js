@@ -4,11 +4,11 @@ import path from 'path';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 
-const router = require('./router');
+import router from './router';
 
 const app = express();
 
-// app.use(morgan('combined'));
+app.use(morgan('combined'));
 app.use(bodyParser.json({ type: '*/*' }));
 app.use(bodyParser.urlencoded({ extended: false }));
 

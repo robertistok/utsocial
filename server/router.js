@@ -50,4 +50,4 @@ router.get(
   UsersController.usersForAutocomplete
 );
 
-module.exports = router;
+export default router;
