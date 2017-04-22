@@ -9,7 +9,7 @@ const express = require('express');
 // const MessagesController = require('./controllers/messages');
 // const UsersController = require('./controllers/users');
 //
-const passportService = require('./services/passport');
+// const passportService = require('./services/passport');
 
 // const requireSignin = passport.authenticate('local', { session: false });
 // const requireAuth = passport.authenticate('jwt', { session: false });
