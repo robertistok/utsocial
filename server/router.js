@@ -20,11 +20,11 @@ const requireSignin = 0;
 const router = express.Router();
 
 router.post('/api/auth/login', requireSignin, AuthenticationController.signIn);
-router.get(
-  '/api/auth/mefromtoken',
-  requireAuth,
-  AuthenticationController.meFromToken
-);
+// router.get(
+//   '/api/auth/mefromtoken',
+//   requireAuth,
+//   AuthenticationController.meFromToken
+// );
 
 // router.post('/api/schedules/new', requireAuth, SchedulesController.addNew);
 // router.get('/api/schedules/get/:id', requireAuth, SchedulesController.getOne);
