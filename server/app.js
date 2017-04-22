@@ -8,7 +8,7 @@ const router = require('./router');
 
 const app = express();
 
-app.use(morgan('combined'));
+// app.use(morgan('combined'));
 app.use(bodyParser.json({ type: '*/*' }));
 app.use(bodyParser.urlencoded({ extended: false }));
 
