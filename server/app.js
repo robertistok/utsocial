@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const staticFiles = express.static(path.join(__dirname, '../../client/build'));
 app.use(staticFiles);
 
-router(app);
+// router(app);
 
 app.use('/*', staticFiles);
 
