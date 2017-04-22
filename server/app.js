@@ -45,6 +45,12 @@ app.use('/*', staticFiles);
 //
 // app.use('/*', staticFiles);
 //
-app.set('port', 3001);
+app.set('port', process.env.PORT || 3001);
+
+app.listen(app.get('port'), () => {
+  console.log(
+    `Up and running!\nFind the server at http://localhost:${app.get('port')}/`
+  );
+});
 
 module.exports = app;
