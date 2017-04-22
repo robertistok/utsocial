@@ -1,21 +1,25 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const morgan = require('morgan');
-const path = require('path');
+// const mongoose = require('mongoose');
+// const morgan = require('morgan');
+import bodyParser from 'body-parser';
+import express from 'express';
+import path from 'path';
 
-const router = require('./router');
+// const router = require('./router');
 
 const app = express();
 
-app.use(morgan('combined'));
+// app.use(morgan('combined'));
 app.use(bodyParser.json({ type: '*/*' }));
 app.use(bodyParser.urlencoded({ extended: false }));
+
+const router = express.Router();
 
 const staticFiles = express.static(path.join(__dirname, '../../client/build'));
 app.use(staticFiles);
 
 // router(app);
+
+app.use(router);
 
 app.use('/*', staticFiles);
 
@@ -53,4 +57,4 @@ app.listen(app.get('port'), () => {
   );
 });
 
-module.exports = app;
+// module.exports = app;
