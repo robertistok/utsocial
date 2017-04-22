@@ -7,55 +7,55 @@ const server = app.listen(app.get('port'), () => {
   );
 });
 
-const io = require('socket.io')(server);
-
-const connectedUsers = {};
-
-io.on('connection', (socket) => {
-  socket.on('join', (user) => {
-    connectedUsers[user.username] = socket.id;
-    console.log(Object.keys(connectedUsers));
-  });
-
-  socket.on('leave', (user) => {
-    delete connectedUsers[user.username];
-    console.log(Object.keys(connectedUsers));
-  });
-
-  socket.on('new:message', (values) => {
-    const { participants, subject, message } = values;
-    // const { sender, text } = message;
-
-    Conversation.find({
-      participants: { $all: participants }
-    }).then((conversation) => {
-      if (conversation.length > 0) {
-        conversation.messages.push({
-          sender,
-          message,
-          isRed: false
-        });
-
-        conversation.save();
-      }
-    });
-  });
-
-  socket.on('new:thread', (value) => {
-    const { target, sender, text, subject } = value;
-    const newConversation = new Conversation({
-      participants: [sender, target],
-      subject
-    });
-
-    newConversation.messages.push({
-      sender,
-      text
-    });
-
-    socket.emit('new:thread', newConversation);
-    io.to(connectedUsers[target]).emit('new:thread', newConversation);
-
-    newConversation.save();
-  });
-});
+// const io = require('socket.io')(server);
+//
+// const connectedUsers = {};
+//
+// io.on('connection', (socket) => {
+//   socket.on('join', (user) => {
+//     connectedUsers[user.username] = socket.id;
+//     console.log(Object.keys(connectedUsers));
+//   });
+//
+//   socket.on('leave', (user) => {
+//     delete connectedUsers[user.username];
+//     console.log(Object.keys(connectedUsers));
+//   });
+//
+//   socket.on('new:message', (values) => {
+//     const { participants, subject, message } = values;
+//     // const { sender, text } = message;
+//
+//     Conversation.find({
+//       participants: { $all: participants }
+//     }).then((conversation) => {
+//       if (conversation.length > 0) {
+//         conversation.messages.push({
+//           sender,
+//           message,
+//           isRed: false
+//         });
+//
+//         conversation.save();
+//       }
+//     });
+//   });
+//
+//   socket.on('new:thread', (value) => {
+//     const { target, sender, text, subject } = value;
+//     const newConversation = new Conversation({
+//       participants: [sender, target],
+//       subject
+//     });
+//
+//     newConversation.messages.push({
+//       sender,
+//       text
+//     });
+//
+//     socket.emit('new:thread', newConversation);
+//     io.to(connectedUsers[target]).emit('new:thread', newConversation);
+//
+//     newConversation.save();
+//   });
+// });
