@@ -19,38 +19,31 @@ const requireSignin = 0;
 
 const router = express.Router();
 
-router.post('/api/auth/login', requireSignin, AuthenticationController.signIn);
-// router.get(
-//   '/api/auth/mefromtoken',
-//   requireAuth,
-//   AuthenticationController.meFromToken
-// );
+// router.post('/api/auth/login', requireSignin, AuthenticationController.signIn);
+// router.get('/api/auth/mefromtoken', AuthenticationController.meFromToken);
 
-// router.post('/api/schedules/new', requireAuth, SchedulesController.addNew);
-// router.get('/api/schedules/get/:id', requireAuth, SchedulesController.getOne);
-//
-// router.get('/api/groups/getall', requireAuth, GroupsController.getGroups);
-// router.post('/api/groups/getbyid', requireAuth, GroupsController.getGroupById);
-//
-// router.get('/api/teachers/getall', TeachersController.getTeachers);
-//
-// router.post(
-//   '/api/courses/teachersforcoursetype',
-//   requireAuth,
-//   CoursesController.getCourseTeachingTeacher
-// );
-//
-// router.get(
-//   '/api/messages/:username',
-//   requireAuth,
-//   MessagesController.getConversationsOfUser
-// );
-//
-// router.get('/api/users/all', requireAuth, UsersController.getAll);
-// router.get(
-//   '/api/users/autocomplete/:term',
-//   requireAuth,
-//   UsersController.usersForAutocomplete
-// );
+router.post('/api/schedules/new', SchedulesController.addNew);
+router.get('/api/schedules/get/:id', SchedulesController.getOne);
+
+router.get('/api/groups/getall', GroupsController.getGroups);
+router.post('/api/groups/getbyid', GroupsController.getGroupById);
+
+router.get('/api/teachers/getall', TeachersController.getTeachers);
+
+router.post(
+  '/api/courses/teachersforcoursetype',
+  CoursesController.getCourseTeachingTeacher
+);
+
+router.get(
+  '/api/messages/:username',
+  MessagesController.getConversationsOfUser
+);
+
+router.get('/api/users/all', UsersController.getAll);
+router.get(
+  '/api/users/autocomplete/:term',
+  UsersController.usersForAutocomplete
+);
 
 export default router;
