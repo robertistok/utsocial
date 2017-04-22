@@ -10,5 +10,5 @@ function meFromToken(req, res) {
 
 module.exports = {
   signIn,
-  meFromToken,
+  meFromToken
 };
