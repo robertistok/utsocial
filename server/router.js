@@ -1,15 +1,15 @@
-const passport = require('passport');
+// const passport = require('passport');
 const express = require('express');
 
-const AuthenticationController = require('./controllers/authentication');
-const SchedulesController = require('./controllers/schedules');
-const GroupsController = require('./controllers/groups');
-const CoursesController = require('./controllers/courses');
-const TeachersController = require('./controllers/teachers');
-const MessagesController = require('./controllers/messages');
-const UsersController = require('./controllers/users');
-
-const passportService = require('./services/passport');
+// const AuthenticationController = require('./controllers/authentication');
+// const SchedulesController = require('./controllers/schedules');
+// const GroupsController = require('./controllers/groups');
+// const CoursesController = require('./controllers/courses');
+// const TeachersController = require('./controllers/teachers');
+// const MessagesController = require('./controllers/messages');
+// const UsersController = require('./controllers/users');
+//
+// const passportService = require('./services/passport');
 
 // const requireSignin = passport.authenticate('local', { session: false });
 // const requireAuth = passport.authenticate('jwt', { session: false });
