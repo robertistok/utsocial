@@ -4,7 +4,7 @@ import path from 'path';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 
-// import router from './router';
+import router from './router';
 
 const app = express();
 
@@ -15,7 +15,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const staticFiles = express.static(path.join(__dirname, '../../client/build'));
 app.use(staticFiles);
 
-const router = express.Router();
 app.use(router);
 
 app.use('/*', staticFiles);
