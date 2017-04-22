@@ -11,8 +11,8 @@ const UsersController = require('./controllers/users');
 
 // const passportService = require('./services/passport');
 
-const requireSignin = passport.authenticate('local', { session: false });
-const requireAuth = passport.authenticate('jwt', { session: false });
+// const requireSignin = passport.authenticate('local', { session: false });
+// const requireAuth = passport.authenticate('jwt', { session: false });
 
 const router = express.Router();
 
