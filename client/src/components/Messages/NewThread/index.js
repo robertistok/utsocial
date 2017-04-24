@@ -13,6 +13,7 @@ class NewThreadContainer extends Component {
   }
 
   handleSubmit(values) {
+    console.log(this.props);
     socket.emit('new:thread', {
       target: values.target,
       sender: this.props.sender.username,

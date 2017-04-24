@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
 	height: 30px;
-	order:2;
+	order:-1;
 `;
 
 const SearchBar = props => (

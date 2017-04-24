@@ -1,4 +1,4 @@
-export const required = function (value) {
+export const required = (value) => {
   if (value) {
     return undefined;
   }

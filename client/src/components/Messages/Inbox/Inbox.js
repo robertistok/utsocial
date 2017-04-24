@@ -16,32 +16,44 @@ const Wrapper = styled.div`
 
 const ThreadsContainer = styled.div`
 	display: flex;
-	flex-direction: column-reverse;
-	justify-content: flex-end;
+	flex-direction: column;
+	justify-content: flex-start;
 	overflow: auto;
 	height: calc(100% - 50px)
 `;
 
 const Inbox = (props) => {
-  const { conversations, user } = props;
+  const {
+    conversations,
+    user,
+    selectConversation,
+    selectedConversation
+  } = props;
+
   return (
     <Wrapper>
       <Header />
       <ThreadsContainer>
         <SearchBar type="text" placeholder="Search" />
-        {conversations &&
-          conversations.map((conv) => {
-            const date = new Date(conv.messages[0].timestamp);
-            const timestamp = `${date.getHours()}:${date.getMinutes()}`;
-            return (
-              <Thread
-                key={date}
-                subject={conv.subject}
-                partner={conv.participants.find(p => p !== user.username)}
-                timestamp={timestamp}
-              />
-            );
-          })}
+        {conversations && conversations.length !== 0
+          ? conversations
+              .sort(
+                (c1, c2) => c1.messages[0].timestamp < c2.messages[0].timestamp
+              )
+              .map(conv => (
+                <Thread
+                  key={conv.messages[0].timestamp}
+                  id={conv._id}
+                  subject={conv.subject}
+                  partner={conv.participants.find(p => p !== user.username)}
+                  timestamp={conv.messages[0].timestamp}
+                  onClick={() => selectConversation(conv._id)}
+                  selectedConversation={selectedConversation}
+                />
+              ))
+          : <div>
+              <h1>No messages</h1>
+            </div>}
       </ThreadsContainer>
     </Wrapper>
   );

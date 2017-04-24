@@ -2,9 +2,9 @@ const app = require('./app');
 const Conversation = require('./models/conversation');
 
 const server = app.listen(app.get('port'), () => {
-  console.log(
-    `Up and running!\nFind the server at http://localhost:${app.get('port')}/`
-  );
+	console.log(
+		`Up and running!\nFind the server at http://localhost:${app.get('port')}/`
+	);
 });
 
 const io = require('socket.io')(server);
@@ -12,50 +12,60 @@ const io = require('socket.io')(server);
 const connectedUsers = {};
 
 io.on('connection', (socket) => {
-  socket.on('join', (user) => {
-    connectedUsers[user.username] = socket.id;
-    console.log(Object.keys(connectedUsers));
-  });
+	socket.on('join', (data) => {
+		connectedUsers[data.username] = socket.id;
+		// console.log(Object.keys(connectedUsers));
+	});
 
-  socket.on('leave', (user) => {
-    delete connectedUsers[user.username];
-    console.log(Object.keys(connectedUsers));
-  });
+	socket.on('leave', (data) => {
+		delete connectedUsers[data.username];
+		// console.log(Object.keys(connectedUsers));
+	});
 
-  socket.on('new:message', (values) => {
-    const { participants, subject, message } = values;
-    // const { sender, text } = message;
+	socket.on('subscribeToRoom', (data) => {
+		const { room, user } = data;
 
-    Conversation.find({
-      participants: { $all: participants }
-    }).then((conversation) => {
-      if (conversation.length > 0) {
-        conversation.messages.push({
-          sender,
-          message,
-          isRed: false
-        });
+		console.log(room, user, 'join');
+		socket.join(room);
+	});
 
-        conversation.save();
-      }
-    });
-  });
+	socket.on('leaveRoom', (data) => {
+		const { room, user } = data;
 
-  socket.on('new:thread', (value) => {
-    const { target, sender, text, subject } = value;
-    const newConversation = new Conversation({
-      participants: [sender, target],
-      subject
-    });
+		console.log(room, user, 'leave');
 
-    newConversation.messages.push({
-      sender,
-      text
-    });
+		socket.leave(room);
+	});
 
-    socket.emit('new:thread', newConversation);
-    io.to(connectedUsers[target]).emit('new:thread', newConversation);
+	socket.on('send:message', (data) => {
+		const { id, text, sender } = data;
 
-    newConversation.save();
-  });
+		Conversation.findOne({ _id: id }).then((conversation) => {
+			conversation.messages.push({ sender, text });
+			conversation.save();
+
+			const newMessage =
+				conversation.messages[conversation.messages.length - 1];
+
+			io.sockets.in(id).emit('new:message', newMessage);
+		});
+	});
+
+	socket.on('new:thread', (data) => {
+		const { target, sender, text, subject } = data;
+		const newConversation = new Conversation({
+			participants: [sender, target],
+			subject
+		});
+
+		newConversation.messages.push({
+			sender,
+			text
+		});
+
+		socket.emit('new:thread', newConversation);
+		io.to(connectedUsers[target]).emit('new:thread', newConversation);
+
+		newConversation.save();
+	});
 });

@@ -15,8 +15,8 @@ const Wrapper = styled.div`
 
 const Conversation = props => (
   <Wrapper>
-    <Header />
-    <Discussion />
+    <Header {...props} />
+    <Discussion {...props} />
     <NewMessageBox {...props} />
   </Wrapper>
 );

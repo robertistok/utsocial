@@ -17,7 +17,8 @@
   "heroku-postbuild": "yarn build",
   "install": "(cd client && yarn) && (cd server && yarn)",
   "start": "concurrently \"cd client && PORT=3000 yarn start\" \"cd server && PORT=3001 yarn start\"",
-  "start:prod": "cd server && yarn start:prod"
+  "start:prod": "cd server && yarn start:prod",
+  "format": "prettier-eslint \"src/**/*.js\""
  },
  "devDependencies": {
   "babel-eslint": "^7.1.1",
@@ -26,6 +27,7 @@
   "eslint-plugin-import": "^2.2.0",
   "eslint-plugin-jsx-a11y": "^4.0.0",
   "eslint-plugin-react": "^6.10.2",
-  "prettier-eslint": "^4.3.2"
+  "prettier-eslint": "^6.1.0",
+  "prettier-eslint-cli": "^3.4.2"
  }
 }

@@ -20,7 +20,7 @@ const NewMessageBox = (props) => {
   return (
     <StyledForm onSubmit={handleSubmit}>
       <Field
-        name="newMessage"
+        name="message"
         placeholder="Enter your message"
         component={InputField}
         rows={1}

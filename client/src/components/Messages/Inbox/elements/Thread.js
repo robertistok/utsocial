@@ -1,14 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { formatTime } from '../../../../utils/timestamp';
+
 const MainWrapper = styled.div`
 	height: 70px;
 
 	&:hover {
 		background-color: #C5CAE9;
+		cursor: pointer;
 	}
 
-	&:active {
+	&.active {
 		background-color: #9FA8DA;
 	}
 `;
@@ -42,13 +45,26 @@ const Subject = styled.h6`
 `;
 
 const Thread = (props) => {
-  const { subject, partner, timestamp } = props;
+  const {
+    subject,
+    partner,
+    timestamp,
+    onClick,
+    selectedConversation,
+    id
+  } = props;
+
+  let className = '';
+
+  if (selectedConversation) {
+    className = selectedConversation._id === id ? 'active' : '';
+  }
 
   return (
-    <MainWrapper>
+    <MainWrapper onClick={onClick} className={className}>
       <Wrapper>
         <Partner>{partner}</Partner>
-        <Timestamp>{timestamp}</Timestamp>
+        <Timestamp>{formatTime(timestamp)}</Timestamp>
       </Wrapper>
       <Subject>{subject}</Subject>
     </MainWrapper>

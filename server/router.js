@@ -18,9 +18,9 @@ const router = express.Router();
 
 router.post('/api/auth/login', requireSignin, AuthenticationController.signIn);
 router.get(
-  '/api/auth/mefromtoken',
-  requireAuth,
-  AuthenticationController.meFromToken
+	'/api/auth/mefromtoken',
+	requireAuth,
+	AuthenticationController.meFromToken
 );
 
 router.post('/api/schedules/new', requireAuth, SchedulesController.addNew);
@@ -32,22 +32,28 @@ router.post('/api/groups/getbyid', requireAuth, GroupsController.getGroupById);
 router.get('/api/teachers/getall', TeachersController.getTeachers);
 
 router.post(
-  '/api/courses/teachersforcoursetype',
-  requireAuth,
-  CoursesController.getCourseTeachingTeacher
+	'/api/courses/teachersforcoursetype',
+	requireAuth,
+	CoursesController.getCourseTeachingTeacher
 );
 
 router.get(
-  '/api/messages/:username',
-  requireAuth,
-  MessagesController.getConversationsOfUser
+	'/api/messages/:username',
+	requireAuth,
+	MessagesController.getConversationsOfUser
+);
+
+router.get(
+	'/api/messages/conversation/:id',
+	requireAuth,
+	MessagesController.getMessagesOfConversation
 );
 
 router.get('/api/users/all', requireAuth, UsersController.getAll);
 router.get(
-  '/api/users/autocomplete/:term',
-  requireAuth,
-  UsersController.usersForAutocomplete
+	'/api/users/autocomplete/:term',
+	requireAuth,
+	UsersController.usersForAutocomplete
 );
 
 export default router;

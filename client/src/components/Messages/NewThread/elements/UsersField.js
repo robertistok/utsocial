@@ -45,7 +45,7 @@ class UsersField extends Component {
               <div>
                 {value === ''
                   ? <div style={{ padding: 6 }}>
-										Send to
+                      Send to
                     </div>
                   : this.props.users.loading
                       ? <div style={{ padding: 6 }}>Loading...</div>

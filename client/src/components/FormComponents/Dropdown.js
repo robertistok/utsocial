@@ -5,7 +5,6 @@ const DropDownField = (
   {
     input,
     label,
-    meta: { touched, error },
     placeholder,
     options,
     customOnChange
