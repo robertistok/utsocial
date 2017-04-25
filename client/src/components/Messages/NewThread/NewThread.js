@@ -13,7 +13,10 @@ const Wrapper = styled.div`
 `;
 
 const NewThread = props => (
-  <Wrapper><Header /><NewThreadForm onSubmit={props.handleSubmit} /></Wrapper>
+  <Wrapper>
+    <Header />
+    <NewThreadForm onSubmit={props.handleSubmit} />
+  </Wrapper>
 );
 
 export default NewThread;

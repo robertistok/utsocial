@@ -81,7 +81,8 @@ export default function (state = INITIAL_STATE, action) {
     case ADD_NEW_CONVERSATON:
       return {
         ...state,
-        conversations: [action.payload, ...state.conversations]
+        conversations: [action.payload, ...state.conversations],
+        selectedConversation: action.payload
       };
     case ADD_NEW_MESSAGE: {
       return {

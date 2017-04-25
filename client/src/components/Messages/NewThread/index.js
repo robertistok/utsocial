@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import NewThread from './NewThread';
 import { socket } from '../../../views/Authorized';
@@ -13,7 +14,6 @@ class NewThreadContainer extends Component {
   }
 
   handleSubmit(values) {
-    console.log(this.props);
     socket.emit('new:thread', {
       target: values.target,
       sender: this.props.sender.username,

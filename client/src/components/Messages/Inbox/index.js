@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { compose } from 'recompose';
+import { withRouter } from 'react-router';
 
 import * as messagesActions from '../../../redux/messages';
 import Inbox from './Inbox';
@@ -19,6 +19,11 @@ class InboxContainer extends Component {
     this.props.getConversationsOfUser(this.props.user.username);
 
     socket.on('new:thread', value => this.props.addNewConversation(value));
+
+    socket.on('message:sent', (value) => {
+      this.props.addNewConversation(value);
+      this.props.history.push('/messages');
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -46,4 +51,6 @@ const mapStateToProps = state => ({
   user: state.auth.user
 });
 
-export default connect(mapStateToProps, messagesActions)(InboxContainer);
+export default connect(mapStateToProps, messagesActions)(
+  withRouter(InboxContainer)
+);

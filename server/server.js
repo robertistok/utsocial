@@ -1,5 +1,7 @@
 const app = require('./app');
 const Conversation = require('./models/conversation');
+const Student = require('./models/student');
+const Teacher = require('./models/teacher');
 
 const server = app.listen(app.get('port'), () => {
 	console.log(
@@ -23,16 +25,13 @@ io.on('connection', (socket) => {
 	});
 
 	socket.on('subscribeToRoom', (data) => {
-		const { room, user } = data;
+		const { room } = data;
 
-		console.log(room, user, 'join');
 		socket.join(room);
 	});
 
 	socket.on('leaveRoom', (data) => {
-		const { room, user } = data;
-
-		console.log(room, user, 'leave');
+		const { room } = data;
 
 		socket.leave(room);
 	});
@@ -53,19 +52,26 @@ io.on('connection', (socket) => {
 
 	socket.on('new:thread', (data) => {
 		const { target, sender, text, subject } = data;
-		const newConversation = new Conversation({
-			participants: [sender, target],
-			subject
-		});
+
+		const newConversation = new Conversation({ subject });
 
 		newConversation.messages.push({
 			sender,
 			text
 		});
 
-		socket.emit('new:thread', newConversation);
-		io.to(connectedUsers[target]).emit('new:thread', newConversation);
+		Promise.all([
+			Student.find({ username: { $in: [sender, target] } }),
+			Teacher.find({ username: { $in: [sender, target] } })
+		]).then((values) => {
+			const [students, teachers] = values;
 
-		newConversation.save();
+			newConversation.participants = teachers.concat(students);
+
+			socket.emit('message:sent', newConversation);
+			io.to(connectedUsers[target]).emit('new:thread', newConversation);
+
+			newConversation.save();
+		});
 	});
 });

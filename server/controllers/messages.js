@@ -3,7 +3,7 @@ const Conversation = require('../models/conversation');
 function getConversationsOfUser(req, res, next) {
 	const username = req.params.username;
 
-	Conversation.find({ participants: { $in: [username] } })
+	Conversation.find({ 'participants.username': username })
 		.slice('messages', -1)
 		.then((conversations) => {
 			res.send(

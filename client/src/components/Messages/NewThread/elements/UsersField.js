@@ -1,22 +1,40 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Autocomplete from 'react-autocomplete';
 import { Form, Dropdown } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 import * as usersActions from '../../../../redux/users';
 
+const renderOptions = users =>
+  users.map(({ username }) => ({
+    key: username,
+    text: username,
+    value: username
+  }));
+
 class UsersField extends Component {
-  componentDidMount() {
-    this.props.searchUsers();
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      noResultsMessage: 'Start typing...',
+      firstTime: true
+    };
+
+    this.onSearchChange = this.onSearchChange.bind(this);
+    this.onItemChange = this.onItemChange.bind(this);
   }
 
-  renderItems(items) {
-    return items.map((item, index) => {
-      const text = item.props.children;
-
-      return item;
+  onSearchChange(event, value) {
+    this.props.searchUsers(value);
+    this.setState({
+      noResultsMessage: 'No users found...',
+      firstTime: false
     });
+  }
+
+  onItemChange(e, { value }) {
+    this.props.blur('target', value);
   }
 
   render() {
@@ -25,43 +43,22 @@ class UsersField extends Component {
       label,
       placeholder,
       meta: { touched, error },
-      users,
-      blur
+      users
     } = this.props;
     return (
       <Form.Field error={touched && error}>
         <label htmlFor={input.name}>{label}</label>
         {users.matched &&
-          <Autocomplete
+          <Dropdown
+            options={renderOptions(users.matched)}
             value={input.value}
-            items={users.matched}
-            getItemValue={item => item.username}
-            renderItem={(item, isHighlighted) => (
-              <div key={item.username}>
-                <Dropdown.Item text={item.username} />
-              </div>
-            )}
-            renderMenu={(items, value) => (
-              <div>
-                {value === ''
-                  ? <div style={{ padding: 6 }}>
-                      Send to
-                    </div>
-                  : this.props.users.loading
-                      ? <div style={{ padding: 6 }}>Loading...</div>
-                      : items.length === 0
-                          ? <div style={{ padding: 6 }}>
-                              No matches for {value}
-                            </div>
-                          : this.renderItems(items)}
-              </div>
-            )}
-            onChange={(event, value) => {
-              blur('target', value);
-              input.value = value;
-              this.props.searchUsers(value);
-            }}
-            onSelect={value => blur('target', value)}
+            search
+            selection
+            placeholder={placeholder}
+            onSearchChange={this.onSearchChange}
+            onChange={this.onItemChange}
+            closeOnChange
+            noResultsMessage={this.state.noResultsMessage}
           />}
       </Form.Field>
     );

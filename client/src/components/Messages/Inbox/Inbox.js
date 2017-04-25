@@ -45,7 +45,10 @@ const Inbox = (props) => {
                   key={conv.messages[0].timestamp}
                   id={conv._id}
                   subject={conv.subject}
-                  partner={conv.participants.find(p => p !== user.username)}
+                  partner={conv.participants.find(
+                    p => p.username !== user.username
+                  )}
+                  lastMessage={conv.messages[0]}
                   timestamp={conv.messages[0].timestamp}
                   onClick={() => selectConversation(conv._id)}
                   selectedConversation={selectedConversation}

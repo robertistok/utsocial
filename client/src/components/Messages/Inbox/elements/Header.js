@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { Dropdown } from 'semantic-ui-react';
 
 import settingsLogo from '../../../../../public/settings.svg';
 import composeLogo from '../../../../../public/compose.svg';
@@ -32,9 +33,30 @@ const StyledLink = styled(Link)`
 	margin-left: auto;
 `;
 
+const StyledDropdown = styled(Dropdown)`
+	:nth-child(2) {
+		display: none;
+	}
+`;
+
+const options = [
+  {
+    key: 'user',
+    text: <strong>Filter by:</strong>,
+    disabled: true
+  },
+  { key: 'all', text: 'All' },
+  { key: 'red', text: 'Unread' },
+  { key: 'unread', text: 'Read' },
+  { key: 'important', text: 'Important' }
+];
+
 const Header = props => (
   <Wrapper>
-    <Logo src={settingsLogo} alt="settings" />
+    <StyledDropdown
+      trigger={<Logo src={settingsLogo} alt="settings" />}
+      options={options}
+    />
     <StyledLink to="/messages/new">
       <Logo className="compose" src={composeLogo} alt="compose" />
     </StyledLink>

@@ -3,25 +3,25 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ConversationSchema = new Schema({
-  participants: [],
-  subject: String,
-  messages: [
-    {
-      sender: String,
-      text: String,
-      timestamp: {
-        type: Date,
-        default: Date.now,
-        required: true
-      },
-      isRed: {
-        type: Boolean,
-        default: false
-      },
-      archived: [String]
-    }
-  ],
-  archived: [String]
+	participants: [],
+	subject: String,
+	messages: [
+		{
+			sender: String,
+			text: String,
+			timestamp: {
+				type: Date,
+				default: Date.now,
+				required: true
+			},
+			unread: {
+				type: Boolean,
+				default: true
+			},
+			archived: [String]
+		}
+	],
+	archived: [String]
 });
 
 const Conversation = mongoose.model('conversation', ConversationSchema);

@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import logo from '../../../public/utcnlogo.png';
 import { capitalizeFirstLetter } from '../../utils/string-operations';
 import BreadcrumbsWithRouter from './elements/Breadcrumb';
-import media from '../../utils/media';
+import { media } from '../../utils/style-utils';
 
 const HeaderWrapper = styled.header`
 	top: 0px;
