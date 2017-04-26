@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 	display: flex;
 	height: 100%;
 	overflow: auto;
-	border: 0.5px solid grey;
+	border: 1px solid rgba(0, 0, 0, .10);
 `;
 
 const Messages = props => (

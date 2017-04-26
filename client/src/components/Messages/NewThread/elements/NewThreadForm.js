@@ -1,6 +1,7 @@
 import React from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { Form, Button } from 'semantic-ui-react';
+import styled from 'styled-components';
 
 import InputField from './InputField';
 import TextArea from './TextArea';
@@ -32,7 +33,7 @@ const NewThreadForm = (props) => {
         label="Message"
         placeholder="Enter your message..."
         component={TextArea}
-        rows={15}
+        rows={12}
         validate={required}
       />
       <Button type="submit">Send message</Button>

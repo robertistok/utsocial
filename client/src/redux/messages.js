@@ -89,7 +89,7 @@ export default function (state = INITIAL_STATE, action) {
         ...state,
         selectedConversation: {
           ...state.selectedConversation,
-          messages: [action.payload, ...state.selectedConversation.messages]
+          messages: [...state.selectedConversation.messages, action.payload]
         },
         conversations: state.conversations.map((c) => {
           if (c._id === state.selectedConversation._id) {

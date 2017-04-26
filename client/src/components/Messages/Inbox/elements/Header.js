@@ -8,7 +8,7 @@ import composeLogo from '../../../../../public/compose.svg';
 
 const Wrapper = styled.div`
 	height: 50px;
-	border-bottom: 0.5px solid grey;
+	border-bottom: 1px solid rgba(0, 0, 0, .10);
 	display: flex;
 
 	:last-child {

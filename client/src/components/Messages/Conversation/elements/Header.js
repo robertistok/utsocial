@@ -1,42 +1,32 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import infoLogo from '../../../../../public/info.svg';
+import starFilled from '../../../../../public/star_filled.svg';
 
 const Wrapper = styled.div`
 	height: 49px;
 	display: flex;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: center;
 `;
 
 const Subject = styled.div`
-	margin-left: auto;
-	font-size: 2em;
+	font-size: 25px;
 `;
 
-const LogoWrapper = styled.div`
-	margin-right: 15px;
-	margin-left: auto;
-	display: flex;
-	justify-content: flex-end;
-	align-items: center;
-`;
-
-const InfoLogo = styled.img`
+const Logo = styled.img`
 	width: 20px;
 	height: 20px;
+	margin-left: 50px;
+	margin-right: 10px;
 `;
 
 const Header = (props) => {
   const { selectedConversation } = props;
   return (
     <Wrapper>
+      <Logo src={starFilled} />
       <Subject>{selectedConversation.subject}</Subject>
-      <LogoWrapper>
-        <InfoLogo src={infoLogo} alt="info" />
-      </LogoWrapper>
-
     </Wrapper>
   );
 };
