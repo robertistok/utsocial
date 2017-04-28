@@ -145,7 +145,7 @@ export default function (state = INITIAL_STATE, action) {
         ...state,
         selectedConversation: {
           ...state.selectedConversation,
-          messages: [...state.selectedConversation.messages, action.payload]
+          messages: [action.payload, ...state.selectedConversation.messages]
         },
         conversations: state.conversations.map((c) => {
           if (c._id === state.selectedConversation._id) {
@@ -236,6 +236,11 @@ export const conversationsSelector = createSelector(
         case 'star':
           filteredConversations = conversations.filter(
             c => c.starred.indexOf(user) > -1
+          );
+          break;
+        case 'unstar':
+          filteredConversations = conversations.filter(
+            c => c.starred.indexOf(user) === -1
           );
           break;
         default:

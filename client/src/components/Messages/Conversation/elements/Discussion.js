@@ -3,9 +3,43 @@ import styled from 'styled-components';
 
 import { formatTime } from '../../../../utils/timestamp';
 
+const Discussion = (props) => {
+  const { selectedConversation, loggedInUser } = props;
+
+  const partner = selectedConversation.participants.find(
+    p => p.username !== loggedInUser.username
+  );
+
+  const renderMessage = (m) => {
+    let sender;
+    if (m.sender === partner.username) {
+      sender = `${partner.firstname} ${partner.lastname}`;
+    } else {
+      sender = 'Me';
+    }
+
+    return (
+      <MessageWrapper key={m._id} self={sender === 'Me'}>
+        <Info>
+          <Partner self={sender === 'Me'}>{sender}</Partner>
+          <Timestamp>{formatTime(m.timestamp)}</Timestamp>
+        </Info>
+        <Message>{m.text}</Message>
+      </MessageWrapper>
+    );
+  };
+
+  if (!selectedConversation) return null;
+
+  return (
+    <Wrapper>
+      {selectedConversation.messages.map(renderMessage)}
+    </Wrapper>
+  );
+};
+
 const Wrapper = styled.div`
 	height: calc(100% - 49px - 40px);
-	border-top: 1px solid rgba(0, 0, 0, .10);
 
 	border-bottom: 1px solid rgba(0, 0, 0, .10);
 	overflow: auto;
@@ -19,9 +53,12 @@ const Info = styled.span`
 
 const MessageWrapper = styled.span`
 	display: flex;
-	border-bottom: 1px solid rgba(0, 0, 0, .10);
 	flex-direction: column;
 	justify-content: center;
+	background-color: e2edff;
+	background-color: ${props => props.self ? '#f1f8e9' : '#dcedc8'}
+	box-shadow: 0px 1px #e2edff;
+	border-bottom: 1px solid rgba(0, 0, 0, .10);
 `;
 
 const Partner = styled.span`
@@ -32,7 +69,7 @@ const Partner = styled.span`
 `;
 
 const Timestamp = styled.span`
-	color: rgba(0, 0, 0, 0.7);
+	color: rgba(0, 0, 0, .40)
 	font-size: 12px;
 	margin-right: 25px;
 `;
@@ -44,42 +81,5 @@ const Message = styled.p`
 	word-wrap: normal;
 	padding: 10px 20px;
 `;
-
-const Discussion = (props) => {
-  const { selectedConversation, loggedInUser } = props;
-  let loggedIn;
-  let partner;
-
-  selectedConversation.participants.forEach((p) => {
-    if (p.username !== loggedInUser.username) {
-      partner = p;
-    } else {
-      loggedIn = p;
-    }
-  });
-
-  const getSender = (message) => {
-    if (message.sender === partner.username) {
-      return `${partner.firstname} ${partner.lastname}`;
-    }
-    return `${loggedIn.firstname} ${loggedIn.lastname}`;
-  };
-
-  if (!selectedConversation) return null;
-
-  return (
-    <Wrapper>
-      {selectedConversation.messages.map(m => (
-        <MessageWrapper key={m._id}>
-          <Info>
-            <Partner>{getSender(m)}</Partner>
-            <Timestamp>{formatTime(m.timestamp)}</Timestamp>
-          </Info>
-          <Message>{m.text}</Message>
-        </MessageWrapper>
-      ))}
-    </Wrapper>
-  );
-};
 
 export default Discussion;

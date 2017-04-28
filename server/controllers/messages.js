@@ -20,7 +20,12 @@ function getMessagesOfConversation(req, res, next) {
 
 	Conversation.findOne({ _id: id })
 		.slice('messages', 25)
-		.then(conversation => res.send(conversation))
+		.then((conversation) => {
+			conversation.messages = conversation.messages.sort(
+				(m1, m2) => m1.timestamp < m2.timestamp
+			);
+			res.send(conversation);
+		})
 		.catch(err => next(err));
 }
 

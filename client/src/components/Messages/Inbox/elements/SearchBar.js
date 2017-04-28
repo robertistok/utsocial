@@ -2,17 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { Input } from 'semantic-ui-react';
 
-const Wrapper = styled.div`
-	height: 30px;
-	order:-1;
-`;
-
 const SearchBar = (props) => {
   const { searchTerm, changeSearchterm } = props;
 
   return (
     <Wrapper>
-      <Input
+      <StyledInput
         type="text"
         placeholder="search"
         value={searchTerm}
@@ -21,5 +16,20 @@ const SearchBar = (props) => {
     </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+	height: 30px;
+	order:-1;
+`;
+
+const StyledInput = styled(Input)`
+	height: 30px;
+	width: 100%;
+
+	input {
+		font-family: Roboto !important;
+		border-radius: 0 !important;
+	}
+`;
 
 export default SearchBar;

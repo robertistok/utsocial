@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Form, Button } from 'semantic-ui-react';
 
 import InputField from '../../../FormComponents/InputField';
+import { required } from '../../../FormComponents/validation';
 
 const StyledForm = styled(Form)`
 	height: 40px;

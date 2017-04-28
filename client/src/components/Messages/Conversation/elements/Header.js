@@ -5,10 +5,11 @@ import starFilled from '../../../../../public/star_filled.svg';
 import starEmpty from '../../../../../public/star_empty.svg';
 
 const Wrapper = styled.div`
-	height: 49px;
+	height: 50px;
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
+	border-bottom: 1px solid rgba(0, 0, 0, .10);
 `;
 
 const Subject = styled.div`
