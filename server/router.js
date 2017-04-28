@@ -42,11 +42,20 @@ router.get(
 	requireAuth,
 	MessagesController.getConversationsOfUser
 );
-
 router.get(
 	'/api/messages/conversation/:id',
 	requireAuth,
 	MessagesController.getMessagesOfConversation
+);
+router.get(
+	'/api/messages/read/:id/',
+	requireAuth,
+	MessagesController.readMessagesOfConversation
+);
+router.post(
+	'/api/messages/star',
+	requireAuth,
+	MessagesController.starConversationForUser
 );
 
 router.get('/api/users/all', requireAuth, UsersController.getAll);

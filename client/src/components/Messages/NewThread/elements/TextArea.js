@@ -9,7 +9,7 @@ const TextArea = styled.textarea`
 const TextAreaField = (
   { input, placeholder, meta: { touched, error }, label, rows }
 ) => (
-  <Form.Field error={touched && error}>
+  <Form.Field error={touched && error} required>
     <label htmlFor={input.name}>{label}</label>
     <TextArea {...input} placeholder={placeholder} rows={rows} />
   </Form.Field>

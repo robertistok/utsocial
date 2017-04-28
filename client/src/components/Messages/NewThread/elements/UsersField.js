@@ -46,7 +46,7 @@ class UsersField extends Component {
       users
     } = this.props;
     return (
-      <Form.Field error={touched && error}>
+      <Form.Field error={touched && error} required>
         <label htmlFor={input.name}>{label}</label>
         {users.matched &&
           <Dropdown

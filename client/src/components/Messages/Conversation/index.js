@@ -6,7 +6,7 @@ import { Redirect } from 'react-router';
 
 import Conversation from './Conversation';
 import { socket } from '../../../views/Authorized';
-import * as messagesActions from '../../../redux/messages';
+import { addNewMessage } from '../../../redux/messages';
 import { withMaybe, withEither } from '../../HOCs/ConditionalRendering';
 
 class ConversationContainer extends Component {
@@ -46,7 +46,7 @@ class ConversationContainer extends Component {
 
   sendMessage(values) {
     socket.emit('send:message', {
-      room: this.props.selectConversation._id,
+      room: this.props.selectedConversation._id,
       sender: this.props.loggedInUser.username,
       text: values.message,
       id: this.props.selectedConversation._id
@@ -59,7 +59,8 @@ class ConversationContainer extends Component {
 }
 
 const noSelectedConversations = props => props.selectedConversation === null;
-const noConversations = props => props.conversations && props.conversations.length === 0;
+const noConversations = props =>
+  props.conversations && props.conversations.length === 0;
 
 const NoConversations = () => <Redirect to="/messages/new" />;
 
@@ -75,7 +76,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ ...messagesActions }, dispatch);
+  bindActionCreators({ addNewMessage }, dispatch);
 
 const ConversationContainerWithConditionalRendering = withConditionalRendering(
   ConversationContainer

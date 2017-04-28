@@ -47,10 +47,23 @@ const Message = styled.p`
 
 const Discussion = (props) => {
   const { selectedConversation, loggedInUser } = props;
+  let loggedIn;
+  let partner;
 
-  const partner = selectedConversation.participants.find(
-    p => p.username !== loggedInUser.username
-  );
+  selectedConversation.participants.forEach((p) => {
+    if (p.username !== loggedInUser.username) {
+      partner = p;
+    } else {
+      loggedIn = p;
+    }
+  });
+
+  const getSender = (message) => {
+    if (message.sender === partner.username) {
+      return `${partner.firstname} ${partner.lastname}`;
+    }
+    return `${loggedIn.firstname} ${loggedIn.lastname}`;
+  };
 
   if (!selectedConversation) return null;
 
@@ -59,7 +72,7 @@ const Discussion = (props) => {
       {selectedConversation.messages.map(m => (
         <MessageWrapper key={m._id}>
           <Info>
-            <Partner>{`${partner.firstname} ${partner.lastname}`}</Partner>
+            <Partner>{getSender(m)}</Partner>
             <Timestamp>{formatTime(m.timestamp)}</Timestamp>
           </Info>
           <Message>{m.text}</Message>

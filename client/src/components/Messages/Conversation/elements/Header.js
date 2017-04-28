@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import starFilled from '../../../../../public/star_filled.svg';
+import starEmpty from '../../../../../public/star_empty.svg';
 
 const Wrapper = styled.div`
 	height: 49px;
@@ -19,13 +20,18 @@ const Logo = styled.img`
 	height: 20px;
 	margin-left: 50px;
 	margin-right: 10px;
+
+	content: url(${props => props.filled ? starFilled : starEmpty});
 `;
 
 const Header = (props) => {
   const { selectedConversation } = props;
+  const { loggedInUser } = props;
+  const filled = selectedConversation.starred.indexOf(loggedInUser.username) >
+    -1;
   return (
     <Wrapper>
-      <Logo src={starFilled} />
+      <Logo filled={filled} />
       <Subject>{selectedConversation.subject}</Subject>
     </Wrapper>
   );

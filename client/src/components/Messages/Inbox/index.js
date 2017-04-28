@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import { bindActionCreators } from 'redux';
 
-import * as messagesActions from '../../../redux/messages';
+import {
+  addNewConversation,
+  getConversationsOfUser,
+  starConversation,
+  readMessages,
+  selectConversation,
+  filterConversations,
+  conversationsSelector,
+  changeSearchterm
+} from '../../../redux/messages';
 import Inbox from './Inbox';
 import { socket } from '../../../views/Authorized';
 
@@ -13,6 +23,8 @@ class InboxContainer extends Component {
     this.state = {
       firstTime: true
     };
+
+    this.onStarClick = this.onStarClick.bind(this);
   }
 
   componentDidMount() {
@@ -39,18 +51,40 @@ class InboxContainer extends Component {
     }
   }
 
+  onStarClick(id) {
+    const { starConversation, user } = this.props;
+
+    starConversation(id, user.username);
+  }
+
   render() {
-    return <Inbox {...this.props} />;
+    return <Inbox {...this.props} onStarClick={this.onStarClick} />;
   }
 }
 
 const mapStateToProps = state => ({
-  conversations: state.messages.conversations,
+  conversations: conversationsSelector(state),
   selectedConversation: state.messages.selectedConversation,
   isLoading: state.messages.loading,
+  filter: state.messages.filter,
+  searchTerm: state.messages.searchTerm,
   user: state.auth.user
 });
 
-export default connect(mapStateToProps, messagesActions)(
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      addNewConversation,
+      getConversationsOfUser,
+      starConversation,
+      readMessages,
+      selectConversation,
+      filterConversations,
+      changeSearchterm
+    },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(
   withRouter(InboxContainer)
 );

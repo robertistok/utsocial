@@ -27,33 +27,55 @@ const Inbox = (props) => {
     conversations,
     user,
     selectConversation,
-    selectedConversation
+    readMessages,
+    selectedConversation,
+    changeSearchterm,
+    onStarClick
   } = props;
+
+  const renderThreads = (conv) => {
+    const partner = conv.participants.find(p => p.username !== user.username);
+
+    const lastMessage = conv.messages[0];
+
+    const onClick = () => {
+      if (lastMessage.unread && lastMessage.sender === partner.username) {
+        readMessages(conv._id);
+      }
+      if (selectedConversation._id !== conv._id) {
+        selectConversation(conv._id);
+      }
+      changeSearchterm('');
+    };
+
+    return (
+      <Thread
+        key={lastMessage.timestamp}
+        id={conv._id}
+        user={user}
+        starred={conv.starred}
+        subject={conv.subject}
+        partner={partner}
+        lastMessage={lastMessage}
+        timestamp={lastMessage.timestamp}
+        onClick={onClick}
+        onStarClick={() => onStarClick(conv._id)}
+        selectedConversation={selectedConversation}
+      />
+    );
+  };
 
   return (
     <Wrapper>
-      <Header />
+      <Header {...props} />
       <ThreadsContainer>
-        <SearchBar type="text" placeholder="Search" />
+        <SearchBar {...props} />
         {conversations && conversations.length !== 0
           ? conversations
               .sort(
                 (c1, c2) => c1.messages[0].timestamp < c2.messages[0].timestamp
               )
-              .map(conv => (
-                <Thread
-                  key={conv.messages[0].timestamp}
-                  id={conv._id}
-                  subject={conv.subject}
-                  partner={conv.participants.find(
-                    p => p.username !== user.username
-                  )}
-                  lastMessage={conv.messages[0]}
-                  timestamp={conv.messages[0].timestamp}
-                  onClick={() => selectConversation(conv._id)}
-                  selectedConversation={selectedConversation}
-                />
-              ))
+              .map(renderThreads)
           : <div>
               <h1>No messages</h1>
             </div>}

@@ -17,11 +17,10 @@ const ConversationSchema = new Schema({
 			unread: {
 				type: Boolean,
 				default: true
-			},
-			archived: [String]
+			}
 		}
 	],
-	archived: [String]
+	starred: [String]
 });
 
 const Conversation = mongoose.model('conversation', ConversationSchema);

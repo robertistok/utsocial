@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 
 import NewThread from './NewThread';
 import { socket } from '../../../views/Authorized';
-import * as messagesActions from '../../../redux/messages';
 
 class NewThreadContainer extends Component {
   constructor(props) {
@@ -31,4 +29,4 @@ const mapStateToProps = state => ({
   sender: state.auth.user
 });
 
-export default connect(mapStateToProps, messagesActions)(NewThreadContainer);
+export default connect(mapStateToProps)(NewThreadContainer);

@@ -41,26 +41,34 @@ const StyledDropdown = styled(Dropdown)`
 
 const options = [
   {
-    key: 'user',
-    text: <strong>Filter by:</strong>,
+    key: 'title',
+    text: <strong>Filter by</strong>,
     disabled: true
   },
-  { key: 'all', text: 'All' },
-  { key: 'red', text: 'Unread' },
-  { key: 'unread', text: 'Read' },
-  { key: 'important', text: 'Important' }
+  { key: 'all', text: 'All', value: 'all' },
+  { key: 'red', text: 'Unread', value: 'unread' },
+  { key: 'unread', text: 'Read', value: 'red' },
+  { key: 'star', text: 'Starred', value: 'star' }
 ];
 
-const Header = props => (
-  <Wrapper>
-    <StyledDropdown
-      trigger={<Logo src={settingsLogo} alt="settings" />}
-      options={options}
-    />
-    <StyledLink to="/messages/new">
-      <Logo className="compose" src={composeLogo} alt="compose" />
-    </StyledLink>
-  </Wrapper>
-);
+const Header = (props) => {
+  const { filter, filterConversations } = props;
+
+  const title = options.find(op => op.value === filter).text;
+  return (
+    <Wrapper>
+      <StyledDropdown
+        defaultValue="all"
+        trigger={<Logo src={settingsLogo} alt="settings" />}
+        options={options}
+        onChange={(e, val) => filterConversations(val.value)}
+      />
+      <div>{title}</div>
+      <StyledLink to="/messages/new">
+        <Logo className="compose" src={composeLogo} alt="compose" />
+      </StyledLink>
+    </Wrapper>
+  );
+};
 
 export default Header;

@@ -11,7 +11,8 @@ function getConversationsOfUser(req, res, next) {
 					(c1, c2) => c1.messages[0].timestamp < c2.messages[0].timestamp
 				)
 			);
-		});
+		})
+		.catch(err => next(err));
 }
 
 function getMessagesOfConversation(req, res, next) {
@@ -19,7 +20,55 @@ function getMessagesOfConversation(req, res, next) {
 
 	Conversation.findOne({ _id: id })
 		.slice('messages', 25)
-		.then(conversation => res.send(conversation));
+		.then(conversation => res.send(conversation))
+		.catch(err => next(err));
 }
 
-module.exports = { getConversationsOfUser, getMessagesOfConversation };
+function readMessagesOfConversation(req, res, next) {
+	const id = req.params.id;
+
+	Conversation.findOne({ _id: id })
+		.then((conversation) => {
+			conversation.messages = conversation.messages
+				.slice(0, 20)
+				.map((message) => {
+					if (message.unread) {
+						message.unread = false;
+					}
+
+					return message;
+				});
+			conversation.save();
+
+			res.send({ message: 'succes' });
+		})
+		.catch(err => next(err));
+}
+
+function starConversationForUser(req, res, next) {
+	const { id, user } = req.body;
+
+	Conversation.findOne({ _id: id })
+		.then((conversation) => {
+			const isStarred = conversation.starred.indexOf(user);
+
+			if (isStarred === -1) {
+				conversation.starred.push(user);
+			} else {
+				console.log(isStarred);
+				conversation.starred.splice(isStarred, 1);
+				console.log(conversation.starred);
+			}
+
+			conversation.save();
+			res.send({ starred: conversation.starred });
+		})
+		.catch(err => next(err));
+}
+
+module.exports = {
+	getConversationsOfUser,
+	getMessagesOfConversation,
+	readMessagesOfConversation,
+	starConversationForUser
+};
