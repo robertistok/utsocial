@@ -4,6 +4,10 @@ import styled from 'styled-components';
 
 const TextArea = styled.textarea`
 	resize: none;
+
+	&:focus {
+		background-color: #FFFFFF !important;
+	}
 `;
 
 const TextAreaField = (

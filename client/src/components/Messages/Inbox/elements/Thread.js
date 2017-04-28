@@ -51,12 +51,12 @@ const MainWrapper = styled.div`
 	height: 70px;
 
 	&:hover {
-		background-color: #9ccc65;
+		background-color: #f5f5f5;
 		cursor: pointer;
 	}
 
 	&.active {
-		background-color: #689f38;
+		background-color: #e0e0e0;
 	}
 `;
 

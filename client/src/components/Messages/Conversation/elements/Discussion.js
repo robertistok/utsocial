@@ -56,7 +56,7 @@ const MessageWrapper = styled.span`
 	flex-direction: column;
 	justify-content: center;
 	background-color: e2edff;
-	background-color: ${props => props.self ? '#f1f8e9' : '#dcedc8'}
+	background-color: ${props => props.self ? '#fafafa' : '#e0e0e0'}
 	box-shadow: 0px 1px #e2edff;
 	border-bottom: 1px solid rgba(0, 0, 0, .10);
 `;

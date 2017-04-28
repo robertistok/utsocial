@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 	height: 100%;
 	flex: 1;
 	border-right: 1px solid rgba(0, 0, 0, .10);
-	background-color: #E8EAF6;
+	background-color: #FFFFFF;
 `;
 
 const ThreadsContainer = styled.div`
