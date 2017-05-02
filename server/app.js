@@ -34,9 +34,9 @@ app.use('/*', staticFiles);
 // MongodDb connection
 mongoose.Promise = global.Promise;
 if (process.env.NODE_ENV === 'production') {
-  mongoose.connect(process.env.MONGODB_URI);
+	mongoose.connect(process.env.MONGODB_URI);
 } else {
-  mongoose.connect('mongodb://localhost/universocial');
+	mongoose.connect('mongodb://localhost/universocial');
 }
 
 app.set('port', process.env.PORT || 3001);

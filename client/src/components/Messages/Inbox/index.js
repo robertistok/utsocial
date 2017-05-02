@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
+// import { Dimmer, Loader } from 'semantic-ui-react';
 
 import {
   addNewConversation,
@@ -61,6 +62,12 @@ class InboxContainer extends Component {
     return <Inbox {...this.props} onStarClick={this.onStarClick} />;
   }
 }
+
+// const LoadingIndicator = () => (
+//   <Dimmer active>
+//     <Loader>Loading..</Loader>
+//   </Dimmer>
+// );
 
 const mapStateToProps = state => ({
   conversations: conversationsSelector(state),

@@ -52,7 +52,7 @@ const isLoading = props => props.schedule.loading;
 const noSelectedGroup = props => props.schedule.group === undefined;
 
 const withConditionalRendering = compose(
-  // withEither(isLoading, LoadingIndicator),
+  withEither(isLoading, LoadingIndicator),
   withMaybe(nullConditionFn),
   withEither(noSelectedGroup, NoGroupsSelected)
 );

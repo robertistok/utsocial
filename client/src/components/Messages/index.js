@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
 import styled from 'styled-components';
 import { Route, Switch } from 'react-router-dom';
 
@@ -14,7 +16,7 @@ const Wrapper = styled.div`
 	border: 1px solid rgba(0, 0, 0, .10);
 `;
 
-const Messages = props => (
+const MessageaContainer = () => (
   <Wrapper>
     <InboxContainer />
     <Switch>
@@ -24,4 +26,8 @@ const Messages = props => (
   </Wrapper>
 );
 
-export default Messages;
+const mapStateToProps = state => ({
+  messages: state.messages
+});
+
+export default connect(mapStateToProps)(MessageaContainer);

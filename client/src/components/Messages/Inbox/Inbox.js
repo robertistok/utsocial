@@ -30,7 +30,8 @@ const Inbox = (props) => {
     readMessages,
     selectedConversation,
     changeSearchterm,
-    onStarClick
+    onStarClick,
+    history
   } = props;
 
   const renderThreads = (conv) => {
@@ -46,6 +47,7 @@ const Inbox = (props) => {
         selectConversation(conv._id);
       }
       changeSearchterm('');
+      history.push('/messages');
     };
 
     return (

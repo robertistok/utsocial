@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import LoginForm from './LoginForm/index';
+import LoginForm from './LoginForm';
 import * as actions from '../../redux/auth';
 
 class Login extends Component {
@@ -21,17 +21,17 @@ class Login extends Component {
   }
 
   authUser(values) {
+    // this.props
+    //   .authUser(values)
+    //   .then(response => this.props.authUserSucces(response.payload))
+    //   .catch(err => this.props.authUserError(err));
     this.props.loginUser(values);
   }
 
   render() {
     if (this.props.auth.authenticated) return <Redirect to="/home" />;
 
-    return (
-      <div>
-        <LoginForm onSubmit={this.authUser} />
-      </div>
-    );
+    return <LoginForm onSubmit={this.authUser} {...this.props} />;
   }
 }
 
