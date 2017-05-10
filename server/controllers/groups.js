@@ -13,11 +13,9 @@ function getGroupById(req, res, next) {
 	Group.findById(req.body.id)
 		.populate({
 			path: 'courses',
-			select: 'name teachers teachingTypes lecturePerWeek labsPerWeek seminarsPerWeek projectsPerWeek',
 			match: { semester: { $eq: 2 } },
 			populate: {
 				path: 'teachers.lecture teachers.seminar teachers.lab teachers.project',
-				select: 'firstname lastname ',
 				model: 'teacher'
 			}
 		})
@@ -25,7 +23,16 @@ function getGroupById(req, res, next) {
 		.catch(err => next(err));
 }
 
+function getStudents(req, res, next) {
+	const { id } = req.params;
+	Group.findOne({ _id: id }, ['students'])
+		.populate('students')
+		.then(students => res.send(students))
+		.catch(err => next(err));
+}
+
 module.exports = {
 	getGroups,
-	getGroupById
+	getGroupById,
+	getStudents
 };

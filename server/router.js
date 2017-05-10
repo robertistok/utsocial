@@ -28,13 +28,23 @@ router.get('/api/schedules/get/:id', requireAuth, SchedulesController.getOne);
 
 router.get('/api/groups/getall', requireAuth, GroupsController.getGroups);
 router.post('/api/groups/getbyid', requireAuth, GroupsController.getGroupById);
+router.get(
+	'/api/groups/getStudents/:id',
+	requireAuth,
+	GroupsController.getStudents
+);
 
 router.get('/api/teachers/getall', TeachersController.getTeachers);
-
-router.post(
-	'/api/courses/teachersforcoursetype',
+router.get(
+	'/api/teachers/getTeaching/:id',
 	requireAuth,
-	CoursesController.getCourseTeachingTeacher
+	TeachersController.getTeaching
+);
+
+router.get(
+	'/api/courses/getCourseGroups/:courseID/:lang',
+	requireAuth,
+	CoursesController.getCourseGroups
 );
 
 router.get(

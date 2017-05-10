@@ -31,6 +31,7 @@ const StudentSchema = new Schema(
 			type: Schema.Types.ObjectId,
 			ref: 'group'
 		},
+		semigroup: Number,
 		grades: [
 			{
 				type: Schema.Types.ObjectId,

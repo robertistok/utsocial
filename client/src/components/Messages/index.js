@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { compose } from 'recompose';
 import styled from 'styled-components';
 import { Route, Switch } from 'react-router-dom';
 

@@ -61,9 +61,9 @@ ScheduleSchema.pre('save', function (next) {
 	const semigroupOperator = this.whom.semigroup === '0'
 		? ['0', '1', '2']
 		: ['0', this.whom.semigroup];
-	const frequencyOperator = this.whom.semigroup === '0'
+	const frequencyOperator = this.when.frequency === '0'
 		? ['0', '1', '2']
-		: ['0', this.whom.semigroup];
+		: ['0', this.when.frequency];
 
 	const queryForType = {
 		'whom.group': this.whom.group,
@@ -79,7 +79,7 @@ ScheduleSchema.pre('save', function (next) {
 		'when.day': this.when.day,
 		'when.from': {
 			$gte: this.when.from,
-			$lte: this.when.from + this.when.duration
+			$lt: this.when.from + this.when.duration
 		},
 		'when.frequency': { $in: frequencyOperator }
 	};
@@ -95,6 +95,8 @@ ScheduleSchema.pre('save', function (next) {
 					new Error('A schedule already exists for this type of combination')
 				);
 			} else if (isAvailable.length !== 0) {
+				console.log(isAvailable);
+				console.log(semigroupOperator, frequencyOperator);
 				next(new Error('The group is busy for the selected period'));
 			} else {
 				next();

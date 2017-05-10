@@ -8,6 +8,7 @@ const User = require('../models/user');
 
 const localLogin = new LocalStrategy((username, password, done) => {
 	User.findOne({ username })
+		.populate('_id')
 		.then((user) => {
 			if (!user) return done(null, false, { message: 'Incorrect username' });
 

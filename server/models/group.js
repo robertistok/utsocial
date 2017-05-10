@@ -16,21 +16,22 @@ const Schema = mongoose.Schema;
 **/
 
 const GroupSchema = new Schema({
-  id: Number,
-  startYear: Number,
-  avarageBirthYear: Number,
-  students: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'student',
-    },
-  ],
-  courses: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'course',
-    },
-  ],
+	id: Number,
+	startYear: Number,
+	avarageBirthYear: Number,
+	lang: String,
+	students: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: 'student'
+		}
+	],
+	courses: [
+		{
+			type: Schema.Types.ObjectId,
+			ref: 'course'
+		}
+	]
 });
 
 const Group = mongoose.model('group', GroupSchema);

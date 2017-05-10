@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const SEMIGROUP = {
   BOTH: '0',
   FIRST: '1',
@@ -80,3 +82,6 @@ export const HOURS = [
     value: 20
   }
 ];
+
+export const FIRST_WEEK = moment('2017-02-27');
+export const LAST_WEEK = moment('2017-02-27').add(13, 'weeks');

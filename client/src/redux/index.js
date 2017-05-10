@@ -8,6 +8,8 @@ import teachersReducer from './teachers';
 import modalsReducer from './modals';
 import usersReducer from './users';
 import messagesReducer from './messages';
+import coursesReducer from './courses';
+import attendanceReducer from './attendance';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -17,7 +19,9 @@ const rootReducer = combineReducers({
   teachers: teachersReducer,
   form: formReducer,
   users: usersReducer,
-  messages: messagesReducer
+  messages: messagesReducer,
+  courses: coursesReducer,
+  attendance: attendanceReducer
 });
 
 export default rootReducer;
