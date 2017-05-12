@@ -60,9 +60,7 @@ function starConversationForUser(req, res, next) {
 			if (isStarred === -1) {
 				conversation.starred.push(user);
 			} else {
-				console.log(isStarred);
 				conversation.starred.splice(isStarred, 1);
-				console.log(conversation.starred);
 			}
 
 			conversation.save();

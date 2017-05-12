@@ -8,6 +8,7 @@ const CoursesController = require('./controllers/courses');
 const TeachersController = require('./controllers/teachers');
 const MessagesController = require('./controllers/messages');
 const UsersController = require('./controllers/users');
+const AttendanceController = require('./controllers/attendance');
 
 const passportService = require('./services/passport');
 
@@ -73,6 +74,22 @@ router.get(
 	'/api/users/autocomplete/:term',
 	requireAuth,
 	UsersController.usersForAutocomplete
+);
+
+router.post(
+	'/api/attendance/getAttendanceOfGroupWithCourseType',
+	requireAuth,
+	AttendanceController.getAttendanceOfGroupWithCourseType
+);
+router.post(
+	'/api/attendance/markAsPresent',
+	requireAuth,
+	AttendanceController.markAsPresent
+);
+router.get(
+	'/api/attendance/remove/:id',
+	requireAuth,
+	AttendanceController.removeAttendance
 );
 
 export default router;

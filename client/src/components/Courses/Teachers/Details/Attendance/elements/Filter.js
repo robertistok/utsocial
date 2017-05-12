@@ -1,12 +1,11 @@
 import React from 'react';
 import { Form } from 'semantic-ui-react';
 
-import { SEMIGROUP } from '../../../../../../constants';
-
 const Filter = (props) => {
-  const { courses: { selectedCourse } } = props;
-  const { changeGroup, changeType, changeSemigroup } = props;
+  const { courses: { selectedCourse }, filter } = props;
+  const { changeGroup, changeType, fetchAttendance } = props;
   const { course } = selectedCourse;
+  const { type, group } = filter;
 
   const groupOptions = selectedCourse.groups.map(group => ({
     key: group._id,
@@ -20,29 +19,29 @@ const Filter = (props) => {
         .filter(type => course.teachingTypes[type] === true)
         .map(type => ({ key: type, text: type, value: type }));
 
-  const semigroupOptions = [
-    { key: 'sgb', text: 'Both', value: SEMIGROUP.BOTH },
-    { key: 'sg1', text: 'SG1', value: SEMIGROUP.FIRST },
-    { key: 'sg2', text: 'SG2', value: SEMIGROUP.SECOND }
-  ];
-
   return (
     <Form>
       <Form.Group inline>
         <Form.Select
           options={groupOptions}
           placeholder="Group"
-          onChange={(e, { value }) => changeGroup(value)}
+          onChange={(e, { value }) => {
+            changeGroup(value);
+            if (type !== undefined) {
+              fetchAttendance(type, selectedCourse.course._id, value);
+            }
+          }}
+          value={group}
         />
         <Form.Select
           options={typeOptions}
           placeholder="Type"
-          onChange={(e, { value }) => changeType(value)}
-        />
-        <Form.Select
-          options={semigroupOptions}
-          placeholder="Semigroup"
-          onChange={(e, { value }) => changeSemigroup(value)}
+          onChange={(e, { value }) => {
+            changeType(value);
+            fetchAttendance(value, selectedCourse.course._id, group);
+          }}
+          value={type}
+          disabled={group === undefined}
         />
       </Form.Group>
     </Form>

@@ -2,26 +2,18 @@ import React from 'react';
 import { Accordion } from 'semantic-ui-react';
 
 import Filter from './elements/Filter';
-import AttendanceTable from './elements/AttendanceTable';
+import AttendanceTableContainer from './elements/AttendanceTable/index';
 
 const Attendance = (props) => {
-  const { attendance: { filter } } = props;
+  const { active } = props;
 
   return (
     <div>
-      <Accordion.Title
-        onClick={props.onClick}
-        active={props.courses.activeAccordionElements.includes('attendance')}
-      >
+      <Accordion.Title onClick={props.onClick} active={active}>
         Attendance
       </Accordion.Title>
-      <Accordion.Content
-        active={props.courses.activeAccordionElements.includes('attendance')}
-      >
+      <Accordion.Content active={active}>
         <Filter {...props} />
-        {filter.group !== undefined &&
-          filter.type !== undefined &&
-          <AttendanceTable {...props} />}
       </Accordion.Content>
     </div>
   );

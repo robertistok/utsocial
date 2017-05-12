@@ -17,7 +17,8 @@ class AttendanceContainer extends Component {
 
 const mapStateToProps = state => ({
   courses: state.courses,
-  attendance: state.attendance
+  attendance: state.attendance,
+  filter: state.attendance.filter
 });
 
 const mapDispatchToProps = dispatch =>

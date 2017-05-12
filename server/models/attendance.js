@@ -28,8 +28,13 @@ const AttendanceSchema = new Schema({
 	type: {
 		type: String,
 		required: true
+	},
+	group: {
+		type: Schema.Types.ObjectId,
+		ref: 'group',
+		required: true
 	}
 });
 
-const Attendance = mongoose.model('grade', AttendanceSchema);
+const Attendance = mongoose.model('attendance', AttendanceSchema);
 module.exports = Attendance;
