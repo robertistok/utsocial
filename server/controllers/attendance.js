@@ -5,8 +5,6 @@ import Attendance from '../models/attendance';
 function getAttendanceOfGroupWithCourseType(req, res, next) {
 	const { group, type, course } = req.body;
 
-	console.log(course, type, group);
-
 	Attendance.find({ course, type, group })
 		.then(attendances => res.send(attendances))
 		.catch(err => next(err));

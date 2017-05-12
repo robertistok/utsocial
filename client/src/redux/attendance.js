@@ -94,23 +94,6 @@ export function removeAttendance(id) {
   };
 }
 
-// export function markAsPresent(studentList, course, type, teacher, group) {
-//   return (dispatch) => {
-//     dispatch({ type: MARK_AS_PRESENT });
-//     axios({
-//       method: 'post',
-//       url: '/api/attendance/markAsPresent',
-//       data: { studentList, course, type, teacher, group },
-//       headers: {
-//         authorization: sessionStorage.getItem('token')
-//       }
-//     })
-//       .then(response =>
-//         dispatch({ type: MARK_AS_PRESENT_SUCCESS, payload: response.data }))
-//       .catch(err => dispatch({ type: MARK_AS_PRESENT_ERROR, payload: err }));
-//   };
-// }
-
 export function resetAttendance() {
   return {
     type: RESET_ATTENDANCE
@@ -170,7 +153,7 @@ export default function (state = INITIAL_STATE, action) {
             attendance => attendance._id !== action.payload
           )
         ],
-        laoding: false
+        loading: false
       };
 
     case REMOVE_ATTENDANCE_ERROR:
@@ -179,7 +162,7 @@ export default function (state = INITIAL_STATE, action) {
     case FETCH_ATTENDANCE:
       return { ...state, loading: true };
     case FETCH_ATTENDANCE_SUCCESS:
-      return { ...state, attendanceList: [...action.payload], laoding: false };
+      return { ...state, attendanceList: [...action.payload], loading: false };
     case FETCH_ATTENDANCE_ERROR:
       error = action.payload || { message: action.payload.message };
       return { ...state, loading: false, error };

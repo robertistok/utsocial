@@ -1,5 +1,4 @@
 const Group = require('../models/group');
-const Course = require('../models/course');
 
 function getGroups(req, res, next) {
 	Group.find({})

@@ -2,22 +2,22 @@ import React from 'react';
 import { Accordion } from 'semantic-ui-react';
 
 import Filter from './elements/Filter';
-import AttendanceTableContainer from './elements/AttendanceTable/index';
+import GradesTableContainer from './elements/GradesTable';
 
-const Attendance = (props) => {
+const Grades = (props) => {
   const { active } = props;
 
   return (
     <div>
       <Accordion.Title onClick={props.onClick} active={active}>
-        Attendance
+        Grades
       </Accordion.Title>
       <Accordion.Content active={active}>
         <Filter {...props} />
-        <AttendanceTableContainer />
+        <GradesTableContainer />
       </Accordion.Content>
     </div>
   );
 };
 
-export default Attendance;
+export default Grades;
