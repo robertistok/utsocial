@@ -9,6 +9,7 @@ const TeachersController = require('./controllers/teachers');
 const MessagesController = require('./controllers/messages');
 const UsersController = require('./controllers/users');
 const AttendanceController = require('./controllers/attendance');
+const GradesController = require('./controllers/grades');
 
 const passportService = require('./services/passport');
 
@@ -91,5 +92,14 @@ router.get(
 	requireAuth,
 	AttendanceController.removeAttendance
 );
+
+router.post(
+	'/api/grades/getGradesListOfGroup',
+	requireAuth,
+	GradesController.getGradesListOfGroup
+);
+router.post('/api/grades/insert', requireAuth, GradesController.insertGrade);
+router.post('/api/grades/update', requireAuth, GradesController.updateGrade);
+router.get('/api/grades/delete/:id', requireAuth, GradesController.deleteGrade);
 
 export default router;

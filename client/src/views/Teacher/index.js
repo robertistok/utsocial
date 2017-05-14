@@ -10,14 +10,7 @@ import { Wrapper, Content } from '../wrappers';
 
 const ForOhFor = () => <h1>No match found</h1>;
 
-const links = [
-  'home',
-  'courses',
-  'messages',
-  'schedules',
-  'performance',
-  'settings'
-];
+const links = ['home', 'courses', 'messages', 'schedules', 'settings'];
 
 const Teacher = () => (
   <Wrapper>
@@ -29,7 +22,6 @@ const Teacher = () => (
         <Route path="/courses" component={TeachersCourses} />
         <Route path="/messages" component={Messages} />
         <Route path="/schedules" component={Schedule} />
-        <Route path="/performance" render={() => <h1>TeacherPerformance</h1>} />
         <Route path="/settings" render={() => <h1>TeacherSettings</h1>} />
         <Route component={ForOhFor} />
       </Switch>

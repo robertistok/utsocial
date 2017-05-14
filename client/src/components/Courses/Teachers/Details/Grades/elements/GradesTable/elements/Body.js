@@ -6,10 +6,9 @@ import StudentRow from './StudentRow';
 const Body = (props) => {
   const {
     students,
-    dates,
-    attendanceList,
-    addAttendance,
-    removeAttendance
+    types,
+    gradesList,
+    numberOfGrades
   } = props;
 
   return (
@@ -26,7 +25,14 @@ const Body = (props) => {
           return 0;
         })
         .map((student, index) => (
-          <StudentRow key={student._id} index={index} {...student} />
+          <StudentRow
+            key={student._id}
+            index={index}
+            types={types}
+            gradesList={gradesList[student._id]}
+            numberOfGrades={numberOfGrades}
+            {...student}
+          />
         ))}
     </Table.Body>
   );

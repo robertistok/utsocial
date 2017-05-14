@@ -5,44 +5,42 @@ import AttendanceContainer from './Attendance';
 import GradesContainer from './Grades';
 
 const Details = (props) => {
-  const { toggleAccordionElements, courses } = props;
+  const { courses, selectedCourse } = props;
 
   return (
-    <Accordion styled fluid exclusive={false}>
-      <AttendanceContainer
-        onClick={() => toggleAccordionElements('attendance')}
-        active={courses.activeAccordionElements.includes('attendance')}
-      />
-      <GradesContainer
-        onClick={() => toggleAccordionElements('grades')}
-        active={courses.activeAccordionElements.includes('grades')}
-      />
+    <div>
+      <h1>{selectedCourse.course.name}</h1>
+      <Accordion styled fluid exclusive={false}>
 
-      <Accordion.Title>Notifications</Accordion.Title>
-      <Accordion.Content>
-        <p>
-          A dog is a type of domesticated animal. Known for its loyalty and faithfulness,
-          {' '}
-          it can be found as a welcome guest in many households across the world.
-        </p>
-      </Accordion.Content>
-      <Accordion.Title>Materials</Accordion.Title>
-      <Accordion.Content>
-        <p>
-          A dog is a type of domesticated animal. Known for its loyalty and faithfulness,
-          {' '}
-          it can be found as a welcome guest in many households across the world.
-        </p>
-      </Accordion.Content>
-      <Accordion.Title>Notes</Accordion.Title>
-      <Accordion.Content>
-        <p>
-          A dog is a type of domesticated animal. Known for its loyalty and faithfulness,
-          {' '}
-          it can be found as a welcome guest in many households across the world.
-        </p>
-      </Accordion.Content>
-    </Accordion>
+        <AttendanceContainer />
+        <GradesContainer />
+
+        <Accordion.Title>Notifications</Accordion.Title>
+        <Accordion.Content>
+          <p>
+            A dog is a type of domesticated animal. Known for its loyalty and faithfulness,
+            {' '}
+            it can be found as a welcome guest in many households across the world.
+          </p>
+        </Accordion.Content>
+        <Accordion.Title>Materials</Accordion.Title>
+        <Accordion.Content>
+          <p>
+            A dog is a type of domesticated animal. Known for its loyalty and faithfulness,
+            {' '}
+            it can be found as a welcome guest in many households across the world.
+          </p>
+        </Accordion.Content>
+        <Accordion.Title>Notes</Accordion.Title>
+        <Accordion.Content>
+          <p>
+            A dog is a type of domesticated animal. Known for its loyalty and faithfulness,
+            {' '}
+            it can be found as a welcome guest in many households across the world.
+          </p>
+        </Accordion.Content>
+      </Accordion>
+    </div>
   );
 };
 

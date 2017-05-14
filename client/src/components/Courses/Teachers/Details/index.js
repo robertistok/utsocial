@@ -4,13 +4,8 @@ import { bindActionCreators } from 'redux';
 
 import Details from './Details';
 import * as courseActions from '../../../../redux/courses';
-import { getDatesForSchedules } from '../../../../utils/date';
 
 class DetailsContainer extends Component {
-  componentDidMount() {
-    // this.props.getCourseInfo(code, _id);
-  }
-
   componentWillUnmount() {
     this.props.resetCourses();
   }
@@ -21,6 +16,7 @@ class DetailsContainer extends Component {
 
 const mapStateToProps = state => ({
   courses: state.courses,
+  selectedCourse: state.courses.selectedCourse,
   attendance: state.attendance
 });
 

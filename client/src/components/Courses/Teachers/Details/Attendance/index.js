@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { compose } from 'recompose';
 
 import Attendance from './Attendance';
 import * as attendanceActions from '../../../../../redux/attendance';
+import { withToggle } from '../../../../hocs';
 
 class AttendanceContainer extends Component {
   componentWillUnmount() {
@@ -24,6 +26,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ ...attendanceActions }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  AttendanceContainer
+const enhance = compose(
+  withToggle,
+  connect(mapStateToProps, mapDispatchToProps)
 );
+
+export default enhance(AttendanceContainer);

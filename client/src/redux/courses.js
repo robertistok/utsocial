@@ -2,19 +2,11 @@ import axios from 'axios';
 
 const ROOT_URL = '/api/courses';
 
-const TOGGLE_ACCORDION_ELEMENTS = 'redux/courses/toggle-accordion-elements';
 const RESET_COURSES = 'redux/courses/reset-courses';
 
 const SELECT_COURSE_AND_FETCH_GROUPS = 'redux/courses/fetch-groups-of-course';
 const SELECT_COURSE_AND_FETCH_GROUPS_SUCCESS = 'redux/courses/select-course-and-fetch-groups-success';
 const SELECT_COURSE_AND_FETCH_GROUPS_ERROR = 'redux/courses/select-course-and-fetch-groups-error';
-
-export function toggleAccordionElements(item) {
-  return {
-    type: TOGGLE_ACCORDION_ELEMENTS,
-    payload: item
-  };
-}
 
 export function selectCourse(course) {
   const { lang, _id } = course;
@@ -63,17 +55,6 @@ const INITIAL_STATE = {
 export default function (state = INITIAL_STATE, action) {
   let error;
   switch (action.type) {
-    case TOGGLE_ACCORDION_ELEMENTS:
-      return {
-        ...state,
-        activeAccordionElements: state.activeAccordionElements.find(
-          item => item === action.payload
-        ) === undefined
-          ? [...state.activeAccordionElements, action.payload]
-          : state.activeAccordionElements.filter(
-              item => item !== action.payload
-            )
-      };
     case SELECT_COURSE_AND_FETCH_GROUPS:
       return { ...state, loading: true };
     case SELECT_COURSE_AND_FETCH_GROUPS_SUCCESS:

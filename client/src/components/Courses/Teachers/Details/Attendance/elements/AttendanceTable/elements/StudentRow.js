@@ -9,7 +9,7 @@ class StudentRow extends Component {
     return moment(date, 'DD/MM').isBefore(moment());
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps) {
     return nextProps.attendanceList.length !== this.props.attendanceList.length;
   }
 

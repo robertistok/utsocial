@@ -1,25 +1,99 @@
 import React from 'react';
 import { Table } from 'semantic-ui-react';
+import styled from 'styled-components';
+
+import plusIcon from '../../../../../../../../../public/plus.svg';
+import {
+  capitalizeFirstLetter
+} from '../../../../../../../../utils/string-operations';
 
 const Header = (props) => {
-  const { types, cellDescription, isNumbered } = props;
+  const {
+    types,
+    cellDescription,
+    isNumbered,
+    numberOfGrades,
+    addColumnGrade
+  } = props;
 
   return (
     <Table.Header>
       <Table.Row>
-        {isNumbered && <Table.HeaderCell rowSpan="2">Nr.</Table.HeaderCell>}
-        <Table.HeaderCell rowSpan="2">{cellDescription}</Table.HeaderCell>
-        {types.map(type => (
-          <Table.HeaderCell key={type}>{type}</Table.HeaderCell>
-        ))}
+        {isNumbered &&
+          <Table.HeaderCell
+            rowSpan="2"
+            textAlign="center"
+            verticalAlign="middle"
+            content={'Nr'}
+          />}
+        <Table.HeaderCell
+          rowSpan="2"
+          textAlign="center"
+          verticalAlign="middle"
+          content={cellDescription}
+        />
+        {types.map((type) => {
+          const numOfReasons = (numberOfGrades[type] && numberOfGrades[type]) ||
+            1;
+          return (
+            <TypeCell
+              key={type}
+              colSpan={numOfReasons}
+              textAlign="center"
+              singleLine
+            >
+              <Icon src={plusIcon} onClick={() => addColumnGrade(type)} />
+              {capitalizeFirstLetter(type)}
+            </TypeCell>
+          );
+        })}
+        <TypeCell
+          rowSpan="2"
+          content="Final"
+          textAlign="center"
+          verticalAlign="middle"
+        />
       </Table.Row>
 
       <Table.Row>
-        <Table.HeaderCell>Grade</Table.HeaderCell>
-        <Table.HeaderCell>Grade</Table.HeaderCell>
+        {types.map((type) => {
+          if (numberOfGrades[type] !== undefined) {
+            let index = 1;
+            const grades = [];
+            while (index <= numberOfGrades[type]) {
+              grades.push(
+                <Table.HeaderCell
+                  key={type + index}
+                  textAlign="center"
+                  content={`${index}.`}
+                />
+              );
+              index += 1;
+            }
+            return grades;
+          }
+          return (
+            <Table.HeaderCell
+              key={`${type}first`}
+              textAlign="center"
+              content="1."
+            />
+          );
+        })}
       </Table.Row>
     </Table.Header>
   );
 };
+
+const Icon = styled.img`
+	display: inline-block;
+	height: 14px;
+	width: 14px;
+	margin-right: 10px;
+`;
+
+const TypeCell = styled(Table.HeaderCell)`
+	min-width: 100px;
+`;
 
 export default Header;

@@ -3,7 +3,7 @@ import { Form } from 'semantic-ui-react';
 
 const Filter = (props) => {
   const { courses: { selectedCourse }, selectedGroup } = props;
-  const { changeGroup } = props;
+  const { changeGroup, fetchGrades } = props;
 
   const groupOptions = selectedCourse.groups.map(group => ({
     key: group._id,
@@ -17,7 +17,10 @@ const Filter = (props) => {
         <Form.Select
           options={groupOptions}
           placeholder="Group"
-          onChange={(e, { value }) => changeGroup(value)}
+          onChange={(e, { value }) => {
+            changeGroup(value);
+            fetchGrades(value, selectedCourse.course._id);
+          }}
           value={selectedGroup}
         />
       </Form.Group>

@@ -27,14 +27,18 @@ class AttendanceItem extends Component {
         onClick={onClick}
         textAlign="center"
       >
-        {isBeforeToday ? hasAttendance ? 'pres' : 'abs' : ''}
+        <span>
+          {isBeforeToday ? hasAttendance ? 'pres' : 'abs' : ''}
+        </span>
       </StyledCell>
     );
   }
 }
 
 const StyledCell = styled(Table.Cell)`
-
+	&:hover {
+		cursor: pointer;
+	}
 `;
 
 export default AttendanceItem;

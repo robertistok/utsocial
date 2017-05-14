@@ -7,17 +7,13 @@ const GradeSchema = new Schema({
 		type: Date,
 		default: Date.now
 	},
-	enteredFor: {
-		type: Date,
-		default: Date.now,
-		required: true
-	},
 	grade: {
 		type: Number,
 		min: [1, '1 is the minimum grade you can assign'],
 		max: [10, '10 is the maximum grade you can assign'],
 		required: true
 	},
+	number: Number,
 	course: {
 		type: Schema.Types.ObjectId,
 		ref: 'course',
@@ -29,21 +25,23 @@ const GradeSchema = new Schema({
 		required: true
 	},
 	assignor: {
-		// type: Schema.Types.ObjectId,
-		// ref: 'teacher',
-		type: String,
-		default: 'sysadmin',
+		type: Schema.Types.ObjectId,
+		ref: 'teacher',
 		required: true
 	},
 	type: {
 		type: String,
-		default: 'lecture',
 		required: true,
 		validate: {
 			validator: type =>
-				['lecture', 'lab', 'project', 'seminar'].indexOf(type) > -1,
+				['lecture', 'lab', 'project', 'seminar', 'final'].indexOf(type) > -1,
 			message: 'You can only assign a grade of type lecture, lab, project or seminar'
 		}
+	},
+	group: {
+		type: Schema.Types.ObjectId,
+		ref: 'group',
+		required: true
 	}
 });
 

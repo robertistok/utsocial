@@ -7,8 +7,8 @@ import Body from './elements/Body';
 
 const GradesTable = (props) => {
   const {
-    students,
-    gradesList,
+    numberOfGrades,
+    addColumnGrade,
     selectedCourse: { course }
   } = props;
 
@@ -17,9 +17,15 @@ const GradesTable = (props) => {
     .map(type => type);
 
   return (
-    <StyledTable celled size="small">
-      <Header types={types} cellDescription="Student" isNumbered />
-      <Body students={students} gradesList={gradesList} />
+    <StyledTable celled collapsing structured>
+      <Header
+        types={types}
+        cellDescription="Student"
+        numberOfGrades={numberOfGrades}
+        addColumnGrade={addColumnGrade}
+        isNumbered
+      />
+      <Body {...props} types={types} />
     </StyledTable>
   );
 };
