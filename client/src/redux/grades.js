@@ -243,7 +243,9 @@ export default function (state = INITIAL_STATE, action) {
         ...state,
         numberOfGrades: {
           ...state.numberOfGrades,
-          [action.payload]: state.numberOfGrades[action.payload] + 1
+          [action.payload]: state.numberOfGrades[action.payload] !== undefined
+            ? state.numberOfGrades[action.payload] + 1
+            : 1
         }
       };
 

@@ -9,9 +9,7 @@ const Grades = (props) => {
 
   return (
     <div>
-      <Accordion.Title onClick={toggle} active={toggledOn}>
-        Grades
-      </Accordion.Title>
+      <Accordion.Title onClick={toggle} active={toggledOn} content="Grades" />
       <Accordion.Content active={toggledOn}>
         <Filter {...props} />
         <GradesTableContainer />

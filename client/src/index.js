@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import App from './views/App';
 import { meFromToken } from './redux/auth';
 import './index.css';
-import '../public/background.jpg';
 import '../semantic/dist/semantic.min.css';
 import store from './redux/store';
 

@@ -4,44 +4,71 @@ function getGradesListOfGroup(req, res, next) {
 	const { group, course } = req.body;
 
 	Grade.find({ group, course })
-		.then((gradesList) => {
-			if (gradesList.length === 0) {
+		.then((grades) => {
+			if (grades.length === 0) {
 				return res.send({
 					gradesList: {},
 					numberOfGrades: {}
 				});
 			}
 
-			const orderedStudents = gradesList.reduce((acc, item) => {
-				const { student } = item;
-				const newAcc = { ...acc };
+			const orderedStudents = grades.reduce(
+				(acc, item) => {
+					const { student, type, number } = item;
+					let newAcc = { ...acc };
 
-				if (newAcc[student] === undefined) {
-					return { ...newAcc, [student]: [item] };
-				}
+					if (newAcc.numberOfGrades[type] === undefined) {
+						newAcc = {
+							...newAcc,
+							numberOfGrades: { ...newAcc.numberOfGrades, [type]: number }
+						};
+					} else if (newAcc.numberOfGrades[type] < number) {
+						newAcc = {
+							...newAcc,
+							numberOfGrades: { ...newAcc.numberOfGrades, [type]: number }
+						};
+					}
 
-				return {
-					...newAcc,
-					[student]: [...newAcc[student], item]
-				};
-			}, {});
+					if (newAcc.gradesList[student] === undefined) {
+						newAcc = {
+							...newAcc,
+							gradesList: { ...newAcc.gradesList, [student]: [item] }
+						};
+					} else {
+						console.log(newAcc.gradesList);
 
-			const studentWithTheMostGrades = Object.keys(orderedStudents).sort(
-				(a, b) => orderedStudents[a].length < orderedStudents[b].length
-			)[0];
+						newAcc = {
+							...newAcc,
+							gradesList: {
+								...newAcc.gradesList,
+								[student]: [...newAcc.gradesList[student], item]
+							}
+						};
+					}
 
-			const numberOfGrades = orderedStudents[
-				studentWithTheMostGrades
-			].reduce((acc, grade) => {
-				const { type } = grade;
+					return newAcc;
+				},
+				{ gradesList: {}, numberOfGrades: {} }
+			);
 
-				if (acc[type] === undefined) {
-					return { ...acc, [type]: 1 };
-				}
-				return { ...acc, [type]: acc[type] + 1 };
-			}, {});
+			// const studentWithTheMostGrades = Object.keys(orderedStudents).sort(
+			// 	(a, b) => orderedStudents[a].length < orderedStudents[b].length
+			// )[0];
+			//
+			// const numberOfGrades = orderedStudents[
+			// 	studentWithTheMostGrades
+			// ].reduce((acc, grade) => {
+			// 	const { type } = grade;
+			//
+			// 	if (acc[type] === undefined) {
+			// 		return { ...acc, [type]: 1 };
+			// 	}
+			// 	return { ...acc, [type]: acc[type] + 1 };
+			// }, {});
 
-			return res.send({ gradesList: orderedStudents, numberOfGrades });
+			const { gradesList, numberOfGrades } = orderedStudents;
+
+			return res.send({ gradesList, numberOfGrades });
 		})
 		.catch(err => next(err));
 }
@@ -72,8 +99,6 @@ function deleteGrade(req, res, next) {
 
 function updateGrade(req, res, next) {
 	const { id, assignor, grade } = req.body;
-
-	console.log(id);
 
 	Grade.findOneAndUpdate(
 		{ _id: id },

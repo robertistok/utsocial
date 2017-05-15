@@ -37,6 +37,7 @@ const Wrapper = styled.div`
 	margin: 20px;
 	display: flex;
 	flex-direction: column;
+	background-color: #9068be
 `;
 
 const Header = styled.div`
@@ -49,10 +50,11 @@ const Header = styled.div`
 
 const Title = styled.span`
 	display: inline-block;
+	color: #FFFFFF;
 	height: 60px;
 	width: 100%;
 	font-size: 15px;
-	font-weight: bold;
+	font-weight: normal;
 	padding: 10px 35px 5px 35px;
 	align-self: center;
 	text-align: center;
@@ -62,6 +64,8 @@ const Info = styled.div`
 	display: flex;
 	justify-content: space-between;
 	padding: 0px 35px;
+	color: #FFFFFF;
+	font-weight: lighter;
 `;
 
 const InfoLabel = styled.span`

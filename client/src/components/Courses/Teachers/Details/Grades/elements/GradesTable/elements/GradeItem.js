@@ -14,6 +14,8 @@ class GradeItem extends Component {
 
     this.state = {
       editing: false,
+      focus: false,
+      edited: false,
       pristine: true,
       grade: (gradeObj && gradeObj.grade) || '',
       error: false
@@ -55,6 +57,7 @@ class GradeItem extends Component {
 
     if (!error) {
       if (gradeObj === undefined && newGrade !== '') {
+        this.setState({ edited: true });
         insertGrade({
           grade: newGrade,
           number,
@@ -70,8 +73,10 @@ class GradeItem extends Component {
         (gradeObj.grade !== parseInt(newGrade, 10) ||
           gradeObj.assignor !== assignor)
       ) {
+        this.setState({ edited: true });
         updateGrade(gradeObj._id, student, newGrade, assignor);
       } else if (gradeObj !== undefined && newGrade === '') {
+        this.setState({ edited: true });
         deleteGrade(gradeObj._id, student);
       }
     }
@@ -86,12 +91,16 @@ class GradeItem extends Component {
   }
 
   render() {
+    const { error, editing, edited, grade } = this.state;
     return (
-      <GradeCell error={this.state.error}>
-        {this.state.editing
+      <GradeCell
+        error={error}
+        className={`${editing ? 'editing' : ''} ${edited ? 'edited' : ''}`}
+      >
+        {editing
           ? <GradeInput
-              value={this.state.grade}
-              error={this.state.error}
+              value={grade}
+              error={error}
               onChange={this.onGradeChange}
               onBlur={this.onGradeBlur}
               autoFocus
@@ -101,7 +110,7 @@ class GradeItem extends Component {
               transparent
             />
           : <Grade onClick={this.editGrade}>
-              {this.state.grade === '' ? '-' : this.state.grade}
+              {grade === '' ? '-' : grade}
             </Grade>}
       </GradeCell>
     );
@@ -131,8 +140,6 @@ const mapDispatchToProps = dispatch =>
 
 const GradeCell = styled(Table.Cell)`
 	padding: 0px !important;
-
-	background-color: ${props => props.error ? '#9f3a38' : 'inherit'}
 `;
 
 const GradeInput = styled(Input)`
@@ -146,6 +153,7 @@ const GradeInput = styled(Input)`
 	input {
 		border-radius: 0px !important;
 		text-align: center !important;
+		font-family: Roboto !important;
 	}
 
 	input[type=number]::-webkit-inner-spin-button,
@@ -159,6 +167,11 @@ const Grade = styled.span`
 	display: inline-block;
 	width: 100%;
 	text-align: center;
+	padding: 10px;
+
+	&:hover {
+		cursor: pointer;
+	}
 `;
 
 export default connect(mapStateToProps, mapDispatchToProps)(GradeItem);

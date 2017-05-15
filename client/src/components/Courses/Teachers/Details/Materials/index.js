@@ -3,17 +3,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { compose } from 'recompose';
 
-import Grades from './Grades';
+import Materials from './Materials';
 import * as gradesActions from '../../../../../redux/grades';
 import { withToggle } from '../../../../hocs';
 
-class GradesContainer extends Component {
+class MaterialsContainer extends Component {
   componentWillUnmount() {
-    this.props.resetGrades();
+    // this.props.resetGrades();
   }
 
   render() {
-    return <Grades {...this.props} />;
+    return <Materials {...this.props} />;
   }
 }
 
@@ -31,4 +31,4 @@ const enhance = compose(
   connect(mapStateToProps, mapDispatchToprops)
 );
 
-export default enhance(GradesContainer);
+export default enhance(MaterialsContainer);

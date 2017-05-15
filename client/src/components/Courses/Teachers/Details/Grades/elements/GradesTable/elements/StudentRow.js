@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Table } from 'semantic-ui-react';
+import styled from 'styled-components';
 
 import GradeItem from './GradeItem';
 
@@ -15,7 +16,7 @@ class StudentRow extends Component {
     } = this.props;
 
     return (
-      <Table.Row>
+      <StyledRow>
         <Table.Cell collapsing>{index + 1}</Table.Cell>
         <Table.Cell collapsing>{name}</Table.Cell>
         {types.map((type) => {
@@ -63,9 +64,19 @@ class StudentRow extends Component {
           number={1}
           gradesList={gradesList}
         />
-      </Table.Row>
+      </StyledRow>
     );
   }
 }
+
+const StyledRow = styled(Table.Row)`
+	.editing {
+		background-color: #F8F8F8;
+	}
+
+	.edited {
+		background-color: #E8E8E8;
+	}
+`;
 
 export default StudentRow;

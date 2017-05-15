@@ -10,7 +10,7 @@ import NewThreadContainer from './NewThread/index';
 const Wrapper = styled.div`
 	width: 100%;
 	display: flex;
-	height: 100%;
+	height: 100vh;
 	overflow: auto;
 	border: 1px solid rgba(0, 0, 0, .10);
 `;

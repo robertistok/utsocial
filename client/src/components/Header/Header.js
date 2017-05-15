@@ -1,21 +1,19 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Menu, Image } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import logo from '../../../public/utcnlogo.png';
 import { capitalizeFirstLetter } from '../../utils/string-operations';
-import BreadcrumbsWithRouter from './elements/Breadcrumb';
+// import BreadcrumbsWithRouter from './elements/Breadcrumb';
 import { media } from '../../utils/style-utils';
 
-const HeaderWrapper = styled.header`
+const Wrapper = styled.header`
 	top: 0px;
 	left: 0px;
-	background: #ffffff;
+	background: #6BBAA7;
 
 	.ui.small.secondary.stackable.menu {
 		margin: 0px;
-		background-color: #303F9F;
 		border-radius: 0px;
 		min-height: 50px;
 	}
@@ -33,54 +31,104 @@ const HeaderWrapper = styled.header`
 	}
 `;
 
+const ActionBar = styled.div`
+	height: 50px;
+	display: flex;
+	justify-content: flex-end;
+	padding-top: 10px;
+
+	&:first-child {
+		margin-right: 25px;
+	}
+`;
+
+const LogOutButton = styled(Button)`
+	color: #FFFFFF !important;
+	box-shadow: none !important;
+	background-color: #6BBAA7 !important;
+	font-family: 'Roboto' !important
+	height: min-content;
+
+	&:hover {
+		box-shadow: none !important;
+		color: #e1e8f0 !important;
+	}
+`;
+
+const HeaderWrapper = styled.div`
+	height: 100px;
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+`;
+
 const Title = styled.h5`
-	color: #FFEBEE;
-	background-color: #1A237E;
+	color: #FFFFFF;
 	text-align: left;
-	padding: 5px 0px;
-	padding-left: 15px;
-	margin-left: 80px;
+	padding: 10px 0px 20px 25px;
 	margin-top: 0px;
-	height: 30px;
 	margin-bottom: 0px;
-	font-size: 1em;
+	font-size: 3em;
+	height: min-content;
 
 	${media.tablet`margin-left: initial`}
 `;
 
-const Logo = styled(Image)`
-	float: left;
-	position: relative;
-	margin: 10px;
-	width: 60px;
-	height: 60px;
+// const MenuItem = styled(Menu.Item)`
+// 	color: #FFFFFF !important;
+// 	padding: 15px 35px;
+// 	border-bottom: 1px solid grey;
+// 	text-align: center;
+// 	height: 50px;
+//
+// 	${media.tablet`height: initial;`}
+//
+// 	&:hover {
+// 		border-bottom: 1px solid #FF5722;
+// 		color: #FFFFFF;
+// 	}
+// `;
 
-	${media.tablet`display: none !important`}
+const Menu = styled.div`
+	display: flex;
+	flex-wrap: wrap;
 
+	.active {
+		border-bottom: 2px solid #e1e8f0;
+		color: #e1e8f0;
+	}
 `;
 
-const MenuItem = styled(Menu.Item)`
-	color: #bdbdbd !important;
-	padding: 15px 35px;
-	border-bottom: 1px solid grey;
+const MenuItem = styled(NavLink)`
+	color: #FFFFFF;
 	text-align: center;
 	height: 50px;
-
-	${media.tablet`height: initial;`}
+	padding: 10px 20px 25px 10px;
+	border-bottom: 1px solid #6BBAA7;
 
 	&:hover {
-		border-bottom: 1px solid #FF5722;
-		color: #e0e0e0;
+		color: #e1e8f0;
 	}
 `;
 
 const Header = props => (
-  <HeaderWrapper className="header">
-    <Logo src={logo} />
-    <Title>
-      Automation and Computer Science Department
-    </Title>
-    <Menu stackable secondary size="small">
+  <Wrapper>
+    <ActionBar>
+      <LogOutButton onClick={props.logOutUser}>Log out</LogOutButton>
+    </ActionBar>
+
+    <HeaderWrapper>
+      <Title>UTSocial</Title>
+    </HeaderWrapper>
+
+    <Menu>
+      {props.links.map(link => (
+        <MenuItem to={`/${link}`} key={link}>
+          {capitalizeFirstLetter(link)}
+        </MenuItem>
+      ))}
+    </Menu>
+    {/* <Menu secondary size="small">
       {props.links.map(link => (
         <MenuItem as={NavLink} to={`/${link}`} key={link}>
           {capitalizeFirstLetter(link)}
@@ -91,9 +139,9 @@ const Header = props => (
           Log out
         </MenuItem>
       </Menu.Menu>
-    </Menu>
-    <BreadcrumbsWithRouter />
-  </HeaderWrapper>
+    </Menu> */}
+    {/* <BreadcrumbsWithRouter /> */}
+  </Wrapper>
 );
 
 export default Header;

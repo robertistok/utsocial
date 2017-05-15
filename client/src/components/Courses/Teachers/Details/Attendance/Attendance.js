@@ -10,9 +10,12 @@ const Attendance = (props) => {
 
   return (
     <div>
-      <Accordion.Title onClick={toggle} active={toggledOn}>
-        Attendance
-      </Accordion.Title>
+      <Accordion.Title
+        onClick={toggle}
+        active={toggledOn}
+        content="Attendance"
+      />
+
       <Accordion.Content active={toggledOn}>
         <Filter {...props} />
         <AttendanceTableContainer />
