@@ -1,35 +1,91 @@
 import React from 'react';
-import { Segment, Message } from 'semantic-ui-react';
+import { Segment, Button } from 'semantic-ui-react';
 import styled from 'styled-components';
 
+import { withToggle } from '../../../../../hocs';
 import {
   capitalizeFirstLetter
 } from '../../../../../../utils/string-operations';
-import plusIcon from '../../../../../../../public/plus.svg';
+
+import NewMaterial from './NewMaterial';
 
 const MaterialType = (props) => {
-  const { type } = props;
-  const items = [];
+  const { type, toggle, toggledOn } = props;
+  const materialList = [];
 
   return (
-    <Segment>
-      <Message>
-        <Message.Header>
-          {capitalizeFirstLetter(type)}
-          {' '}
-          <Icon src={plusIcon} onClick={() => console.log('amen')} />
-        </Message.Header>
-        <Message.List items={items} />
-      </Message>
-    </Segment>
+    <Wrapper>
+      <Header>
+        <Type>{capitalizeFirstLetter(type)}</Type>
+        {toggledOn
+          ? <StyledButton
+              size="mini"
+              content="Cancel"
+              icon="minus"
+              labelPosition="left"
+              negative
+              onClick={toggle}
+            />
+          : <StyledButton
+              size="mini"
+              content="Add new"
+              icon="plus"
+              labelPosition="left"
+              positive
+              onClick={toggle}
+            />}
+      </Header>
+      <Body>
+        {!toggledOn &&
+          materialList.length === 0 &&
+          <InfoMessage>No materials so far...</InfoMessage>}
+        {toggledOn && <NewMaterial />}
+      </Body>
+    </Wrapper>
   );
 };
 
-const Icon = styled.img`
-	display: inline-block;
-	height: 14px;
-	width: 14px;
-	margin-right: 10px;
+const Wrapper = styled(Segment)`
+	display: flex;
+	flex-direction: column;
 `;
 
-export default MaterialType;
+const Header = styled.div`
+	display: flex;
+	height: 50px;
+	margin-top: 20px;
+
+	&:first-child {
+		margin-left: 20px;
+	}
+`;
+
+const Type = styled.span`
+	width: 50px;
+`;
+
+const InfoMessage = styled.span`
+	display: block;
+	width: 100%;
+	padding: 100px;
+	text-align: center;
+	font-size: 16px;
+	font-weight: lighter;
+`;
+
+const StyledButton = styled(Button)`
+	height: 20px;
+	width: 100px;
+	margin-left: 10px !important;
+	padding: 0px !important;
+`;
+
+const Body = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+	margin-bottom: 20px;
+	min-height: 300px;
+`;
+
+export default withToggle(MaterialType);

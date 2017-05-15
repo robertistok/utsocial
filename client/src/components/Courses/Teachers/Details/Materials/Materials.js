@@ -1,5 +1,7 @@
 import React from 'react';
-import { Accordion, Segment, Message } from 'semantic-ui-react';
+import { Accordion } from 'semantic-ui-react';
+
+import { StyledAccordionTitle } from '../elements/styled';
 
 import MaterialType from './elements/MaterialType';
 
@@ -12,7 +14,7 @@ const Materials = (props) => {
 
   return (
     <div>
-      <Accordion.Title
+      <StyledAccordionTitle
         onClick={toggle}
         active={toggledOn}
         content="Materials"
@@ -22,9 +24,8 @@ const Materials = (props) => {
 
         {course.teachingTypes !== undefined &&
           Object.keys(course.teachingTypes)
-					.filter(type => course.teachingTypes[type] === true)
-					.map(type => <MaterialType key={type} type={type} />)}
-
+            .filter(type => course.teachingTypes[type] === true)
+            .map(type => <MaterialType key={type} type={type} />)}
       </Accordion.Content>
     </div>
   );

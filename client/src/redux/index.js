@@ -11,6 +11,7 @@ import messagesReducer from './messages';
 import coursesReducer from './courses';
 import attendanceReducer from './attendance';
 import gradesReducer from './grades';
+import materialsReducer from './materials';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -23,7 +24,8 @@ const rootReducer = combineReducers({
   messages: messagesReducer,
   courses: coursesReducer,
   attendance: attendanceReducer,
-  grades: gradesReducer
+  grades: gradesReducer,
+  materials: materialsReducer
 });
 
 export default rootReducer;

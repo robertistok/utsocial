@@ -3,14 +3,14 @@ import { Accordion } from 'semantic-ui-react';
 
 import Filter from './elements/Filter';
 import AttendanceTableContainer from './elements/AttendanceTable/index';
-import { withToggle } from '../../../../hocs';
+import { StyledAccordionTitle } from '../elements/styled';
 
 const Attendance = (props) => {
   const { toggledOn, toggle } = props;
 
   return (
     <div>
-      <Accordion.Title
+      <StyledAccordionTitle
         onClick={toggle}
         active={toggledOn}
         content="Attendance"

@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { compose } from 'recompose';
 
 import Materials from './Materials';
-import * as gradesActions from '../../../../../redux/grades';
+import * as materialsActions from '../../../../../redux/materials';
 import { withToggle } from '../../../../hocs';
 
 class MaterialsContainer extends Component {
@@ -20,11 +20,12 @@ class MaterialsContainer extends Component {
 const mapStateToProps = state => ({
   courses: state.courses,
   selectedCourse: state.courses.selectedCourse,
-  selectedGroup: state.grades.selectedGroup
+  selectedGroup: state.grades.selectedGroup,
+  materials: state.materials
 });
 
 const mapDispatchToprops = dispatch =>
-  bindActionCreators({ ...gradesActions }, dispatch);
+  bindActionCreators({ ...materialsActions }, dispatch);
 
 const enhance = compose(
   withToggle,
