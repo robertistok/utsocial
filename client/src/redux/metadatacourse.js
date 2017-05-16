@@ -62,13 +62,13 @@ export function addMaterial(id, lang, type, link, description) {
   };
 }
 
-export function updateMaterial(id, lang, materialID, link, description) {
+export function updateMaterial(materialID, courseID, lang, link, description) {
   return (dispatch) => {
     dispatch({ type: UPDATE_MATERIAL });
     axios({
       method: 'post',
       url: '/api/courses/meta/updateMaterial',
-      data: { id, lang, materialID, link, description },
+      data: { materialID, courseID, lang, link, description },
       headers: {
         authorization: sessionStorage.getItem('token')
       }
@@ -96,7 +96,7 @@ export function deleteMaterial(id, lang, materialID) {
     })
       .then(() => {
         dispatch({
-          type: UPDATE_MATERIAL_SUCCESS,
+          type: DELETE_MATERIAL_SUCCESS,
           payload: materialID
         });
       })
@@ -123,7 +123,9 @@ export default function (state = INITIAL_STATE, action) {
     case GET_METADATA_SUCCESS:
       return {
         ...state,
-        materials: action.payload.materials,
+        materials: action.payload.materials.sort(
+          (a, b) => a.enteredOn < b.enteredOn
+        ),
         description: action.payload.description,
         loading: false
       };
@@ -148,12 +150,14 @@ export default function (state = INITIAL_STATE, action) {
     case UPDATE_MATERIAL_SUCCESS:
       return {
         ...state,
-        materials: state.materials.map(
-          material =>
-            material._id === action.payload.id
-              ? action.payload.newMaterial
-              : material
-        ),
+        materials: state.materials
+          .map(
+            material =>
+              material._id === action.payload.id
+                ? action.payload.newMaterial
+                : material
+          )
+          .sort((a, b) => a.enteredOn < b.enteredOn),
         loading: false
       };
     case UPDATE_MATERIAL_ERROR:

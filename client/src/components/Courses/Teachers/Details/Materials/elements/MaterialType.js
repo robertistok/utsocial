@@ -1,7 +1,8 @@
 import React from 'react';
-import { Segment, Button } from 'semantic-ui-react';
+import { Segment } from 'semantic-ui-react';
 import styled from 'styled-components';
 
+import { StyledButton } from './styled-components';
 import { withToggle } from '../../../../../hocs';
 import {
   capitalizeFirstLetter
@@ -9,11 +10,10 @@ import {
 import { media } from '../../../../../../utils/style-utils';
 
 import NewMaterialContainer from './NewMaterial/index';
-import MaterialCard from './MaterialCard';
+import MaterialCardContainer from './MaterialCard/index';
 
 const MaterialType = (props) => {
-  const { type, toggle, toggledOn, materials } = props;
-  console.log(props);
+  const { type, toggle, toggledOn, materials, loggedInUser } = props;
 
   const renderMaterials = (materials) => {
     const filteredByType = materials.filter(material => material.type === type);
@@ -22,7 +22,11 @@ const MaterialType = (props) => {
     }
 
     return filteredByType.map(material => (
-      <MaterialCard key={material._id} {...material} />
+      <MaterialCardContainer
+        key={material._id}
+        material={material}
+        type={type}
+      />
     ));
   };
 
@@ -30,23 +34,25 @@ const MaterialType = (props) => {
     <Wrapper>
       <Header>
         <Type>{capitalizeFirstLetter(type)}</Type>
-        {toggledOn
-          ? <StyledButton
-              size="mini"
-              content="Cancel"
-              icon="minus"
-              labelPosition="left"
-              negative
-              onClick={toggle}
-            />
-          : <StyledButton
-              size="mini"
-              content="Add new"
-              icon="plus"
-              labelPosition="left"
-              positive
-              onClick={toggle}
-            />}
+        {loggedInUser.type === 'teacher'
+          ? toggledOn
+              ? <StyledButton
+                  size="mini"
+                  content="Cancel"
+                  icon="minus"
+                  labelPosition="left"
+                  negative
+                  onClick={toggle}
+                />
+              : <StyledButton
+                  size="mini"
+                  content="Add new"
+                  icon="plus"
+                  labelPosition="left"
+                  positive
+                  onClick={toggle}
+                />
+          : null}
       </Header>
       {toggledOn && <NewMaterialContainer type={type} toggle={toggle} />}
       <Body>
@@ -80,13 +86,6 @@ const InfoMessage = styled.span`
 	text-align: center;
 	font-size: 16px;
 	font-weight: lighter;
-`;
-
-const StyledButton = styled(Button)`
-	height: 20px;
-	width: 100px;
-	padding: 0px !important;
-	margin-right: 0px !important;
 `;
 
 const Body = styled.div`

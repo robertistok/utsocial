@@ -24,6 +24,7 @@ class MaterialsContainer extends Component {
 }
 
 const mapStateToProps = state => ({
+  loggedInUser: state.auth.user,
   courses: state.courses,
   selectedCourse: state.courses.selectedCourse,
   selectedGroup: state.grades.selectedGroup,

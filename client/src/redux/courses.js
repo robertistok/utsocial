@@ -64,7 +64,6 @@ export default function (state = INITIAL_STATE, action) {
         loading: false
       };
     case SELECT_COURSE_AND_FETCH_GROUPS_ERROR:
-      console.log(action.payload);
       error = action.payload || { message: action.payload.message };
       return { ...state, loading: false, error };
     case RESET_COURSES:

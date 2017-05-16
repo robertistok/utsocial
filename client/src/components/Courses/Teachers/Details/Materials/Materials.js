@@ -10,7 +10,8 @@ const Materials = (props) => {
     toggledOn,
     toggle,
     selectedCourse: { course },
-    materials
+    materials,
+    loggedInUser
   } = props;
 
   return (
@@ -24,9 +25,14 @@ const Materials = (props) => {
       <Accordion.Content active={toggledOn}>
         {course.teachingTypes !== undefined &&
           Object.keys(course.teachingTypes)
-            .filter(type => course.teachingTypes[type] === true)
-            .map(type => (
-              <MaterialType key={type} type={type} materials={materials} />
+					.filter(type => course.teachingTypes[type] === true)
+					.map(type => (
+						<MaterialType
+                key={type}
+                type={type}
+                materials={materials}
+                loggedInUser={loggedInUser}
+              />
             ))}
       </Accordion.Content>
     </div>

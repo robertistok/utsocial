@@ -38,7 +38,7 @@ const ActionBar = styled.div`
 	padding-top: 10px;
 
 	&:first-child {
-		margin-right: 25px;
+		padding-right: 25px;
 	}
 `;
 
@@ -104,7 +104,6 @@ const MenuItem = styled(NavLink)`
 	text-align: center;
 	height: 50px;
 	padding: 10px 20px 25px 10px;
-	border-bottom: 1px solid #6BBAA7;
 
 	&:hover {
 		color: #e1e8f0;
