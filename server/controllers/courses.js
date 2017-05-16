@@ -46,6 +46,104 @@ function getCourseGroups(req, res, next) {
 		.catch(err => next(err));
 }
 
+function getMetaData(req, res, next) {
+	const { courseID, lang } = req.params;
+
+	Course.findOne({ _id: courseID }, 'meta')
+		.then((course) => {
+			const { meta } = course;
+
+			const required = course.meta.indexOf(
+				meta.find(item => item.lang === lang)
+			);
+
+			if (required < 0) {
+				return res.send({ materials: [], description: '' });
+			}
+
+			return res.send({
+				materials: course.meta[required].materials,
+				description: course.meta[required].description
+			});
+		})
+		.catch(err => next(err));
+}
+
+function addMaterial(req, res, next) {
+	const { id, lang, type, link, description } = req.body;
+
+	Course.findOne({ _id: id }, 'meta').then((course) => {
+		const { meta } = course;
+
+		let required = course.meta.indexOf(meta.find(item => item.lang === lang));
+
+		if (required < 0) {
+			course.meta.push({ lang, materials: [{ type, link, description }] });
+		} else {
+			course.meta[required].materials.push({
+				type,
+				link,
+				description
+			});
+		}
+
+		required = course.meta.indexOf(meta.find(item => item.lang === lang));
+
+		course
+			.save()
+			.then(course =>
+				res.send({
+					newMaterial: course.meta[required].materials.slice(-1).pop()
+				})
+			)
+			.catch(err => next(err));
+	});
+}
+
+function updateMaterial(req, res, next) {
+	const { id, lang, materialID, link, description } = req.body;
+
+	Course.findOne({ _id: id }, 'meta').then((course) => {
+		const { meta } = course;
+
+		meta[lang] = {
+			...meta[lang],
+			materials: meta[lang].materials.map(
+				material =>
+					(material._id === materialID
+						? { _id: materialID, link, description }
+						: material)
+			)
+		};
+
+		course.save().then(meta => res.send(meta)).catch(err => next(err));
+	});
+}
+
+function deleteMaterial(req, res, next) {
+	const { id, lang, materialID } = req.body;
+
+	Course.findOne({ _id: id }, 'meta').then((course) => {
+		const { meta } = course;
+
+		meta[lang] = {
+			...meta[lang],
+			materials: meta[lang].materials.filter(
+				material => material._id !== materialID
+			)
+		};
+
+		course
+			.save()
+			.then(() => res.send({ message: 'success' }))
+			.catch(err => next(err));
+	});
+}
+
 module.exports = {
-	getCourseGroups
+	getCourseGroups,
+	getMetaData,
+	addMaterial,
+	updateMaterial,
+	deleteMaterial
 };

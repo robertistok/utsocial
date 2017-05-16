@@ -6,12 +6,23 @@ import { withToggle } from '../../../../../hocs';
 import {
   capitalizeFirstLetter
 } from '../../../../../../utils/string-operations';
-
 import NewMaterial from './NewMaterial';
+import MaterialCard from './MaterialCard';
 
 const MaterialType = (props) => {
-  const { type, toggle, toggledOn } = props;
-  const materialList = [];
+  const { type, toggle, toggledOn, materials } = props;
+  const { handleNewMaterialSubmit } = props;
+
+  const renderMaterials = (materials) => {
+    const filteredByType = materials.filter(material => material.type === type);
+    if (filteredByType.length === 0) {
+      return <InfoMessage>No materials so far...</InfoMessage>;
+    }
+
+    return filteredByType.map(material => (
+      <MaterialCard key={material._id} {...material} />
+    ));
+  };
 
   return (
     <Wrapper>
@@ -36,10 +47,13 @@ const MaterialType = (props) => {
             />}
       </Header>
       <Body>
-        {!toggledOn &&
-          materialList.length === 0 &&
-          <InfoMessage>No materials so far...</InfoMessage>}
-        {toggledOn && <NewMaterial />}
+        {toggledOn &&
+          <NewMaterial
+            type={type}
+            onSubmit={handleNewMaterialSubmit}
+            toggle={toggle}
+          />}
+        {renderMaterials(materials)}
       </Body>
     </Wrapper>
   );
@@ -83,9 +97,10 @@ const StyledButton = styled(Button)`
 const Body = styled.div`
 	display: flex;
 	flex-wrap: wrap;
-	flex-direction: column;
+	flex-direction: row;
 	margin-bottom: 20px;
 	min-height: 300px;
+	justify-content: center;
 `;
 
 export default withToggle(MaterialType);

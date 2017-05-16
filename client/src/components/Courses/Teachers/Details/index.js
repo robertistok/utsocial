@@ -10,6 +10,15 @@ class DetailsContainer extends Component {
     this.props.resetCourses();
   }
   render() {
+    const { selectedCourse } = this.props;
+
+    if (
+      selectedCourse.lang === undefined &&
+      selectedCourse.course._id === undefined
+    ) {
+      return null;
+    }
+
     return <Details {...this.props} />;
   }
 }

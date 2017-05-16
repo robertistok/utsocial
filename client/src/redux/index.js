@@ -11,7 +11,7 @@ import messagesReducer from './messages';
 import coursesReducer from './courses';
 import attendanceReducer from './attendance';
 import gradesReducer from './grades';
-import materialsReducer from './materials';
+import metadatacourseReducer from './metadatacourse';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -25,7 +25,7 @@ const rootReducer = combineReducers({
   courses: coursesReducer,
   attendance: attendanceReducer,
   grades: gradesReducer,
-  materials: materialsReducer
+  metadatacourse: metadatacourseReducer
 });
 
 export default rootReducer;

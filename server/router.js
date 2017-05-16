@@ -48,6 +48,26 @@ router.get(
 	requireAuth,
 	CoursesController.getCourseGroups
 );
+router.get(
+	'/api/courses/meta/get/:courseID/:lang',
+	requireAuth,
+	CoursesController.getMetaData
+);
+router.post(
+	'/api/courses/meta/addMaterial',
+	requireAuth,
+	CoursesController.addMaterial
+);
+router.post(
+	'/api/courses/meta/deleteMaterial',
+	requireAuth,
+	CoursesController.deleteMaterial
+);
+router.post(
+	'/api/courses/meta/updateMaterial',
+	requireAuth,
+	CoursesController.updateMaterial
+);
 
 router.get(
 	'/api/messages/:username',
