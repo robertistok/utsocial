@@ -6,12 +6,14 @@ import { withToggle } from '../../../../../hocs';
 import {
   capitalizeFirstLetter
 } from '../../../../../../utils/string-operations';
-import NewMaterial from './NewMaterial';
+import { media } from '../../../../../../utils/style-utils';
+
+import NewMaterialContainer from './NewMaterial/index';
 import MaterialCard from './MaterialCard';
 
 const MaterialType = (props) => {
   const { type, toggle, toggledOn, materials } = props;
-  const { handleNewMaterialSubmit } = props;
+  console.log(props);
 
   const renderMaterials = (materials) => {
     const filteredByType = materials.filter(material => material.type === type);
@@ -46,13 +48,8 @@ const MaterialType = (props) => {
               onClick={toggle}
             />}
       </Header>
+      {toggledOn && <NewMaterialContainer type={type} toggle={toggle} />}
       <Body>
-        {toggledOn &&
-          <NewMaterial
-            type={type}
-            onSubmit={handleNewMaterialSubmit}
-            toggle={toggle}
-          />}
         {renderMaterials(materials)}
       </Body>
     </Wrapper>
@@ -66,12 +63,10 @@ const Wrapper = styled(Segment)`
 
 const Header = styled.div`
 	display: flex;
-	height: 50px;
-	margin-top: 20px;
-
-	&:first-child {
-		margin-left: 20px;
-	}
+	height: 30px;
+	margin-top: 30px;
+	align-self: center;
+	padding: 0px 25px;
 `;
 
 const Type = styled.span`
@@ -90,17 +85,19 @@ const InfoMessage = styled.span`
 const StyledButton = styled(Button)`
 	height: 20px;
 	width: 100px;
-	margin-left: 10px !important;
 	padding: 0px !important;
+	margin-right: 0px !important;
 `;
 
 const Body = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;
-	margin-bottom: 20px;
-	min-height: 300px;
-	justify-content: center;
+	margin-top: 30px;
+	margin-bottom: 30px;
+
+	${media.tablet`justify-content: center`}
+
 `;
 
 export default withToggle(MaterialType);
