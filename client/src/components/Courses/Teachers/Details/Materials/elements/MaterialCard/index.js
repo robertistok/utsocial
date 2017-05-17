@@ -13,8 +13,11 @@ class MaterialCardContainer extends Component {
   constructor(props) {
     super(props);
 
+    this.state = { showButtons: false };
+
     this.handleCardEdit = this.handleCardEdit.bind(this);
     this.handleCardDelete = this.handleCardDelete.bind(this);
+    this.showActionButtons = this.showActionButtons.bind(this);
   }
 
   shouldComponentUpdate(nextProps) {
@@ -37,12 +40,19 @@ class MaterialCardContainer extends Component {
 
     this.props.deleteMaterial(courseID, lang, materialID);
   }
+
+  showActionButtons() {
+    this.setState({ showButtons: true });
+  }
+
   render() {
     return (
       <MaterialCard
         {...this.props}
         handleCardEdit={this.handleCardEdit}
         handleCardDelete={this.handleCardDelete}
+        showActionButtons={this.showActionButtons}
+        showButtons
       />
     );
   }

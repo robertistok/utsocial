@@ -1,20 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Modal } from 'semantic-ui-react';
 
 import { StyledButton } from '../styled-components';
 import MaterialForm from '../MaterialForm';
+import ConfirmRemove from './ConfirmRemove';
 
 const MaterialCard = (props) => {
   const {
     material: { _id, link, description },
     toggle,
-    toggledOn,
+    toggledOn: editing,
     handleCardEdit,
     handleCardDelete,
+    showActionButtons,
+    showButtons,
     initialValues
   } = props;
 
-  if (toggledOn === true) {
+  if (editing === true) {
     return (
       <MaterialForm
         initialValues={initialValues}
@@ -29,17 +33,19 @@ const MaterialCard = (props) => {
   }
 
   return (
-    <Wrapper>
+    <Wrapper onMouseOver={showActionButtons}>
       <Link href={link}>{description}</Link>
-      <ButtonGroup>
-        <StyledButton positive onClick={toggle} content="Edit" />
-        <StyledButton
-          negative
-          onClick={() => handleCardDelete(_id)}
-          type="Submit"
-          content="Delete"
-        />
-      </ButtonGroup>
+      {showButtons &&
+        <ButtonGroup>
+          <StyledButton positive onClick={toggle} content="Edit" />
+          <ConfirmRemove handleCardDelete={() => handleCardDelete(_id)} />
+          {/* <StyledButton
+            negative
+            onClick={() => handleCardDelete(_id)}
+            type="Submit"
+            content="Delete"
+          /> */}
+        </ButtonGroup>}
     </Wrapper>
   );
 };

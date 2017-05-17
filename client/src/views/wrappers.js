@@ -6,11 +6,11 @@ export const Wrapper = styled.div`
 	display: block;
 	overflow: auto;
 	height: 100%;
-	background-color: #e1e8f0;
+	background-color: #F0F7EE;
 `;
 
 export const Content = styled.div`
-	background-color: #e1e8f0;
+	background-color: #F0F7EE;
 	margin-top: 110px;
 	left: 0px;
 	right: 0px;

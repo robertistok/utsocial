@@ -37,7 +37,7 @@ const Wrapper = styled.div`
 	margin: 20px;
 	display: flex;
 	flex-direction: column;
-	background-color: #9068be
+	background-color: #9D8DF1
 `;
 
 const Header = styled.div`

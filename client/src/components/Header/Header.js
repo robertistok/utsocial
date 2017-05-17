@@ -10,25 +10,7 @@ import { media } from '../../utils/style-utils';
 const Wrapper = styled.header`
 	top: 0px;
 	left: 0px;
-	background: #6BBAA7;
-
-	.ui.small.secondary.stackable.menu {
-		margin: 0px;
-		border-radius: 0px;
-		min-height: 50px;
-	}
-
-	.ui.small.secondary.stackable.menu {
-		.active {
-			border-bottom: 1px solid #FF5722;
-			color: #eeeeee !important;
-		}
-
-		.active:hover {
-			color: #eeeeee !important;
-			border-bottom: 1px solid #FF5722;
-		}
-	}
+	background: #51D1B9;
 `;
 
 const ActionBar = styled.div`
@@ -45,7 +27,7 @@ const ActionBar = styled.div`
 const LogOutButton = styled(Button)`
 	color: #FFFFFF !important;
 	box-shadow: none !important;
-	background-color: #6BBAA7 !important;
+	background-color: #51D1B9 !important;
 	font-family: 'Roboto' !important
 	height: min-content;
 
@@ -74,28 +56,13 @@ const Title = styled.h5`
 	${media.tablet`margin-left: initial`}
 `;
 
-// const MenuItem = styled(Menu.Item)`
-// 	color: #FFFFFF !important;
-// 	padding: 15px 35px;
-// 	border-bottom: 1px solid grey;
-// 	text-align: center;
-// 	height: 50px;
-//
-// 	${media.tablet`height: initial;`}
-//
-// 	&:hover {
-// 		border-bottom: 1px solid #FF5722;
-// 		color: #FFFFFF;
-// 	}
-// `;
-
 const Menu = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 
 	.active {
-		border-bottom: 2px solid #e1e8f0;
-		color: #e1e8f0;
+		border-bottom: 2px solid #E9EAE8;
+		color: #E9EAE8;
 	}
 `;
 

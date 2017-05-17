@@ -22,19 +22,19 @@ const Materials = (props) => {
         content="Materials"
       />
 
-      <Accordion.Content active={toggledOn}>
-        {course.teachingTypes !== undefined &&
-          Object.keys(course.teachingTypes)
-					.filter(type => course.teachingTypes[type] === true)
-					.map(type => (
-						<MaterialType
+      {toggledOn &&
+        <Accordion.Content active>
+          {Object.keys(course.teachingTypes)
+            .filter(type => course.teachingTypes[type] === true)
+            .map(type => (
+              <MaterialType
                 key={type}
                 type={type}
                 materials={materials}
                 loggedInUser={loggedInUser}
               />
             ))}
-      </Accordion.Content>
+        </Accordion.Content>}
     </div>
   );
 };
