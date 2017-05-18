@@ -1,3 +1,5 @@
+// Disable this rule in the favor of passportservice
+/* eslint no-unused-vars: 0*/
 const passport = require('passport');
 const express = require('express');
 

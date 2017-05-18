@@ -1,3 +1,5 @@
+// disallow rule in favor of updating mongoose schemas
+/* eslint no-param-reassign: 0*/
 const Conversation = require('../models/conversation');
 
 function getConversationsOfUser(req, res, next) {

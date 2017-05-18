@@ -35,8 +35,6 @@ function getGradesListOfGroup(req, res, next) {
 							gradesList: { ...newAcc.gradesList, [student]: [item] }
 						};
 					} else {
-						console.log(newAcc.gradesList);
-
 						newAcc = {
 							...newAcc,
 							gradesList: {

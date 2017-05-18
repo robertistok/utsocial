@@ -37,7 +37,7 @@ const TeacherSchema = new Schema(
 	}
 );
 
-TeacherSchema.virtual('name').get(function () {
+TeacherSchema.virtual('name').get(function getName() {
 	return `${this.firstname} ${this.lastname}`;
 });
 

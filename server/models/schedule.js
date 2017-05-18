@@ -1,3 +1,4 @@
+/* eslint no-use-before-define: 0*/
 const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
@@ -57,7 +58,7 @@ const ScheduleSchema = new Schema({
 	where: String
 });
 
-ScheduleSchema.pre('save', function (next) {
+ScheduleSchema.pre('save', function customValidation(next) {
 	const semigroupOperator = this.whom.semigroup === '0'
 		? ['0', '1', '2']
 		: ['0', this.whom.semigroup];
@@ -95,8 +96,6 @@ ScheduleSchema.pre('save', function (next) {
 					new Error('A schedule already exists for this type of combination')
 				);
 			} else if (isAvailable.length !== 0) {
-				console.log(isAvailable);
-				console.log(semigroupOperator, frequencyOperator);
 				next(new Error('The group is busy for the selected period'));
 			} else {
 				next();

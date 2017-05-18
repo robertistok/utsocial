@@ -1,3 +1,5 @@
+/* eslint no-param-reassign: 0*/
+
 const Course = require('../models/course');
 const Schedule = require('../models/schedule');
 
@@ -74,8 +76,6 @@ function getMetaData(req, res, next) {
 			if (required < 0) {
 				return res.send({ materials: [], description: { text: '' } });
 			}
-
-			console.log(course.meta[required].description);
 
 			return res.send({
 				materials: course.meta[required].materials,

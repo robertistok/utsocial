@@ -1,3 +1,5 @@
+/* eslint consistent-return: 0*/
+
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 
@@ -14,7 +16,7 @@ const UserSchema = new Schema({
 	type: String
 });
 
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save', function encryptPassword(next) {
 	const user = this;
 
 	bcrypt.genSalt(10, (err, salt) => {
@@ -33,7 +35,10 @@ UserSchema.pre('save', function (next) {
 	});
 });
 
-UserSchema.methods.comparePassword = function (candidatePassword, callback) {
+UserSchema.methods.comparePassword = function checkPassword(
+	candidatePassword,
+	callback
+) {
 	bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
 		if (err) return callback(err);
 

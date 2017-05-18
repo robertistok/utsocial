@@ -51,11 +51,11 @@ const StudentSchema = new Schema(
 	}
 );
 
-StudentSchema.virtual('name').get(function () {
+StudentSchema.virtual('name').get(function getName() {
 	return `${this.firstname} ${this.lastname}`;
 });
 
-StudentSchema.virtual('perf').get(function () {
+StudentSchema.virtual('perf').get(function setPerformance() {
 	let semesters = 0;
 	let totalCredits = 0; // keeps track of all the credits a student should have
 	return this.grades.sort((a, b) => a.course.code - b.course.code).reduce((
