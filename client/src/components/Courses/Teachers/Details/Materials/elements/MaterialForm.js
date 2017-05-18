@@ -30,10 +30,13 @@ const MaterialForm = (props) => {
     }
   };
 
+  console.log(props);
+
   return (
     <Wrapper newMaterial={newMaterial}>
       <StyledForm onSubmit={handleSubmit(onFormSubmit)} size="small">
         <Field
+          autoFocus
           name="link"
           label="Link"
           placeholder="Enter the link..."
@@ -75,6 +78,7 @@ const Wrapper = styled.div`
 	width: 300px;
 	padding: 20px;
 	border: 1px solid grey;
+	box-shadow: 1px 5px 5px #888888
 
 	align-self: ${props => props.newMaterial ? 'center' : ''}
 	margin-top: ${props => props.newMaterial ? '30px' : '0px'}

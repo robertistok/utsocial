@@ -7,7 +7,6 @@ import { withToggle } from '../../../../../hocs';
 import {
   capitalizeFirstLetter
 } from '../../../../../../utils/string-operations';
-import { media } from '../../../../../../utils/style-utils';
 
 import NewMaterialContainer from './NewMaterial/index';
 import MaterialCardContainer from './MaterialCard/index';
@@ -37,7 +36,7 @@ const MaterialType = (props) => {
     <Wrapper>
       <Header>
         <Type>{capitalizeFirstLetter(type)}</Type>
-        {isTeacher.type === 'teacher'
+        {isTeacher
           ? toggledOn
               ? <StyledButton
                   size="mini"
@@ -80,6 +79,8 @@ const Header = styled.div`
 
 const Type = styled.span`
 	width: 50px;
+	text-align: right;
+	margin-right: 10px;
 `;
 
 const InfoMessage = styled.span`
@@ -98,8 +99,9 @@ const Body = styled.div`
 	margin-top: 30px;
 	margin-bottom: 30px;
 
-	${media.tablet`justify-content: center`}
-
+	@media screen and (max-width: 867px) {
+		justify-content: center;
+	}
 `;
 
 export default withToggle(MaterialType);

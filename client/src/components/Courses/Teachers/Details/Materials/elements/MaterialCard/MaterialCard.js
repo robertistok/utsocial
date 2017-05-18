@@ -3,11 +3,12 @@ import styled from 'styled-components';
 
 import { StyledButton } from '../styled-components';
 import MaterialForm from '../MaterialForm';
+import { formatTime } from '../../../../../../../utils/timestamp';
 // import ConfirmRemove from './ConfirmRemove';
 
 const MaterialCard = (props) => {
   const {
-    material: { _id, link, description },
+    material: { _id, link, description, enteredOn },
     toggle: editMateial,
     toggledOn: editing,
     handleCardEdit,
@@ -36,6 +37,7 @@ const MaterialCard = (props) => {
     // onMouseEnter={() => !editing ? toggleActionButtons() : ''}
     // onMouseLeave={() => !editing ? toggleActionButtons() : ''}
     >
+      <Timestamp>Last updated at {formatTime(enteredOn)}</Timestamp>
       <Link href={link}>{description}</Link>
       {!showButtons &&
         <ButtonGroup>
@@ -55,6 +57,7 @@ const MaterialCard = (props) => {
 const Wrapper = styled.div`
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	flex-direction: column;
 	margin-left: 30px;
 	width: 250px;
@@ -62,6 +65,22 @@ const Wrapper = styled.div`
 	border: 1px solid grey;
 	margin: 10px;
 	padding: 20px;
+	box-shadow: 0px 3px 5px #888888
+	transition-timing-function: ease-in;
+	transition: all 0.25s;
+	backface-visibility: hidden;
+
+	&:hover {
+		height: 157px;
+		margin-bottom: 3px;
+		padding-bottom: 27px;
+		box-shadow: 0px 5px 7px #888888
+	}
+`;
+
+const Timestamp = styled.span`
+	color: rgba(0, 0, 0, .40)
+	font-size: 12px;
 `;
 
 const Link = styled.a`

@@ -6,6 +6,7 @@ export const StyledButton = styled(Button)`
 	width: 100px;
 	padding: 0px !important;
 	margin-right: 0px !important;
+	border-radius: 0 !important;
 `;
 
 export const ButtonGroup = styled.div`

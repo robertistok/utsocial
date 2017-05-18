@@ -153,7 +153,9 @@ export default function (state = INITIAL_STATE, action) {
     case GET_METADATA_SUCCESS:
       return {
         ...state,
-        materials: action.payload.materials.sort((a, b) => a.enteredOn < b.doc),
+        materials: action.payload.materials.sort(
+          (a, b) => a.enteredOn < b.enteredOn
+        ),
         description: action.payload.description,
         loading: false
       };

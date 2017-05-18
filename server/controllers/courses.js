@@ -1,3 +1,4 @@
+// disallow rule in favor of updating
 /* eslint no-param-reassign: 0*/
 
 const Course = require('../models/course');
@@ -87,8 +88,13 @@ function getMetaData(req, res, next) {
 
 function addMaterial(req, res, next) {
 	const { id, lang, type, link, description } = req.body;
-
 	const checkedLink = checkIfHttp(link);
+	const newMaterial = {
+		type,
+		link: checkedLink,
+		description,
+		enteredOn: Date.now()
+	};
 
 	Course.findOne({ _id: id }, 'meta').then((course) => {
 		const { meta } = course;
@@ -98,15 +104,11 @@ function addMaterial(req, res, next) {
 		if (required < 0) {
 			course.meta.push({
 				lang,
-				materials: [{ type, link: checkedLink, description }]
+				materials: [newMaterial]
 			});
 			required = course.meta.indexOf(meta.find(item => item.lang === lang));
 		} else {
-			course.meta[required].materials.push({
-				type,
-				link: checkedLink,
-				description
-			});
+			course.meta[required].materials.push(newMaterial);
 		}
 
 		course
@@ -137,7 +139,7 @@ function updateMaterial(req, res, next) {
 								type: material.type,
 								link,
 								description,
-								enteredOn: Date.Now
+								enteredOn: Date.now()
 							}
 						: material)
 			);
