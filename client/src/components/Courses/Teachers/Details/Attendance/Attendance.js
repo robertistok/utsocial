@@ -24,4 +24,10 @@ const Attendance = (props) => {
   );
 };
 
+const { func, bool } = React.PropTypes;
+Attendance.propTypes = {
+  toggledOn: bool.isRequired,
+  toggle: func.isRequired
+};
+
 export default Attendance;

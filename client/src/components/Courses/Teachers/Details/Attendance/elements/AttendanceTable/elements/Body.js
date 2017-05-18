@@ -42,4 +42,25 @@ const Body = (props) => {
   );
 };
 
+const { shape, string, number, arrayOf, func } = React.PropTypes;
+Body.propTypes = {
+  students: arrayOf(
+    shape({
+      name: string.isRequired
+    })
+  ).isRequired,
+  dates: arrayOf(
+    shape({
+      day: string.isRequired
+    })
+  ),
+  addAttendance: func.isRequired,
+  removeAttendance: func.isRequired,
+  attendanceList: arrayOf(
+    shape({
+      student: string.isRequired
+    })
+  ).isRequired
+};
+
 export default Body;

@@ -56,4 +56,24 @@ class StudentRow extends Component {
   }
 }
 
+const { string, number, shape, arrayOf, func } = React.PropTypes;
+StudentRow.propTypes = {
+  name: string.isRequired,
+  index: number.isRequired,
+  dates: arrayOf(
+    shape({
+      day: string.isRequired
+    })
+  ).isRequired,
+  _id: string.isRequired,
+  addAttendance: func.isRequired,
+  removeAttendance: func.isRequired,
+  attendanceList: arrayOf(
+    shape({
+      enteredFor: string.isRequired,
+      _id: string.isRequired
+    })
+  )
+};
+
 export default StudentRow;

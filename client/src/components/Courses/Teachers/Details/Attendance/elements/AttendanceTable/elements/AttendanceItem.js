@@ -35,6 +35,13 @@ class AttendanceItem extends Component {
   }
 }
 
+const { bool, func } = React.PropTypes;
+AttendanceItem.propTypes = {
+  isBeforeToday: bool.isRequired,
+  hasAttendance: bool.isRequired,
+  onClick: func.isRequired
+};
+
 const StyledCell = styled(Table.Cell)`
 	&:hover {
 		cursor: pointer;

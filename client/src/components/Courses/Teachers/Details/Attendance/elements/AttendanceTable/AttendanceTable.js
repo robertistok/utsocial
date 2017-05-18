@@ -28,6 +28,30 @@ const AttendanceTable = (props) => {
   );
 };
 
+const { string, shape, arrayOf, func } = React.PropTypes;
+AttendanceTable.propTypes = {
+  attendance: shape({
+    students: arrayOf(
+      shape({
+        name: string.isRequired
+      })
+    ).isRequired,
+    attendanceList: arrayOf(
+      shape({
+        enteredFor: string.isRequired,
+        _id: string.isRequired
+      })
+    )
+  }),
+  dates: arrayOf(
+    shape({
+      day: string.isRequired
+    })
+  ).isRequired,
+  addAttendance: func.isRequired,
+  removeAttendance: func.isRequired
+};
+
 const StyledTable = styled(Table)`
 	display: table;
 `;

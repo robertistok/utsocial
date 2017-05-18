@@ -17,6 +17,11 @@ class AttendanceContainer extends Component {
   }
 }
 
+const { func } = React.PropTypes;
+AttendanceContainer.propTypes = {
+  resetAttendance: func.isRequired
+};
+
 const mapStateToProps = state => ({
   courses: state.courses,
   attendance: state.attendance,

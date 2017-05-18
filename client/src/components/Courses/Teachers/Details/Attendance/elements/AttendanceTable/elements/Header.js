@@ -18,4 +18,15 @@ const Header = (props) => {
   );
 };
 
+const { bool, string, arrayOf, shape } = React.PropTypes;
+Header.propTypes = {
+  dates: arrayOf(
+    shape({
+      day: string.isRequired
+    })
+  ).isRequired,
+  cellDescription: string.isRequired,
+  isNumbered: bool.isRequired
+};
+
 export default Header;

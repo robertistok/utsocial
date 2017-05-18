@@ -2,12 +2,15 @@ import React from 'react';
 import { Form } from 'semantic-ui-react';
 
 const Filter = (props) => {
-  const { courses: { selectedCourse }, filter } = props;
-  const { changeGroup, changeType, fetchAttendance } = props;
-  const { course } = selectedCourse;
-  const { type, group } = filter;
+  const {
+    courses: { selectedCourse: { course, groups } },
+    filter: { type, group },
+    changeGroup,
+    changeType,
+    fetchAttendance
+  } = props;
 
-  const groupOptions = selectedCourse.groups.map(group => ({
+  const groupOptions = groups.map(group => ({
     key: group._id,
     text: group.id,
     value: group._id
@@ -28,7 +31,7 @@ const Filter = (props) => {
           onChange={(e, { value }) => {
             changeGroup(value);
             if (type !== undefined) {
-              fetchAttendance(type, selectedCourse.course._id, value);
+              fetchAttendance(type, course._id, value);
             }
           }}
           value={group}
@@ -38,7 +41,7 @@ const Filter = (props) => {
           placeholder="Type"
           onChange={(e, { value }) => {
             changeType(value);
-            fetchAttendance(value, selectedCourse.course._id, group);
+            fetchAttendance(value, course._id, group);
           }}
           value={type}
           disabled={group === undefined}
@@ -46,6 +49,29 @@ const Filter = (props) => {
       </Form.Group>
     </Form>
   );
+};
+
+const { arrayOf, func, shape, string } = React.PropTypes;
+Filter.propTypes = {
+  changeGroup: func.isRequired,
+  changeType: func.isRequired,
+  fetchAttendance: func.isRequired,
+  filter: shape({
+    type: string,
+    group: string
+  }).isRequired,
+  courses: shape({
+    selectedCourse: shape({
+      course: shape({
+        _id: string.isRequired
+      }).isRequired,
+      groups: arrayOf(
+        shape({
+          _id: string.isRequired
+        })
+      ).isRequired
+    }).isRequired
+  })
 };
 
 export default Filter;

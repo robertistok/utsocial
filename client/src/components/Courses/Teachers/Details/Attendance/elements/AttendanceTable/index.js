@@ -16,26 +16,29 @@ class AttendanceTableContainer extends Component {
   addAttendance(studentID, date) {
     const {
       attendance: { filter: { type, group } },
-      loggedInTeacher,
+      loggedInTeacher: { _id: assignor },
       markAsPresent,
-      selectedCourse
+      selectedCourse: { course: { _id: courseID } }
     } = this.props;
 
     markAsPresent({
       student: studentID,
       date,
-      course: selectedCourse.course._id,
+      course: courseID,
       type,
       group,
-      assignor: loggedInTeacher._id
+      assignor
     });
   }
   render() {
-    const { attendance: { filter: { type, group } } } = this.props;
+    const {
+      attendance: { filter: { type, group } },
+      selectedCourse
+    } = this.props;
 
     if (type === undefined || group === undefined) return null;
 
-    const day = this.props.selectedCourse.schedules.find(
+    const day = selectedCourse.schedules.find(
       schedule => schedule.type === type && schedule.whom === group
     ).day;
 
@@ -50,6 +53,27 @@ class AttendanceTableContainer extends Component {
     );
   }
 }
+
+const { string, shape, func, oneOf } = React.PropTypes;
+AttendanceTableContainer.propTypes = {
+  markAsPresent: func.isRequired,
+  selectedCourse: shape({
+    course: shape({
+      _id: string.isRequired
+    })
+  }).isRequired,
+  loggedInTeacher: shape({
+    _id: string.isRequired,
+    username: string.isRequired,
+    type: oneOf[('teacher', 'student', 'admin')]
+  }).isRequired,
+  attendance: shape({
+    filter: shape({
+      type: string,
+      group: string
+    }).isRequired
+  }).isRequired
+};
 
 const mapStateToProps = state => ({
   loggedInTeacher: state.auth.user,
