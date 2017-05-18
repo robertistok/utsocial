@@ -8,7 +8,7 @@ import { formatTime } from '../../../../../utils/timestamp';
 const Description = (props) => {
   const {
     isTeacher,
-    description,
+    description: { text, lastUpdatedBy, updatedOn },
     toggle: toggleEdit,
     toggledOn: editing,
     textAreaValue,
@@ -23,9 +23,7 @@ const Description = (props) => {
         <StyledTextArea
           value={textAreaValue}
           onChange={handleTextBoxChange}
-          placeholder={
-            description.text === '' ? 'Edit the course description...' : null
-          }
+          placeholder={text === '' ? 'Edit the course description...' : null}
           rows={15}
         />
         <ActionButtonGroup>
@@ -44,24 +42,22 @@ const Description = (props) => {
     );
   }
 
-  console.log(description, 'from description');
-
   return (
     <Message onClick={() => isTeacher && toggleEdit()}>
-      {description.text === ''
+      {text === ''
         ? `There is no description about this course so far...${isTeacher && ' Click on this message in order to edit the description'}`
         : <div>
             <span>
               Last updated at
               {' '}
-              <strong>{formatTime(description.updatedOn)}</strong>
+              <strong>{formatTime(updatedOn)}</strong>
               {' '}
               by
               {' '}
-              {description.lastUpdatedBy.name}
+              {lastUpdatedBy.name}
             </span>
             <br /> <br />
-            {description.text.split('\n').map((item, index) => (
+            {text.split('\n').map((item, index) => (
               <span key={item + index}>
                 {item}
                 <br />
@@ -70,6 +66,24 @@ const Description = (props) => {
           </div>}
     </Message>
   );
+};
+
+const { bool, string, func, shape } = React.PropTypes;
+Description.propTypes = {
+  isTeacher: bool.isRequired,
+  description: shape({
+    text: string.isRequired,
+    updatedOn: string,
+    lastUpdatedBy: shape({
+      name: string.isRequired
+    })
+  }).isRequired,
+  toggle: func.isRequired,
+  textAreaValue: string,
+  toggledOn: bool.isRequired,
+  resetState: func.isRequired,
+  handleTextBoxChange: func.isRequired,
+  handleSave: func.isRequired
 };
 
 const StyledTextArea = styled(TextArea)`

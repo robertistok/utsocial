@@ -75,6 +75,8 @@ function getMetaData(req, res, next) {
 				return res.send({ materials: [], description: { text: '' } });
 			}
 
+			console.log(course.meta[required].description);
+
 			return res.send({
 				materials: course.meta[required].materials,
 				description: course.meta[required].description
@@ -176,6 +178,12 @@ function deleteMaterial(req, res, next) {
 function updateDescription(req, res, next) {
 	const { courseID, lang, text, updatedBy } = req.body;
 
+	const updatedDescription = {
+		text,
+		lastUpdatedBy: updatedBy,
+		updatedOn: Date.now()
+	};
+
 	Course.findOne({ _id: courseID }).then((course) => {
 		let required = course.meta.indexOf(
 			course.meta.find(item => item.lang === lang)
@@ -184,13 +192,13 @@ function updateDescription(req, res, next) {
 		if (required < 0) {
 			course.meta.push({
 				lang,
-				description: { text, lastUpdatedBy: updatedBy }
+				description: updatedDescription
 			});
 			required = course.meta.indexOf(
 				course.meta.find(item => item.lang === lang)
 			);
 		} else {
-			course.meta[required].description = { text, lastUpdatedBy: updatedBy };
+			course.meta[required].description = updatedDescription;
 		}
 
 		course

@@ -13,13 +13,17 @@ class DescriptionContainer extends Component {
   constructor(props) {
     super(props);
 
+    this.state = { textAreaValue: this.props.description.text };
+
     this.handleTextBoxChange = this.handleTextBoxChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.resetState = this.resetState.bind(this);
   }
 
-  componentWillMount() {
-    this.state = { textAreaValue: this.props.description.text };
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.description.text !== '') {
+      this.setState({ textAreaValue: nextProps.description.text });
+    }
   }
 
   handleTextBoxChange(e) {
@@ -29,17 +33,20 @@ class DescriptionContainer extends Component {
   handleSave() {
     const {
       selectedCourse: { course: { _id: courseID }, lang },
-      loggedInUser: { profile: { _id: teacherID, name } }
+      loggedInUser: { profile: { _id: teacherID, name } },
+      description: { text }
     } = this.props;
     const { textAreaValue } = this.state;
 
-    this.props.updateDescription(
-      courseID,
-      lang,
-      teacherID,
-      textAreaValue,
-      name
-    );
+    if (text !== textAreaValue) {
+      this.props.updateDescription(
+        courseID,
+        lang,
+        teacherID,
+        textAreaValue,
+        name
+      );
+    }
   }
 
   resetState() {
@@ -48,7 +55,7 @@ class DescriptionContainer extends Component {
 
   render() {
     const { toggle, toggledOn, loggedInUser, description } = this.props;
-    const { textAreaValue = description.text } = this.state;
+    const { textAreaValue } = this.state;
 
     const isTeacher = loggedInUser.type === 'teacher';
 
@@ -76,11 +83,36 @@ class DescriptionContainer extends Component {
   }
 }
 
+const { string, bool, func, shape } = React.PropTypes;
+DescriptionContainer.propTypes = {
+  loggedInUser: shape({
+    type: string.isRequired,
+    profile: shape({
+      _id: string.isRequired,
+      name: string.isRequired
+    }).isRequired
+  }).isRequired,
+  toggle: func.isRequired,
+  toggledOn: bool.isRequired,
+  description: shape({
+    lastUpdatedBy: shape({
+      name: string.isRequired
+    }),
+    text: string.isRequired,
+    updatedOn: string
+  }).isRequired,
+  updateDescription: func.isRequired,
+  selectedCourse: shape({
+    course: shape({
+      _id: string.isRequired
+    }).isRequired,
+    lang: string.isRequired
+  }).isRequired
+};
+
 const mapStateToProps = state => ({
   loggedInUser: state.auth.user,
-  // courses: state.courses,
   selectedCourse: state.courses.selectedCourse,
-  // selectedGroup: state.grades.selectedGroup,
   description: state.metadatacourse.description
 });
 
