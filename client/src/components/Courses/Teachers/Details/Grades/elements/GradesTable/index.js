@@ -25,6 +25,11 @@ const mapStateToProps = state => ({
   loggedInTeacher: state.auth.user
 });
 
+const { string } = React.PropTypes;
+GradesTableContainer.propTypes = {
+  selectedGroup: string
+};
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ ...gradesActions }, dispatch);
 

@@ -135,6 +135,24 @@ const mapStateToProps = (state, props) => {
   };
 };
 
+const { number, string, shape, func } = React.PropTypes;
+GradeItem.propTypes = {
+  gradeObj: shape({
+    _id: string.isRequired,
+    assignor: string.isRequired,
+    grade: number.isRequired
+  }),
+  number: number.isRequired,
+  assignor: string.isRequired,
+  student: string.isRequired,
+  selectedGroup: string.isRequired,
+  course: string.isRequired,
+  type: string.isRequired,
+  insertGrade: func.isRequired,
+  updateGrade: func.isRequired,
+  deleteGrade: func.isRequired
+};
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ ...gradesActions }, dispatch);
 

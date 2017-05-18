@@ -69,6 +69,22 @@ class StudentRow extends Component {
   }
 }
 
+const { string, number, arrayOf, shape, object } = React.PropTypes;
+StudentRow.propTypes = {
+  _id: string.isRequired,
+  numberOfGrades: object.isRequired,
+  name: string.isRequired,
+  index: number.isRequired,
+  gradesList: arrayOf(
+    shape({
+      type: string.isRequired,
+      grade: number.isRequired,
+      number: number.isRequired
+    })
+  ),
+  types: arrayOf(string)
+};
+
 const StyledRow = styled(Table.Row)`
 	.editing {
 		background-color: #F8F8F8;

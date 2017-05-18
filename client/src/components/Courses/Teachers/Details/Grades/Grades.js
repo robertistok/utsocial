@@ -23,4 +23,10 @@ const Grades = (props) => {
   );
 };
 
+const { func, bool } = React.PropTypes;
+Grades.propTypes = {
+  toggle: func.isRequired,
+  toggledOn: bool.isRequired
+};
+
 export default Grades;

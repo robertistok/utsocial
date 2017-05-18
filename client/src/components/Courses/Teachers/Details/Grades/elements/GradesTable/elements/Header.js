@@ -85,6 +85,15 @@ const Header = (props) => {
   );
 };
 
+const { object, string, arrayOf, bool, func } = React.PropTypes;
+Header.propTypes = {
+  cellDescription: string.isRequired,
+  numberOfGrades: object.isRequired,
+  types: arrayOf(string).isRequired,
+  isNumbered: bool.isRequired,
+  addColumnGrade: func.isRequired
+};
+
 const Icon = styled.img`
 	display: inline-block;
 	height: 14px;

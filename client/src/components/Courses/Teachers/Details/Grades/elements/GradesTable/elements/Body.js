@@ -38,4 +38,12 @@ const Body = (props) => {
   );
 };
 
+const { arrayOf, string, object } = React.PropTypes;
+Body.propTypes = {
+  numberOfGrades: object,
+  students: arrayOf(object),
+  types: arrayOf(string),
+  gradesList: object
+};
+
 export default Body;

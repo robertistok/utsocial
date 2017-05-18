@@ -28,4 +28,14 @@ const Filter = (props) => {
   );
 };
 
+const { shape, func, string, object } = React.PropTypes;
+Filter.propTypes = {
+  changeGroup: func.isRequired,
+  fetchGrades: func.isRequired,
+  selectedGroup: string,
+  courses: shape({
+    selectedCourse: object.isRequired
+  }).isRequired
+};
+
 export default Filter;

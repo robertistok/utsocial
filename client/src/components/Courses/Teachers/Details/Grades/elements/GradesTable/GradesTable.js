@@ -30,6 +30,17 @@ const GradesTable = (props) => {
   );
 };
 
+const { func, shape, string, object } = React.PropTypes;
+GradesTable.propTypes = {
+  addColumnGrade: func.isRequired,
+  numberOfGrades: object.isRequired,
+  selectedCourse: shape({
+    course: shape({
+      _id: string.isRequired
+    })
+  }).isRequired
+};
+
 const StyledTable = styled(Table)`
 	display: table;
 `;

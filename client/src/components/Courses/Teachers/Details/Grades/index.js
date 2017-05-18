@@ -17,6 +17,11 @@ class GradesContainer extends Component {
   }
 }
 
+const { func } = React.PropTypes;
+GradesContainer.propTypes = {
+  resetGrades: func.isRequired
+};
+
 const mapStateToProps = state => ({
   courses: state.courses,
   selectedCourse: state.courses.selectedCourse,
