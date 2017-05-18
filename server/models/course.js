@@ -27,7 +27,20 @@ const Meta = new Schema({
 			description: String
 		}
 	],
-	info: String
+	description: {
+		text: {
+			type: String,
+			default: ''
+		},
+		lastUpdatedBy: {
+			type: Schema.Types.ObjectId,
+			ref: 'teacher'
+		},
+		updatedOn: {
+			type: Date,
+			default: Date.now
+		}
+	}
 });
 
 const CourseSchema = new Schema(

@@ -15,6 +15,8 @@ import MaterialCardContainer from './MaterialCard/index';
 const MaterialType = (props) => {
   const { type, toggle, toggledOn, materials, loggedInUser } = props;
 
+  const isTeacher = loggedInUser.type === 'teacher';
+
   const renderMaterials = (materials) => {
     const filteredByType = materials.filter(material => material.type === type);
     if (filteredByType.length === 0) {
@@ -26,6 +28,7 @@ const MaterialType = (props) => {
         key={material._id}
         material={material}
         type={type}
+        editable={isTeacher}
       />
     ));
   };
@@ -34,7 +37,7 @@ const MaterialType = (props) => {
     <Wrapper>
       <Header>
         <Type>{capitalizeFirstLetter(type)}</Type>
-        {loggedInUser.type === 'teacher'
+        {isTeacher.type === 'teacher'
           ? toggledOn
               ? <StyledButton
                   size="mini"

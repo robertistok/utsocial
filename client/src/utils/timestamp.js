@@ -1,20 +1,20 @@
 import moment from 'moment';
 
 export const formatTime = (timestamp) => {
-  const current = moment();
+  const today = moment();
   const toCompare = moment(timestamp);
 
   // year
-  if (current.year() === toCompare.year()) {
+  if (today.year() === toCompare.year()) {
     // week
-    if (current.week() === toCompare.week()) {
-      if (current.day() === toCompare.day()) {
+    if (today.week() === toCompare.week()) {
+      if (today.day() === toCompare.day()) {
         return toCompare.format('HH:mm');
       }
       return toCompare.format('ddd');
     } else if (
-      current.week() - 1 === toCompare.week() &&
-      current.day() - toCompare.day() !== 0
+      today.week() - 1 === toCompare.week() &&
+      today.day() - toCompare.day() !== 0
     ) {
       return toCompare.format('ddd');
     }

@@ -68,6 +68,11 @@ router.post(
 	requireAuth,
 	CoursesController.updateMaterial
 );
+router.post(
+	'/api/courses/meta/updateDescription',
+	requireAuth,
+	CoursesController.updateDescription
+);
 
 router.get(
 	'/api/messages/:username',

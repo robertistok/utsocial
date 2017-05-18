@@ -17,12 +17,13 @@ class MaterialCardContainer extends Component {
 
     this.handleCardEdit = this.handleCardEdit.bind(this);
     this.handleCardDelete = this.handleCardDelete.bind(this);
-    this.showActionButtons = this.showActionButtons.bind(this);
+    this.toggleActionButtons = this.toggleActionButtons.bind(this);
   }
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps, nextState) {
     return nextProps.material !== this.props.material ||
-      nextProps.toggledOn !== this.props.toggledOn;
+      nextProps.toggledOn !== this.props.toggledOn ||
+      nextState.showButtons !== this.state.showButtons;
   }
 
   handleCardEdit(materialID) {
@@ -41,8 +42,8 @@ class MaterialCardContainer extends Component {
     this.props.deleteMaterial(courseID, lang, materialID);
   }
 
-  showActionButtons() {
-    this.setState({ showButtons: true });
+  toggleActionButtons() {
+    this.setState(state => ({ showButtons: !state.showButtons }));
   }
 
   render() {
@@ -51,8 +52,8 @@ class MaterialCardContainer extends Component {
         {...this.props}
         handleCardEdit={this.handleCardEdit}
         handleCardDelete={this.handleCardDelete}
-        showActionButtons={this.showActionButtons}
-        showButtons
+        toggleActionButtons={this.toggleActionButtons}
+        showButtons={this.state.showButtons}
       />
     );
   }

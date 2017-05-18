@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { compose } from 'recompose';
@@ -7,21 +7,7 @@ import Materials from './Materials';
 import * as metadatacourseActions from '../../../../../redux/metadatacourse';
 import { withToggle } from '../../../../hocs';
 
-class MaterialsContainer extends Component {
-  componentDidMount() {
-    const { lang, course: { _id } } = this.props.selectedCourse;
-
-    this.props.getMetaData(_id, lang);
-  }
-
-  componentWillUnmount() {
-    this.props.resetMetadataCourse();
-  }
-
-  render() {
-    return <Materials {...this.props} />;
-  }
-}
+const MaterialsContainer = props => <Materials {...props} />;
 
 const mapStateToProps = state => ({
   loggedInUser: state.auth.user,

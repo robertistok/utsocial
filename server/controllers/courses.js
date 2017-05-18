@@ -60,6 +60,10 @@ function getMetaData(req, res, next) {
 	const { courseID, lang } = req.params;
 
 	Course.findOne({ _id: courseID }, 'meta')
+		.populate({
+			path: 'meta.description.lastUpdatedBy',
+			select: 'firstname lastname name'
+		})
 		.then((course) => {
 			const { meta } = course;
 
@@ -68,7 +72,7 @@ function getMetaData(req, res, next) {
 			);
 
 			if (required < 0) {
-				return res.send({ materials: [], description: '' });
+				return res.send({ materials: [], description: { text: '' } });
 			}
 
 			return res.send({
@@ -94,6 +98,7 @@ function addMaterial(req, res, next) {
 				lang,
 				materials: [{ type, link: checkedLink, description }]
 			});
+			required = course.meta.indexOf(meta.find(item => item.lang === lang));
 		} else {
 			course.meta[required].materials.push({
 				type,
@@ -101,8 +106,6 @@ function addMaterial(req, res, next) {
 				description
 			});
 		}
-
-		required = course.meta.indexOf(meta.find(item => item.lang === lang));
 
 		course
 			.save()
@@ -118,35 +121,37 @@ function addMaterial(req, res, next) {
 function updateMaterial(req, res, next) {
 	const { courseID, lang, materialID, link, description } = req.body;
 
-	Course.findOne({ _id: courseID }).then((course) => {
-		const { meta } = course;
+	Course.findOne({ _id: courseID })
+		.then((course) => {
+			const { meta } = course;
 
-		const required = meta.indexOf(meta.find(item => item.lang === lang));
+			const required = meta.indexOf(meta.find(item => item.lang === lang));
 
-		course.meta[required].materials = course.meta[required].materials.map(
-			material =>
-				(String(material._id) === materialID
-					? {
-							_id: materialID,
-							type: material.type,
-							link,
-							description,
-							enteredOn: Date.Now
-						}
-					: material)
-		);
+			course.meta[required].materials = course.meta[required].materials.map(
+				material =>
+					(String(material._id) === materialID
+						? {
+								_id: materialID,
+								type: material.type,
+								link,
+								description,
+								enteredOn: Date.Now
+							}
+						: material)
+			);
 
-		course
-			.save()
-			.then(course =>
-				res.send(
-					course.meta[required].materials.find(
-						material => String(material._id) === materialID
+			course
+				.save()
+				.then(course =>
+					res.send(
+						course.meta[required].materials.find(
+							material => String(material._id) === materialID
+						)
 					)
 				)
-			)
-			.catch(err => next(err));
-	});
+				.catch(err => next(err));
+		})
+		.catch(err => next(err));
 }
 
 function deleteMaterial(req, res, next) {
@@ -168,10 +173,38 @@ function deleteMaterial(req, res, next) {
 	});
 }
 
+function updateDescription(req, res, next) {
+	const { courseID, lang, text, updatedBy } = req.body;
+
+	Course.findOne({ _id: courseID }).then((course) => {
+		let required = course.meta.indexOf(
+			course.meta.find(item => item.lang === lang)
+		);
+
+		if (required < 0) {
+			course.meta.push({
+				lang,
+				description: { text, lastUpdatedBy: updatedBy }
+			});
+			required = course.meta.indexOf(
+				course.meta.find(item => item.lang === lang)
+			);
+		} else {
+			course.meta[required].description = { text, lastUpdatedBy: updatedBy };
+		}
+
+		course
+			.save()
+			.then(course => res.send(course.meta[required].description))
+			.catch(err => next(err));
+	});
+}
+
 module.exports = {
 	getCourseGroups,
 	getMetaData,
 	addMaterial,
 	updateMaterial,
-	deleteMaterial
+	deleteMaterial,
+	updateDescription
 };

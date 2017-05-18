@@ -16,6 +16,10 @@ const DELETE_MATERIAL = 'utsocial/metadatacourse/delete-material';
 const DELETE_MATERIAL_SUCCESS = 'utsocial/metadatacourse/delete-material-success';
 const DELETE_MATERIAL_ERROR = 'utsocial/metadatacourse/delete-material-error';
 
+const UPDATE_DESCRIPTION = 'utsocial/metadatacourse/update-description';
+const UPDATE_DESCRIPTION_SUCCESS = 'utsocial/metadatacourse/update-description-success';
+const UPDATE_DESCRIPTION_ERROR = 'utsocial/metadatacourse/update-description-error';
+
 const RESET_METADATA = 'utsocial/metadatacourse/reset';
 
 export function getMetaData(courseID, lang) {
@@ -104,13 +108,39 @@ export function deleteMaterial(id, lang, materialID) {
   };
 }
 
+export function updateDescription(
+  courseID,
+  lang,
+  updatedBy,
+  text,
+  teacherName
+) {
+  return (dispatch) => {
+    dispatch({ type: UPDATE_DESCRIPTION });
+    axios({
+      method: 'post',
+      url: '/api/courses/meta/updateDescription',
+      data: { courseID, lang, updatedBy, text },
+      headers: {
+        authorization: sessionStorage.getItem('token')
+      }
+    })
+      .then((response) => {
+        dispatch({
+          type: UPDATE_DESCRIPTION_SUCCESS,
+          payload: { newDescription: response.data, teacherName }
+        });
+      })
+      .catch(err => dispatch({ type: UPDATE_DESCRIPTION_ERROR, payload: err }));
+  };
+}
 export function resetMetadataCourse() {
   return { type: RESET_METADATA };
 }
 
 const INITIAL_STATE = {
   materials: [],
-  description: '',
+  description: { text: '', lastUpdatedBy: undefined },
   loading: false,
   error: ''
 };
@@ -173,6 +203,21 @@ export default function (state = INITIAL_STATE, action) {
         loading: false
       };
     case DELETE_MATERIAL_ERROR:
+      error = action.payload || { message: action.payload.message };
+      return { ...state, loading: false, error };
+
+    case UPDATE_DESCRIPTION:
+      return { ...state, loading: true };
+    case UPDATE_DESCRIPTION_SUCCESS:
+      return {
+        ...state,
+        description: {
+          ...action.payload.newDescription,
+          lastUpdatedBy: { name: action.payload.teacherName }
+        },
+        loading: false
+      };
+    case UPDATE_DESCRIPTION_ERROR:
       error = action.payload || { message: action.payload.message };
       return { ...state, loading: false, error };
 

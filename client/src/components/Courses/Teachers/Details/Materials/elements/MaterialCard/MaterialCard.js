@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Modal } from 'semantic-ui-react';
 
 import { StyledButton } from '../styled-components';
 import MaterialForm from '../MaterialForm';
@@ -9,11 +8,11 @@ import ConfirmRemove from './ConfirmRemove';
 const MaterialCard = (props) => {
   const {
     material: { _id, link, description },
-    toggle,
+    toggle: editMateial,
     toggledOn: editing,
     handleCardEdit,
     handleCardDelete,
-    showActionButtons,
+    toggleActionButtons,
     showButtons,
     initialValues
   } = props;
@@ -25,7 +24,7 @@ const MaterialCard = (props) => {
         submitForm={handleCardEdit(_id)}
         positiveButton="Save"
         negativeButton="Cancel"
-        onNegativeButtonClick={toggle}
+        onNegativeButtonClick={editMateial}
         newMaterial={false}
         form={`${_id}edit`}
       />
@@ -33,18 +32,21 @@ const MaterialCard = (props) => {
   }
 
   return (
-    <Wrapper onMouseOver={showActionButtons}>
+    <Wrapper
+			// onMouseEnter={() => !editing ? toggleActionButtons() : ''}
+			// onMouseLeave={() => !editing ? toggleActionButtons() : ''}
+    >
       <Link href={link}>{description}</Link>
-      {showButtons &&
+      {!showButtons &&
         <ButtonGroup>
-          <StyledButton positive onClick={toggle} content="Edit" />
-          <ConfirmRemove handleCardDelete={() => handleCardDelete(_id)} />
-          {/* <StyledButton
+          <StyledButton positive onClick={editMateial} content="Edit" />
+          {/* <ConfirmRemove handleCardDelete={() => handleCardDelete(_id)} /> */}
+          <StyledButton
             negative
             onClick={() => handleCardDelete(_id)}
             type="Submit"
             content="Delete"
-          /> */}
+          />
         </ButtonGroup>}
     </Wrapper>
   );
