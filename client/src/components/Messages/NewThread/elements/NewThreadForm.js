@@ -1,7 +1,6 @@
 import React from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { Form, Button } from 'semantic-ui-react';
-import styled from 'styled-components';
 
 import InputField from './InputField';
 import TextArea from './TextArea';

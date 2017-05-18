@@ -17,15 +17,6 @@ const CourseCard = (props) => {
           <InfoLabel>{`Language: ${lang}`}</InfoLabel>
         </Info>
       </Header>
-      {/* <Body>
-        <StyledLink to={`/courses/${_id}/${lang}`}>
-          Attendance
-        </StyledLink>
-        <StyledLink to={`/courses/${_id}/${lang}`}>Grades</StyledLink>
-        <StyledLink to={`/courses/${_id}/${lang}`}>Notifications</StyledLink>
-        <StyledLink to={`/courses/${_id}/${lang}`}>Materials</StyledLink>
-        <StyledLink to={`/courses/${_id}/${lang}`}>Notes</StyledLink>
-      </Body> */}
     </Wrapper>
   );
 };
@@ -71,13 +62,6 @@ const Info = styled.div`
 const InfoLabel = styled.span`
 	font-size: 10px;
 	font-weight: lighter;
-`;
-
-const Body = styled.div`
-	flex: 2
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
 `;
 
 export default CourseCard;

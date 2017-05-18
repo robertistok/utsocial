@@ -69,7 +69,7 @@ const Column = ({ day, week, semigroup, handleCellClick, scheduleList }) => {
 
 const Table = (props) => {
   const { schedule, handleCellClick } = props;
-  const { semigroup, week, group, scheduleList, loading } = schedule;
+  const { semigroup, week, scheduleList } = schedule;
 
   return (
     <div className="table">

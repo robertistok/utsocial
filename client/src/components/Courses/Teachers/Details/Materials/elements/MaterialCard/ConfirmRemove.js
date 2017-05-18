@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Button, Header, Icon, Modal } from 'semantic-ui-react';
-import { StyledButton } from '../styled-components';
 import styled from 'styled-components';
+
+import { StyledButton } from '../styled-components';
 
 import { withToggle } from '../../../../../../hocs';
 

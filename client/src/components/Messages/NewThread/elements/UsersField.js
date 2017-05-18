@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form, Dropdown } from 'semantic-ui-react';
-import styled from 'styled-components';
 
 import * as usersActions from '../../../../redux/users';
 

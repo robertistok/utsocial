@@ -42,7 +42,7 @@ const Body = (props) => {
   );
 };
 
-const { shape, string, number, arrayOf, func } = React.PropTypes;
+const { shape, string, arrayOf, func } = React.PropTypes;
 Body.propTypes = {
   students: arrayOf(
     shape({

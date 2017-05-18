@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { StyledButton } from '../styled-components';
 import MaterialForm from '../MaterialForm';
-import ConfirmRemove from './ConfirmRemove';
+// import ConfirmRemove from './ConfirmRemove';
 
 const MaterialCard = (props) => {
   const {
@@ -12,7 +12,7 @@ const MaterialCard = (props) => {
     toggledOn: editing,
     handleCardEdit,
     handleCardDelete,
-    toggleActionButtons,
+    // toggleActionButtons,
     showButtons,
     initialValues
   } = props;
@@ -33,8 +33,8 @@ const MaterialCard = (props) => {
 
   return (
     <Wrapper
-			// onMouseEnter={() => !editing ? toggleActionButtons() : ''}
-			// onMouseLeave={() => !editing ? toggleActionButtons() : ''}
+    // onMouseEnter={() => !editing ? toggleActionButtons() : ''}
+    // onMouseLeave={() => !editing ? toggleActionButtons() : ''}
     >
       <Link href={link}>{description}</Link>
       {!showButtons &&
