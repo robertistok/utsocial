@@ -57,19 +57,10 @@ const NewPostForm = (props) => {
           name="includeTeachers"
           label="Include other teachers"
           component={Checkbox}
-          validate={required}
         />
       </StyledFormGroup>
 
       <StyledFormGroup className="description">
-        <Field
-          name="header"
-          type="text"
-          placeholder="Enter the header..."
-          label="Title"
-          component={InputField}
-          validate={required}
-        />
         <Field
           name="content"
           placeholder="Write your post here..."
@@ -78,7 +69,7 @@ const NewPostForm = (props) => {
           validate={required}
         />
       </StyledFormGroup>
-      <SubmitButton content="Post" type="submit" />
+
     </StyledForm>
   );
 };
@@ -102,7 +93,4 @@ const StyledFormGroup = styled(Form.Group)`
 	}
 `;
 
-const SubmitButton = styled(Button)`
-	margin-bottom: 10px !important;
-`;
 export default NewPostForm;

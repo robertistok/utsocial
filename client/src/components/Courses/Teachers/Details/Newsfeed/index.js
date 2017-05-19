@@ -5,9 +5,19 @@ import { compose } from 'recompose';
 
 import Newsfeed from './Newsfeed';
 import { withToggle } from '../../../../hocs';
+import * as courseActions from '../../../../../redux/courses';
 
 class NewsfeedContainer extends Component {
+  componentDidMount() {
+    const { lang, course: { _id: courseID } } = this.props.selectedCourse;
+    const { _id: teacherID } = this.props.loggedInUser;
+
+    const query = { teacherID, target: { courseID, lang } };
+    this.props.getFeedForCourse(query);
+  }
+
   render() {
+    console.log(this.props.selectedCourse);
     return <Newsfeed {...this.props} />;
   }
 }
@@ -18,7 +28,8 @@ const mapStateToProps = state => ({
   description: state.metadatacourse.description
 });
 
-const mapDispatchToprops = dispatch => bindActionCreators({}, dispatch);
+const mapDispatchToprops = dispatch =>
+  bindActionCreators({ ...courseActions }, dispatch);
 
 const enhance = compose(
   withToggle,

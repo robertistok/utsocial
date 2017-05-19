@@ -1,20 +1,27 @@
 import React from 'react';
 import { Form, Checkbox } from 'semantic-ui-react';
 
-const CheckBox = ({ input, label, customOnChange }) => {
+const CustomCheckbox = ({ input, label, customOnChange }) => {
   const handleChange = (param, data) => {
     if (customOnChange) {
       customOnChange();
     }
-
-    input.onChange(String(data.value));
+    input.onChange(data.value);
   };
 
   return (
-    <Form.Field>
-      <Checkbox {...input} onChange={handleChange} label={label} />
-    </Form.Field>
+    <div className="field">
+      <div className="ui checkbox">
+        <input
+          {...input}
+          type="checkbox"
+          value={input.value}
+          checked={input.value}
+        />
+        <label htmlFor={input.name}>{label}</label>
+      </div>
+    </div>
   );
 };
 
-export default CheckBox;
+export default CustomCheckbox;

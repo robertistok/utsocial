@@ -1,8 +1,10 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
+import { bindActionCreators } from 'redux';
 import { compose } from 'recompose';
 
+import * as courseActions from '../../../../../../../../../redux/courses';
 import NewPostForm from './NewPostForm';
 
 class NewPostFormContainer extends React.Component {
@@ -13,7 +15,24 @@ class NewPostFormContainer extends React.Component {
   }
 
   handleSubmit(values) {
-    console.log(values);
+    const {
+      addPost,
+      selectedCourse: { lang, groups: all, course: { _id: courseID } },
+      loggedInUser: { _id: teacherID }
+    } = this.props;
+    const { content, relatedTo, includeTeachers, targetGroups } = values;
+
+    const newPost = {
+      content,
+      postedBy: teacherID,
+      target: {
+        course: { id: courseID, relatedTo, lang },
+        includeTeachers,
+        groups: targetGroups === 'all' ? [...all] : [targetGroups]
+      }
+    };
+
+    addPost(newPost);
   }
 
   render() {
@@ -24,6 +43,8 @@ class NewPostFormContainer extends React.Component {
 const mapStateToProps = state => ({
   selectedCourseGroups: state.courses.selectedCourse.groups,
   selectedCourseTeachingTypes: state.courses.selectedCourse.course.teachingTypes,
+  selectedCourse: state.courses.selectedCourse,
+  loggedInUser: state.auth.user,
   initialValues: {
     includeTeachers: 'true',
     relatedTo: 'general',
@@ -31,8 +52,11 @@ const mapStateToProps = state => ({
   }
 });
 
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ ...courseActions }, dispatch);
+
 const enhance = compose(
-  connect(mapStateToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   reduxForm({ form: 'newPostForm' })
 );
 

@@ -13,7 +13,7 @@ const ForOhFor = () => <h1>No match found</h1>;
 const links = ['home', 'courses', 'messages', 'schedules', 'settings'];
 
 const Teacher = () => (
-  <Wrapper>
+  <Wrapper id="mainWrapper">
     <HeaderContainer links={links} />
     <ModalSwitcher />
     <Content>

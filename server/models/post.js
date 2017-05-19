@@ -1,15 +1,16 @@
 import mongoose, { Schema } from 'mongoose';
 
-const NewsfeedSchema = new Schema({
-	title: {
+const PostSchema = new Schema({
+	created: {
+		type: Date,
+		default: Date.now
+	},
+	edited: Date,
+	content: {
 		type: String,
 		required: true
 	},
-	description: {
-		type: String,
-		required: true
-	},
-	posted: {
+	postedBy: {
 		type: Schema.Types.ObjectId,
 		ref: 'teacher',
 		required: true
@@ -21,7 +22,7 @@ const NewsfeedSchema = new Schema({
 				ref: 'course',
 				required: true
 			},
-			type: {
+			relatedTo: {
 				type: String,
 				required: true,
 				validate: {
@@ -32,10 +33,10 @@ const NewsfeedSchema = new Schema({
 							'project',
 							'seminar',
 							'general',
-							'grade',
-							'attendance'
+							'grades',
+							'attendances'
 						].indexOf(type) > -1,
-					message: 'Invalid type for nesfeed item type'
+					message: 'Invalid type for post item relatedTo'
 				}
 			},
 			lang: {
@@ -47,7 +48,7 @@ const NewsfeedSchema = new Schema({
 				}
 			}
 		},
-		teachers: {
+		includeTeachers: {
 			type: Boolean,
 			default: true
 		},
@@ -58,7 +59,6 @@ const NewsfeedSchema = new Schema({
 			}
 		]
 	},
-	edited: Date,
 	seenBy: {
 		students: [
 			{
@@ -75,6 +75,6 @@ const NewsfeedSchema = new Schema({
 	}
 });
 
-const Newsfeed = mongoose.model('newsfeed', NewsfeedSchema);
+const Post = mongoose.model('post', PostSchema);
 
-export default Newsfeed;
+export default Post;

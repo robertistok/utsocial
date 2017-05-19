@@ -10,4 +10,8 @@ class PostListContainer extends Component {
   }
 }
 
-export default PostListContainer;
+const mapStateToProps = state => ({
+  newsFeed: state.courses.selectedCourse.newsFeed
+});
+
+export default connect(mapStateToProps)(PostListContainer);

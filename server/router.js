@@ -12,6 +12,7 @@ const MessagesController = require('./controllers/messages');
 const UsersController = require('./controllers/users');
 const AttendanceController = require('./controllers/attendance');
 const GradesController = require('./controllers/grades');
+const PostsController = require('./controllers/posts');
 
 const passportService = require('./services/passport');
 
@@ -128,5 +129,12 @@ router.post(
 router.post('/api/grades/insert', requireAuth, GradesController.insertGrade);
 router.post('/api/grades/update', requireAuth, GradesController.updateGrade);
 router.get('/api/grades/delete/:id', requireAuth, GradesController.deleteGrade);
+
+router.post(
+	'/api/posts/getFeedForCourse',
+	requireAuth,
+	PostsController.getFeedForCourse
+);
+router.post('/api/posts/addPost', requireAuth, PostsController.addPost);
 
 export default router;

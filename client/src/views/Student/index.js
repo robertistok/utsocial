@@ -20,7 +20,7 @@ const links = [
 ];
 
 const Student = () => (
-  <Wrapper>
+  <Wrapper id="mainWrapper">
     <HeaderContainer links={links} />
     <ModalSwitcher />
     <Content>

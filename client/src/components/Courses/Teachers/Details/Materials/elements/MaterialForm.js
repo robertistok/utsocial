@@ -30,8 +30,6 @@ const MaterialForm = (props) => {
     }
   };
 
-  console.log(props);
-
   return (
     <Wrapper newMaterial={newMaterial}>
       <StyledForm onSubmit={handleSubmit(onFormSubmit)} size="small">
