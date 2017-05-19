@@ -11,7 +11,8 @@ class PostListContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  newsFeed: state.courses.selectedCourse.newsFeed
+  newsFeed: state.courses.selectedCourse.newsFeed,
+  loggedInUser: state.auth.user
 });
 
 export default connect(mapStateToProps)(PostListContainer);

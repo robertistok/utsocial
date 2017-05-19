@@ -1,13 +1,26 @@
 import React, { PropTypes } from 'react';
+import styled from 'styled-components';
+
+import Post from './elements/Post';
 
 const PostList = (props) => {
-  const { newsFeed } = props;
+  const { newsFeed, loggedInUser: { _id: teacherID } } = props;
 
   return (
-    <div>
-      {newsFeed.map(item => <div key={item._id}>{item.content}</div>)}
-    </div>
+    <Wrapper>
+      {newsFeed.map(item => (
+        <Post
+          key={item._id}
+          {...item}
+          editable={teacherID === item.postedBy._id}
+        />
+      ))}
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+
+`;
 
 export default PostList;

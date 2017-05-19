@@ -16,17 +16,20 @@ function checkIfHttp(url) {
 
 function getCourseGroups(req, res, next) {
 	const { lang, courseID } = req.params;
-	Schedule.find({ 'what.course': courseID }, [
-		'whom.group',
-		'when',
-		'what.type'
-	])
-		.populate({
+	Promise.all([
+		Schedule.find({ 'what.course': courseID }, [
+			'whom.group',
+			'when',
+			'what.type'
+		]).populate({
 			path: 'whom.group',
 			select: 'id lang',
 			match: { lang }
-		})
-		.then((schedules) => {
+		}),
+		Course.findOne({ _id: courseID })
+	])
+		.then((values) => {
+			const [schedules, course] = values;
 			const filteredSchedules = schedules.filter(
 				scheduleItem => scheduleItem.whom.group !== null
 			);
@@ -48,6 +51,7 @@ function getCourseGroups(req, res, next) {
 
 			res.send({
 				groups,
+				course,
 				schedules: filteredSchedules.map(item => ({
 					whom: item.whom.group._id,
 					type: item.what.type,

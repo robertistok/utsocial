@@ -57,12 +57,12 @@ const MaterialCard = (props) => {
 const Wrapper = styled.div`
 	display: flex;
 	justify-content: space-between;
+	background-color: #FFFFFF;
 	align-items: center;
 	flex-direction: column;
 	margin-left: 30px;
 	width: 250px;
 	height: 150px;
-	border: 1px solid grey;
 	margin: 10px;
 	padding: 20px;
 	box-shadow: 0px 3px 5px rgba(0,0,0,.23)

@@ -67,6 +67,7 @@ const MaterialType = (props) => {
 const Wrapper = styled(Segment)`
 	display: flex;
 	flex-direction: column;
+	background-color: #EDEFF0 !important;
 `;
 
 const Header = styled.div`

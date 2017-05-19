@@ -12,7 +12,7 @@ const Overview = (props) => {
         <CourseCard
           key={course._id + course.lang}
           {...course}
-          onClick={() => selectCourse(course)}
+          // onClick={() => selectCourse(course)}
         />
       ))}
     </Wrapper>

@@ -16,8 +16,7 @@ const ADD_POST = 'redux/courses/add-post';
 const ADD_POST_SUCCESS = 'redux/courses/add-post-success';
 const ADD_POST_ERROR = 'redux/courses/add-post-error';
 
-export function selectCourse(course) {
-  const { lang, _id } = course;
+export function selectCourse(_id, lang) {
   return (dispatch) => {
     dispatch({ type: SELECT_COURSE_AND_FETCH_GROUPS });
     axios({
@@ -32,7 +31,7 @@ export function selectCourse(course) {
           type: SELECT_COURSE_AND_FETCH_GROUPS_SUCCESS,
           payload: {
             lang,
-            course,
+            course: response.data.course,
             groups: response.data.groups,
             schedules: response.data.schedules
           }
@@ -116,20 +115,7 @@ export default function (state = INITIAL_STATE, action) {
         ...state,
         selectedCourse: {
           ...state.selectedCourse,
-          newsFeed: action.payload.sort((a, b) => {
-            if (a.edited === undefined) {
-              if (b.edited === undefined) {
-                return a.created > b.created;
-              }
-            }
-            if (a.edited !== undefined) {
-              if (b.edited === undefined) {
-                return a.edited > b.created;
-              }
-              return a.edited > b.edited;
-            }
-            return a.created > b.edited;
-          })
+          newsFeed: action.payload.sort((a, b) => a.created < b.created)
         },
         loading: false
       };

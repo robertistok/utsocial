@@ -9,6 +9,7 @@ import * as metadatacoursections from '../../../../redux/metadatacourse';
 class DetailsContainer extends Component {
   componentDidMount() {
     const { match: { params: { id, lang } } } = this.props;
+    this.props.selectCourse(id, lang);
     this.props.getMetaData(id, lang);
   }
 

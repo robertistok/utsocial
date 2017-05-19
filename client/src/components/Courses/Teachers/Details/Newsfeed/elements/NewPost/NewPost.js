@@ -7,26 +7,22 @@ import NewPostFormContainer from './elements/NewPostForm';
 const NewPost = (props) => {
   const { toggle: writePost, toggledOn: writingPost } = props;
 
-  if (!writingPost) {
-    return (
-      <StyledButton
-        content="Write a new post..."
-        icon="compose"
-        labelPosition="right"
-        onClick={writePost}
-      />
-    );
-  }
-
   return (
     <Wrapper>
-      <StyledButton
-        content="Discard post..."
-        icon="delete"
-        labelPosition="right"
-        onClick={writePost}
-      />
-      <NewPostFormContainer />
+      {writingPost
+        ? <StyledButton
+            content="Discard post..."
+            icon="delete"
+            labelPosition="right"
+            onClick={writePost}
+          />
+        : <StyledButton
+            content="Write a new post..."
+            icon="compose"
+            labelPosition="right"
+            onClick={writePost}
+          />}
+      {writingPost && <NewPostFormContainer />}
     </Wrapper>
   );
 };
@@ -42,6 +38,7 @@ const Wrapper = styled.div`
 	flex-direction: column;
 	align-items: center;
 	margin-bottom: 20px;
+	border-bottom: 1px solid grey;
 `;
 
 const StyledButton = styled(Button)`

@@ -3,7 +3,10 @@ import { Accordion } from 'semantic-ui-react';
 
 import Filter from './elements/Filter';
 import AttendanceTableContainer from './elements/AttendanceTable/index';
-import { StyledAccordionTitle } from '../elements/styled';
+import {
+  StyledAccordionTitle,
+  StyledAccordionContent
+} from '../elements/styled';
 
 const Attendance = (props) => {
   const { toggledOn, toggle } = props;

@@ -1,8 +1,10 @@
 import React from 'react';
 import { Accordion } from 'semantic-ui-react';
-import styled from 'styled-components';
 
-import { StyledAccordionTitle } from '../elements/styled';
+import {
+  StyledAccordionTitle,
+  StyledAccordionContent
+} from '../elements/styled';
 import NewPostContainer from './elements/NewPost';
 import PostListContainer from './elements/PostList';
 
@@ -31,11 +33,5 @@ Newsfeed.propTypes = {
   toggle: func.isRequired,
   toggledOn: bool.isRequired
 };
-
-const StyledAccordionContent = styled(Accordion.Content)`
-	display: flex !important;
-	align-items: center;
-	flex-direction: column;
-`;
 
 export default Newsfeed;

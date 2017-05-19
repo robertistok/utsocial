@@ -14,6 +14,7 @@ export function getFeedForCourse(req, res, next) {
 				{ $or: [{ 'target.includeTeachers': true }, { postedBy: teacherID }] }
 			]
 		})
+			.populate([{ path: 'postedBy', select: 'firstname lastname name' }])
 			.then((posts) => {
 				if (posts === undefined) {
 					return res.send({ posts: [] });
@@ -26,12 +27,14 @@ export function getFeedForCourse(req, res, next) {
 			'target.course.id': courseID,
 			'target.course.lang': lang,
 			groups: studentGroupID
-		}).then((posts) => {
-			if (posts === undefined) {
-				return res.send({ posts: [] });
-			}
-			return res.send({ posts });
-		});
+		})
+			.populate('postedBy')
+			.then((posts) => {
+				if (posts === undefined) {
+					return res.send({ posts: [] });
+				}
+				return res.send({ posts });
+			});
 	}
 }
 
@@ -48,7 +51,14 @@ export function addPost(req, res, next) {
 		target: { course: { id, relatedTo, lang }, includeTeachers, groups }
 	});
 
-	newPost.save().then(newPost => res.send({ newPost })).catch(err => next(err));
+	newPost
+		.save()
+		.then(newPost =>
+			Post.populate(newPost, [
+				{ path: 'postedBy', select: 'firstname lastname name' }
+			]).then(newPost => res.send({ newPost }))
+		)
+		.catch(err => next(err));
 }
 
 function updateItem(req, res, next) {}

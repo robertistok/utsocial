@@ -8,7 +8,7 @@ const CourseCard = (props) => {
   return (
     <Wrapper>
       <Header>
-        <Link to={`/courses/${_id}/${lang}`} onClick={onClick}>
+        <Link to={`/courses/${_id}/${lang}`}>
           <Title>{name}</Title>
         </Link>
         <Info>
