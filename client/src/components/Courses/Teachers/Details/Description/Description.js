@@ -19,12 +19,12 @@ const Description = (props) => {
 
   if (editing === true) {
     return (
-      <div>
+      <Wrapper>
         <StyledTextArea
+          autoFocus
           value={textAreaValue}
           onChange={handleTextBoxChange}
           placeholder={text === '' ? 'Edit the course description...' : null}
-          rows={15}
         />
         <ActionButtonGroup>
           <ActionButton positive onClick={handleSave}>Save</ActionButton>
@@ -38,12 +38,12 @@ const Description = (props) => {
           </ActionButton>
         </ActionButtonGroup>
 
-      </div>
+      </Wrapper>
     );
   }
 
   return (
-    <Message onClick={() => isTeacher && toggleEdit()}>
+    <StyledMessage onClick={() => isTeacher && toggleEdit()}>
       {text === ''
         ? `There is no description about this course so far...${isTeacher && ' Click on this message in order to edit the description'}`
         : <div>
@@ -64,7 +64,7 @@ const Description = (props) => {
               </span>
             ))}
           </div>}
-    </Message>
+    </StyledMessage>
   );
 };
 
@@ -86,22 +86,43 @@ Description.propTypes = {
   handleSave: func.isRequired
 };
 
+const Wrapper = styled.div`
+	box-shadow: 0 3px 5px rgba(0,0,0,.23)
+	max-height: 300px
+`;
+
 const StyledTextArea = styled(TextArea)`
 	width: 100%;
-	padding: 25px;
+	padding: 10px;
 	resize: none;
+	min-height: 250px;
+	border: 0;
+
+	&:focus {
+		outline: none;
+	}
+`;
+
+const StyledMessage = styled(Message)`
+	background-color: #FFFFFF !important;
+	box-shadow: 3px 5px 7px rgba(0,0,0,.23)
 `;
 
 const ActionButtonGroup = styled.div`
 	position: relative;
-	top: -50px;
+	height: 50px;
+	top: -5px;
 	display: flex;
 	justify-content: flex-end;
+	background-color: #FFFFFF;
 `;
 
 const ActionButton = styled(Button)`
 	width: 90px;
 	margin-right: 20px !important;
+	margin-top: 10px !important;
+	margin-bottom: 10px !important;
+	height: 30px;
 `;
 
 export default withToggle(Description);

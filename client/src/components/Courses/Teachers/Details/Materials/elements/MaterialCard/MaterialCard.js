@@ -65,7 +65,7 @@ const Wrapper = styled.div`
 	border: 1px solid grey;
 	margin: 10px;
 	padding: 20px;
-	box-shadow: 0px 3px 5px #888888
+	box-shadow: 0px 3px 5px rgba(0,0,0,.23)
 	transition-timing-function: ease-in;
 	transition: all 0.25s;
 	backface-visibility: hidden;
@@ -74,7 +74,7 @@ const Wrapper = styled.div`
 		height: 157px;
 		margin-bottom: 3px;
 		padding-bottom: 27px;
-		box-shadow: 0px 5px 7px #888888
+		box-shadow: 0px 5px 7px rgba(0,0,0,.23)
 	}
 `;
 

@@ -21,7 +21,6 @@ const DropDownField = (
       <Dropdown
         selection
         {...input}
-        value={input.value}
         options={options}
         placeholder={placeholder}
         onChange={handleChange}
