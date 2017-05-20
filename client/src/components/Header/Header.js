@@ -1,11 +1,52 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import { Button } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 import { capitalizeFirstLetter } from '../../utils/string-operations';
 // import BreadcrumbsWithRouter from './elements/Breadcrumb';
 import { media } from '../../utils/style-utils';
+
+const Header = props => (
+  <Wrapper>
+    <ActionBar>
+      <LogOutButton
+        onClick={() => {
+          props.logOutUser();
+          props.history.push('/');
+        }}
+      >
+        Log out
+      </LogOutButton>
+    </ActionBar>
+
+    <HeaderWrapper>
+      <Title>UTSocial</Title>
+    </HeaderWrapper>
+
+    <Menu>
+      {props.links.map(link => (
+        <MenuItem to={`/${link}`} key={link}>
+          {capitalizeFirstLetter(link)}
+        </MenuItem>
+      ))}
+    </Menu>
+    {/* <Menu secondary size="small">
+      {props.links.map(link => (
+        <MenuItem as={NavLink} to={`/${link}`} key={link}>
+          {capitalizeFirstLetter(link)}
+        </MenuItem>
+      ))}
+      <Menu.Menu position="right">
+        <MenuItem as="button" onClick={props.logOutUser}>
+          Log out
+        </MenuItem>
+      </Menu.Menu>
+    </Menu> */}
+    {/* <BreadcrumbsWithRouter /> */}
+  </Wrapper>
+);
 
 const Wrapper = styled.header`
 	top: 0px;
@@ -77,37 +118,4 @@ const MenuItem = styled(NavLink)`
 	}
 `;
 
-const Header = props => (
-  <Wrapper>
-    <ActionBar>
-      <LogOutButton onClick={props.logOutUser}>Log out</LogOutButton>
-    </ActionBar>
-
-    <HeaderWrapper>
-      <Title>UTSocial</Title>
-    </HeaderWrapper>
-
-    <Menu>
-      {props.links.map(link => (
-        <MenuItem to={`/${link}`} key={link}>
-          {capitalizeFirstLetter(link)}
-        </MenuItem>
-      ))}
-    </Menu>
-    {/* <Menu secondary size="small">
-      {props.links.map(link => (
-        <MenuItem as={NavLink} to={`/${link}`} key={link}>
-          {capitalizeFirstLetter(link)}
-        </MenuItem>
-      ))}
-      <Menu.Menu position="right">
-        <MenuItem as="button" onClick={props.logOutUser}>
-          Log out
-        </MenuItem>
-      </Menu.Menu>
-    </Menu> */}
-    {/* <BreadcrumbsWithRouter /> */}
-  </Wrapper>
-);
-
-export default Header;
+export default withRouter(Header);

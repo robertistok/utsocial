@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
 
-import Admin from './Admin/index';
-import Student from './Student/index';
-import Teacher from './Teacher/index';
+import Admin from './Admin';
+import Student from './Student';
+import Teacher from './Teacher';
 
 export const socket = io();
 
@@ -18,10 +18,10 @@ class Authorized extends Component {
   }
 
   render() {
-    const { auth } = this.props;
+    const { auth: { user } } = this.props;
     let User;
 
-    switch (auth.user && auth.user.type) {
+    switch (user && user.type) {
       case 'admin':
         User = Admin;
         break;

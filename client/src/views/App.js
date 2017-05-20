@@ -9,41 +9,45 @@ import {
 import createBrowserHistory from 'history/createBrowserHistory';
 
 import Authorized from './Authorized';
-import Login from '../components/Login/index';
+import Login from './Login';
 
 const history = createBrowserHistory();
 
 const ForOhFor = () => <h1>No match found</h1>;
 
-const App = props => (
-  <Router history={history}>
-    <div>
+const App = (props) => {
+  return (
+    <Router>
       <Switch>
-        <Route exact path="/" component={Login} />
-        <PrivateRoute to="/home" auth={props.auth} component={Authorized} />
+        <Route
+          path="/"
+          component={props.auth.authenticated === true ? Authorized : Login}
+        />
         <Route component={ForOhFor} />
       </Switch>
-    </div>
-  </Router>
-);
+    </Router>
+  );
+  if (props.authenticated === true) {
+    return (
+      <div>
+        <Switch>
+          <Route path="/" component={Authorized} />
+          <Route component={ForOhFor} />
+        </Switch>
 
-const PrivateRoute = ({ component, auth, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) => {
-      if (auth.authenticated) {
-        return React.createElement(component, props);
-      }
-      return (
-        <Redirect
-          to={{
-            pathname: '/',
-            state: { from: props.location }
-          }}
-        />
-      );
-    }}
-  />
-);
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <Switch>
+        <Route path="/" component={Login} />
+        <Route component={ForOhFor} />;
+      </Switch>
+
+    </div>
+  );
+};
 
 export default connect(state => state)(App);

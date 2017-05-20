@@ -20,8 +20,11 @@ const Attendance = (props) => {
       />
 
       <Accordion.Content active={toggledOn}>
-        <Filter {...props} />
-        <AttendanceTableContainer />
+        <StyledAccordionContent>
+          <Filter {...props} />
+          <AttendanceTableContainer />{' '}
+        </StyledAccordionContent>
+
       </Accordion.Content>
     </div>
   );

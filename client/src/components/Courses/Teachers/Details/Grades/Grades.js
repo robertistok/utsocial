@@ -19,10 +19,12 @@ const Grades = (props) => {
         content="Grades"
       />
       {toggledOn &&
-        <StyledAccordionContent active>
-          <Filter {...props} />
-          <GradesTableContainer />
-        </StyledAccordionContent>}
+        <Accordion.Content active>
+          <StyledAccordionContent>
+            <Filter {...props} />
+            <GradesTableContainer />
+          </StyledAccordionContent>
+        </Accordion.Content>}
     </div>
   );
 };

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Form, Message, Button } from 'semantic-ui-react';
 
 import { media } from '../../utils/style-utils';
-import InputField from '../FormComponents/InputField';
+import InputField from '../../components/FormComponents/InputField';
 
 const Wrapper = styled.div`
 	display: flex;

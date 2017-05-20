@@ -28,5 +28,4 @@ const Teacher = () => (
     </Content>
   </Wrapper>
 );
-
 export default Teacher;

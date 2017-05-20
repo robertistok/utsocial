@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const ROOT_URL = 'api/auth';
+const ROOT_URL = '/api/auth';
 
 const AUTH_USER = 'utsocial/auth/auth';
 const AUTH_USER_SUCCESS = 'utsocial/auth/auth-success';

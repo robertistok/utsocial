@@ -7,6 +7,8 @@ import InboxContainer from './Inbox/index';
 import ConversationContainer from './Conversation/index';
 import NewThreadContainer from './NewThread/index';
 
+const ForOhFor = () => <h1>No match found</h1>;
+
 const Wrapper = styled.div`
 	width: 100%;
 	display: flex;
@@ -21,6 +23,7 @@ const MessageaContainer = () => (
     <Switch>
       <Route exact path="/messages" component={ConversationContainer} />
       <Route path="/messages/new" component={NewThreadContainer} />
+      <Route component={ForOhFor} />
     </Switch>
   </Wrapper>
 );

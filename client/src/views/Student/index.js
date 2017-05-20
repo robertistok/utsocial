@@ -21,10 +21,10 @@ const links = [
 
 const Student = () => (
   <Wrapper id="mainWrapper">
-    <HeaderContainer links={links} />
     <ModalSwitcher />
     <Content>
       <Switch>
+        <Route path="/" render={() => <HeaderContainer links={links} />} />
         <Route path="/home" render={() => <h1>StudentHome page</h1>} />
         <Route path="/courses" component={StudentsCourses} />
         <Route path="/messages" component={Messages} />
