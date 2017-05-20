@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import * as courseActions from '../../../../../../../redux/courses';
 
 import PostList from './PostList';
 
@@ -11,8 +12,11 @@ class PostListContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  newsFeed: state.courses.selectedCourse.newsFeed,
+  newsFeed: courseActions.postList(state),
   loggedInUser: state.auth.user
 });
 
-export default connect(mapStateToProps)(PostListContainer);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ ...courseActions }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostListContainer);

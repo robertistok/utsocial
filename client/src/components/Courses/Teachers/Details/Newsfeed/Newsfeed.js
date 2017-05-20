@@ -1,11 +1,12 @@
 import React from 'react';
 import { Accordion } from 'semantic-ui-react';
+import styled from 'styled-components';
 
 import {
   StyledAccordionTitle,
   StyledAccordionContent
 } from '../elements/styled';
-import NewPostContainer from './elements/NewPost';
+import HeaderContainer from './elements/Header';
 import PostListContainer from './elements/PostList';
 
 const Newsfeed = (props) => {
@@ -21,7 +22,7 @@ const Newsfeed = (props) => {
 
       {toggledOn &&
         <StyledAccordionContent active>
-          <NewPostContainer />
+          <HeaderContainer />
           <PostListContainer />
         </StyledAccordionContent>}
     </div>
@@ -33,5 +34,11 @@ Newsfeed.propTypes = {
   toggle: func.isRequired,
   toggledOn: bool.isRequired
 };
+
+const Header = styled.div`
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px !important;
+`;
 
 export default Newsfeed;

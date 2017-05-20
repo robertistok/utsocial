@@ -136,5 +136,12 @@ router.post(
 	PostsController.getFeedForCourse
 );
 router.post('/api/posts/addPost', requireAuth, PostsController.addPost);
+router.delete(
+	'/api/posts/delete/:postID',
+	requireAuth,
+	PostsController.deletePost
+);
+router.put('/api/posts/mark', requireAuth, PostsController.mark);
+router.put('/api/posts/unMark', requireAuth, PostsController.unMark);
 
 export default router;

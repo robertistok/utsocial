@@ -17,7 +17,6 @@ class NewsfeedContainer extends Component {
   }
 
   render() {
-    console.log(this.props.selectedCourse);
     return <Newsfeed {...this.props} />;
   }
 }

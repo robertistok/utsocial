@@ -34,7 +34,7 @@ const PostSchema = new Schema({
 							'seminar',
 							'general',
 							'grades',
-							'attendances'
+							'attendance'
 						].indexOf(type) > -1,
 					message: 'Invalid type for post item relatedTo'
 				}
@@ -60,18 +60,12 @@ const PostSchema = new Schema({
 		]
 	},
 	seenBy: {
-		students: [
-			{
-				type: Schema.Types.ObjectId,
-				ref: 'student'
-			}
-		],
-		teachers: [
-			{
-				type: Schema.Types.ObjectId,
-				ref: 'teacher'
-			}
-		]
+		type: [String],
+		default: []
+	},
+	marked: {
+		type: [String],
+		default: []
 	}
 });
 

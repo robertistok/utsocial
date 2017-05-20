@@ -47,7 +47,8 @@ const SubmitButton = styled(Button)`
 	align-self: flex-end;
 	margin: 10px !important;
 	width: 90px;
-	height: 30px;
+	height: 25px;
+	padding: 5px !important;
 `;
 
 export default DescriptionArea;

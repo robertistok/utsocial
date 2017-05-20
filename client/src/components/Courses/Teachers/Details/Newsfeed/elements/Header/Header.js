@@ -3,12 +3,19 @@ import { Button } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 import NewPostFormContainer from './elements/NewPostForm';
+import Filter from './elements/Filter';
 
-const NewPost = (props) => {
-  const { toggle: writePost, toggledOn: writingPost } = props;
+const Header = (props) => {
+  const {
+    toggle: writePost,
+    toggledOn: writingPost,
+    selectedCourseTeachingTypes,
+    filterNewsfeed
+  } = props;
 
   return (
-    <Wrapper>
+    <Wrapper writingPost={writingPost}>
+      <Filter types={selectedCourseTeachingTypes} onChange={filterNewsfeed} />
       {writingPost
         ? <StyledButton
             content="Discard post..."
@@ -22,28 +29,27 @@ const NewPost = (props) => {
             labelPosition="right"
             onClick={writePost}
           />}
-      {writingPost && <NewPostFormContainer />}
+      {writingPost && <NewPostFormContainer className="headerItem" />}
     </Wrapper>
   );
 };
 
 const { bool, func } = PropTypes;
-NewPost.propTypes = {
+Header.propTypes = {
   toggle: func.isRequired,
   toggledOn: bool.isRequired
 };
 
 const Wrapper = styled.div`
 	display: flex;
-	flex-direction: column;
+	flex-direction: ${props => props.writingPost ? 'column' : 'row'};
 	align-items: center;
-	margin-bottom: 20px;
-	border-bottom: 1px solid grey;
 `;
 
 const StyledButton = styled(Button)`
-	width: 300px;
-	margin-bottom: 20px !important;
+	width: 180px;
+	margin: 10px !important;
+	height: 39px;
 `;
 
-export default NewPost;
+export default Header;

@@ -1,12 +1,14 @@
 import React, { PropTypes } from 'react';
-import { Form, Button } from 'semantic-ui-react';
+import { Form } from 'semantic-ui-react';
 import { Field } from 'redux-form';
 import styled from 'styled-components';
 
 import Dropdown from '../../../../../../../../FormComponents/Dropdown';
 import Checkbox from '../../../../../../../../FormComponents/Checkbox';
-import InputField from '../../../../../../../../FormComponents/InputField';
 import { required } from '../../../../../../../../FormComponents/validation';
+import {
+  capitalizeFirstLetter
+} from '../../../../../../../../../utils/string-operations';
 import DescriptionArea from './DescriptionArea';
 
 const NewPostForm = (props) => {
@@ -31,11 +33,15 @@ const NewPostForm = (props) => {
     { key: 'grades', text: 'Grades', value: 'grades' },
     ...Object.keys(selectedCourseTeachingTypes)
       .filter(type => selectedCourseTeachingTypes[type] === true)
-      .map(type => ({ key: type, text: type, value: type }))
+      .map(type => ({
+        key: type,
+        text: capitalizeFirstLetter(type),
+        value: type
+      }))
   ];
 
   return (
-    <StyledForm onSubmit={handleSubmit(onSubmit)}>
+    <StyledForm onSubmit={handleSubmit(onSubmit)} size="small">
       <StyledFormGroup inline>
         <Field
           name="relatedTo"
@@ -78,6 +84,7 @@ const StyledForm = styled(Form)`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	margin: 10px !important;
 `;
 
 const StyledFormGroup = styled(Form.Group)`

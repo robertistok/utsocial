@@ -1,7 +1,4 @@
 import Post from '../models/post';
-import Course from '../models/course';
-import Student from '../models/student';
-import Teacher from '../models/teacher';
 
 export function getFeedForCourse(req, res, next) {
 	const { studentGroupID, teacherID, target: { courseID, lang } } = req.body;
@@ -63,4 +60,48 @@ export function addPost(req, res, next) {
 
 function updateItem(req, res, next) {}
 
-function deleteItem(req, res, next) {}
+export function mark(req, res, next) {
+	const { postID, userID, type } = req.body;
+
+	Post.findByIdAndUpdate(
+		postID,
+		{ $addToSet: { [type]: userID } },
+		{ safe: true, new: true }
+	)
+		.then(() =>
+			res.status(200).send({ type, postID, userID, message: 'Mark successful' })
+		)
+		.catch(err => next(err));
+}
+
+export function unMark(req, res, next) {
+	const { postID, userID, type } = req.body;
+
+	Post.findByIdAndUpdate(
+		postID,
+		{ $pull: { [type]: [userID] } },
+		{ safe: true, new: true }
+	)
+		.then(() =>
+			res
+				.status(200)
+				.send({ type, postID, userID, message: 'UnMark successful' })
+		)
+		.catch(err => next(err));
+}
+
+export function deletePost(req, res, next) {
+	const { postID } = req.params;
+
+	Post.findOneAndRemove({ _id: postID })
+		.then((post) => {
+			if (!post) {
+				return res
+					.status(404)
+					.send({ id: postID, message: 'Post not found...' });
+			}
+
+			return res.status(200).send({ id: postID, message: 'Delete successful' });
+		})
+		.catch(err => next(err));
+}
