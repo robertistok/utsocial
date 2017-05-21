@@ -1,19 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
 
-import { StyledButton } from '../styled-components';
 import MaterialForm from '../MaterialForm';
-import { formatTime } from '../../../../../../../utils/timestamp';
-// import ConfirmRemove from './ConfirmRemove';
+import Card from '../../../../../elements/Materials/Card';
 
 const MaterialCard = (props) => {
   const {
-    material: { _id, link, description, enteredOn },
+    material: { _id: materialID, link, description, enteredOn },
     toggle: editMateial,
     toggledOn: editing,
     handleCardEdit,
     handleCardDelete,
-    // toggleActionButtons,
     showButtons,
     initialValues
   } = props;
@@ -22,75 +18,26 @@ const MaterialCard = (props) => {
     return (
       <MaterialForm
         initialValues={initialValues}
-        submitForm={handleCardEdit(_id)}
+        submitForm={handleCardEdit(materialID)}
         positiveButton="Save"
         negativeButton="Cancel"
         onNegativeButtonClick={editMateial}
         newMaterial={false}
-        form={`${_id}edit`}
+        form={`${materialID}edit`}
       />
     );
   }
 
   return (
-    <Wrapper
-    // onMouseEnter={() => !editing ? toggleActionButtons() : ''}
-    // onMouseLeave={() => !editing ? toggleActionButtons() : ''}
-    >
-      <Timestamp>Last updated at {formatTime(enteredOn)}</Timestamp>
-      <Link href={link}>{description}</Link>
-      {!showButtons &&
-        <ButtonGroup>
-          <StyledButton positive onClick={editMateial} content="Edit" />
-          {/* <ConfirmRemove handleCardDelete={() => handleCardDelete(_id)} /> */}
-          <StyledButton
-            negative
-            onClick={() => handleCardDelete(_id)}
-            type="Submit"
-            content="Delete"
-          />
-        </ButtonGroup>}
-    </Wrapper>
+    <Card
+      link={link}
+      description={description}
+      enteredOn={enteredOn}
+      handleCardDelete={() => handleCardDelete(materialID)}
+      showButtons={showButtons}
+      editMaterial={editMateial}
+    />
   );
 };
-
-const Wrapper = styled.div`
-	display: flex;
-	justify-content: space-between;
-	background-color: #FFFFFF;
-	align-items: center;
-	flex-direction: column;
-	margin-left: 30px;
-	width: 250px;
-	height: 150px;
-	margin: 10px;
-	padding: 20px;
-	box-shadow: 0px 3px 5px rgba(0,0,0,.23)
-	transition-timing-function: ease-in;
-	transition: all 0.25s;
-	backface-visibility: hidden;
-
-	&:hover {
-		height: 157px;
-		margin-bottom: 3px;
-		padding-bottom: 27px;
-		box-shadow: 0px 5px 7px rgba(0,0,0,.23)
-	}
-`;
-
-const Timestamp = styled.span`
-	color: rgba(0, 0, 0, .40)
-	font-size: 12px;
-`;
-
-const Link = styled.a`
-	text-align: center;
-	align-self: center;
-`;
-
-const ButtonGroup = styled.div`
-	display: flex;
-	justify-content: space-between;
-`;
 
 export default MaterialCard;

@@ -50,10 +50,7 @@ class DescriptionBoxContainer extends Component {
   }
 
   render() {
-    const { loggedInUser } = this.props;
     const { content } = this.state;
-
-    const isTeacher = loggedInUser.type === 'teacher';
 
     return (
       <DescriptionBox
@@ -61,7 +58,6 @@ class DescriptionBoxContainer extends Component {
         handleSave={this.handleSave}
         resetState={this.resetState}
         handleTextBoxChange={this.handleTextBoxChange}
-        isTeacher={isTeacher}
         content={content}
       />
     );

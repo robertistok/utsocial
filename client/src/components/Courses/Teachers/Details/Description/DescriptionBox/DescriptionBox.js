@@ -1,13 +1,12 @@
 import React from 'react';
-import { Message, Button } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import { formatTime } from '../../../../../../utils/timestamp';
 import ContentEditableDiv from '../../elements/ContentEditableDiv';
+import Box from '../../../../elements/Description/Box';
 
 const DescriptionBox = (props) => {
   const {
-    isTeacher,
     description: { text, lastUpdatedBy, updatedOn },
     toggle: toggleEdit,
     toggledOn: editing,
@@ -41,34 +40,18 @@ const DescriptionBox = (props) => {
   }
 
   return (
-    <StyledMessage onClick={() => isTeacher && toggleEdit()}>
-      {text === ''
-        ? `There is no description about this course so far...${isTeacher && ' Click on this message in order to edit the description'}`
-        : <div>
-            <span>
-              Last updated at
-              {' '}
-              <strong>{formatTime(updatedOn)}</strong>
-              {' '}
-              by
-              {' '}
-              {lastUpdatedBy.name}
-            </span>
-            <br /> <br />
-            {text.split('\n').map((item, index) => (
-              <span key={item + index}>
-                {item}
-                <br />
-              </span>
-            ))}
-          </div>}
-    </StyledMessage>
+    <Box
+      onClick={toggleEdit}
+      text={text}
+      updatedOn={updatedOn}
+      isTeacher
+      lastUpdatedBy={lastUpdatedBy}
+    />
   );
 };
 
 const { bool, string, func, shape } = React.PropTypes;
 DescriptionBox.propTypes = {
-  isTeacher: bool.isRequired,
   description: shape({
     text: string.isRequired,
     updatedOn: string,
@@ -87,11 +70,6 @@ DescriptionBox.propTypes = {
 const Wrapper = styled.div`
 	background-color: #FFFFFF;
 	box-shadow: 0 3px 5px rgba(0,0,0,.23)
-`;
-
-const StyledMessage = styled(Message)`
-	background-color: #FFFFFF !important;
-	box-shadow: 3px 5px 7px rgba(0,0,0,.23)
 `;
 
 const ActionButtonGroup = styled.div`

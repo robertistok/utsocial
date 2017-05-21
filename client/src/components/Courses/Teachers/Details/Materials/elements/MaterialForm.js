@@ -38,6 +38,7 @@ const MaterialForm = (props) => {
           name="link"
           label="Link"
           placeholder="Enter the link..."
+          type="text"
           component={InputField}
           validate={required}
         />
@@ -45,6 +46,7 @@ const MaterialForm = (props) => {
           name="description"
           label="Description"
           placeholder="Enter a description..."
+          type="text"
           component={InputField}
           validate={required}
         />
@@ -75,8 +77,8 @@ const Wrapper = styled.div`
 	height: 200px;
 	width: 300px;
 	padding: 20px;
-	border: 1px solid grey;
 	box-shadow: 1px 5px 5px #888888
+	background-color: #FFFFFF;
 
 	align-self: ${props => props.newMaterial ? 'center' : ''}
 	margin-top: ${props => props.newMaterial ? '30px' : '0px'}
@@ -84,7 +86,6 @@ const Wrapper = styled.div`
 `;
 
 const StyledForm = styled(Form)`
-
 `;
 
 const mapStateToProps = state => ({
