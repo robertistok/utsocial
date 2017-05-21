@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import {
   capitalizeFirstLetter
 } from '../../../../../../../../utils/string-operations';
+import { media } from '../../../../../../../../utils/style-utils';
 
 const Filter = (props) => {
   const { types, onChange } = props;
@@ -35,9 +36,36 @@ const Filter = (props) => {
   );
 };
 
+const { func, bool, shape } = React.PropTypes;
+Filter.propTypes = {
+  onChange: func.isRequired,
+  types: shape({
+    lab: bool,
+    lecture: bool,
+    seminar: bool,
+    project: bool
+  }).isRequired
+};
+
 const StyledDropdown = styled(Dropdown)`
-	width: 150px !important;
+	min-width: 120px !important;
 	margin: 10px !important;
+	font-size: 14px !important;
+	border-radius: 0px !important;
+	max-height: 39px !important;
+	text-align: center;
+
+	div .text {
+		font-size: 13px !important;
+	}
+
+	${media.phone`
+		font-size: 12px !important;
+
+		div .text {
+			font-size: 12px !important;
+		}
+	`}
 `;
 
 export default Filter;

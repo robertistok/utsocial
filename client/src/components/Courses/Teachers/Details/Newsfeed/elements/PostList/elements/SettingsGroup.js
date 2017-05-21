@@ -20,6 +20,18 @@ const SettingsGroup = (props) => {
   );
 };
 
+const { string, shape, func, arrayOf } = React.PropTypes;
+SettingsGroup.propTypes = {
+  options: arrayOf(
+    shape({
+      key: string.isRequired,
+      text: string.isRequired,
+      icon: string.isRequired,
+      onClick: func
+    }).isRequired
+  ).isRequired
+};
+
 const Wrapper = styled.div`
 	position: absolute;
 	align-self: flex-end;

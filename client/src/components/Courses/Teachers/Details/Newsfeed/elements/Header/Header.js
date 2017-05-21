@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import NewPostFormContainer from './elements/NewPostForm';
 import Filter from './elements/Filter';
+import { media } from '../../../../../../../utils/style-utils';
 
 const Header = (props) => {
   const {
@@ -15,29 +16,36 @@ const Header = (props) => {
 
   return (
     <Wrapper writingPost={writingPost}>
-      <Filter types={selectedCourseTeachingTypes} onChange={filterNewsfeed} />
       {writingPost
         ? <StyledButton
-            content="Discard post..."
+            content="Discard"
             icon="delete"
             labelPosition="right"
             onClick={writePost}
           />
         : <StyledButton
-            content="Write a new post..."
+            content="New"
             icon="compose"
             labelPosition="right"
             onClick={writePost}
           />}
+      <Filter types={selectedCourseTeachingTypes} onChange={filterNewsfeed} />
       {writingPost && <NewPostFormContainer className="headerItem" />}
     </Wrapper>
   );
 };
 
-const { bool, func } = PropTypes;
+const { bool, func, shape } = PropTypes;
 Header.propTypes = {
   toggle: func.isRequired,
-  toggledOn: bool.isRequired
+  toggledOn: bool.isRequired,
+  selectedCourseTeachingTypes: shape({
+    lab: bool,
+    lecture: bool,
+    seminar: bool,
+    project: bool
+  }).isRequired,
+  filterNewsfeed: func.isRequired
 };
 
 const Wrapper = styled.div`
@@ -47,9 +55,14 @@ const Wrapper = styled.div`
 `;
 
 const StyledButton = styled(Button)`
-	width: 180px;
+	width: 120px;
 	margin: 10px !important;
 	height: 39px;
+	font-size: 14px !important;
+
+	${media.phone`
+		font-size: 12px !important;
+		`}
 `;
 
 export default Header;

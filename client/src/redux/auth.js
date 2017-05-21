@@ -27,7 +27,10 @@ export function loginUser({ username, password }) {
   return (dispatch) => {
     dispatch({ type: AUTH_USER });
     axios
-      .post(`${ROOT_URL}/login`, { username, password })
+      .post(`${ROOT_URL}/login`, {
+        username: username.toLowerCase().trim(),
+        password
+      })
       .then((response) => {
         dispatch({
           type: AUTH_USER_SUCCESS,

@@ -1,17 +1,20 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import Post from './elements/Post';
+import { media } from '../../../../../../../utils/style-utils';
 
 const PostList = (props) => {
   const {
-    _id: postID,
     newsFeed,
     loggedInUser: { _id: userID },
     deletePost,
+    updatePost,
     mark,
     unMark
   } = props;
+
+  const updateFunction = postID => content => updatePost(postID, content);
 
   return (
     <Wrapper>
@@ -29,6 +32,8 @@ const PostList = (props) => {
             {...item}
             isOwner={isOwner}
             deletePost={isOwner ? () => deletePost(postID) : undefined}
+            updatePost={isOwner && updateFunction(postID)}
+            isNew={seenBy.includes(userID)}
             markSeen={
               !isOwner && !seenBy.includes(userID)
                 ? markFunction('seenBy')
@@ -52,9 +57,49 @@ const PostList = (props) => {
   );
 };
 
+const { shape, string, func, arrayOf, bool } = React.PropTypes;
+PostList.propTypes = {
+  mark: func.isRequired,
+  unMark: func.isRequired,
+  deletePost: func.isRequired,
+  updatePost: func.isRequired,
+  newsFeed: arrayOf(
+    shape({
+      created: string.isRequired,
+      edited: string,
+      content: string.isRequired,
+      postedBy: shape({
+        _id: string.isRequired,
+        name: string.isRequired
+      }).isRequired,
+      target: shape({
+        course: shape({
+          id: string.isRequired,
+          lang: string.isRequired,
+          relatedTo: string.isRequired
+        }).isRequired,
+        groups: arrayOf(string).isRequired,
+        includeTeachers: bool.isRequired
+      }).isRequired,
+      seenBy: arrayOf(string).isRequired,
+      marked: arrayOf(string).isRequired
+    }).isRequired
+  ).isRequired,
+  loggedInUser: shape({ _id: string.isRequired })
+};
+
 const Wrapper = styled.div`
 	width: 50%;
 	margin: 30px 0px;
+
+	${media.tablet`
+		width: 70%;
+		`}
+
+	${media.phone`
+		font-size: 12px;
+		width: 90%;
+		`}
 `;
 
 const NoPostMessage = styled.span`

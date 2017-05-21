@@ -19,18 +19,33 @@ class DetailsContainer extends Component {
   }
 
   render() {
-    const { selectedCourse } = this.props;
+    const { selectedCourse: { lang, course: { _id: courseID } } } = this.props;
 
-    if (
-      selectedCourse.lang === undefined &&
-      selectedCourse.course._id === undefined
-    ) {
+    if (lang === undefined && courseID === undefined) {
       return null;
     }
 
     return <Details {...this.props} />;
   }
 }
+
+const { func, shape, string } = React.PropTypes;
+DetailsContainer.propTypes = {
+  selectCourse: func.isRequired,
+  getMetaData: func.isRequired,
+  resetCourses: func.isRequired,
+  resetMetadataCourse: func.isRequired,
+  match: shape({
+    params: shape({
+      id: string.isRequired,
+      lang: string.isRequired
+    }).isRequired
+  }).isRequired,
+  selectedCourse: shape({
+    lang: string,
+    course: shape({ _id: string })
+  })
+};
 
 const mapStateToProps = state => ({
   courses: state.courses,

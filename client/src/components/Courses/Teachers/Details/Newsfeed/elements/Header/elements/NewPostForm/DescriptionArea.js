@@ -19,6 +19,18 @@ const DescriptionArea = (props) => {
   );
 };
 
+const { string, bool, shape } = React.PropTypes;
+DescriptionArea.propTypes = {
+  label: string,
+  meta: shape({
+    touched: bool.isRequired,
+    error: bool,
+    active: bool.isRequired
+  }).isRequired,
+  placeholder: string,
+  input: shape({ name: string })
+};
+
 const ContentWrapper = styled.div`
 	background-color: #FFFFFF;
 	min-height: 200px;

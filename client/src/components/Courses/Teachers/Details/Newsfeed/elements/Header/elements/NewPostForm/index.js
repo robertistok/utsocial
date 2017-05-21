@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { bindActionCreators } from 'redux';
@@ -39,6 +39,22 @@ class NewPostFormContainer extends React.Component {
     return <NewPostForm {...this.props} onSubmit={this.handleSubmit} />;
   }
 }
+
+const { func, string, number, shape, arrayOf } = React.PropTypes;
+NewPostFormContainer.propTypes = {
+  addPost: func.isRequired,
+  selectedCourse: shape({
+    lang: string.isRequired,
+    groups: arrayOf(
+      shape({
+        id: number.isRequired,
+        _id: string.isRequired
+      }).isRequired
+    ).isRequired,
+    course: shape({ _id: string.isRequired }).isRequired
+  }).isRequired,
+  loggedInUser: shape({ _id: string.isRequired }).isRequired
+};
 
 const mapStateToProps = state => ({
   selectedCourseGroups: state.courses.selectedCourse.groups,

@@ -21,6 +21,20 @@ class NewsfeedContainer extends Component {
   }
 }
 
+const { func, shape, string } = React.PropTypes;
+NewsfeedContainer.propTypes = {
+  getFeedForCourse: func.isRequired,
+  selectedCourse: shape({
+    lang: string.isRequired,
+    course: shape({
+      _id: string.isRequired
+    }).isRequired
+  }).isRequired,
+  loggedInUser: shape({
+    _id: string.isRequired
+  }).isRequired
+};
+
 const mapStateToProps = state => ({
   loggedInUser: state.auth.user,
   selectedCourse: state.courses.selectedCourse,

@@ -143,5 +143,6 @@ router.delete(
 );
 router.put('/api/posts/mark', requireAuth, PostsController.mark);
 router.put('/api/posts/unMark', requireAuth, PostsController.unMark);
+router.put('/api/posts/update', requireAuth, PostsController.updatePost);
 
 export default router;

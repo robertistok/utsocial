@@ -26,6 +26,13 @@ const Details = (props) => {
   );
 };
 
+const { shape, string } = React.PropTypes;
+Details.propTypes = {
+  selectedCourse: shape({
+    course: shape({ _id: string.isRequired }).isRequired
+  }).isRequired
+};
+
 const StyledAccordion = styled(Accordion)`
 	background-color: #EDEFF0 !important;
 	border: 0 !important;

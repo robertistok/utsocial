@@ -21,24 +21,20 @@ const Newsfeed = (props) => {
       />
 
       {toggledOn &&
-        <StyledAccordionContent active>
-          <HeaderContainer />
-          <PostListContainer />
-        </StyledAccordionContent>}
+        <Accordion.Content active>
+          <StyledAccordionContent>
+            <HeaderContainer />
+            <PostListContainer />
+          </StyledAccordionContent>
+        </Accordion.Content>}
     </div>
   );
 };
 
-const { string, bool, func, shape } = React.PropTypes;
+const { bool, func } = React.PropTypes;
 Newsfeed.propTypes = {
   toggle: func.isRequired,
   toggledOn: bool.isRequired
 };
-
-const Header = styled.div`
-	display: flex;
-	align-items: center;
-	margin-bottom: 20px !important;
-`;
 
 export default Newsfeed;

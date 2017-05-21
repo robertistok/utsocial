@@ -1,3 +1,4 @@
+import React from 'react';
 import { css } from 'styled-components';
 
 const sizes = {
@@ -20,9 +21,18 @@ export const media = Object.keys(sizes).reduce(
   {}
 );
 
-export const truncate = width => `
+export const truncate = width =>
+  `
     width: ${width};
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   `;
+
+export const formatMultiLineText = text =>
+  text.split('\n').map((item, index) => (
+    <span key={item + index}>
+      {item}
+      <br />
+    </span>
+  ));

@@ -29,6 +29,7 @@
 		"comma-dangle": ["error", {
 			"functions": "never"
 		}],
-		"no-underscore-dangle": ["error", { "allow": ["_id"]}]
+		"no-underscore-dangle": ["error", { "allow": ["_id"]}],
+		"no-confusing-arrow": 0
   }
 }

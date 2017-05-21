@@ -18,6 +18,10 @@ const ADD_POST = 'redux/courses/add-post';
 const ADD_POST_SUCCESS = 'redux/courses/add-post-success';
 const ADD_POST_ERROR = 'redux/courses/add-post-error';
 
+const UPDATE_POST = 'redux/courses/update-post';
+const UPDATE_POST_SUCCESS = 'redux/courses/update-post-success';
+const UPDATE_POST_ERROR = 'redux/courses/update-post-error';
+
 const DELETE_POST = 'redux/courses/delete-post';
 const DELETE_POST_SUCCESS = 'redux/courses/delete-post-success';
 const DELETE_POST_ERROR = 'redux/courses/delete-post-error';
@@ -86,6 +90,26 @@ export function addPost(props) {
       .then(response =>
         dispatch({ type: ADD_POST_SUCCESS, payload: response.data.newPost }))
       .catch(err => dispatch({ type: ADD_POST_ERROR, payload: err }));
+  };
+}
+
+export function updatePost(postID, content) {
+  return (dispatch) => {
+    dispatch({ type: UPDATE_POST });
+    axios({
+      method: 'put',
+      url: '/api/posts/update',
+      data: { postID, content },
+      headers: {
+        authorization: sessionStorage.getItem('token')
+      }
+    })
+      .then(response =>
+        dispatch({
+          type: UPDATE_POST_SUCCESS,
+          payload: response.data.updatedPost
+        }))
+      .catch(err => dispatch({ type: UPDATE_POST_ERROR, payload: err }));
   };
 }
 
@@ -207,6 +231,31 @@ export default function (state = INITIAL_STATE, action) {
         loading: false
       };
     case ADD_POST_ERROR:
+      error = action.payload || { message: action.payload.message };
+      return { ...state, loading: false, error };
+
+    case UPDATE_POST:
+      return { ...state, loading: true };
+    case UPDATE_POST_SUCCESS:
+      return {
+        ...state,
+        selectedCourse: {
+          ...state.selectedCourse,
+          newsFeed: state.selectedCourse.newsFeed.map((post) => {
+            if (post._id === action.payload._id) {
+              return {
+                ...post,
+                content: action.payload.content,
+                edited: action.payload.edited
+              };
+            }
+
+            return { ...post };
+          })
+        },
+        loading: false
+      };
+    case UPDATE_POST_ERROR:
       error = action.payload || { message: action.payload.message };
       return { ...state, loading: false, error };
 

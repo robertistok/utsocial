@@ -58,7 +58,17 @@ export function addPost(req, res, next) {
 		.catch(err => next(err));
 }
 
-function updateItem(req, res, next) {}
+export function updatePost(req, res, next) {
+	const { postID, content } = req.body;
+
+	Post.findByIdAndUpdate(
+		postID,
+		{ content, edited: Date.now() },
+		{ safe: true, new: true }
+	)
+		.then(updatedPost => res.status(200).send({ updatedPost }))
+		.catch(err => next(err));
+}
 
 export function mark(req, res, next) {
 	const { postID, userID, type } = req.body;

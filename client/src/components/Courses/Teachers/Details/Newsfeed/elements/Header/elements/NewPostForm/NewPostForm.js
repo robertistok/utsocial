@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { Form } from 'semantic-ui-react';
 import { Field } from 'redux-form';
 import styled from 'styled-components';
@@ -78,6 +78,21 @@ const NewPostForm = (props) => {
 
     </StyledForm>
   );
+};
+
+const { func, shape, string, bool, arrayOf, number } = React.PropTypes;
+NewPostForm.propTypes = {
+  onSubmit: func.isRequired,
+  handleSubmit: func.isRequired,
+  selectedCourseGroups: arrayOf(
+    shape({ _id: string.isRequired, id: number.isRequired }).isRequired
+  ).isRequired,
+  selectedCourseTeachingTypes: shape({
+    lab: bool,
+    lecture: bool,
+    project: bool,
+    seminar: bool
+  }).isRequired
 };
 
 const StyledForm = styled(Form)`
