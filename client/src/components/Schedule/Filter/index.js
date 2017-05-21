@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
@@ -49,7 +49,8 @@ class FilterContainer extends Component {
   }
 
   extractOptionsFromGroup() {
-    return this.props.groups.all.map(group => ({
+    const { groups: { all } } = this.props;
+    return all.map(group => ({
       key: group._id,
       text: group.id,
       value: group._id,
@@ -72,11 +73,14 @@ class FilterContainer extends Component {
   }
 }
 
+const { func } = React.PropTypes;
 FilterContainer.propTypes = {
-  getGroups: PropTypes.func.isRequired,
-  changeGroup: PropTypes.func.isRequired,
-  changeSemigroup: PropTypes.func.isRequired,
-  changeWeek: PropTypes.func.isRequired
+  getGroups: func.isRequired,
+  changeGroup: func.isRequired,
+  changeSemigroup: func.isRequired,
+  changeWeek: func.isRequired,
+  fechSchedulesForGroup: func.isRequired,
+  showModal: func.isRequired
 };
 
 const mapStateToProps = state => ({

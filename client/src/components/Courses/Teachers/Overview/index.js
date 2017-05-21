@@ -8,12 +8,19 @@ import * as courseActions from '../../../../redux/courses';
 
 class OverviewContainer extends Component {
   componentDidMount() {
-    this.props.fetchTeachingOfTeacher(this.props.user._id);
+    const { fetchTeachingOfTeacher, user: { _id: userID } } = this.props;
+    fetchTeachingOfTeacher(userID);
   }
   render() {
     return <Overview {...this.props} />;
   }
 }
+
+const { shape, string, func } = React.PropTypes;
+OverviewContainer.propTypes = {
+  fetchTeachingOfTeacher: func.isRequired,
+  user: shape({ _id: string.isRequired }).isRequired
+};
 
 const mapStateToProps = state => ({
   user: state.auth.user,

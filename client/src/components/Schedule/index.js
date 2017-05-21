@@ -1,16 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import TableContainer from './Table/index';
 import FilterContainer from './Filter/index';
 
-class Schedule extends Component {
-  render() {
-    return (
-      <div>
-        <FilterContainer />
-        <TableContainer />
-      </div>
-    );
-  }
-}
+const Schedule = () => (
+  <div>
+    <FilterContainer />
+    <TableContainer />
+  </div>
+);
 
 export default Schedule;

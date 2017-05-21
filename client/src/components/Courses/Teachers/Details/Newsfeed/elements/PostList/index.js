@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as courseActions from '../../../../../../../redux/courses';
+import * as modalsActions from '../../../../../../../redux/modals';
 
 import PostList from './PostList';
 
@@ -13,6 +14,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ ...courseActions }, dispatch);
+  bindActionCreators({ ...courseActions, ...modalsActions }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostListContainer);

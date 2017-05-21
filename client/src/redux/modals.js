@@ -17,7 +17,7 @@ export function hideModal() {
   };
 }
 
-const INITIAL_STATE = { currentModal: 'null', customProps: {} };
+const INITIAL_STATE = { currentModal: undefined, customProps: {} };
 
 export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -30,7 +30,7 @@ export default function (state = INITIAL_STATE, action) {
     case HIDE_MODAL:
       return {
         ...state,
-        currentModal: null,
+        currentModal: undefined,
         customProps: {}
       };
     default:

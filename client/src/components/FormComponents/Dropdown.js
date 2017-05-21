@@ -29,4 +29,30 @@ const DropDownField = (
   );
 };
 
+const {
+  shape,
+  string,
+  func,
+  arrayOf,
+  oneOfType,
+  number
+} = React.PropTypes;
+DropDownField.propTypes = {
+  input: shape({
+    name: string.isRequired,
+    value: oneOfType([string, number]).isRequired,
+    onChange: func.isRequired
+  }).isRequired,
+  options: arrayOf(
+    shape({
+      key: oneOfType([string, number]).isRequired,
+      value: oneOfType([string, number]).isRequired,
+      text: oneOfType([string, number]).isRequired
+    }).isRequired
+  ).isRequired,
+  customOnChange: func,
+  placeholder: string,
+  label: string
+};
+
 export default DropDownField;

@@ -34,6 +34,8 @@ ContentEditableDiv.propTypes = {
 };
 
 const Wrapper = styled.div`
+	padding: 10px;
+	
 	&:focus {
 		outline: none
 	}

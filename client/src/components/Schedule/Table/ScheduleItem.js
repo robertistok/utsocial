@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ScheduleItem = ({ hour, week, semigroup, schedule, onClick }) => (
+const ScheduleItem = ({ schedule, onClick }) => (
   <div
     className={`class ${schedule.what.type}`}
     onClick={onClick}

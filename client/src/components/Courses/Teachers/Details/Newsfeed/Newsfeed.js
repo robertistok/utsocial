@@ -1,6 +1,5 @@
 import React from 'react';
 import { Accordion } from 'semantic-ui-react';
-import styled from 'styled-components';
 
 import {
   StyledAccordionTitle,

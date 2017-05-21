@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
@@ -7,7 +7,7 @@ import { Message, Dimmer, Loader } from 'semantic-ui-react';
 import Table from './Table';
 import * as modalActions from '../../../redux/modals';
 import * as scheduleActions from '../../../redux/schedule';
-import { withEither, withMaybe } from '../../HOCs/ConditionalRendering';
+import { withEither, withMaybe } from '../../hocs';
 
 import { MODALS } from '../../../constants';
 
@@ -30,8 +30,9 @@ class TableContainer extends Component {
   }
 }
 
+const { func } = React.PropTypes;
 TableContainer.propTypes = {
-  schedule: PropTypes.object
+  showModal: func.isRequired
 };
 
 const NoGroupsSelected = () => (

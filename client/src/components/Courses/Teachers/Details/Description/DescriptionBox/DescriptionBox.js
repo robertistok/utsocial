@@ -1,17 +1,17 @@
 import React from 'react';
-import { Message, TextArea, Button } from 'semantic-ui-react';
+import { Message, Button } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import { withToggle } from '../../../../hocs';
-import { formatTime } from '../../../../../utils/timestamp';
+import { formatTime } from '../../../../../../utils/timestamp';
+import ContentEditableDiv from '../../elements/ContentEditableDiv';
 
-const Description = (props) => {
+const DescriptionBox = (props) => {
   const {
     isTeacher,
     description: { text, lastUpdatedBy, updatedOn },
     toggle: toggleEdit,
     toggledOn: editing,
-    textAreaValue,
+    content,
     handleTextBoxChange,
     handleSave,
     resetState
@@ -20,11 +20,9 @@ const Description = (props) => {
   if (editing === true) {
     return (
       <Wrapper>
-        <StyledTextArea
-          autoFocus
-          value={textAreaValue}
-          onChange={handleTextBoxChange}
-          placeholder={text === '' ? 'Edit the course description...' : null}
+        <ContentEditableDiv
+          text={content}
+          onContentChange={handleTextBoxChange}
         />
         <ActionButtonGroup>
           <ActionButton positive onClick={handleSave}>Save</ActionButton>
@@ -69,7 +67,7 @@ const Description = (props) => {
 };
 
 const { bool, string, func, shape } = React.PropTypes;
-Description.propTypes = {
+DescriptionBox.propTypes = {
   isTeacher: bool.isRequired,
   description: shape({
     text: string.isRequired,
@@ -79,28 +77,16 @@ Description.propTypes = {
     })
   }).isRequired,
   toggle: func.isRequired,
-  textAreaValue: string,
   toggledOn: bool.isRequired,
   resetState: func.isRequired,
   handleTextBoxChange: func.isRequired,
-  handleSave: func.isRequired
+  handleSave: func.isRequired,
+  content: string.isRequired
 };
 
 const Wrapper = styled.div`
+	background-color: #FFFFFF;
 	box-shadow: 0 3px 5px rgba(0,0,0,.23)
-	max-height: 300px
-`;
-
-const StyledTextArea = styled(TextArea)`
-	width: 100%;
-	padding: 10px;
-	resize: none;
-	min-height: 250px;
-	border: 0;
-
-	&:focus {
-		outline: none;
-	}
 `;
 
 const StyledMessage = styled(Message)`
@@ -111,7 +97,6 @@ const StyledMessage = styled(Message)`
 const ActionButtonGroup = styled.div`
 	position: relative;
 	height: 50px;
-	top: -5px;
 	display: flex;
 	justify-content: flex-end;
 	background-color: #FFFFFF;
@@ -125,4 +110,4 @@ const ActionButton = styled(Button)`
 	height: 30px;
 `;
 
-export default withToggle(Description);
+export default DescriptionBox;

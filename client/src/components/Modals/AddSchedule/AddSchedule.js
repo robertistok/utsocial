@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { Header, Modal, Button } from 'semantic-ui-react';
 
 import AddScheduleFormContainer from './AddScheduleForm/index';
@@ -27,9 +27,12 @@ const AddSchedule = (props) => {
   );
 };
 
+const { func, string } = React.PropTypes;
 AddSchedule.propTypes = {
-  hideModal: PropTypes.func.isRequired,
-  submit: PropTypes.func.isRequired
+  hideModal: func.isRequired,
+  submit: func.isRequired,
+  reset: func.isRequired,
+  group: string.isRequired
 };
 
 export default AddSchedule;

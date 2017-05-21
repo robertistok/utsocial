@@ -3,12 +3,14 @@ import styled from 'styled-components';
 
 import Post from './elements/Post';
 import { media } from '../../../../../../../utils/style-utils';
+import { MODALS } from '../../../../../../../constants';
 
 const PostList = (props) => {
   const {
     newsFeed,
     loggedInUser: { _id: userID },
     deletePost,
+    showModal,
     updatePost,
     mark,
     unMark
@@ -31,7 +33,15 @@ const PostList = (props) => {
             key={postID}
             {...item}
             isOwner={isOwner}
-            deletePost={isOwner ? () => deletePost(postID) : undefined}
+            deletePost={
+              isOwner
+                ? () =>
+                    showModal(MODALS.CONFIRM_ACTION, {
+                      confirmAction: () => deletePost(postID),
+                      content: 'Are you sure you want to delete this post?'
+                    })
+                : undefined
+            }
             updatePost={isOwner && updateFunction(postID)}
             isNew={seenBy.includes(userID)}
             markSeen={
@@ -62,6 +72,7 @@ PostList.propTypes = {
   mark: func.isRequired,
   unMark: func.isRequired,
   deletePost: func.isRequired,
+  showModal: func.isRequired,
   updatePost: func.isRequired,
   newsFeed: arrayOf(
     shape({

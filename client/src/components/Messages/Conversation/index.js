@@ -7,7 +7,7 @@ import { Redirect } from 'react-router';
 import Conversation from './Conversation';
 import { socket } from '../../../views/Authorized';
 import { addNewMessage } from '../../../redux/messages';
-import { withMaybe, withEither } from '../../HOCs/ConditionalRendering';
+import { withMaybe, withEither } from '../../hocs';
 
 class ConversationContainer extends Component {
   constructor(props) {

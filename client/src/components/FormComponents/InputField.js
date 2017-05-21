@@ -10,4 +10,14 @@ const InputField = (
   </Form.Field>
 );
 
+const { shape, string, bool, number } = React.PropTypes;
+InputField.propTypes = {
+  input: shape({ name: string.isRequired, value: string }).isRequired,
+  label: string,
+  placeholder: string,
+  meta: shape({ touched: bool, error: bool }).isRequired,
+  type: string.isRequired,
+  width: number
+};
+
 export default InputField;

@@ -4,19 +4,28 @@ import styled from 'styled-components';
 import CourseCard from './elements/CourseCard';
 
 const Overview = (props) => {
-  const { courses, selectCourse } = props;
+  const { courses } = props;
 
   return (
     <Wrapper>
       {courses.map(course => (
-        <CourseCard
-          key={course._id + course.lang}
-          {...course}
-          // onClick={() => selectCourse(course)}
-        />
+        <CourseCard key={course._id + course.lang} {...course} />
       ))}
     </Wrapper>
   );
+};
+
+const { string, shape, arrayOf, number } = React.PropTypes;
+Overview.propTypes = {
+  courses: arrayOf(
+    shape({
+      name: string.isRequired,
+      year: number.isRequired,
+      semester: number.isRequired,
+      lang: string.isRequired,
+      _id: string.isRequired
+    }).isRequired
+  ).isRequired
 };
 
 const Wrapper = styled.div`

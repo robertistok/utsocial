@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const CourseCard = (props) => {
-  const { name, year, semester, lang, _id, onClick } = props;
+  const { name, year, semester, lang, _id } = props;
 
   return (
     <Wrapper>
@@ -19,6 +19,15 @@ const CourseCard = (props) => {
       </Header>
     </Wrapper>
   );
+};
+
+const { string, number } = React.PropTypes;
+CourseCard.propTypes = {
+  name: string.isRequired,
+  year: number.isRequired,
+  semester: number.isRequired,
+  lang: string.isRequired,
+  _id: string.isRequired
 };
 
 const Wrapper = styled.div`

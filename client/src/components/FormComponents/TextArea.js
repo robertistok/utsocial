@@ -10,4 +10,14 @@ const TextArea = (
   </Form.Field>
 );
 
+const { shape, string, bool, number } = React.PropTypes;
+TextArea.propTypes = {
+  input: shape({ name: string.isRequired, value: string }).isRequired,
+  label: string,
+  placeholder: string,
+  meta: shape({ touched: bool, error: bool }).isRequired,
+  width: number,
+  rows: number
+};
+
 export default TextArea;

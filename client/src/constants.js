@@ -14,7 +14,8 @@ export const FREQUENCY = {
 
 export const MODALS = {
   ADD_SCHEDULE: 'modals/add-schedule',
-  SHOW_SCHEDULE: 'modals/show-schedule'
+  SHOW_SCHEDULE: 'modals/show-schedule',
+  CONFIRM_ACTION: 'modals/confirm-action'
 };
 
 export const DAYS = [
