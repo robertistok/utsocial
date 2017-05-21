@@ -1,16 +1,19 @@
 import React from 'react';
 import { Form, TextArea, Button } from 'semantic-ui-react';
 import styled from 'styled-components';
-
-// document.body.classList.add('remove-background-scrolling');
+// import ContentEditableDiv from '../../../../../elements/ContentEditableDiv';
 
 const DescriptionArea = (props) => {
   const { input, label, placeholder, meta: { touched, error, active } } = props;
 
   return (
-    <Form.Field error={touched && error}>
+    <Form.Field error={touched && error} {...input}>
       <label htmlFor={input.name}>{label}</label>
       <ContentWrapper active={active}>
+        {/* <ContentEditableDiv
+          onContentChange={e => input.onChange(e.target.innerText)}
+          text={input.value}
+        /> */}
         <StyledTextArea {...input} placeholder={placeholder} />
         <SubmitButton type="submit" content="Post" />
       </ContentWrapper>

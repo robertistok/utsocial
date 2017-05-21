@@ -18,7 +18,8 @@ class NewPostFormContainer extends React.Component {
     const {
       addPost,
       selectedCourse: { lang, groups: all, course: { _id: courseID } },
-      loggedInUser: { _id: teacherID }
+      loggedInUser: { _id: teacherID },
+      hideContainer
     } = this.props;
     const { content, relatedTo, includeTeachers, targetGroups } = values;
 
@@ -33,6 +34,7 @@ class NewPostFormContainer extends React.Component {
     };
 
     addPost(newPost);
+    hideContainer();
   }
 
   render() {
@@ -43,6 +45,7 @@ class NewPostFormContainer extends React.Component {
 const { func, string, number, shape, arrayOf } = React.PropTypes;
 NewPostFormContainer.propTypes = {
   addPost: func.isRequired,
+  hideContainer: func.isRequired,
   selectedCourse: shape({
     lang: string.isRequired,
     groups: arrayOf(

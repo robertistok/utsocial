@@ -18,19 +18,23 @@ const Header = (props) => {
     <Wrapper writingPost={writingPost}>
       {writingPost
         ? <StyledButton
-            content="Discard"
-            icon="delete"
-            labelPosition="right"
-            onClick={writePost}
+					content="Discard"
+					icon="delete"
+					labelPosition="right"
+					onClick={writePost}
           />
         : <StyledButton
-            content="New"
-            icon="compose"
-            labelPosition="right"
-            onClick={writePost}
+					content="New"
+					icon="compose"
+					labelPosition="right"
+					onClick={writePost}
           />}
       <Filter types={selectedCourseTeachingTypes} onChange={filterNewsfeed} />
-      {writingPost && <NewPostFormContainer className="headerItem" />}
+      {writingPost &&
+        <NewPostFormContainer
+          className="headerItem"
+          hideContainer={writePost}
+        />}
     </Wrapper>
   );
 };

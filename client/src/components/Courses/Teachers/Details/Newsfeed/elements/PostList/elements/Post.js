@@ -56,19 +56,6 @@ class Post extends Component {
 
     let options = [];
 
-    if (deletePost !== undefined) {
-      options = [
-        ...options,
-        { key: 'edit', icon: 'edit', text: 'Edit', onClick: this.toggleEdit },
-        {
-          key: 'delete',
-          icon: 'delete',
-          text: 'Remove',
-          onClick: deletePost
-        }
-      ];
-    }
-
     if (!isOwner) {
       if (unMarkSeen !== undefined) {
         options = [
@@ -111,6 +98,19 @@ class Post extends Component {
           icon: 'sticky note',
           text: 'Mark as not important',
           onClick: unMarkImportant
+        }
+      ];
+    }
+
+    if (deletePost !== undefined) {
+      options = [
+        ...options,
+        { key: 'edit', icon: 'edit', text: 'Edit', onClick: this.toggleEdit },
+        {
+          key: 'delete',
+          icon: 'delete',
+          text: 'Remove',
+          onClick: deletePost
         }
       ];
     }
