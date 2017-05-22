@@ -3,36 +3,45 @@ import Post from '../models/post';
 export function getFeedForCourse(req, res, next) {
 	const { studentGroupID, teacherID, target: { courseID, lang } } = req.body;
 
-	if (teacherID !== undefined) {
-		Post.find({
-			'target.course.id': courseID,
-			'target.course.lang': lang,
-			$and: [
-				{ $or: [{ 'target.includeTeachers': true }, { postedBy: teacherID }] }
-			]
+	Post.find({
+		'target.course.id': courseID,
+		'target.course.lang': lang,
+		$and: [
+			{
+				$or: [
+					{
+						$or: [
+							{ 'target.includeTeachers': teacherID },
+							{ postedBy: teacherID }
+						]
+					},
+					{ 'target.groups': studentGroupID }
+				]
+			}
+		]
+	})
+		.populate([{ path: 'postedBy', select: 'firstname lastname name' }])
+		.then((posts) => {
+			if (posts === undefined) {
+				return res.send({ posts: [] });
+			}
+			return res.send({ posts });
 		})
-			.populate([{ path: 'postedBy', select: 'firstname lastname name' }])
-			.then((posts) => {
-				if (posts === undefined) {
-					return res.send({ posts: [] });
-				}
-				return res.send({ posts });
-			})
-			.catch(err => next(err));
-	} else {
-		Post.find({
-			'target.course.id': courseID,
-			'target.course.lang': lang,
-			groups: studentGroupID
-		})
-			.populate('postedBy')
-			.then((posts) => {
-				if (posts === undefined) {
-					return res.send({ posts: [] });
-				}
-				return res.send({ posts });
-			});
-	}
+		.catch(err => next(err));
+	//  else {
+	// 	Post.find({
+	// 		'target.course.id': courseID,
+	// 		'target.course.lang': lang,
+	// 		groups: studentGroupID
+	// 	})
+	// 		.populate('postedBy')
+	// 		.then((posts) => {
+	// 			if (posts === undefined) {
+	// 				return res.send({ posts: [] });
+	// 			}
+	// 			return res.send({ posts });
+	// 		});
+	// }
 }
 
 export function addPost(req, res, next) {

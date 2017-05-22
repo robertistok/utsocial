@@ -2,10 +2,8 @@ import React from 'react';
 import { Dropdown } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import {
-  capitalizeFirstLetter
-} from '../../../../../../../../utils/string-operations';
-import { media } from '../../../../../../../../utils/style-utils';
+import { capitalizeFirstLetter } from '../../../../utils/string-operations';
+import { media } from '../../../../utils/style-utils';
 
 const Filter = (props) => {
   const { types, onChange } = props;

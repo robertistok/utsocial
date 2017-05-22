@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Post from './elements/Post';
-import { media } from '../../../../../../../utils/style-utils';
-import { MODALS } from '../../../../../../../constants';
+import Post from './Post';
+import { media } from '../../../../utils/style-utils';
+import { MODALS } from '../../../../constants';
 
 const PostList = (props) => {
   const {
@@ -11,12 +11,10 @@ const PostList = (props) => {
     loggedInUser: { _id: userID },
     deletePost,
     showModal,
-    updatePost,
+    updateFunction,
     mark,
     unMark
   } = props;
-
-  const updateFunction = postID => content => updatePost(postID, content);
 
   return (
     <Wrapper>
@@ -73,7 +71,7 @@ PostList.propTypes = {
   unMark: func.isRequired,
   deletePost: func.isRequired,
   showModal: func.isRequired,
-  updatePost: func.isRequired,
+  updateFunction: func,
   newsFeed: arrayOf(
     shape({
       created: string.isRequired,

@@ -4,7 +4,7 @@ import { reduxForm } from 'redux-form';
 import { bindActionCreators } from 'redux';
 import { compose } from 'recompose';
 
-import * as courseActions from '../../../../../../../../../redux/courses';
+import * as courseActions from '../../../../../../../../redux/courses';
 import NewPostForm from './NewPostForm';
 
 class NewPostFormContainer extends React.Component {

@@ -2,8 +2,8 @@ import React, { PropTypes } from 'react';
 import { Button } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import NewPostFormContainer from './elements/NewPostForm';
-import Filter from './elements/Filter';
+import NewPostFormContainer from './NewPostForm';
+import Filter from '../../../../../elements/Newsfeed/Filter';
 import { media } from '../../../../../../../utils/style-utils';
 
 const Header = (props) => {
@@ -18,16 +18,16 @@ const Header = (props) => {
     <Wrapper writingPost={writingPost}>
       {writingPost
         ? <StyledButton
-					content="Discard"
-					icon="delete"
-					labelPosition="right"
-					onClick={writePost}
+            content="Discard"
+            icon="delete"
+            labelPosition="right"
+            onClick={writePost}
           />
         : <StyledButton
-					content="New"
-					icon="compose"
-					labelPosition="right"
-					onClick={writePost}
+            content="New"
+            icon="compose"
+            labelPosition="right"
+            onClick={writePost}
           />}
       <Filter types={selectedCourseTeachingTypes} onChange={filterNewsfeed} />
       {writingPost &&

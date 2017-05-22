@@ -1,12 +1,12 @@
 import React from 'react';
-import { Accordion } from 'semantic-ui-react';
-import styled from 'styled-components';
 
-import AttendanceContainer from './Attendance';
-import GradesContainer from './Grades';
+// import AttendanceContainer from './Attendance';
 import MaterialsContainer from './Materials';
 import DescriptionContainer from './Description';
 import NewsfeedContainer from './Newsfeed';
+
+import { StyledAccordion } from '../../elements/styled-components';
+import withSelectedCourse from '../../elements/DetailsContainer';
 
 const Details = (props) => {
   const { selectedCourse } = props;
@@ -17,10 +17,9 @@ const Details = (props) => {
       <StyledAccordion styled fluid exclusive={false}>
 
         <NewsfeedContainer />
-        <DescriptionContainer />
-        <AttendanceContainer />
-        <GradesContainer />
-        <MaterialsContainer />
+        {/* <DescriptionContainer /> */}
+        {/* <AttendanceContainer /> */}
+        {/* <MaterialsContainer /> */}
       </StyledAccordion>
     </div>
   );
@@ -33,13 +32,4 @@ Details.propTypes = {
   }).isRequired
 };
 
-const StyledAccordion = styled(Accordion)`
-	background-color: #EDEFF0 !important;
-	border: 0 !important;
-  border-bottom-width: 0px !important;
-  border-top-width: 0px !important;
-  border-radius: 0px !important;
-	box-shadow: 0 3px 5px rgba(0,0,0,.23) !important;
-`;
-
-export default Details;
+export default withSelectedCourse(Details);

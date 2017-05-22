@@ -6,7 +6,7 @@ import GradesTableContainer from './elements/GradesTable';
 import {
   StyledAccordionTitle,
   StyledAccordionContent
-} from '../elements/styled';
+} from '../../../elements/styled-components';
 
 const Grades = (props) => {
   const { toggledOn, toggle } = props;

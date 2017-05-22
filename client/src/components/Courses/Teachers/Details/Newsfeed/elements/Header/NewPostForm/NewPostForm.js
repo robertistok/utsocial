@@ -3,12 +3,12 @@ import { Form } from 'semantic-ui-react';
 import { Field } from 'redux-form';
 import styled from 'styled-components';
 
-import Dropdown from '../../../../../../../../FormComponents/Dropdown';
-import Checkbox from '../../../../../../../../FormComponents/Checkbox';
-import { required } from '../../../../../../../../FormComponents/validation';
+import Dropdown from '../../../../../../../FormComponents/Dropdown';
+import Checkbox from '../../../../../../../FormComponents/Checkbox';
+import { required } from '../../../../../../../FormComponents/validation';
 import {
   capitalizeFirstLetter
-} from '../../../../../../../../../utils/string-operations';
+} from '../../../../../../../../utils/string-operations';
 import DescriptionArea from './DescriptionArea';
 
 const NewPostForm = (props) => {

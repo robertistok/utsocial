@@ -1,7 +1,10 @@
 import React from 'react';
 import { Accordion } from 'semantic-ui-react';
 
-import { StyledAccordionTitle } from '../elements/styled';
+import {
+  StyledAccordionTitle,
+  StyledAccordionContent
+} from '../../../elements/styled-components';
 
 import MaterialType from './elements/MaterialType';
 
@@ -22,8 +25,8 @@ const Materials = (props) => {
         content="Materials"
       />
 
-      {toggledOn &&
-        <Accordion.Content active>
+      <Accordion.Content active={toggledOn}>
+        <StyledAccordionContent>
           {Object.keys(course.teachingTypes)
             .filter(type => course.teachingTypes[type] === true)
             .map(type => (
@@ -34,7 +37,8 @@ const Materials = (props) => {
                 loggedInUser={loggedInUser}
               />
             ))}
-        </Accordion.Content>}
+        </StyledAccordionContent>
+      </Accordion.Content>
     </div>
   );
 };

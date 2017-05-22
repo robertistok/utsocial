@@ -6,7 +6,7 @@ import AttendanceTableContainer from './elements/AttendanceTable/index';
 import {
   StyledAccordionTitle,
   StyledAccordionContent
-} from '../elements/styled';
+} from '../../../elements/styled-components';
 
 const Attendance = (props) => {
   const { toggledOn, toggle } = props;

@@ -1,59 +1,37 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React from 'react';
 
-import Details from './Details';
-import * as courseActions from '../../../../redux/courses';
-import * as metadatacoursections from '../../../../redux/metadatacourse';
+import AttendanceContainer from './Attendance';
+import GradesContainer from './Grades';
+import MaterialsContainer from './Materials';
+import DescriptionContainer from './Description';
+import NewsfeedContainer from './Newsfeed';
 
-class DetailsContainer extends Component {
-  componentDidMount() {
-    const { match: { params: { id, lang } } } = this.props;
-    this.props.selectCourse(id, lang);
-    this.props.getMetaData(id, lang);
-  }
+import { StyledAccordion } from '../../elements/styled-components';
+import withSelectedCourse from '../../elements/DetailsContainer';
 
-  componentWillUnmount() {
-    this.props.resetCourses();
-    this.props.resetMetadataCourse();
-  }
+const Details = (props) => {
+  const { selectedCourse } = props;
 
-  render() {
-    const { selectedCourse: { lang, course: { _id: courseID } } } = this.props;
+  return (
+    <div>
+      <h1>{selectedCourse.course.name}</h1>
+      <StyledAccordion styled fluid exclusive={false}>
 
-    if (lang === undefined && courseID === undefined) {
-      return null;
-    }
-
-    return <Details {...this.props} />;
-  }
-}
-
-const { func, shape, string } = React.PropTypes;
-DetailsContainer.propTypes = {
-  selectCourse: func.isRequired,
-  getMetaData: func.isRequired,
-  resetCourses: func.isRequired,
-  resetMetadataCourse: func.isRequired,
-  match: shape({
-    params: shape({
-      id: string.isRequired,
-      lang: string.isRequired
-    }).isRequired
-  }).isRequired,
-  selectedCourse: shape({
-    lang: string,
-    course: shape({ _id: string })
-  })
+        <NewsfeedContainer />
+        <DescriptionContainer />
+        <AttendanceContainer />
+        <GradesContainer />
+        <MaterialsContainer />
+      </StyledAccordion>
+    </div>
+  );
 };
 
-const mapStateToProps = state => ({
-  courses: state.courses,
-  selectedCourse: state.courses.selectedCourse,
-  attendance: state.attendance
-});
+const { shape, string } = React.PropTypes;
+Details.propTypes = {
+  selectedCourse: shape({
+    course: shape({ _id: string.isRequired }).isRequired
+  }).isRequired
+};
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ ...courseActions, ...metadatacoursections }, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(DetailsContainer);
+export default withSelectedCourse(Details);

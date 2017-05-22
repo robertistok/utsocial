@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import CourseCard from './elements/CourseCard';
+import CourseCard from '../../elements/Overview/CourseCard';
 
 const Overview = (props) => {
   const { courses } = props;

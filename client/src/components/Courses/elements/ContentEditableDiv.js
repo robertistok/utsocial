@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import { formatMultiLineText } from '../../../../../utils/style-utils';
+import { formatMultiLineText } from '../../../utils/style-utils';
 
 class ContentEditableDiv extends Component {
   componentDidMount() {

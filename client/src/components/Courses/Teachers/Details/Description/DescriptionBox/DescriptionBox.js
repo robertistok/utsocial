@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import ContentEditableDiv from '../../elements/ContentEditableDiv';
+import ContentEditableDiv from '../../../../elements/ContentEditableDiv';
 import Box from '../../../../elements/Description/Box';
 
 const DescriptionBox = (props) => {

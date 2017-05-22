@@ -6,18 +6,7 @@ import * as modalsActions from '../../../../../../../redux/modals';
 
 import PostList from '../../../../../elements/Newsfeed/PostList';
 
-const PostListContainer = (props) => {
-  const { updatePost } = props;
-
-  const updateFunction = postID => content => updatePost(postID, content);
-
-  return <PostList {...props} updateFunction={updateFunction} />;
-};
-
-const { func } = React.PropTypes;
-PostListContainer.propTypes = {
-  updatePost: func.isRequired
-};
+const PostListContainer = props => <PostList {...props} />;
 
 const mapStateToProps = state => ({
   newsFeed: courseActions.postList(state),

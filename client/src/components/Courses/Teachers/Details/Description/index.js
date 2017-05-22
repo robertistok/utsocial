@@ -7,7 +7,7 @@ import { Accordion } from 'semantic-ui-react';
 import DescriptionBox from './DescriptionBox';
 import * as metadatacourseActions from '../../../../../redux/metadatacourse';
 import { withToggle } from '../../../../hocs';
-import { StyledAccordionTitle } from '../elements/styled';
+import { StyledAccordionTitle } from '../../../elements/styled-components';
 
 const DescriptionContainer = (props) => {
   const { toggle, toggledOn } = props;
