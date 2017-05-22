@@ -1,6 +1,6 @@
 import React from 'react';
 
-// import AttendanceContainer from './Attendance';
+import AttendanceContainer from './Attendance';
 import MaterialsContainer from './Materials';
 import DescriptionContainer from './Description';
 import NewsfeedContainer from './Newsfeed';
@@ -18,7 +18,7 @@ const Details = (props) => {
 
         <NewsfeedContainer />
         <DescriptionContainer />
-        {/* <AttendanceContainer /> */}
+        <AttendanceContainer />
         <MaterialsContainer />
       </StyledAccordion>
     </div>

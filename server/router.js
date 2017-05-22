@@ -106,9 +106,9 @@ router.get(
 );
 
 router.post(
-	'/api/attendance/getAttendanceOfGroupWithCourseType',
+	'/api/attendance/getAttendanceOfCourseType',
 	requireAuth,
-	AttendanceController.getAttendanceOfGroupWithCourseType
+	AttendanceController.getAttendanceOfCourseType
 );
 router.post(
 	'/api/attendance/markAsPresent',

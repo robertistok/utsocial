@@ -2,10 +2,10 @@ import moment from 'moment';
 
 import Attendance from '../models/attendance';
 
-function getAttendanceOfGroupWithCourseType(req, res, next) {
-	const { group, type, course } = req.body;
+function getAttendanceOfCourseType(req, res, next) {
+	const { group, type, course, studentID: student } = req.body;
 
-	Attendance.find({ course, type, group })
+	Attendance.find({ course, type, $and: [{ $or: [{ group }, { student }] }] })
 		.then(attendances => res.send(attendances))
 		.catch(err => next(err));
 }
@@ -37,7 +37,7 @@ function removeAttendance(req, res, next) {
 }
 
 module.exports = {
-	getAttendanceOfGroupWithCourseType,
+	getAttendanceOfCourseType,
 	markAsPresent,
 	removeAttendance
 };

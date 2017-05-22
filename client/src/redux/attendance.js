@@ -38,13 +38,13 @@ export function changeGroup(group) {
   };
 }
 
-export function fetchAttendance(type, course, group) {
+export function fetchAttendance(props) {
   return (dispatch) => {
-    dispatch({ type: FETCH_ATTENDANCE, payload: type });
+    dispatch({ type: FETCH_ATTENDANCE });
     axios({
       method: 'post',
-      url: '/api/attendance/getAttendanceOfGroupWithCourseType',
-      data: { course, type, group },
+      url: '/api/attendance/getAttendanceOfCourseType',
+      data: props,
       headers: {
         authorization: sessionStorage.getItem('token')
       }
