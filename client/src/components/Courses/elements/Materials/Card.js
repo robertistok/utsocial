@@ -11,14 +11,16 @@ const Card = (props) => {
     description,
     editMaterial,
     handleCardDelete,
-    showButtons
+    showButtons,
+    student
   } = props;
 
   return (
-    <Wrapper>
+    <Wrapper student>
       <Timestamp>Last updated at {formatTime(enteredOn)}</Timestamp>
       <Link href={link}>{description}</Link>
-      {!showButtons &&
+      {!student &&
+        !showButtons &&
         <ButtonGroup>
           <StyledButton positive onClick={editMaterial} content="Edit" />
           <StyledButton
@@ -38,13 +40,14 @@ Card.propTypes = {
   description: string.isRequired,
   editMaterial: func,
   handleCardDelete: func,
-  showButtons: bool.isRequired,
+  showButtons: bool,
+  student: bool,
   enteredOn: string.isRequired
 };
 
 const Wrapper = styled.div`
 	display: flex;
-	justify-content: space-between;
+	justify-content: ${props => props.student ? 'space-around' : 'space-between'};
 	background-color: #FFFFFF;
 	align-items: center;
 	flex-direction: column;

@@ -10,7 +10,7 @@ const Box = (props) => {
   return (
     <StyledMessage onClick={onClick}>
       {text === ''
-        ? `There is no description about this course so far...${isTeacher && ' Click on this message in order to edit the description'}`
+        ? `There is no description about this course so far...${isTeacher ? ' Click on this message in order to edit the description' : ''}`
         : <div>
             <span>
               Last updated at
@@ -38,8 +38,8 @@ Box.propTypes = {
   onClick: func,
   text: string.isRequired,
   isTeacher: bool,
-  lastUpdatedBy: shape({ name: string.isRequired }).isRequired,
-  updatedOn: string.isRequired
+  lastUpdatedBy: shape({ name: string.isRequired }),
+  updatedOn: string
 };
 
 const StyledMessage = styled(Message)`

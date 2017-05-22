@@ -24,8 +24,11 @@ const CourseCard = (props) => {
         <Info>
           <InfoLabel>{`Year: ${year}`}</InfoLabel>
           <InfoLabel>{`Semester: ${semester}`}</InfoLabel>
-          {lang !== undefined && <InfoLabel>{`Language: ${lang}`}</InfoLabel>}
-          {credits !== undefined &&
+          {!isStudent &&
+            lang !== undefined &&
+            <InfoLabel>{`Language: ${lang}`}</InfoLabel>}
+          {isStudent &&
+            credits !== undefined &&
             <InfoLabel>{`credits: ${credits}`}</InfoLabel>}
         </Info>
       </Header>
@@ -45,8 +48,8 @@ CourseCard.propTypes = {
 };
 
 const Wrapper = styled.div`
-	width: ${props => props.student ? '250px' : '300px'};
-	height: ${props => props.student ? '200px' : '350px'};
+	width: ${props => props.student ? '200px' : '300px'};
+	height: ${props => props.student ? '250px' : '350px'};
 	margin: 20px;
 	display: flex;
 	flex-direction: column;

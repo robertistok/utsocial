@@ -17,9 +17,9 @@ const Details = (props) => {
       <StyledAccordion styled fluid exclusive={false}>
 
         <NewsfeedContainer />
-        {/* <DescriptionContainer /> */}
+        <DescriptionContainer />
         {/* <AttendanceContainer /> */}
-        {/* <MaterialsContainer /> */}
+        <MaterialsContainer />
       </StyledAccordion>
     </div>
   );
