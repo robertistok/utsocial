@@ -16,6 +16,14 @@ const AttendanceTable = (props) => {
   );
 };
 
+const { arrayOf, shape, string } = React.PropTypes;
+AttendanceTable.propTypes = {
+  dates: arrayOf(shape({ day: string.isRequired }).isRequired).isRequired,
+  attendance: shape(
+    arrayOf(shape({ enteredFor: string.isRequired })).isRequired
+  ).isRequired
+};
+
 const StyledTable = styled(Table)`
 	display: table;
 	width: 70% !important;

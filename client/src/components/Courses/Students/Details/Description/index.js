@@ -27,10 +27,15 @@ const DescriptionContainer = (props) => {
     </div>
   );
 };
-const { bool, func } = React.PropTypes;
+const { bool, func, string, shape } = React.PropTypes;
 DescriptionContainer.propTypes = {
   toggle: func.isRequired,
-  toggledOn: bool.isRequired
+  toggledOn: bool.isRequired,
+  description: shape({
+    text: string.isRequired,
+    lastUpdatedBy: shape({ name: string.isRequired }),
+    updatedOn: string
+  })
 };
 
 const mapStateToProps = state => ({

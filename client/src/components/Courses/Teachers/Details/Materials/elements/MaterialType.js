@@ -36,25 +36,23 @@ const MaterialType = (props) => {
     <Wrapper>
       <Header>
         <Type>{capitalizeFirstLetter(type)}</Type>
-        {isTeacher
-          ? toggledOn
-              ? <StyledButton
-                  size="mini"
-                  content="Cancel"
-                  icon="minus"
-                  labelPosition="left"
-                  negative
-                  onClick={toggle}
-                />
-              : <StyledButton
-                  size="mini"
-                  content="Add new"
-                  icon="plus"
-                  labelPosition="left"
-                  positive
-                  onClick={toggle}
-                />
-          : null}
+        {toggledOn
+          ? <StyledButton
+              size="mini"
+              content="Cancel"
+              icon="minus"
+              labelPosition="left"
+              negative
+              onClick={toggle}
+            />
+          : <StyledButton
+              size="mini"
+              content="Add new"
+              icon="plus"
+              labelPosition="left"
+              positive
+              onClick={toggle}
+            />}
       </Header>
       {toggledOn && <NewMaterialContainer type={type} toggle={toggle} />}
       <Body>
@@ -68,6 +66,7 @@ const Wrapper = styled(Segment)`
 	display: flex;
 	flex-direction: column;
 	background-color: #EDEFF0 !important;
+	border: 0px !important;
 `;
 
 const Header = styled.div`

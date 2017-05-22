@@ -31,10 +31,23 @@ const MaterialType = (props) => {
   );
 };
 
+const { shape, arrayOf, string } = React.PropTypes;
+MaterialType.propTypes = {
+  materials: arrayOf(
+    shape({
+      type: string.isRequired,
+      link: string.isRequired,
+      description: string.isRequired
+    }).isRequired
+  ).isRequired,
+  type: string.isRequired
+};
+
 const Wrapper = styled(Segment)`
 	display: flex;
 	flex-direction: column;
 	background-color: #EDEFF0 !important;
+	border: 0px !important;
 `;
 
 const Header = styled.div`

@@ -29,4 +29,10 @@ const Body = (props) => {
   );
 };
 
+const { arrayOf, shape, string } = React.PropTypes;
+Body.propTypes = {
+  dates: arrayOf(shape({ day: string.isRequired }).isRequired).isRequired,
+  attendanceList: arrayOf(shape({ enteredFor: string.isRequired })).isRequired
+};
+
 export default Body;

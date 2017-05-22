@@ -39,4 +39,20 @@ const Materials = (props) => {
   );
 };
 
+const { arrayOf, shape, func, bool, string } = React.PropTypes;
+Materials.propTypes = {
+  toggle: func.isRequired,
+  toggledOn: bool.isRequired,
+  selectedCourse: shape({
+    course: shape({ _id: string.isRequired }).isRequired
+  }).isRequired,
+  materials: arrayOf(
+    shape({
+      type: string.isRequired,
+      link: string.isRequired,
+      description: string.isRequired
+    }).isRequired
+  ).isRequired
+};
+
 export default withToggle(Materials);

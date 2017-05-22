@@ -1,3 +1,4 @@
+/* eslint no-nested-ternary: 0*/
 import React from 'react';
 import { Table } from 'semantic-ui-react';
 
@@ -18,6 +19,13 @@ const AttendanceRow = (props) => {
       </Table.Cell>
     </Table.Row>
   );
+};
+
+const { string, bool } = React.PropTypes;
+AttendanceRow.propTypes = {
+  isBeforeToday: bool.isRequired,
+  hasAttendance: bool.isRequired,
+  forDate: string.isRequired
 };
 
 export default AttendanceRow;
