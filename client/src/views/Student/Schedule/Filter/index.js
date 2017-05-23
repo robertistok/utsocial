@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { compose } from 'recompose';
+import moment from 'moment';
 
 import * as scheduleActions from '../../../../redux/schedule';
 import * as modalActions from '../../../../redux/modals';
 import * as groupActions from '../../../../redux/groups';
 import Filter from '../../../../components/Schedule/Filter';
+import { FIRST_WEEK } from '../../../../constants';
 
 class FilterContainer extends Component {
   constructor(props) {
@@ -22,16 +24,20 @@ class FilterContainer extends Component {
   componentDidMount() {
     const {
       getGroups,
-      changeSemigroup,
       user: {
         profile: { group: { year, _id: groupID, id }, semigroup }
       },
       history
     } = this.props;
 
+    const currentWeek = moment().week() % 2 === FIRST_WEEK.week() % 2
+      ? '1'
+      : '2';
+
     getGroups(year);
     this.onGroupChange(undefined, { value: groupID });
-    changeSemigroup(semigroup.toString());
+    this.onSemigroupChange(undefined, { value: semigroup.toString() });
+    this.onWeekChange(undefined, { value: currentWeek });
     history.push(`/schedules/${id}`);
   }
 

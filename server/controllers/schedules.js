@@ -64,7 +64,30 @@ function getOne(req, res, next) {
 		.catch(err => next(err));
 }
 
+function getForTeacher(req, res, next) {
+	const { id: teacherID } = req.params;
+
+	Schedule.find({ who: teacherID })
+		.populate([
+			{
+				path: 'what.course',
+				select: 'name'
+			},
+			{
+				path: 'who',
+				select: 'firstname lastname email'
+			},
+			{
+				path: 'whom.group',
+				select: 'id'
+			}
+		])
+		.then(schedules => res.send(schedules))
+		.catch(err => next(err));
+}
+
 module.exports = {
 	addNew,
-	getOne
+	getOne,
+	getForTeacher
 };

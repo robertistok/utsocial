@@ -7,6 +7,7 @@ import { compose } from 'recompose';
 import * as scheduleActions from '../../../../redux/schedule';
 import * as modalActions from '../../../../redux/modals';
 import * as groupActions from '../../../../redux/groups';
+import * as teachersActions from '../../../../redux/teachers';
 import Filter from '../../../../components/Schedule/Filter';
 
 class FilterContainer extends Component {
@@ -20,19 +21,18 @@ class FilterContainer extends Component {
   }
 
   componentDidMount() {
-    const {
-      getGroups,
-      changeSemigroup,
-      user: {
-        profile: { group: { year, _id: groupID, id }, semigroup }
-      },
-      history
-    } = this.props;
-
-    getGroups(year);
-    this.onGroupChange(undefined, { value: groupID });
-    changeSemigroup(semigroup.toString());
-    history.push(`/schedules/${id}`);
+    const { fetchTeachingOfTeacher, user: { _id: userID } } = this.props;
+    fetchTeachingOfTeacher(userID);
+    // // const {
+    // //   getGroups,
+    // //   user: {
+    // //     _id: teacherID
+    // //   }
+    // // } = this.props;
+    //
+    // console.log(this.props.user);
+    //
+    // // getGroups(year);
   }
 
   onSemigroupChange(e, { value: semigroup }) {
@@ -74,18 +74,12 @@ class FilterContainer extends Component {
 
 const { func, number, shape, string, arrayOf } = React.PropTypes;
 FilterContainer.propTypes = {
-  getGroups: func.isRequired,
   changeGroup: func.isRequired,
   changeSemigroup: func.isRequired,
   changeWeek: func.isRequired,
   user: shape({
-    profile: shape({
-      group: shape({
-        year: number.isRequired,
-        _id: string.isRequired,
-        id: number.isRequired
-      }).isRequired
-    }).isRequired
+    _id: string.isRequired,
+    type: string.isRequired
   }).isRequired,
   groups: shape({
     all: arrayOf(
@@ -95,8 +89,7 @@ FilterContainer.propTypes = {
         id: number.isRequired
       }).isRequired
     )
-  }).isRequired,
-  history: shape({ push: func.isRequired }).isRequired
+  }).isRequired
 };
 
 const mapStateToProps = state => ({
@@ -110,7 +103,8 @@ const mapDispatchToProps = dispatch =>
     {
       ...scheduleActions,
       ...modalActions,
-      ...groupActions
+      ...groupActions,
+      ...teachersActions
     },
     dispatch
   );

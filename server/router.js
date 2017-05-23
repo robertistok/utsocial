@@ -30,6 +30,11 @@ router.get(
 
 router.post('/api/schedules/new', requireAuth, SchedulesController.addNew);
 router.get('/api/schedules/get/:id', requireAuth, SchedulesController.getOne);
+router.get(
+	'/api/schedules/get/teacher/:id',
+	requireAuth,
+	SchedulesController.getForTeacher
+);
 
 router.get(
 	'/api/groups/groupsFromYear/:year',

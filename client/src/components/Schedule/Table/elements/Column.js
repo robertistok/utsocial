@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
 
 import { HOURS } from '../../../../constants';
 import ScheduleItem from './ScheduleItem';
@@ -19,9 +20,10 @@ const Column = (props) => {
 
   const semigroups = semigroup === '0' ? ['1', '2'] : [semigroup];
   const weeks = week === '0' ? ['1', '2'] : [week];
+  const today = moment().format('dddd') === day.text;
 
   return (
-    <Wrapper>
+    <Wrapper today={today}>
       <Day>{day.text}</Day>
       <ColumnWrapper>
         {semigroups.map(semigroup => (
@@ -87,6 +89,8 @@ const Wrapper = styled.div`
 	${media.phone`
 		width: 90%;
 		`}
+
+	background-color: ${props => props.today ? '#D3D3D3' : 'initial'}
 `;
 
 const Day = styled.div`

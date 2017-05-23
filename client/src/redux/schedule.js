@@ -16,6 +16,10 @@ const FETCH_GROUP_SCHEDULE = 'utsocial/schedule/fetch-group-schedule';
 const FETCH_GROUP_SCHEDULE_SUCCESS = 'utsocial/schedule/fetch-group-schedule-success';
 const FETCH_GROUP_SCHEDULE_ERROR = 'utsocial/schedule/fetch-group-schedule-error';
 
+const FETCH_TEACHER_SCHEDULE = 'utsocial/schedule/fetch-teacher-schedule';
+const FETCH_TEACHER_SCHEDULE_SUCCESS = 'utsocial/schedule/fetch-teacher-schedule-success';
+const FETCH_TEACHER_SCHEDULE_ERROR = 'utsocial/schedule/fetch-teacher-schedule-error';
+
 export function changeSemigroup(semigroup) {
   return {
     type: CHANGE_SEMIGROUP,
@@ -86,9 +90,30 @@ export function fetchSchedulesForGroup(id) {
   };
 }
 
+export function fetchSchedulesForTeacher(id) {
+  return (dispatch) => {
+    dispatch({ type: FETCH_TEACHER_SCHEDULE });
+    axios({
+      method: 'get',
+      url: `${ROOT_URL}/get/teacher/${id}`,
+      headers: {
+        authorization: sessionStorage.getItem('token')
+      }
+    })
+      .then(response =>
+        dispatch({
+          type: FETCH_TEACHER_SCHEDULE_SUCCESS,
+          payload: response.data
+        }))
+      .catch(err =>
+        dispatch({ type: FETCH_TEACHER_SCHEDULE_ERROR, payload: err }));
+  };
+}
+
 const INITIAL_STATE = {
   semigroup: SEMIGROUP.BOTH,
   week: FREQUENCY.BOTH,
+  selectedTeacher: undefined,
   newSchedule: undefined,
   scheduleList: [],
   loading: false,
@@ -127,6 +152,14 @@ export default function (state = INITIAL_STATE, action) {
     case FETCH_GROUP_SCHEDULE_SUCCESS:
       return { ...state, scheduleList: action.payload, loading: false };
     case FETCH_GROUP_SCHEDULE_ERROR:
+      error = action.payload || { message: action.payload.message };
+      return { ...state, loading: false, error };
+
+    case FETCH_TEACHER_SCHEDULE:
+      return { ...state, loading: true };
+    case FETCH_TEACHER_SCHEDULE_SUCCESS:
+      return { ...state, scheduleList: action.payload, loading: false };
+    case FETCH_TEACHER_SCHEDULE_ERROR:
       error = action.payload || { message: action.payload.message };
       return { ...state, loading: false, error };
     default:

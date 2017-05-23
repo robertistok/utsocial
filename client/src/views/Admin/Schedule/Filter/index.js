@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import * as scheduleActions from '../../../../redux/schedule';
 import * as modalActions from '../../../../redux/modals';
 import * as groupActions from '../../../../redux/groups';
+
 import Filter from './Filter';
 import { MODALS } from '../../../../constants';
 
@@ -87,7 +88,7 @@ FilterContainer.propTypes = {
 const mapStateToProps = state => ({
   schedule: state.schedule,
   groups: state.groups,
-  auth: state.auth
+  user: state.auth.user
 });
 
 const mapDispatchToProps = dispatch =>
