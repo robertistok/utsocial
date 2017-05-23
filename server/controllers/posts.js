@@ -1,5 +1,19 @@
 import Post from '../models/post';
 
+export function getFeedForStudent(req, res, next) {
+	const { groupID } = req.params;
+
+	Post.find({ 'target.groups': groupID })
+		.populate([{ path: 'postedBy', select: 'firstname lastname name' }])
+		.then((posts) => {
+			if (posts === undefined) {
+				return res.send({ posts: [] });
+			}
+			return res.send({ posts });
+		})
+		.catch(err => next(err));
+}
+
 export function getFeedForCourse(req, res, next) {
 	const { studentGroupID, teacherID, target: { courseID, lang } } = req.body;
 
@@ -28,20 +42,6 @@ export function getFeedForCourse(req, res, next) {
 			return res.send({ posts });
 		})
 		.catch(err => next(err));
-	//  else {
-	// 	Post.find({
-	// 		'target.course.id': courseID,
-	// 		'target.course.lang': lang,
-	// 		groups: studentGroupID
-	// 	})
-	// 		.populate('postedBy')
-	// 		.then((posts) => {
-	// 			if (posts === undefined) {
-	// 				return res.send({ posts: [] });
-	// 			}
-	// 			return res.send({ posts });
-	// 		});
-	// }
 }
 
 export function addPost(req, res, next) {
@@ -98,7 +98,7 @@ export function unMark(req, res, next) {
 
 	Post.findByIdAndUpdate(
 		postID,
-		{ $pull: { [type]: [userID] } },
+		{ $pull: { [type]: userID } },
 		{ safe: true, new: true }
 	)
 		.then(() =>

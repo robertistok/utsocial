@@ -1,12 +1,19 @@
 const Group = require('../models/group');
 
-function getGroups(req, res, next) {
-	Group.find({})
+function getGroupsFromYear(req, res, next) {
+	const { year } = req.params;
+
+	const query = {};
+	query.year = year === 'all' ? [1, 2, 3, 4] : year;
+
+	Group.find(query)
 		.then((groups) => {
 			res.send(groups);
 		})
 		.catch(err => next(err));
 }
+
+function getGroupsForCourse(req, res, next) {}
 
 function getGroupById(req, res, next) {
 	Group.findById(req.body.id)
@@ -31,7 +38,7 @@ function getStudents(req, res, next) {
 }
 
 module.exports = {
-	getGroups,
+	getGroupsFromYear,
 	getGroupById,
 	getStudents
 };

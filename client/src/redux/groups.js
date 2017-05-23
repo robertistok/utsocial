@@ -5,16 +5,17 @@ const ROOT_URL = '/api/groups';
 const FETCH_GROUPS = 'utsocial/schedule/fetchgroups';
 const FETCH_GROUPS_SUCCESS = 'utsocial/schedule/fetchgroups_succes';
 const FETCH_GROUPS_ERROR = 'utsocial/schedule/fetchgroups_error';
+
 const FETCH_GROUP = 'utsocial/schedule/fetchgroup';
 const FETCH_GROUP_SUCCESS = 'utsocial/schedule/fetchgroup_succes';
 const FETCH_GROUP_ERROR = 'utsocial/schedule/fetchgroup_error';
 
-export function getGroups() {
+export function getGroups(year) {
   return (dispatch) => {
     dispatch({ type: FETCH_GROUPS });
     axios({
       method: 'get',
-      url: `${ROOT_URL}/getall`,
+      url: `${ROOT_URL}/groupsFromYear/${year}`,
       headers: {
         authorization: sessionStorage.getItem('token')
       }

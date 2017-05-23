@@ -31,7 +31,11 @@ router.get(
 router.post('/api/schedules/new', requireAuth, SchedulesController.addNew);
 router.get('/api/schedules/get/:id', requireAuth, SchedulesController.getOne);
 
-router.get('/api/groups/getall', requireAuth, GroupsController.getGroups);
+router.get(
+	'/api/groups/groupsFromYear/:year',
+	requireAuth,
+	GroupsController.getGroupsFromYear
+);
 router.post('/api/groups/getbyid', requireAuth, GroupsController.getGroupById);
 router.get(
 	'/api/groups/getStudents/:id',
@@ -130,6 +134,11 @@ router.post('/api/grades/insert', requireAuth, GradesController.insertGrade);
 router.post('/api/grades/update', requireAuth, GradesController.updateGrade);
 router.get('/api/grades/delete/:id', requireAuth, GradesController.deleteGrade);
 
+router.get(
+	'/api/posts/getFeedForStudent/:groupID',
+	requireAuth,
+	PostsController.getFeedForStudent
+);
 router.post(
 	'/api/posts/getFeedForCourse',
 	requireAuth,

@@ -14,6 +14,10 @@ const FETCH_FEED = 'redux/courses/fetch-feed';
 const FETCH_FEED_SUCCESS = 'redux/courses/fetch-feed-success';
 const FETCH_FEED_ERROR = 'redux/courses/fetch-feed-error';
 
+const FETCH_FEED_FOR_STUDENT = 'redux/courses/fetch-feed';
+const FETCH_FEED_FOR_STUDENT_SUCCESS = 'redux/courses/fetch-feed-for-student-success';
+const FETCH_FEED_FOR_STUDENT_ERROR = 'redux/courses/fetch-feed-for-student-error';
+
 const ADD_POST = 'redux/courses/add-post';
 const ADD_POST_SUCCESS = 'redux/courses/add-post-success';
 const ADD_POST_ERROR = 'redux/courses/add-post-error';
@@ -56,6 +60,26 @@ export function selectCourse(_id, lang) {
         }))
       .catch(err =>
         dispatch({ type: SELECT_COURSE_AND_FETCH_GROUPS_ERROR, payload: err }));
+  };
+}
+
+export function getFeedForStudent(groupID) {
+  return (dispatch) => {
+    dispatch({ type: FETCH_FEED_FOR_STUDENT });
+    axios({
+      method: 'get',
+      url: `/api/posts/getFeedForStudent/${groupID}`,
+      headers: {
+        authorization: sessionStorage.getItem('token')
+      }
+    })
+      .then(response =>
+        dispatch({
+          type: FETCH_FEED_FOR_STUDENT_SUCCESS,
+          payload: response.data.posts
+        }))
+      .catch(err =>
+        dispatch({ type: FETCH_FEED_FOR_STUDENT_ERROR, payload: err }));
   };
 }
 
@@ -181,10 +205,10 @@ const INITIAL_STATE = {
     lang: undefined,
     course: {},
     groups: [],
-    schedules: [],
-    newsFeed: [],
-    newsFeedFilter: 'all'
+    schedules: []
   },
+  newsFeed: [],
+  newsFeedFilter: 'all',
   loading: false,
   error: ''
 };
@@ -209,13 +233,22 @@ export default function (state = INITIAL_STATE, action) {
     case FETCH_FEED_SUCCESS:
       return {
         ...state,
-        selectedCourse: {
-          ...state.selectedCourse,
-          newsFeed: action.payload.sort((a, b) => a.created < b.created)
-        },
+        newsFeed: action.payload.sort((a, b) => a.created < b.created),
         loading: false
       };
     case FETCH_FEED_ERROR:
+      error = action.payload || { message: action.payload.message };
+      return { ...state, loading: false, error };
+
+    case FETCH_FEED_FOR_STUDENT:
+      return { ...state, loading: true };
+    case FETCH_FEED_FOR_STUDENT_SUCCESS:
+      return {
+        ...state,
+        newsFeed: action.payload.sort((a, b) => a.created < b.created),
+        loading: false
+      };
+    case FETCH_FEED_FOR_STUDENT_ERROR:
       error = action.payload || { message: action.payload.message };
       return { ...state, loading: false, error };
 
@@ -224,10 +257,7 @@ export default function (state = INITIAL_STATE, action) {
     case ADD_POST_SUCCESS:
       return {
         ...state,
-        selectedCourse: {
-          ...state.selectedCourse,
-          newsFeed: [action.payload, ...state.selectedCourse.newsFeed]
-        },
+        newsFeed: [action.payload, ...state.selectedCourse.newsFeed],
         loading: false
       };
     case ADD_POST_ERROR:
@@ -239,20 +269,17 @@ export default function (state = INITIAL_STATE, action) {
     case UPDATE_POST_SUCCESS:
       return {
         ...state,
-        selectedCourse: {
-          ...state.selectedCourse,
-          newsFeed: state.selectedCourse.newsFeed.map((post) => {
-            if (post._id === action.payload._id) {
-              return {
-                ...post,
-                content: action.payload.content,
-                edited: action.payload.edited
-              };
-            }
+        newsFeed: state.newsFeed.map((post) => {
+          if (post._id === action.payload._id) {
+            return {
+              ...post,
+              content: action.payload.content,
+              edited: action.payload.edited
+            };
+          }
 
-            return { ...post };
-          })
-        },
+          return { ...post };
+        }),
         loading: false
       };
     case UPDATE_POST_ERROR:
@@ -264,12 +291,7 @@ export default function (state = INITIAL_STATE, action) {
     case DELETE_POST_SUCCESS:
       return {
         ...state,
-        selectedCourse: {
-          ...state.selectedCourse,
-          newsFeed: state.selectedCourse.newsFeed.filter(
-            post => post._id !== action.payload.id
-          )
-        },
+        newsFeed: state.newsFeed.filter(post => post._id !== action.payload.id),
         loading: false
       };
     case DELETE_POST_ERROR:
@@ -281,22 +303,19 @@ export default function (state = INITIAL_STATE, action) {
     case MARK_SUCCESS:
       return {
         ...state,
-        selectedCourse: {
-          ...state.selectedCourse,
-          newsFeed: state.selectedCourse.newsFeed.map((post) => {
-            if (post._id === action.payload.postID) {
-              return {
-                ...post,
-                [action.payload.type]: [
-                  ...post[action.payload.type],
-                  action.payload.userID
-                ]
-              };
-            }
+        newsFeed: state.newsFeed.map((post) => {
+          if (post._id === action.payload.postID) {
+            return {
+              ...post,
+              [action.payload.type]: [
+                ...post[action.payload.type],
+                action.payload.userID
+              ]
+            };
+          }
 
-            return { ...post };
-          })
-        },
+          return { ...post };
+        }),
         loading: false
       };
     case MARK_ERROR:
@@ -308,21 +327,18 @@ export default function (state = INITIAL_STATE, action) {
     case UNMARK_SUCCESS:
       return {
         ...state,
-        selectedCourse: {
-          ...state.selectedCourse,
-          newsFeed: state.selectedCourse.newsFeed.map((post) => {
-            if (post._id === action.payload.postID) {
-              return {
-                ...post,
-                [action.payload.type]: post[action.payload.type].filter(
-                  item => item !== action.payload.userID
-                )
-              };
-            }
+        newsFeed: state.newsFeed.map((post) => {
+          if (post._id === action.payload.postID) {
+            return {
+              ...post,
+              [action.payload.type]: post[action.payload.type].filter(
+                item => item !== action.payload.userID
+              )
+            };
+          }
 
-            return { ...post };
-          })
-        },
+          return { ...post };
+        }),
         loading: false
       };
     case UNMARK_ERROR:
@@ -332,10 +348,7 @@ export default function (state = INITIAL_STATE, action) {
     case FILTER_NEWSFEED:
       return {
         ...state,
-        selectedCourse: {
-          ...state.selectedCourse,
-          newsFeedFilter: action.payload
-        }
+        newsFeedFilter: action.payload
       };
 
     case RESET_COURSES:
@@ -345,8 +358,8 @@ export default function (state = INITIAL_STATE, action) {
   }
 }
 
-const getFilter = state => state.courses.selectedCourse.newsFeedFilter;
-const getPosts = state => state.courses.selectedCourse.newsFeed;
+const getFilter = state => state.courses.newsFeedFilter;
+const getPosts = state => state.courses.newsFeed;
 const getUser = state => state.auth.user._id;
 
 export const postList = createSelector(

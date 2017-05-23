@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 
-import Filter from '../../../../../elements/Newsfeed/Filter';
+import Filter from '../../../../../../Newsfeed/Filter';
 
 const Header = (props) => {
   const {

@@ -3,7 +3,7 @@ import { Button } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 import NewPostFormContainer from './NewPostForm';
-import Filter from '../../../../../elements/Newsfeed/Filter';
+import Filter from '../../../../../../Newsfeed/Filter';
 import { media } from '../../../../../../../utils/style-utils';
 
 const Header = (props) => {

@@ -21,7 +21,7 @@ class FilterContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.getGroups();
+    this.props.getGroups('all');
   }
 
   onSemigroupChange(e, { value }) {
@@ -54,6 +54,7 @@ class FilterContainer extends Component {
       key: group._id,
       text: group.id,
       value: group._id,
+      flag: group.lang === 'eng' ? 'gb' : 'ro',
       as: Link,
       to: `/schedules/${group.id}`
     }));

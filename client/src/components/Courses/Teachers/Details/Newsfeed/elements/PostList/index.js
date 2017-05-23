@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as courseActions from '../../../../../../../redux/courses';
 import * as modalsActions from '../../../../../../../redux/modals';
 
-import PostList from '../../../../../elements/Newsfeed/PostList';
+import PostList from '../../../../../../Newsfeed/PostList';
 
 const PostListContainer = (props) => {
   const { updatePost } = props;

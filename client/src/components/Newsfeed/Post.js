@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Button, Popup } from 'semantic-ui-react';
 
-import { formatTime } from '../../../../utils/timestamp';
-import { capitalizeFirstLetter } from '../../../../utils/string-operations';
-import { media, formatMultiLineText } from '../../../../utils/style-utils';
+import { formatTime } from '../../utils/timestamp';
+import { capitalizeFirstLetter } from '../../utils/string-operations';
+import { media, formatMultiLineText } from '../../utils/style-utils';
 import SettingsGroup from './SettingsGroup';
-import { withToggle } from '../../../hocs';
-import ContentEditableDiv from '../ContentEditableDiv';
+import { withToggle } from '../hocs';
+import ContentEditableDiv from '../Courses/elements/ContentEditableDiv';
 
 class Post extends Component {
   constructor(props) {
