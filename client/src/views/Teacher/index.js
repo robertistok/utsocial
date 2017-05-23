@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import HeaderContainer from '../../components/Header/';
 import ModalSwitcher from '../../components/Modals/ModalSwitcher';
-import Schedule from '../../components/Schedule/index';
+import Schedule from './Schedule';
 import Messages from '../../components/Messages/index';
 import TeachersCourses from '../../components/Courses/Teachers';
 import { Wrapper, Content } from '../wrappers';

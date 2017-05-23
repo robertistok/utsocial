@@ -66,7 +66,7 @@ export function addNewScheduleError(error) {
   };
 }
 
-export function fechSchedulesForGroup(id) {
+export function fetchSchedulesForGroup(id) {
   return (dispatch) => {
     dispatch({ type: FETCH_GROUP_SCHEDULE });
     axios({

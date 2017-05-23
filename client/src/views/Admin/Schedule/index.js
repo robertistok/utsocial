@@ -1,6 +1,6 @@
 import React from 'react';
-import TableContainer from './Table/index';
-import FilterContainer from './Filter/index';
+import TableContainer from '../../../components/Schedule/Table';
+import FilterContainer from './Filter';
 
 const Schedule = () => (
   <div>

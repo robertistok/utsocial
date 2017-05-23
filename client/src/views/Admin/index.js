@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import HeaderContainer from '../../components/Header/index';
 import ModalSwitcher from '../../components/Modals/ModalSwitcher';
-import Schedule from '../../components/Schedule/index';
+import Schedule from './Schedule';
 import { Wrapper, Content } from '../wrappers';
 
 const ForOhFor = () => <h1>No match found</h1>;

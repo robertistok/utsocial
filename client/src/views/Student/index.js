@@ -5,7 +5,7 @@ import HeaderContainer from '../../components/Header/';
 import Messages from '../../components/Messages/index';
 import StudentsCourses from '../../components/Courses/Students';
 import ModalSwitcher from '../../components/Modals/ModalSwitcher';
-import Schedule from '../../components/Schedule/index';
+import Schedule from './Schedule';
 import StudentsHomeContainer from '../../components/Home/Students';
 import { Wrapper, Content } from '../wrappers';
 

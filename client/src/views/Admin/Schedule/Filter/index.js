@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 
-import * as scheduleActions from '../../../redux/schedule';
-import * as modalActions from '../../../redux/modals';
-import * as groupActions from '../../../redux/groups';
+import * as scheduleActions from '../../../../redux/schedule';
+import * as modalActions from '../../../../redux/modals';
+import * as groupActions from '../../../../redux/groups';
 import Filter from './Filter';
-import { MODALS } from '../../../constants';
+import { MODALS } from '../../../../constants';
 
 class FilterContainer extends Component {
   constructor(props) {
@@ -34,7 +34,7 @@ class FilterContainer extends Component {
 
   onGroupChange(e, { value }) {
     this.props.changeGroup(value);
-    this.props.fechSchedulesForGroup(value);
+    this.props.fetchSchedulesForGroup(value);
   }
 
   onAddButtonClick(event) {
@@ -80,7 +80,7 @@ FilterContainer.propTypes = {
   changeGroup: func.isRequired,
   changeSemigroup: func.isRequired,
   changeWeek: func.isRequired,
-  fechSchedulesForGroup: func.isRequired,
+  fetchSchedulesForGroup: func.isRequired,
   showModal: func.isRequired
 };
 

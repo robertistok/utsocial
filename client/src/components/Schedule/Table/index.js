@@ -7,6 +7,7 @@ import { Message, Dimmer, Loader } from 'semantic-ui-react';
 import Table from './Table';
 import * as modalActions from '../../../redux/modals';
 import * as scheduleActions from '../../../redux/schedule';
+import * as groupActions from '../../../redux/groups';
 import { withEither, withMaybe } from '../../hocs';
 
 import { MODALS } from '../../../constants';
@@ -18,6 +19,25 @@ class TableContainer extends Component {
     this.handleCellClick = this.handleCellClick.bind(this);
   }
 
+  componentDidMount() {
+    const {
+      schedule: { group: groupID },
+      fetchSchedulesForGroup
+    } = this.props;
+    if (groupID !== undefined) {
+      fetchSchedulesForGroup(groupID);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (
+      nextProps.schedule.group !== this.props.schedule.group &&
+      nextProps.schedule.group !== undefined
+    ) {
+      this.props.fetchSchedulesForGroup(nextProps.schedule.group);
+    }
+  }
+
   handleCellClick(event) {
     const schedule = JSON.parse(event.target.getAttribute('data-schedule'));
 
@@ -26,13 +46,26 @@ class TableContainer extends Component {
   }
 
   render() {
+    const { schedule: { loading } } = this.props;
+
+    if (loading) {
+      return <LoadingIndicator />;
+    }
+
     return <Table {...this.props} handleCellClick={this.handleCellClick} />;
   }
 }
 
-const { func } = React.PropTypes;
+const { func, shape, string, bool, array } = React.PropTypes;
 TableContainer.propTypes = {
-  showModal: func.isRequired
+  showModal: func.isRequired,
+  fetchSchedulesForGroup: func.isRequired,
+  schedule: shape({
+    loading: bool.isRequired,
+    semigroup: string.isRequired,
+    week: string.isRequired,
+    scheduleList: array.isRequired
+  }).isRequired
 };
 
 const NoGroupsSelected = () => (
@@ -49,26 +82,22 @@ const LoadingIndicator = () => (
 );
 
 const nullConditionFn = props => !props.schedule;
-const isLoading = props => props.schedule.loading;
 const noSelectedGroup = props => props.schedule.group === undefined;
-
-const withConditionalRendering = compose(
-  withEither(isLoading, LoadingIndicator),
-  withMaybe(nullConditionFn),
-  withEither(noSelectedGroup, NoGroupsSelected)
-);
-
-const TableContainerWithConditionalRendering = withConditionalRendering(
-  TableContainer
-);
 
 const mapStateToProps = state => ({
   schedule: state.schedule
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ ...modalActions, ...scheduleActions }, dispatch);
+  bindActionCreators(
+    { ...modalActions, ...scheduleActions, ...groupActions },
+    dispatch
+  );
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  TableContainerWithConditionalRendering
+const enhance = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  withMaybe(nullConditionFn),
+  withEither(noSelectedGroup, NoGroupsSelected)
 );
+
+export default enhance(TableContainer);
