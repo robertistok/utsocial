@@ -257,7 +257,7 @@ export default function (state = INITIAL_STATE, action) {
     case ADD_POST_SUCCESS:
       return {
         ...state,
-        newsFeed: [action.payload, ...state.selectedCourse.newsFeed],
+        newsFeed: [action.payload, ...state.newsFeed],
         loading: false
       };
     case ADD_POST_ERROR:

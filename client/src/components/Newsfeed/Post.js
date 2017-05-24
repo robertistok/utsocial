@@ -7,7 +7,7 @@ import { capitalizeFirstLetter } from '../../utils/string-operations';
 import { media, formatMultiLineText } from '../../utils/style-utils';
 import SettingsGroup from './SettingsGroup';
 import { withToggle } from '../hocs';
-import ContentEditableDiv from '../Courses/elements/ContentEditableDiv';
+import ContentEditableDiv from '../Courses/ContentEditableDiv';
 
 class Post extends Component {
   constructor(props) {

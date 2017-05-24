@@ -3,10 +3,10 @@ import { Route, Switch } from 'react-router-dom';
 
 import HeaderContainer from '../../components/Header/';
 import Messages from '../../components/Messages/index';
-import StudentsCourses from '../../components/Courses/Students';
+import Courses from './Courses';
 import ModalSwitcher from '../../components/Modals/ModalSwitcher';
 import Schedule from './Schedule';
-import StudentsHomeContainer from '../../components/Home/Students';
+import Home from './Home';
 import { Wrapper, Content } from '../wrappers';
 
 const ForOhFor = () => <h1>No match found</h1>;
@@ -26,8 +26,8 @@ const Student = () => (
     <HeaderContainer links={links} />
     <Content>
       <Switch>
-        <Route path="/home" component={StudentsHomeContainer} />
-        <Route path="/courses" component={StudentsCourses} />
+        <Route path="/home" component={Home} />
+        <Route path="/courses" component={Courses} />
         <Route path="/messages" component={Messages} />
         <Route path="/schedules" component={Schedule} />
         <Route path="/grades" render={() => <h1>StudentPerformance</h1>} />
