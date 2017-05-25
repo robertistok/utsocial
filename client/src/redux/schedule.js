@@ -4,7 +4,7 @@ import { SEMIGROUP, FREQUENCY } from '../constants';
 
 const ROOT_URL = '/api/schedules';
 
-const CHANGE_GROUP = 'utsocial/scehdule/changegroup';
+const CHANGE_SCHEDULEOF = 'utsocial/scehdule/change-scheduleof';
 const CHANGE_SEMIGROUP = 'utsocial/scehdule/changesemigroup';
 const CHANGE_WEEK = 'utsocial/scehdule/changeweek';
 
@@ -12,9 +12,9 @@ const ADD_NEW_SCHEDULE = 'utsocial/schedule/add-new-schedule';
 const ADD_NEW_SCHEDULE_SUCCESS = 'utsocial/schedule/add-new-schedule-success';
 const ADD_NEW_SCHEDULE_ERROR = 'utsocial/schedule/add-new-schedule-error';
 
-const FETCH_GROUP_SCHEDULE = 'utsocial/schedule/fetch-group-schedule';
-const FETCH_GROUP_SCHEDULE_SUCCESS = 'utsocial/schedule/fetch-group-schedule-success';
-const FETCH_GROUP_SCHEDULE_ERROR = 'utsocial/schedule/fetch-group-schedule-error';
+const FETCH_SCHEDULE = 'utsocial/schedule/fetch-schedule';
+const FETCH_SCHEDULE_SUCCESS = 'utsocial/schedule/fetch-schedule-success';
+const FETCH_SCHEDULE_ERROR = 'utsocial/schedule/fetch-schedule-error';
 
 const FETCH_TEACHER_SCHEDULE = 'utsocial/schedule/fetch-teacher-schedule';
 const FETCH_TEACHER_SCHEDULE_SUCCESS = 'utsocial/schedule/fetch-teacher-schedule-success';
@@ -34,9 +34,9 @@ export function changeWeek(week) {
   };
 }
 
-export function changeGroup(group) {
+export function changeScheduleOf(group) {
   return {
-    type: CHANGE_GROUP,
+    type: CHANGE_SCHEDULEOF,
     payload: group
   };
 }
@@ -70,9 +70,9 @@ export function addNewScheduleError(error) {
   };
 }
 
-export function fetchSchedulesForGroup(id) {
+export function fetchSchedulesFor(id) {
   return (dispatch) => {
-    dispatch({ type: FETCH_GROUP_SCHEDULE });
+    dispatch({ type: FETCH_SCHEDULE });
     axios({
       method: 'get',
       url: `${ROOT_URL}/get/${id}`,
@@ -82,31 +82,10 @@ export function fetchSchedulesForGroup(id) {
     })
       .then(response =>
         dispatch({
-          type: FETCH_GROUP_SCHEDULE_SUCCESS,
+          type: FETCH_SCHEDULE_SUCCESS,
           payload: response.data
         }))
-      .catch(err =>
-        dispatch({ type: FETCH_GROUP_SCHEDULE_ERROR, payload: err }));
-  };
-}
-
-export function fetchSchedulesForTeacher(id) {
-  return (dispatch) => {
-    dispatch({ type: FETCH_TEACHER_SCHEDULE });
-    axios({
-      method: 'get',
-      url: `${ROOT_URL}/get/teacher/${id}`,
-      headers: {
-        authorization: sessionStorage.getItem('token')
-      }
-    })
-      .then(response =>
-        dispatch({
-          type: FETCH_TEACHER_SCHEDULE_SUCCESS,
-          payload: response.data
-        }))
-      .catch(err =>
-        dispatch({ type: FETCH_TEACHER_SCHEDULE_ERROR, payload: err }));
+      .catch(err => dispatch({ type: FETCH_SCHEDULE_ERROR, payload: err }));
   };
 }
 
@@ -127,8 +106,8 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, semigroup: action.payload };
     case CHANGE_WEEK:
       return { ...state, week: action.payload };
-    case CHANGE_GROUP:
-      return { ...state, group: action.payload };
+    case CHANGE_SCHEDULEOF:
+      return { ...state, scheduleOf: action.payload };
     case ADD_NEW_SCHEDULE:
       return { ...state, newSchedule: { ...state.newSchedule, loading: true } };
     case ADD_NEW_SCHEDULE_SUCCESS:
@@ -147,11 +126,11 @@ export default function (state = INITIAL_STATE, action) {
           loading: false
         }
       };
-    case FETCH_GROUP_SCHEDULE:
+    case FETCH_SCHEDULE:
       return { ...state, loading: true };
-    case FETCH_GROUP_SCHEDULE_SUCCESS:
+    case FETCH_SCHEDULE_SUCCESS:
       return { ...state, scheduleList: action.payload, loading: false };
-    case FETCH_GROUP_SCHEDULE_ERROR:
+    case FETCH_SCHEDULE_ERROR:
       error = action.payload || { message: action.payload.message };
       return { ...state, loading: false, error };
 

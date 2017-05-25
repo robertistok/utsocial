@@ -21,20 +21,20 @@ class TableContainer extends Component {
 
   componentDidMount() {
     const {
-      schedule: { group: groupID },
-      fetchSchedulesForGroup
+      schedule: { scheduleOf },
+      fetchSchedulesFor
     } = this.props;
-    if (groupID !== undefined) {
-      fetchSchedulesForGroup(groupID);
+    if (scheduleOf !== undefined) {
+      fetchSchedulesFor(scheduleOf);
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (
-      nextProps.schedule.group !== this.props.schedule.group &&
-      nextProps.schedule.group !== undefined
+      nextProps.schedule.scheduleOf !== this.props.schedule.scheduleOf &&
+      nextProps.schedule.scheduleOf !== undefined
     ) {
-      this.props.fetchSchedulesForGroup(nextProps.schedule.group);
+      this.props.fetchSchedulesFor(nextProps.schedule.scheduleOf);
     }
   }
 
@@ -59,7 +59,7 @@ class TableContainer extends Component {
 const { func, shape, string, bool, array } = React.PropTypes;
 TableContainer.propTypes = {
   showModal: func.isRequired,
-  fetchSchedulesForGroup: func.isRequired,
+  fetchSchedulesFor: func.isRequired,
   schedule: shape({
     loading: bool.isRequired,
     semigroup: string.isRequired,
@@ -82,7 +82,7 @@ const LoadingIndicator = () => (
 );
 
 const nullConditionFn = props => !props.schedule;
-const noSelectedGroup = props => props.schedule.group === undefined;
+const noSelectedGroup = props => props.schedule.scheduleOf === undefined;
 
 const mapStateToProps = state => ({
   schedule: state.schedule

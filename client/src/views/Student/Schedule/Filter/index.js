@@ -17,7 +17,7 @@ class FilterContainer extends Component {
 
     this.onSemigroupChange = this.onSemigroupChange.bind(this);
     this.onWeekChange = this.onWeekChange.bind(this);
-    this.onGroupChange = this.onGroupChange.bind(this);
+    this.onScheduleOfChange = this.onScheduleOfChange.bind(this);
     this.extractOptionsFromGroup = this.extractOptionsFromGroup.bind(this);
   }
 
@@ -35,7 +35,7 @@ class FilterContainer extends Component {
       : '2';
 
     getGroups(year);
-    this.onGroupChange(undefined, { value: groupID });
+    this.onScheduleOfChange(undefined, { value: groupID });
     this.onSemigroupChange(undefined, { value: semigroup.toString() });
     this.onWeekChange(undefined, { value: currentWeek });
     history.push(`/schedules/${id}`);
@@ -49,8 +49,8 @@ class FilterContainer extends Component {
     this.props.changeWeek(week);
   }
 
-  onGroupChange(e, { value: group }) {
-    this.props.changeGroup(group);
+  onScheduleOfChange(e, { value: group }) {
+    this.props.changeScheduleOf(group);
   }
 
   extractOptionsFromGroup() {
@@ -69,10 +69,10 @@ class FilterContainer extends Component {
     return (
       <Filter
         {...this.props}
-        groupOptions={this.extractOptionsFromGroup()}
+        scheduleOfOptions={this.extractOptionsFromGroup()}
         onSemigroupChange={this.onSemigroupChange}
         onWeekChange={this.onWeekChange}
-        onGroupChange={this.onGroupChange}
+        onScheduleOfChange={this.onScheduleOfChange}
       />
     );
   }
@@ -81,7 +81,7 @@ class FilterContainer extends Component {
 const { func, number, shape, string, arrayOf } = React.PropTypes;
 FilterContainer.propTypes = {
   getGroups: func.isRequired,
-  changeGroup: func.isRequired,
+  changeScheduleOf: func.isRequired,
   changeSemigroup: func.isRequired,
   changeWeek: func.isRequired,
   user: shape({

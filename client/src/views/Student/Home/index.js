@@ -24,6 +24,16 @@ class StudentsHomeContainer extends Component {
   }
 }
 
+const { shape, func, string } = React.PropTypes;
+StudentsHomeContainer.propTypes = {
+  getFeedForStudent: func.isRequired,
+  loggedInUser: shape({
+    profile: shape({
+      group: shape({ _id: string.isRequired }).isRequired
+    }).isRequired
+  }).isRequired
+};
+
 const mapStateToProps = state => ({
   loggedInUser: state.auth.user,
   newsFeed: state.courses.newsFeed

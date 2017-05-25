@@ -10,6 +10,10 @@ const FETCH_TEACHINGS = 'utsocial/teachers/fetch-teachings-teacher';
 const FETCH_TEACHINGS_SUCCESS = 'utsocial/teachers/fetch-teachings-teacher-success';
 const FETCH_TEACHINGS_ERROR = 'utsocial/teachers/fetch-teachings-teacher-error';
 
+const FETCH_COLLEAGUES = 'utsocial/teachers/fetch-colleagues-teacher';
+const FETCH_COLLEAGUES_SUCCESS = 'utsocial/teachers/fetch-colleagues-teacher-success';
+const FETCH_COLLEAGUES_ERROR = 'utsocial/teachers/fetch-colleagues-teacher-error';
+
 export function getTeachers() {
   return (dispatch) => {
     dispatch({ type: FETCH_TEACHERS });
@@ -40,17 +44,38 @@ export function fetchTeachingOfTeacher(id) {
           type: FETCH_TEACHINGS_SUCCESS,
           payload: {
             courses: response.data.courses,
-            schedule: response.data.schedule
+            schedules: response.data.schedules
           }
         }))
       .catch(err => dispatch({ type: FETCH_TEACHINGS_ERROR, payload: err }));
   };
 }
 
+export function fetchColleagues(courses, teacherID) {
+  return (dispatch) => {
+    dispatch({ type: FETCH_COLLEAGUES });
+    axios({
+      method: 'post',
+      url: `${ROOT_URL}/getColleagues/`,
+      data: { courses, teacherID },
+      headers: {
+        authorization: sessionStorage.getItem('token')
+      }
+    })
+      .then(response =>
+        dispatch({
+          type: FETCH_COLLEAGUES_SUCCESS,
+          payload: response.data.teachers
+        }))
+      .catch(err => dispatch({ type: FETCH_COLLEAGUES_ERROR, payload: err }));
+  };
+}
+
 const INITIAL_STATE = {
   all: [],
   courses: [],
-  schedule: [],
+  schedules: [],
+  colleagues: [],
   loading: false,
   error: ''
 };
@@ -65,18 +90,27 @@ export default function (state = INITIAL_STATE, action) {
     case FETCH_TEACHERS_ERROR:
       error = action.payload || { message: action.payload.message };
       return { ...state, loading: false, error };
+
     case FETCH_TEACHINGS:
       return { ...state, loading: true, error: '' };
     case FETCH_TEACHINGS_SUCCESS:
       return {
         ...state,
         courses: action.payload.courses,
-        schedule: action.payload.schedule,
+        schedules: action.payload.schedules,
         loading: false
       };
     case FETCH_TEACHINGS_ERROR:
       error = action.payload || { message: action.payload.message };
       return { ...state, error, loading: false };
+
+    case FETCH_COLLEAGUES:
+      return { ...state, loading: true };
+    case FETCH_COLLEAGUES_SUCCESS:
+      return { ...state, loading: false, colleagues: action.payload };
+    case FETCH_COLLEAGUES_ERROR:
+      error = action.payload || { message: action.payload.message };
+      return { ...state, loading: false, error };
     default:
       return state;
   }

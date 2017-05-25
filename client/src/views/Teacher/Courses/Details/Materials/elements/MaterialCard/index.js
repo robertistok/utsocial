@@ -59,6 +59,24 @@ class MaterialCardContainer extends Component {
   }
 }
 
+const { func, shape, string, bool } = React.PropTypes;
+MaterialCardContainer.propTypes = {
+  updateMaterial: func.isRequired,
+  deleteMaterial: func.isRequired,
+  toggledOn: bool.isRequired,
+  material: shape({
+    _id: string.isRequired,
+    link: string.isRequired,
+    description: string.isRequired,
+    enteredOn: string.isRequired
+  }).isRequired,
+  selectedCourse: shape({
+    lang: string.isRequired,
+    course: shape({ _id: string.isRequired }).isRequired
+  }).isRequired,
+  toggle: func.isRequired
+};
+
 const mapStateToProps = (state, props) => ({
   selectedCourse: state.courses.selectedCourse,
   loggedInUser: state.auth.user,

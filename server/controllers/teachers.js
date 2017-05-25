@@ -32,4 +32,34 @@ function getTeaching(req, res, next) {
 		.catch(err => next(err));
 }
 
-module.exports = { getTeachers, getTeaching };
+function getColleagues(req, res, next) {
+	const { courses, teacherID } = req.body;
+
+	Schedule.find({
+		'what.course': { $in: courses },
+		who: { $ne: teacherID }
+	})
+		.populate([{ path: 'who', select: 'firstname lastname name' }])
+		.then((schedules) => {
+			if (schedules === []) {
+				return res.send({ teachers: [] });
+			}
+			const uniqueTeachers = schedules.reduce((acc, schedule) => {
+				if (
+					acc.length === 0 ||
+					acc.find(
+						item =>
+							JSON.stringify(item._id) === JSON.stringify(schedule.who._id)
+					) === undefined
+				) {
+					return [...acc, { ...schedule.who.toJSON() }];
+				}
+				return acc;
+			}, []);
+
+			return res.send({ teachers: uniqueTeachers, schedules });
+		})
+		.catch(err => next(err));
+}
+
+module.exports = { getTeachers, getTeaching, getColleagues };

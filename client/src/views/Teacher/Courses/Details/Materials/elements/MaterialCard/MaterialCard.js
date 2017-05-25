@@ -40,4 +40,24 @@ const MaterialCard = (props) => {
   );
 };
 
+const { func, string, shape, bool } = React.PropTypes;
+MaterialCard.propTypes = {
+  toggle: func.isRequired,
+  handleCardEdit: func.isRequired,
+  handleCardDelete: func.isRequired,
+  material: shape({
+    _id: string.isRequired,
+    link: string.isRequired,
+    description: string.isRequired,
+    enteredOn: string.isRequired
+  }).isRequired,
+  showButtons: bool.isRequired,
+  toggledOn: bool.isRequired,
+  initialValues: shape({
+    link: string.isRequired,
+    description: string.isRequired,
+    type: string.isRequired
+  }).isRequired
+};
+
 export default MaterialCard;

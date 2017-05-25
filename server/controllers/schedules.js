@@ -45,7 +45,7 @@ function addNew(req, res) {
 function getOne(req, res, next) {
 	const { id } = req.params;
 
-	Schedule.find({ 'whom.group': id })
+	Schedule.find({ $or: [{ 'whom.group': id }, { who: id }] })
 		.populate([
 			{
 				path: 'what.course',

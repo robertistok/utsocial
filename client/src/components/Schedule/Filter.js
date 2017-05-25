@@ -19,11 +19,11 @@ const optionsSemigroup = [
 
 const Filter = (props) => {
   const {
-    schedule: { semigroup, week, group },
+    schedule: { semigroup, week, scheduleOf },
     onSemigroupChange,
     onWeekChange,
-    onGroupChange,
-    groupOptions
+    onScheduleOfChange,
+    scheduleOfOptions
   } = props;
 
   return (
@@ -31,10 +31,10 @@ const Filter = (props) => {
       <StyledForm>
         <StyledFormField
           control={Select}
-          options={groupOptions}
+          options={scheduleOfOptions}
           placeholder="Group"
-          onChange={onGroupChange}
-          value={group}
+          onChange={onScheduleOfChange}
+          value={scheduleOf}
         />
         <StyledFormField
           control={Select}
@@ -51,7 +51,7 @@ const Filter = (props) => {
           onChange={onWeekChange}
         />
       </StyledForm>
-      {group &&
+      {scheduleOf &&
         <ExplanationWrapper>
           <Explanation lecture><span>Lecture</span></Explanation>
           <Explanation lab><span>Lab</span></Explanation>
@@ -68,10 +68,10 @@ Filter.propTypes = {
     week: PropTypes.string,
     group: PropTypes.string
   }),
-  onGroupChange: PropTypes.func.isRequired,
+  onScheduleOfChange: PropTypes.func.isRequired,
   onSemigroupChange: PropTypes.func.isRequired,
   onWeekChange: PropTypes.func.isRequired,
-  groupOptions: PropTypes.array
+  scheduleOfOptions: PropTypes.array
 };
 
 const Wrapper = styled.div`
@@ -124,7 +124,7 @@ const Explanation = styled.div`
   } else if (props.seminar) {
     return '#f1c40f';
   }
-    return '#c0392b';
+  return '#c0392b';
 }}
 `;
 

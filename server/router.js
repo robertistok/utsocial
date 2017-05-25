@@ -54,6 +54,11 @@ router.get(
 	requireAuth,
 	TeachersController.getTeaching
 );
+router.post(
+	'/api/teachers/getColleagues',
+	requireAuth,
+	TeachersController.getColleagues
+);
 
 router.get(
 	'/api/courses/getCourseGroups/:courseID/:lang',
