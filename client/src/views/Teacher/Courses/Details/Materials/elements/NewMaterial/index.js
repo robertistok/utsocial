@@ -36,6 +36,16 @@ class NewMaterialContainer extends Component {
   }
 }
 
+const { string, func, shape } = React.PropTypes;
+NewMaterialContainer.propTypes = {
+  addMaterial: func.isRequired,
+  selectedCourse: shape({
+    lang: string.isRequired,
+    course: shape({ _id: string.isRequired }).isRequired
+  }).isRequired,
+  type: string.isRequired
+};
+
 const mapStateToProps = (state, props) => ({
   selectedCourse: state.courses.selectedCourse,
   loggedInUser: state.auth.user,

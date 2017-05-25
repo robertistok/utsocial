@@ -75,6 +75,20 @@ const MaterialForm = (props) => {
   );
 };
 
+const { func, string, bool } = React.PropTypes;
+MaterialForm.propTypes = {
+  reset: func.isRequired,
+  handleSubmit: func.isRequired,
+  submitForm: func.isRequired,
+  onNegativeButtonClick: func,
+  positiveButton: string.isRequired,
+  negativeButton: string.isRequired,
+  submitting: bool.isRequired,
+  pristine: bool.isRequired,
+  invalid: bool.isRequired,
+  newMaterial: bool
+};
+
 const Wrapper = styled.div`
 	height: 200px;
 	width: 300px;

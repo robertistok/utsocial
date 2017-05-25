@@ -43,4 +43,31 @@ const Materials = (props) => {
   );
 };
 
+const { func, bool, shape, string, arrayOf } = React.PropTypes;
+Materials.propTypes = {
+  toggle: func.isRequired,
+  toggledOn: bool.isRequired,
+  loggedInUser: shape({
+    profile: shape({
+      _id: string.isRequired,
+      name: string.isRequired
+    }).isRequired,
+    _id: string.isRequired,
+    type: string.isRequired,
+    username: string.isRequired
+  }).isRequired,
+  selectedCourse: shape({
+    course: shape({ _id: string.isRequired }).isRequired
+  }).isRequired,
+  materials: arrayOf(
+    shape({
+      _id: string.isRequired,
+      type: string.isRequired,
+      description: string.isRequired,
+      link: string.isRequired,
+      enteredOn: string.isRequired
+    }).isRequired
+  ).isRequired
+};
+
 export default Materials;

@@ -62,6 +62,23 @@ const MaterialType = (props) => {
   );
 };
 
+const { func, bool, string, shape, arrayOf } = React.PropTypes;
+MaterialType.propTypes = {
+  toggle: func.isRequired,
+  toggledOn: bool.isRequired,
+  type: string.isRequired,
+  loggedInUser: shape({ type: string.isRequired }).isRequired,
+  materials: arrayOf(
+    shape({
+      _id: string.isRequired,
+      type: string.isRequired,
+      description: string.isRequired,
+      link: string.isRequired,
+      enteredOn: string.isRequired
+    }).isRequired
+  ).isRequired
+};
+
 const Wrapper = styled(Segment)`
 	display: flex;
 	flex-direction: column;
