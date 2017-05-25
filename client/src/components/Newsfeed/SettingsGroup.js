@@ -44,10 +44,13 @@ const Wrapper = styled.div`
 const StyledIcon = styled(Icon)`
 	margin-bottom: 5px !important;
 	color: rgba(0,0,0,.23) !important;
+	transition-duration: 0.3s;
+	transition-timing-function: ease-out;
 
 	&:hover {
 		color: #000000 !important;
 		cursor: pointer;
+		transform: translateY(-4px);
 	}
 `;
 

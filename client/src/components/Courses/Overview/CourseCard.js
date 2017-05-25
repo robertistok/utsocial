@@ -54,7 +54,16 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	background-color: #9D8DF1;
+	opacity: 0.8;
 	box-shadow: 0px 3px 5px rgba(0,0,0,.23);
+	transform: perspective(1px) translateZ(0);
+	transition: all 0.25s;
+	transition-property: transform;
+
+	&:hover {
+		transform: scale(1.05);
+		opacity: 1;
+	}
 
 	${media.phone`
 		height: 270px;

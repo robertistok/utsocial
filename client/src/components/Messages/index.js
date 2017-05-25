@@ -2,10 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Route, Switch } from 'react-router-dom';
+import { compose } from 'recompose';
 
 import InboxContainer from './Inbox/index';
 import ConversationContainer from './Conversation/index';
 import NewThreadContainer from './NewThread/index';
+import { withMountingTransition } from '../hocs';
 
 const ForOhFor = () => <h1>No match found</h1>;
 
@@ -32,4 +34,6 @@ const mapStateToProps = state => ({
   messages: state.messages
 });
 
-export default connect(mapStateToProps)(MessageaContainer);
+const enhance = compose(withMountingTransition, connect(mapStateToProps));
+
+export default enhance(MessageaContainer);

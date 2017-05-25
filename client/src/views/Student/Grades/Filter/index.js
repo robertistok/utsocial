@@ -38,7 +38,7 @@ class FilterContainer extends Component {
     this.onScheduleOfChange(undefined, { value: groupID });
     this.onSemigroupChange(undefined, { value: semigroup.toString() });
     this.onWeekChange(undefined, { value: currentWeek });
-    history.push(`/schedules/${id}`);
+    // history.push(`/schedules/${id}`);
   }
 
   onSemigroupChange(e, { value: semigroup }) {

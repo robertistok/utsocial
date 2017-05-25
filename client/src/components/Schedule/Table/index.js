@@ -48,9 +48,9 @@ class TableContainer extends Component {
   render() {
     const { schedule: { loading } } = this.props;
 
-    if (loading) {
-      return <LoadingIndicator />;
-    }
+    // if (loading) {
+    //   return <LoadingIndicator />;
+    // }
 
     return <Table {...this.props} handleCellClick={this.handleCellClick} />;
   }

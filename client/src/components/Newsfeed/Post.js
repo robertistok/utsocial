@@ -200,7 +200,6 @@ const Wrapper = styled.div`
 	height: min-content;
 	margin-bottom: 40px;
 	width: 100%;
-
 `;
 
 const Header = styled.div`

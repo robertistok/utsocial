@@ -97,11 +97,6 @@ const Title = styled.h5`
 const Menu = styled.div`
 	display: flex;
 	flex-wrap: wrap;
-
-	.active {
-		border-bottom: 2px solid #E9EAE8;
-		color: #E9EAE8;
-	}
 `;
 
 const MenuItem = styled(NavLink)`
@@ -109,6 +104,30 @@ const MenuItem = styled(NavLink)`
 	text-align: center;
 	height: 50px;
 	padding: 10px 20px 25px 10px;
+	transform: perspective(1px) translateZ(0);
+
+
+	&:before {
+		content: "";
+		position: absolute;
+		z-index: -1;
+		left: 50%;
+		right: 50%;
+		bottom: 0;
+		background: #E9EAE8;
+		height: 2px;
+		-webkit-transition-property: left, right;
+		transition-property: left, right;
+		-webkit-transition-duration: 0.3s;
+		transition-duration: 0.3s;
+		-webkit-transition-timing-function: ease-out;
+		transition-timing-function: ease-out;
+	}
+
+	&:hover:before, &.active:before {
+		left: 0;
+		right: 0;
+	}
 
 	&:hover {
 		color: #e1e8f0;

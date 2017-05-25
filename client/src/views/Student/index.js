@@ -31,7 +31,7 @@ const Student = () => (
         <Route path="/courses" component={Courses} />
         <Route path="/messages" component={Messages} />
         <Route path="/schedules" component={Schedule} />
-        <Route path="/grades" render={Grades} />
+        <Route path="/grades" component={Grades} />
         <Route path="/settings" render={() => <h1>StudentSettings</h1>} />
         <Route component={ForOhFor} />
       </Switch>

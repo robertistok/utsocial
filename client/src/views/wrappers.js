@@ -18,6 +18,7 @@ export const Content = styled.div`
 	max-width: 1178px;
 	margin: auto;
 	margin-top: 50px;
+	margin-bottom: 20px;
 
 	${media.tablet`width: 100%`}
 `;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import { withMountingTransition } from '../../../components/hocs';
 
 import TableContainer from '../../../components/Schedule/Table';
 import FilterContainer from './Filter/index';
@@ -11,4 +12,4 @@ const Schedule = () => (
   </div>
 );
 
-export default Schedule;
+export default withMountingTransition(Schedule);
