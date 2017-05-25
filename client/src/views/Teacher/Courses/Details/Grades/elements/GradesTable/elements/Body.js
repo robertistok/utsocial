@@ -1,7 +1,8 @@
 import React from 'react';
 import { Table } from 'semantic-ui-react';
 
-import StudentRow from './StudentRow';
+import GradeRow from '../../../../../../../../components/Grades/GradeRow';
+import GradeItem from './GradeItem/index';
 
 const Body = (props) => {
   const {
@@ -25,12 +26,15 @@ const Body = (props) => {
           return 0;
         })
         .map((student, index) => (
-          <StudentRow
+          <GradeRow
             key={student._id}
             index={index}
             types={types}
             gradesList={gradesList[student._id]}
             numberOfGrades={numberOfGrades}
+            component={GradeItem}
+            withName
+            numbered
             {...student}
           />
         ))}

@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Table, Input } from 'semantic-ui-react';
-import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as gradesActions from '../../../../../../../../redux/grades';
+import * as gradesActions from '../../../../../../../../../redux/grades';
+import GradeItem from './GradeItem';
 
-class GradeItem extends Component {
+class GradeItemContainer extends Component {
   constructor(props) {
     super(props);
 
@@ -91,28 +90,14 @@ class GradeItem extends Component {
   }
 
   render() {
-    const { error, editing, edited, grade } = this.state;
     return (
-      <GradeCell
-        error={error}
-        className={`${editing ? 'editing' : ''} ${edited ? 'edited' : ''}`}
-      >
-        {editing
-          ? <GradeInput
-              value={grade}
-              error={error}
-              onChange={this.onGradeChange}
-              onBlur={this.onGradeBlur}
-              autoFocus
-              type="number"
-              min="1"
-              max="10"
-              transparent
-            />
-          : <Grade onClick={this.editGrade}>
-              {grade === '' ? '-' : grade}
-            </Grade>}
-      </GradeCell>
+      <GradeItem
+        {...this.state}
+        {...this.props}
+        onGradeChange={this.onGradeChange}
+        onGradeBlur={this.onGradeBlur}
+        editGrade={this.editGrade}
+      />
     );
   }
 }
@@ -136,7 +121,7 @@ const mapStateToProps = (state, props) => {
 };
 
 const { number, string, shape, func } = React.PropTypes;
-GradeItem.propTypes = {
+GradeItemContainer.propTypes = {
   gradeObj: shape({
     _id: string.isRequired,
     assignor: string.isRequired,
@@ -156,40 +141,4 @@ GradeItem.propTypes = {
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ ...gradesActions }, dispatch);
 
-const GradeCell = styled(Table.Cell)`
-	padding: 0px !important;
-`;
-
-const GradeInput = styled(Input)`
-	width: 100%;
-	height: 100%;
-
-	.error {
-		background-color: '#9f3a38' !important;
-	}
-
-	input {
-		border-radius: 0px !important;
-		text-align: center !important;
-		font-family: Roboto !important;
-	}
-
-	input[type=number]::-webkit-inner-spin-button,
-	input[type=number]::-webkit-outer-spin-button {
-  	-webkit-appearance: none;
-  	margin: 0;
-	}
-`;
-
-const Grade = styled.span`
-	display: inline-block;
-	width: 100%;
-	text-align: center;
-	padding: 10px;
-
-	&:hover {
-		cursor: pointer;
-	}
-`;
-
-export default connect(mapStateToProps, mapDispatchToProps)(GradeItem);
+export default connect(mapStateToProps, mapDispatchToProps)(GradeItemContainer);

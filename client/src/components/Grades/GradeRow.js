@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { Table } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import GradeItem from './GradeItem/index';
+class GradeRow extends Component {
+  shouldComponentUpdate(nextProps) {
+    return this.props.gradesList !== nextProps.gradesList;
+  }
 
-class StudentRow extends Component {
   render() {
     const {
       name,
@@ -12,13 +14,16 @@ class StudentRow extends Component {
       _id,
       gradesList,
       types,
-      numberOfGrades
+      numberOfGrades,
+      component: GradeItem,
+      numbered,
+      withName
     } = this.props;
 
     return (
       <StyledRow>
-        <Table.Cell collapsing>{index + 1}</Table.Cell>
-        <Table.Cell collapsing>{name}</Table.Cell>
+        <Table.Cell collapsing>{numbered ? index + 1 : ''}</Table.Cell>
+        {withName && <Table.Cell collapsing>{name}</Table.Cell>}
         {types.map((type) => {
           if (numberOfGrades[type] !== undefined) {
             let index = 1;
@@ -69,8 +74,16 @@ class StudentRow extends Component {
   }
 }
 
-const { string, number, arrayOf, shape, object } = React.PropTypes;
-StudentRow.propTypes = {
+const {
+  string,
+  number,
+  arrayOf,
+  shape,
+  object,
+  bool,
+  func
+} = React.PropTypes;
+GradeRow.propTypes = {
   _id: string.isRequired,
   numberOfGrades: object.isRequired,
   name: string.isRequired,
@@ -82,7 +95,10 @@ StudentRow.propTypes = {
       number: number.isRequired
     })
   ),
-  types: arrayOf(string)
+  types: arrayOf(string),
+  numbered: bool.isRequired,
+  withName: bool.isRequired,
+  component: func.isRequired
 };
 
 const StyledRow = styled(Table.Row)`
@@ -95,4 +111,4 @@ const StyledRow = styled(Table.Row)`
 	}
 `;
 
-export default StudentRow;
+export default GradeRow;
