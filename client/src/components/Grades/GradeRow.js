@@ -4,7 +4,8 @@ import styled from 'styled-components';
 
 class GradeRow extends Component {
   shouldComponentUpdate(nextProps) {
-    return this.props.gradesList !== nextProps.gradesList;
+    return this.props.gradesList !== nextProps.gradesList ||
+      nextProps.numberOfGrades !== this.props.numberOfGrades;
   }
 
   render() {

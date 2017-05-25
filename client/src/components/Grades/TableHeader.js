@@ -2,18 +2,17 @@ import React from 'react';
 import { Table } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import plusIcon from '../../../../../../../../../public/plus.svg';
-import {
-  capitalizeFirstLetter
-} from '../../../../../../../../utils/string-operations';
+import plusIcon from '../../../public/plus.svg';
+import { capitalizeFirstLetter } from '../../utils/string-operations';
 
-const Header = (props) => {
+const TableHeader = (props) => {
   const {
     types,
     cellDescription,
     isNumbered,
     numberOfGrades,
-    addColumnGrade
+    addColumnGrade,
+    isTeacher
   } = props;
 
   return (
@@ -33,7 +32,8 @@ const Header = (props) => {
           content={cellDescription}
         />
         {types.map((type) => {
-          const numOfReasons = (numberOfGrades[type] && numberOfGrades[type]) ||
+          const numOfReasons = (numberOfGrades[type] !== undefined &&
+            numberOfGrades[type]) ||
             1;
           return (
             <TypeCell
@@ -42,7 +42,8 @@ const Header = (props) => {
               textAlign="center"
               singleLine
             >
-              <Icon src={plusIcon} onClick={() => addColumnGrade(type)} />
+              {isTeacher &&
+                <Icon src={plusIcon} onClick={() => addColumnGrade(type)} />}
               {capitalizeFirstLetter(type)}
             </TypeCell>
           );
@@ -86,12 +87,13 @@ const Header = (props) => {
 };
 
 const { object, string, arrayOf, bool, func } = React.PropTypes;
-Header.propTypes = {
+TableHeader.propTypes = {
   cellDescription: string.isRequired,
   numberOfGrades: object.isRequired,
   types: arrayOf(string).isRequired,
   isNumbered: bool.isRequired,
-  addColumnGrade: func.isRequired
+  addColumnGrade: func.isRequired,
+  isTeacher: bool.isRequired
 };
 
 const Icon = styled.img`
@@ -105,4 +107,4 @@ const TypeCell = styled(Table.HeaderCell)`
 	min-width: 100px;
 `;
 
-export default Header;
+export default TableHeader;

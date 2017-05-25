@@ -2,19 +2,15 @@ import React from 'react';
 import { Table } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import Header from './elements/Header';
+import Header from '../../../../../../../components/Grades/TableHeader';
 import Body from './elements/Body';
 
 const GradesTable = (props) => {
   const {
     numberOfGrades,
     addColumnGrade,
-    selectedCourse: { course }
+    types
   } = props;
-
-  const types = Object.keys(course.teachingTypes)
-    .filter(type => course.teachingTypes[type] === true)
-    .map(type => type);
 
   return (
     <StyledTable celled collapsing structured>
@@ -24,21 +20,18 @@ const GradesTable = (props) => {
         numberOfGrades={numberOfGrades}
         addColumnGrade={addColumnGrade}
         isNumbered
+        isTeacher
       />
       <Body {...props} types={types} />
     </StyledTable>
   );
 };
 
-const { func, shape, string, object } = React.PropTypes;
+const { func, object, arrayOf, string } = React.PropTypes;
 GradesTable.propTypes = {
   addColumnGrade: func.isRequired,
   numberOfGrades: object.isRequired,
-  selectedCourse: shape({
-    course: shape({
-      _id: string.isRequired
-    })
-  }).isRequired
+  types: arrayOf(string).isRequired
 };
 
 const StyledTable = styled(Table)`

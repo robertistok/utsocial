@@ -16,18 +16,26 @@ class GradesTableContainer extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  selectedGroup: state.grades.selectedGroup,
-  students: state.grades.students,
-  gradesList: state.grades.gradesList,
-  numberOfGrades: state.grades.numberOfGrades,
-  selectedCourse: state.courses.selectedCourse,
-  loggedInTeacher: state.auth.user
-});
-
 const { string } = React.PropTypes;
 GradesTableContainer.propTypes = {
   selectedGroup: string
+};
+
+const mapStateToProps = (state) => {
+  const { selectedCourse: { course } } = state.courses;
+  const types = Object.keys(course.teachingTypes)
+    .filter(type => course.teachingTypes[type] === true)
+    .map(type => type);
+
+  return {
+    selectedGroup: state.grades.selectedGroup,
+    students: state.grades.students,
+    gradesList: state.grades.gradesList,
+    numberOfGrades: state.grades.numberOfGrades,
+    selectedCourse: state.courses.selectedCourse,
+    loggedInTeacher: state.auth.user,
+    types
+  };
 };
 
 const mapDispatchToProps = dispatch =>

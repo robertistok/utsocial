@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { Message, Dimmer, Loader } from 'semantic-ui-react';
+import { Dimmer, Loader } from 'semantic-ui-react';
 
 import Table from './Table';
 import * as modalActions from '../../../redux/modals';
 import * as scheduleActions from '../../../redux/schedule';
 import * as groupActions from '../../../redux/groups';
-import { withEither, withMaybe } from '../../hocs';
+import { withMaybe } from '../../hocs';
 
 import { MODALS } from '../../../constants';
 
@@ -68,13 +68,6 @@ TableContainer.propTypes = {
   }).isRequired
 };
 
-const NoGroupsSelected = () => (
-  <Message
-    header="No groups selected"
-    content="Select a group from the dropdown list below in order to check its schedule"
-  />
-);
-
 const LoadingIndicator = () => (
   <Dimmer active>
     <Loader>Loading..</Loader>
@@ -82,7 +75,6 @@ const LoadingIndicator = () => (
 );
 
 const nullConditionFn = props => !props.schedule;
-const noSelectedGroup = props => props.schedule.scheduleOf === undefined;
 
 const mapStateToProps = state => ({
   schedule: state.schedule
@@ -96,8 +88,7 @@ const mapDispatchToProps = dispatch =>
 
 const enhance = compose(
   connect(mapStateToProps, mapDispatchToProps),
-  withMaybe(nullConditionFn),
-  withEither(noSelectedGroup, NoGroupsSelected)
+  withMaybe(nullConditionFn)
 );
 
 export default enhance(TableContainer);

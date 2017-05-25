@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Form, Select } from 'semantic-ui-react';
+import { Form, Select, Message } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 import { SEMIGROUP, FREQUENCY } from '../../constants';
@@ -51,16 +51,25 @@ const Filter = (props) => {
           onChange={onWeekChange}
         />
       </StyledForm>
-      {scheduleOf &&
-        <ExplanationWrapper>
-          <Explanation lecture><span>Lecture</span></Explanation>
-          <Explanation lab><span>Lab</span></Explanation>
-          <Explanation project><span>Project</span></Explanation>
-          <Explanation seminar><span>Seminar</span></Explanation>
-        </ExplanationWrapper>}
+      {scheduleOf !== undefined
+        ? <ExplanationWrapper>
+            <Explanation lecture><span>Lecture</span></Explanation>
+            <Explanation lab><span>Lab</span></Explanation>
+            <Explanation project><span>Project</span></Explanation>
+            <Explanation seminar><span>Seminar</span></Explanation>
+          </ExplanationWrapper>
+        : <NoGroupsSelected />}
+
     </Wrapper>
   );
 };
+
+const NoGroupsSelected = () => (
+  <Message
+    header="No groups selected"
+    content="Select a group from the dropdown list below in order to check its schedule"
+  />
+);
 
 Filter.propTypes = {
   schedule: PropTypes.shape({
