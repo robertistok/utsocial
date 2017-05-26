@@ -120,12 +120,12 @@ const mapStateToProps = (state, props) => {
   };
 };
 
-const { number, string, shape, func } = React.PropTypes;
+const { number, string, shape, func, oneOfType } = React.PropTypes;
 GradeItemContainer.propTypes = {
   gradeObj: shape({
     _id: string.isRequired,
     assignor: string.isRequired,
-    grade: number.isRequired
+    grade: oneOfType([string, number]).isRequired
   }),
   number: number.isRequired,
   assignor: string.isRequired,

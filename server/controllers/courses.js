@@ -63,6 +63,10 @@ function getCourseGroups(req, res, next) {
 		.catch(err => next(err));
 }
 
+function getAll(req, res, next) {
+	Course.find({}).then(courses => res.send(courses)).catch(err => next(err));
+}
+
 function getMetaData(req, res, next) {
 	const { courseID, lang } = req.params;
 
@@ -216,6 +220,7 @@ function updateDescription(req, res, next) {
 
 module.exports = {
 	getCourseGroups,
+	getAll,
 	getMetaData,
 	addMaterial,
 	updateMaterial,

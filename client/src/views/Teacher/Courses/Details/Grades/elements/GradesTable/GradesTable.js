@@ -19,7 +19,6 @@ const GradesTable = (props) => {
         cellDescription="Student"
         numberOfGrades={numberOfGrades}
         addColumnGrade={addColumnGrade}
-        isNumbered
         isTeacher
       />
       <Body {...props} types={types} />

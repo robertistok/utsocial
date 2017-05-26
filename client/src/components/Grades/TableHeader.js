@@ -9,28 +9,29 @@ const TableHeader = (props) => {
   const {
     types,
     cellDescription,
-    isNumbered,
     numberOfGrades,
     addColumnGrade,
-    isTeacher
+    isTeacher,
+    size
   } = props;
 
   return (
     <Table.Header>
       <Table.Row>
-        {isNumbered &&
+        {isTeacher &&
           <Table.HeaderCell
             rowSpan="2"
             textAlign="center"
             verticalAlign="middle"
             content={'Nr'}
           />}
-        <Table.HeaderCell
-          rowSpan="2"
-          textAlign="center"
-          verticalAlign="middle"
-          content={cellDescription}
-        />
+        {isTeacher &&
+          <Table.HeaderCell
+            rowSpan="2"
+            textAlign="center"
+            verticalAlign="middle"
+            content={cellDescription}
+          />}
         {types.map((type) => {
           const numOfReasons = (numberOfGrades[type] !== undefined &&
             numberOfGrades[type]) ||
@@ -41,6 +42,7 @@ const TableHeader = (props) => {
               colSpan={numOfReasons}
               textAlign="center"
               singleLine
+              className={`${size}`}
             >
               {isTeacher &&
                 <Icon src={plusIcon} onClick={() => addColumnGrade(type)} />}
@@ -53,6 +55,7 @@ const TableHeader = (props) => {
           content="Final"
           textAlign="center"
           verticalAlign="middle"
+          className={`${size}`}
         />
       </Table.Row>
 
@@ -88,12 +91,12 @@ const TableHeader = (props) => {
 
 const { object, string, arrayOf, bool, func } = React.PropTypes;
 TableHeader.propTypes = {
-  cellDescription: string.isRequired,
+  cellDescription: string,
   numberOfGrades: object.isRequired,
   types: arrayOf(string).isRequired,
-  isNumbered: bool.isRequired,
-  addColumnGrade: func.isRequired,
-  isTeacher: bool.isRequired
+  addColumnGrade: func,
+  isTeacher: bool.isRequired,
+  size: string
 };
 
 const Icon = styled.img`
@@ -105,6 +108,10 @@ const Icon = styled.img`
 
 const TypeCell = styled(Table.HeaderCell)`
 	min-width: 100px;
+
+	&.small {
+		min-width: 80px;
+	}
 `;
 
 export default TableHeader;

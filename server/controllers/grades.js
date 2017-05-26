@@ -49,24 +49,62 @@ function getGradesListOfGroup(req, res, next) {
 				{ gradesList: {}, numberOfGrades: {} }
 			);
 
-			// const studentWithTheMostGrades = Object.keys(orderedStudents).sort(
-			// 	(a, b) => orderedStudents[a].length < orderedStudents[b].length
-			// )[0];
-			//
-			// const numberOfGrades = orderedStudents[
-			// 	studentWithTheMostGrades
-			// ].reduce((acc, grade) => {
-			// 	const { type } = grade;
-			//
-			// 	if (acc[type] === undefined) {
-			// 		return { ...acc, [type]: 1 };
-			// 	}
-			// 	return { ...acc, [type]: acc[type] + 1 };
-			// }, {});
-
 			const { gradesList, numberOfGrades } = orderedStudents;
 
 			return res.send({ gradesList, numberOfGrades });
+		})
+		.catch(err => next(err));
+}
+
+function getGradesListOfStudent(req, res, next) {
+	const { studentID, courses } = req.body;
+
+	Grade.find({ student: studentID, course: { $in: courses } })
+		.then((grades) => {
+			if (grades.length === 0) {
+				return res.send({ gradesList: { numberOfGrades: {}, list: {} } });
+			}
+
+			const gradesList = grades.reduce((acc, item) => {
+				const { course, type, number } = item;
+				if (acc[course] === undefined) {
+					return {
+						...acc,
+						[course]: {
+							numberOfGrades: { [type]: number },
+							list: [item]
+						}
+					};
+				}
+
+				if (acc[course].numberOfGrades[type] === undefined) {
+					return {
+						...acc,
+						[course]: {
+							numberOfGrades: {
+								...acc[course].numberOfGrades,
+								[type]: number
+							},
+							list: [...acc[course].list, item]
+						}
+					};
+				}
+
+				return {
+					...acc,
+					[course]: {
+						numberOfGrades: {
+							...acc[course].numberOfGrades,
+							[type]: acc[course].numberOfGrades[type] < number
+								? number
+								: acc[course].numberOfGrades[type]
+						},
+						list: [...acc[course].list, item]
+					}
+				};
+			}, {});
+
+			return res.send({ gradesList });
 		})
 		.catch(err => next(err));
 }
@@ -109,6 +147,7 @@ function updateGrade(req, res, next) {
 
 module.exports = {
 	getGradesListOfGroup,
+	getGradesListOfStudent,
 	insertGrade,
 	deleteGrade,
 	updateGrade

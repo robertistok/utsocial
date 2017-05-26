@@ -1,15 +1,40 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
-import { withMountingTransition } from '../../../components/hocs';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { compose } from 'recompose';
 
-// import TableContainer from '../../../components/Schedule/Table';
+import { withMountingTransition } from '../../../components/hocs';
+import * as coursesActions from '../../../redux/courses';
+import TableContainer from './Table';
 import FilterContainer from './Filter';
 
-const Grades = () => (
-  <div>
-    <Route path="/grades" component={FilterContainer} />
-    <Route path="/schedules/:id" component={FilterContainer} />
-  </div>
+class Grades extends Component {
+  componentDidMount() {
+    const { fetchAllCourses } = this.props;
+    fetchAllCourses();
+  }
+
+  render() {
+    return (
+      <div>
+        <FilterContainer />
+        <TableContainer />
+      </div>
+    );
+  }
+}
+
+const { func } = React.PropTypes;
+Grades.propTypes = {
+  fetchAllCourses: func.isRequired
+};
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ ...coursesActions }, dispatch);
+
+const enhance = compose(
+  withMountingTransition,
+  connect(null, mapDispatchToProps)
 );
 
-export default withMountingTransition(Grades);
+export default enhance(Grades);

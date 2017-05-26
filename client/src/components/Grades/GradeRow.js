@@ -23,7 +23,7 @@ class GradeRow extends Component {
 
     return (
       <StyledRow>
-        <Table.Cell collapsing>{numbered ? index + 1 : ''}</Table.Cell>
+        {numbered && <Table.Cell collapsing>{index + 1}</Table.Cell>}
         {withName && <Table.Cell collapsing>{name}</Table.Cell>}
         {types.map((type) => {
           if (numberOfGrades[type] !== undefined) {
@@ -85,10 +85,10 @@ const {
   func
 } = React.PropTypes;
 GradeRow.propTypes = {
-  _id: string.isRequired,
+  _id: string,
   numberOfGrades: object.isRequired,
-  name: string.isRequired,
-  index: number.isRequired,
+  name: string,
+  index: number,
   gradesList: arrayOf(
     shape({
       type: string.isRequired,

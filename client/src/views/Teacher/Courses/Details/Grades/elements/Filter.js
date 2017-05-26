@@ -3,7 +3,7 @@ import { Form } from 'semantic-ui-react';
 
 const Filter = (props) => {
   const { courses: { selectedCourse }, selectedGroup } = props;
-  const { changeGroup, fetchGrades } = props;
+  const { changeGroup, fetchGradesTeachers } = props;
 
   const groupOptions = selectedCourse.groups.map(group => ({
     key: group._id,
@@ -19,7 +19,7 @@ const Filter = (props) => {
           placeholder="Group"
           onChange={(e, { value }) => {
             changeGroup(value);
-            fetchGrades(value, selectedCourse.course._id);
+            fetchGradesTeachers(value, selectedCourse.course._id);
           }}
           value={selectedGroup}
         />
@@ -31,7 +31,7 @@ const Filter = (props) => {
 const { shape, func, string, object } = React.PropTypes;
 Filter.propTypes = {
   changeGroup: func.isRequired,
-  fetchGrades: func.isRequired,
+  fetchGradesTeachers: func.isRequired,
   selectedGroup: string,
   courses: shape({
     selectedCourse: object.isRequired

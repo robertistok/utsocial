@@ -38,6 +38,10 @@ const UNMARK = 'redux/courses/unmark';
 const UNMARK_SUCCESS = 'redux/courses/unmark-success';
 const UNMARK_ERROR = 'redux/courses/unmark-error';
 
+const FETCH_ALL_COURSES = 'redux/courses/fetch-all';
+const FETCH_ALL_COURSES_SUCCESS = 'redux/courses/fetch-all-success';
+const FETCH_ALL_COURSES_ERROR = 'redux/courses/fetch-all-error';
+
 export function selectCourse(_id, lang) {
   return (dispatch) => {
     dispatch({ type: SELECT_COURSE_AND_FETCH_GROUPS });
@@ -200,6 +204,22 @@ export function filterNewsfeed(filterBy) {
   };
 }
 
+export function fetchAllCourses() {
+  return (dispatch) => {
+    dispatch({ type: FETCH_ALL_COURSES });
+    axios({
+      method: 'get',
+      url: '/api/courses/getAll',
+      headers: {
+        authorization: sessionStorage.getItem('token')
+      }
+    })
+      .then(response =>
+        dispatch({ type: FETCH_ALL_COURSES_SUCCESS, payload: response.data }))
+      .catch(err => dispatch({ type: FETCH_ALL_COURSES_ERROR, payload: err }));
+  };
+}
+
 const INITIAL_STATE = {
   selectedCourse: {
     lang: undefined,
@@ -207,6 +227,7 @@ const INITIAL_STATE = {
     groups: [],
     schedules: []
   },
+  all: [],
   newsFeed: [],
   newsFeedFilter: 'all',
   loading: false,
@@ -345,6 +366,18 @@ export default function (state = INITIAL_STATE, action) {
       error = action.payload || { message: action.payload.message };
       return { ...state, loading: false, error };
 
+    case FETCH_ALL_COURSES:
+      return { ...state, loading: true };
+    case FETCH_ALL_COURSES_SUCCESS:
+      return {
+        ...state,
+        all: action.payload,
+        loading: false
+      };
+    case FETCH_ALL_COURSES_ERROR:
+      error = action.payload || { message: action.payload.message };
+      return { ...state, loading: false, error };
+
     case FILTER_NEWSFEED:
       return {
         ...state,
@@ -385,5 +418,6 @@ export const postList = createSelector(
 
       return posts.filter(post => post.target.course.relatedTo === filter);
     }
+    return [];
   }
 );

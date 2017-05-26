@@ -2,11 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { Form } from 'semantic-ui-react';
 
-import { media } from '../../../../utils/style-utils';
-
 const years = [1, 2, 3, 4];
 const yearOptions = [
-  { key: 'all', value: 'all', text: 'All' },
   ...years.map(year => ({ key: year, value: year, text: year }))
 ];
 
@@ -21,7 +18,11 @@ const semesterOptions = [
 ];
 
 const Filter = (props) => {
-  const {} = props;
+  const {
+    filterState: { year, semester },
+    onSemesterChange,
+    onYearChange
+  } = props;
 
   return (
     <StyledForm>
@@ -30,15 +31,29 @@ const Filter = (props) => {
         label="Year"
         placeholder="Select a year"
         options={yearOptions}
+        onChange={onYearChange}
+        value={year}
       />
       <StyledSelect
         selection
         label="Semester"
         placeholder="Select a semester"
         options={semesterOptions}
+        onChange={onSemesterChange}
+        value={semester}
       />
     </StyledForm>
   );
+};
+
+const { oneOfType, string, number, shape, func } = React.PropTypes;
+Filter.propTypes = {
+  filterState: shape({
+    year: number,
+    semester: oneOfType([string, number]).isRequired
+  }).isRequired,
+  onSemesterChange: func.isRequired,
+  onYearChange: func.isRequired
 };
 
 const StyledForm = styled(Form)`

@@ -1,12 +1,20 @@
 import axios from 'axios';
+import { createSelector } from 'reselect';
 
 const CHANGE_GROUP = 'redux/grades/change-group';
 const CHANGE_GROUP_SUCCESS = 'redux/grades/change-group-success';
 const CHANGE_GROUP_ERROR = 'redux/grades/change-group-error';
 
-const FETCH_GRADES = 'redux/grades/fetch-grades';
-const FETCH_GRADES_SUCCESS = 'redux/grades/fetch-grades-success';
-const FETCH_GRADES_ERROR = 'redux/grades/fetch-grades';
+const CHANGE_YEAR = 'redux/grades/change-year';
+const CHANGE_SEMESTER = 'redux/grades/change-semester';
+
+const FETCH_GRADES_TEACHERS = 'redux/grades/fetch-grades-teachers';
+const FETCH_GRADES_TEACHERS_SUCCESS = 'redux/grades/fetch-grades-teachers-success';
+const FETCH_GRADES_TEACHERS_ERROR = 'redux/grades/fetch-grades-teachers';
+
+const FETCH_GRADES_STUDENTS = 'redux/grades/fetch-grades-students';
+const FETCH_GRADES_STUDENTS_SUCCESS = 'redux/grades/fetch-grades-students-success';
+const FETCH_GRADES_STUDENTS_ERROR = 'redux/grades/fetch-grades-students';
 
 const INSERT_GRADE = 'redux/grades/insert-grade';
 const INSERT_GRADE_SUCCESS = 'redux/grades/insert-grade-success';
@@ -42,12 +50,26 @@ export function changeGroup(group) {
   };
 }
 
-export function fetchGrades(group, course) {
+export function changeYear(year) {
+  return {
+    type: CHANGE_YEAR,
+    payload: year
+  };
+}
+
+export function changeSemester(semester) {
+  return {
+    type: CHANGE_SEMESTER,
+    payload: semester
+  };
+}
+
+export function fetchGradesTeachers(group, course) {
   return (dispatch) => {
-    dispatch({ type: FETCH_GRADES });
+    dispatch({ type: FETCH_GRADES_TEACHERS });
     axios({
       method: 'post',
-      url: '/api/grades/getGradesListOfGroup/',
+      url: '/api/grades/getGradesListOfGroup',
       data: { group, course },
       headers: {
         authorization: sessionStorage.getItem('token')
@@ -55,13 +77,37 @@ export function fetchGrades(group, course) {
     })
       .then(response =>
         dispatch({
-          type: FETCH_GRADES_SUCCESS,
+          type: FETCH_GRADES_TEACHERS_SUCCESS,
           payload: {
             gradesList: response.data.gradesList,
             numberOfGrades: response.data.numberOfGrades
           }
         }))
-      .catch(err => dispatch({ type: FETCH_GRADES_ERROR, payload: err }));
+      .catch(err =>
+        dispatch({ type: FETCH_GRADES_TEACHERS_ERROR, payload: err }));
+  };
+}
+
+export function fetchGradesStudents(studentID, courses) {
+  return (dispatch) => {
+    dispatch({ type: FETCH_GRADES_STUDENTS });
+    axios({
+      method: 'post',
+      url: '/api/grades/getGradesListOfStudent',
+      data: { studentID, courses: Object.keys(courses) },
+      headers: {
+        authorization: sessionStorage.getItem('token')
+      }
+    })
+      .then(response =>
+        dispatch({
+          type: FETCH_GRADES_STUDENTS_SUCCESS,
+          payload: {
+            gradesList: response.data.gradesList
+          }
+        }))
+      .catch(err =>
+        dispatch({ type: FETCH_GRADES_STUDENTS_ERROR, payload: err }));
   };
 }
 
@@ -142,6 +188,7 @@ const INITIAL_STATE = {
   selectedGroup: undefined,
   gradesList: {},
   numberOfGrades: {},
+  filter: { year: undefined, semester: 'both' },
   students: [],
   loading: false,
   error: ''
@@ -166,16 +213,37 @@ export default function (state = INITIAL_STATE, action) {
       error = action.payload || { message: action.payload.message };
       return { ...state, loading: false, error };
 
-    case FETCH_GRADES:
+    case CHANGE_YEAR:
+      return { ...state, filter: { ...state.filter, year: action.payload } };
+
+    case CHANGE_SEMESTER:
+      return {
+        ...state,
+        filter: { ...state.filter, semester: action.payload }
+      };
+
+    case FETCH_GRADES_TEACHERS:
       return { ...state, loading: true };
-    case FETCH_GRADES_SUCCESS:
+    case FETCH_GRADES_TEACHERS_SUCCESS:
       return {
         ...state,
         gradesList: { ...action.payload.gradesList },
         numberOfGrades: { ...action.payload.numberOfGrades },
         loading: false
       };
-    case FETCH_GRADES_ERROR:
+    case FETCH_GRADES_TEACHERS_ERROR:
+      error = action.payload || { message: action.payload.message };
+      return { ...state, loading: false, error };
+
+    case FETCH_GRADES_STUDENTS:
+      return { ...state, loading: true };
+    case FETCH_GRADES_STUDENTS_SUCCESS:
+      return {
+        ...state,
+        gradesList: { ...action.payload.gradesList },
+        loading: false
+      };
+    case FETCH_GRADES_STUDENTS_ERROR:
       error = action.payload || { message: action.payload.message };
       return { ...state, loading: false, error };
 
@@ -255,3 +323,22 @@ export default function (state = INITIAL_STATE, action) {
       return state;
   }
 }
+
+const getFilter = state => state.grades.filter;
+const getCourses = state => state.courses.all;
+export const filterCoursesByYear = createSelector(
+  [getFilter, getCourses],
+  (filter, courses) => {
+    const { year } = filter;
+    if (year !== undefined) {
+      return courses.filter(course => course.year === year).reduce((
+        acc,
+        { _id, name, credits, teachingTypes, semester }
+      ) => ({
+        ...acc,
+        [_id]: { _id, name, credits, teachingTypes, semester }
+      }), {});
+    }
+    return {};
+  }
+);

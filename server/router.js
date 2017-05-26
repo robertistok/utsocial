@@ -65,6 +65,7 @@ router.get(
 	requireAuth,
 	CoursesController.getCourseGroups
 );
+router.get('/api/courses/getAll', requireAuth, CoursesController.getAll);
 router.get(
 	'/api/courses/meta/get/:courseID/:lang',
 	requireAuth,
@@ -139,6 +140,11 @@ router.post(
 	'/api/grades/getGradesListOfGroup',
 	requireAuth,
 	GradesController.getGradesListOfGroup
+);
+router.post(
+	'/api/grades/getGradesListOfStudent',
+	requireAuth,
+	GradesController.getGradesListOfStudent
 );
 router.post('/api/grades/insert', requireAuth, GradesController.insertGrade);
 router.post('/api/grades/update', requireAuth, GradesController.updateGrade);
