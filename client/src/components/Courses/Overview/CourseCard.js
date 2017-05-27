@@ -16,23 +16,23 @@ const CourseCard = (props) => {
   } = props;
 
   return (
-    <Wrapper student={isStudent}>
-      <Header>
-        <Link to={`/courses/${_id}/${lang}`}>
+    <StyledLink to={`/courses/${_id}/${lang}`}>
+      <Wrapper student={isStudent}>
+        <Header>
           <Title>{name}</Title>
-        </Link>
-        <Info>
-          <InfoLabel>{`Year: ${year}`}</InfoLabel>
-          <InfoLabel>{`Semester: ${semester}`}</InfoLabel>
-          {!isStudent &&
-            lang !== undefined &&
-            <InfoLabel>{`Language: ${lang}`}</InfoLabel>}
-          {isStudent &&
-            credits !== undefined &&
-            <InfoLabel>{`credits: ${credits}`}</InfoLabel>}
-        </Info>
-      </Header>
-    </Wrapper>
+          <Info>
+            <InfoLabel>{`Year: ${year}`}</InfoLabel>
+            <InfoLabel>{`Semester: ${semester}`}</InfoLabel>
+            {!isStudent &&
+              lang !== undefined &&
+								<InfoLabel>{`Language: ${lang}`}</InfoLabel>}
+            {isStudent &&
+              credits !== undefined &&
+								<InfoLabel>{`credits: ${credits}`}</InfoLabel>}
+          </Info>
+        </Header>
+      </Wrapper>
+    </StyledLink>
   );
 };
 
@@ -47,10 +47,13 @@ CourseCard.propTypes = {
   student: bool
 };
 
+const StyledLink = styled(Link)`
+	margin: 20px;
+`;
+
 const Wrapper = styled.div`
 	width: ${props => props.student ? '200px' : '300px'};
 	height: ${props => props.student ? '250px' : '350px'};
-	margin: 20px;
 	display: flex;
 	flex-direction: column;
 	background-color: #9D8DF1;
