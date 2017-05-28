@@ -1,42 +1,40 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { NavLink } from 'react-router-dom';
 import { withRouter } from 'react-router';
-import { Button } from 'semantic-ui-react';
 import styled from 'styled-components';
+import { Sticky } from 'react-sticky';
 
 import { capitalizeFirstLetter } from '../../utils/string-operations';
-import { media } from '../../utils/style-utils';
+import ActionBar from './elements/ActionBar';
 
-const Header = (props) => {
-  const { links, history, logOutUser } = props;
+class Header extends PureComponent {
+  render() {
+    const { links, history, logOutUser, user } = this.props;
 
-  return (
-    <Wrapper>
-      <ActionBar>
-        <LogOutButton
-          onClick={() => {
-            logOutUser();
-            history.push('/');
-          }}
-        >
-          Log out
-        </LogOutButton>
-      </ActionBar>
-
-      <HeaderWrapper>
-        <Title>UTSocial</Title>
-      </HeaderWrapper>
-
-      <Menu>
-        {links.map(link => (
-          <MenuItem to={`/${link}`} key={link}>
-            {capitalizeFirstLetter(link)}
-          </MenuItem>
-        ))}
-      </Menu>
-    </Wrapper>
-  );
-};
+    return (
+      <Sticky>
+        {({ style }) => (
+          <Wrapper style={style}>
+            <Menu>
+              {links.map(link => (
+                <MenuItem to={`/${link}`} key={link}>
+                  {capitalizeFirstLetter(link)}
+                </MenuItem>
+              ))}
+              <ActionBar
+                logOut={() => {
+                  logOutUser();
+                  history.push('/');
+                }}
+                user={user.profile.firstname}
+              />
+            </Menu>
+          </Wrapper>
+        )}
+      </Sticky>
+    );
+  }
+}
 
 const { string, func, arrayOf, shape } = React.PropTypes;
 Header.propTypes = {
@@ -48,50 +46,10 @@ Header.propTypes = {
 const Wrapper = styled.header`
 	top: 0px;
 	left: 0px;
+	height: 75px;
 	background: #51D1B9;
-`;
-
-const ActionBar = styled.div`
-	height: 50px;
-	display: flex;
-	justify-content: flex-end;
-	padding-top: 10px;
-
-	&:first-child {
-		padding-right: 25px;
-	}
-`;
-
-const LogOutButton = styled(Button)`
-	color: #FFFFFF !important;
-	box-shadow: none !important;
-	background-color: #51D1B9 !important;
-	font-family: 'Roboto' !important
-	height: min-content;
-
-	&:hover {
-		box-shadow: none !important;
-		color: #e1e8f0 !important;
-	}
-`;
-
-const HeaderWrapper = styled.div`
-	height: 100px;
-	display: flex;
-	justify-content: space-between;
-	align-items: baseline;
-`;
-
-const Title = styled.h5`
-	color: #FFFFFF;
-	text-align: left;
-	padding: 10px 0px 20px 25px;
-	margin-top: 0px;
-	margin-bottom: 0px;
-	font-size: 3em;
-	height: min-content;
-
-	${media.tablet`margin-left: initial`}
+	overflow: auto;
+	z-index: 10;
 `;
 
 const Menu = styled.div`
@@ -100,10 +58,13 @@ const Menu = styled.div`
 `;
 
 const MenuItem = styled(NavLink)`
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	color: #FFFFFF;
-	text-align: center;
-	height: 50px;
-	padding: 10px 20px 25px 10px;
+	height: 75px;
+	padding: 10px 20px 5px 10px;
+	font-size: 14px;
 	transform: perspective(1px) translateZ(0);
 
 

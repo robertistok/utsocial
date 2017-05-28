@@ -1,8 +1,9 @@
 import styled from 'styled-components';
+import { StickyContainer } from 'react-sticky';
 
 import { media } from '../utils/style-utils';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled(StickyContainer)`
 	display: block;
 	overflow: auto;
 	height: 100%;

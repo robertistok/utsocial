@@ -14,7 +14,7 @@ const ForOhFor = () => <h1>No match found</h1>;
 const Wrapper = styled.div`
 	width: 100%;
 	display: flex;
-	height: 100vh;
+	height: calc(100vh - 105px);
 	overflow: auto;
 	border: 1px solid rgba(0, 0, 0, .10);
 `;

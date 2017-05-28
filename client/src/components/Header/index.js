@@ -8,7 +8,7 @@ import * as authActions from '../../redux/auth';
 const HeaderContainer = props => <Header {...props} />;
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  user: state.auth.user
 });
 
 const mapDispatchToProps = dispatch =>
