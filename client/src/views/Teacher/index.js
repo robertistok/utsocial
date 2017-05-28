@@ -6,11 +6,12 @@ import ModalSwitcher from '../../components/Modals/ModalSwitcher';
 import Schedule from './Schedule';
 import Messages from '../../components/Messages/index';
 import Courses from './Courses';
+import Settings from '../../components/Settings';
 import { Wrapper, Content } from '../wrappers';
 
 const ForOhFor = () => <h1>No match found</h1>;
 
-const links = ['home', 'courses', 'messages', 'schedules', 'settings'];
+const links = ['home', 'courses', 'messages', 'schedules', 'preferences'];
 
 const Teacher = () => (
   <Wrapper id="mainWrapper">
@@ -22,7 +23,7 @@ const Teacher = () => (
         <Route path="/courses" component={Courses} />
         <Route path="/messages" component={Messages} />
         <Route path="/schedules" component={Schedule} />
-        <Route path="/settings" render={() => <h1>TeacherSettings</h1>} />
+        <Route path="/preferences" component={Settings} />
         <Route component={ForOhFor} />
       </Switch>
     </Content>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { SEMIGROUP, FREQUENCY } from '../constants';
+import { SEMIGROUP, FREQUENCY } from '../utils/constants';
 
 const ROOT_URL = '/api/schedules';
 

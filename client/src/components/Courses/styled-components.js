@@ -16,7 +16,7 @@ export const ButtonGroup = styled.div`
 `;
 
 export const StyledAccordion = styled(Accordion)`
-	background-color: #EDEFF0 !important;
+	background-color: #f5f8fa !important;
 	border: 0 !important;
   border-bottom-width: 0px !important;
   border-top-width: 0px !important;

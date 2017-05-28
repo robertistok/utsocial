@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import Post from './Post';
 import { media } from '../../utils/style-utils';
-import { MODALS } from '../../constants';
+import { MODALS } from '../../utils/constants';
 
 const PostList = (props) => {
   const {
@@ -33,11 +33,11 @@ const PostList = (props) => {
             isOwner={isOwner}
             deletePost={
               isOwner
-							? () =>
-							showModal(MODALS.CONFIRM_ACTION, {
-								confirmAction: () => deletePost(postID),
+                ? () =>
+                    showModal(MODALS.CONFIRM_ACTION, {
+                      confirmAction: () => deletePost(postID),
                       content: 'Are you sure you want to delete this post?'
-							})
+                    })
                 : undefined
             }
             updatePost={isOwner && updateFunction(postID)}

@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-import { LAST_WEEK } from '../constants';
+import { LAST_WEEK } from '../utils/constants';
 
 export function getDatesForSchedules(scheduleDay) {
   const firstWeek = moment('2017-02-27');

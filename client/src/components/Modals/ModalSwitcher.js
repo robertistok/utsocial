@@ -6,7 +6,7 @@ import ShowSchedule from './ShowSchedule/ShowSchedule';
 import ConfirmAction from './ConfirmAction';
 
 import * as modalActions from '../../redux/modals';
-import { MODALS } from '../../constants';
+import { MODALS } from '../../utils/constants';
 
 const { ADD_SCHEDULE, SHOW_SCHEDULE, CONFIRM_ACTION } = MODALS;
 

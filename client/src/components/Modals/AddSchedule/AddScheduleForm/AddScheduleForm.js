@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { Form, Loader, Message } from 'semantic-ui-react';
 
-import { SEMIGROUP, DAYS, HOURS } from '../../../../constants';
+import { SEMIGROUP, DAYS, HOURS } from '../../../../utils/constants';
 import RadioButton from '../../../FormComponents/Radio';
 import DropDownField from '../../../FormComponents/Dropdown';
 import InputField from '../../../FormComponents/InputField';

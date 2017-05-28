@@ -10,7 +10,7 @@ import * as modalActions from '../../../../redux/modals';
 import * as groupActions from '../../../../redux/groups';
 import * as teachersActions from '../../../../redux/teachers';
 import Filter from '../../../../components/Schedule/Filter';
-import { FIRST_WEEK } from '../../../../constants';
+import { FIRST_WEEK } from '../../../../utils/constants';
 
 class FilterContainer extends Component {
   constructor(props) {

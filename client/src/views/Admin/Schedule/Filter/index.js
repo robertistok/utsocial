@@ -8,7 +8,7 @@ import * as modalActions from '../../../../redux/modals';
 import * as groupActions from '../../../../redux/groups';
 
 import Filter from './Filter';
-import { MODALS } from '../../../../constants';
+import { MODALS } from '../../../../utils/constants';
 
 class FilterContainer extends Component {
   constructor(props) {

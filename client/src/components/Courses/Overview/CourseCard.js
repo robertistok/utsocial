@@ -25,10 +25,10 @@ const CourseCard = (props) => {
             <InfoLabel>{`Semester: ${semester}`}</InfoLabel>
             {!isStudent &&
               lang !== undefined &&
-								<InfoLabel>{`Language: ${lang}`}</InfoLabel>}
+              <InfoLabel>{`Language: ${lang}`}</InfoLabel>}
             {isStudent &&
               credits !== undefined &&
-								<InfoLabel>{`credits: ${credits}`}</InfoLabel>}
+              <InfoLabel>{`credits: ${credits}`}</InfoLabel>}
           </Info>
         </Header>
       </Wrapper>

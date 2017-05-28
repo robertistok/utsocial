@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
 
-import { HOURS } from '../../../../constants';
+import { HOURS } from '../../../../utils/constants';
 import ScheduleItem from './ScheduleItem';
 import { media } from '../../../../utils/style-utils';
 

@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Form, Select, Button, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import { SEMIGROUP, FREQUENCY } from '../../../../constants';
+import { SEMIGROUP, FREQUENCY } from '../../../../utils/constants';
 import { media } from '../../../../utils/style-utils';
 
 const optionsWeek = [

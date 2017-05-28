@@ -119,6 +119,11 @@ router.get(
 	requireAuth,
 	UsersController.usersForAutocomplete
 );
+router.post(
+	'/api/users/changePassword',
+	requireAuth,
+	UsersController.changePassword
+);
 
 router.post(
 	'/api/attendance/getAttendanceOfCourseType',

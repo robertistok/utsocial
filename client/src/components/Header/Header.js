@@ -40,16 +40,20 @@ const { string, func, arrayOf, shape } = React.PropTypes;
 Header.propTypes = {
   history: shape({ push: func.isRequired }).isRequired,
   logOutUser: func.isRequired,
-  links: arrayOf(string).isRequired
+  links: arrayOf(string).isRequired,
+  user: shape({
+    profile: shape({ firstname: string.isRequired }).isRequired
+  }).isRequired
 };
 
 const Wrapper = styled.header`
 	top: 0px;
 	left: 0px;
-	height: 75px;
+	height: 100px;
 	background: #51D1B9;
 	overflow: auto;
 	z-index: 10;
+	padding: 0px 20px;
 `;
 
 const Menu = styled.div`
@@ -62,9 +66,9 @@ const MenuItem = styled(NavLink)`
 	align-items: center;
 	justify-content: center;
 	color: #FFFFFF;
-	height: 75px;
-	padding: 10px 20px 5px 10px;
-	font-size: 14px;
+	height: 100px;
+	padding: 10px 15px 5px 15px;
+	font-size: 16px;
 	transform: perspective(1px) translateZ(0);
 
 
@@ -75,7 +79,7 @@ const MenuItem = styled(NavLink)`
 		left: 50%;
 		right: 50%;
 		bottom: 0;
-		background: #E9EAE8;
+		background: #f5f8fa;
 		height: 2px;
 		-webkit-transition-property: left, right;
 		transition-property: left, right;
@@ -91,7 +95,11 @@ const MenuItem = styled(NavLink)`
 	}
 
 	&:hover {
-		color: #e1e8f0;
+		color: #f5f8fa;
+	}
+
+	&.active {
+		color: #f5f8fa;
 	}
 `;
 

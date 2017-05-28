@@ -5,6 +5,7 @@ const ROOT_URL = '/api/users';
 export const FETCH_ALL_USERS = '/redux/users/fetchall';
 export const FETCH_ALL_USERS_SUCCESS = '/redux/users/fetchall-success';
 export const FETCH_ALL_USERS_ERROR = '/redux/users/fetchall-error';
+
 export const SEARCH_USERS = '/redux/users/searchusers';
 export const SEARCH_USERS_SUCCESS = '/redux/users/searchusers-success';
 export const SEARCH_USERS_ERROR = '/redux/users/searchusers-error';

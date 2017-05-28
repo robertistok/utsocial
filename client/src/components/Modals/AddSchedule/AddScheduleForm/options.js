@@ -1,4 +1,4 @@
-import { FREQUENCY } from '../../../../constants';
+import { FREQUENCY } from '../../../../utils/constants';
 
 export const courseOptions = course => ({
   key: course._id,

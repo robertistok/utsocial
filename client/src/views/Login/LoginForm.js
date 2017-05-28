@@ -31,7 +31,8 @@ const LoginForm = (props) => {
   return (
     <Wrapper>
       <StyledForm onSubmit={handleSubmit}>
-        {auth.error &&
+        {!auth.authenticated &&
+          auth.error &&
           <Message negative>
             <Message.Header>
               {auth.error}

@@ -10,7 +10,7 @@ import * as scheduleActions from '../../../redux/schedule';
 import * as groupActions from '../../../redux/groups';
 import { withMaybe } from '../../hocs';
 
-import { MODALS } from '../../../constants';
+import { MODALS } from '../../../utils/constants';
 
 class TableContainer extends Component {
   constructor(props) {

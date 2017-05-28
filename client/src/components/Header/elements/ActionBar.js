@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Popup, Icon } from 'semantic-ui-react';
+import { NavLink } from 'react-router-dom';
 
 const ActionBar = (props) => {
   const { user, logOut } = props;
@@ -10,7 +11,9 @@ const ActionBar = (props) => {
       <StyledIcon size="large" name="bell" />
       <StyledIcon size="large" name="envelope" />
       <User>{user}</User>
-      <StyledIcon size="large" name="settings" />
+      <NavLink activeClassName="active" to="/preferences">
+        <StyledIcon size="large" name="settings" />
+      </NavLink>
       <StyledPopup
         trigger={<StyledIcon size="large" name="log out" onClick={logOut} />}
         content="Log out"
@@ -21,12 +24,18 @@ const ActionBar = (props) => {
   );
 };
 
+const { string, func } = React.PropTypes;
+ActionBar.propTypes = {
+  logOut: func.isRequired,
+  user: string.isRequired
+};
+
 const Wrapper = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
 	width: 220px;
-	height: 75px;
+	height: 100px;
 	margin-left: auto;
 `;
 

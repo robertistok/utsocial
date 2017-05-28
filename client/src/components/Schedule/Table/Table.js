@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 
 import Column from './elements/Column';
-import { DAYS, HOURS } from '../../../constants';
+import { DAYS, HOURS } from '../../../utils/constants';
 import { media } from '../../../utils/style-utils';
 
 const Table = (props) => {

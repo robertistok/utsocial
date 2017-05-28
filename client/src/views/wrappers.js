@@ -7,11 +7,11 @@ export const Wrapper = styled(StickyContainer)`
 	display: block;
 	overflow: auto;
 	height: 100%;
-	background-color: #EDEFF0;
+	background-color: #f5f8fa;
 `;
 
 export const Content = styled.div`
-	background-color: #EDEFF0;
+	background-color: #f5f8fa;
 	margin-top: 110px;
 	left: 0px;
 	right: 0px;
