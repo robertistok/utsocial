@@ -12,7 +12,16 @@ const UserSchema = new Schema({
 		required: true,
 		lovercase: true
 	},
-	password: String,
+	phone: { type: Number, required: true, unique: true },
+	email: {
+		type: String,
+		unique: true,
+		required: true,
+		lovercase: true
+	},
+	password: { type: String, required: true },
+	resetPasswordToken: String,
+	resetPasswordExpires: Date,
 	type: String
 });
 

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Field } from 'redux-form';
 
 import BorderedInput from '../../../FormComponents/BorderedInput';
+import { requiredWithText } from '../../../FormComponents/validation';
 import {
   SettingTitle,
   FieldGroup,
@@ -17,7 +18,8 @@ const Account = (props) => {
     onSubmit,
     pristine,
     valid,
-    submitting
+    submitting,
+    reset
   } = props;
 
   return (
@@ -25,21 +27,40 @@ const Account = (props) => {
       <SettingTitle>Account</SettingTitle>
       <FieldGroup>
         <StyledLabel htmlFor="username">Username</StyledLabel>
-        <Field name="username" type="text" component={BorderedInput} />
+        <Field
+          name="username"
+          type="text"
+          component={BorderedInput}
+          validate={requiredWithText}
+        />
       </FieldGroup>
 
       <FieldGroup>
         <StyledLabel htmlFor="email">Email</StyledLabel>
-        <Field name="email" type="text" component={BorderedInput} />
+        <Field
+          name="email"
+          type="text"
+          component={BorderedInput}
+          validate={requiredWithText}
+        />
       </FieldGroup>
 
       <FieldGroup>
         <StyledLabel htmlFor="phone">Phone</StyledLabel>
-        <Field name="phone" type="text" component={BorderedInput} />
+        <Field
+          name="phone"
+          type="text"
+          component={BorderedInput}
+          validate={requiredWithText}
+          maxLength={11}
+        />
       </FieldGroup>
       <FieldGroup>
         <SaveButton type="submit" disabled={pristine || !valid || submitting}>
           Save changes
+        </SaveButton>
+        <SaveButton type="button" onClick={reset}>
+          Reset
         </SaveButton>
       </FieldGroup>
     </StyledForm>

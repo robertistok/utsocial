@@ -124,6 +124,21 @@ router.post(
 	requireAuth,
 	UsersController.changePassword
 );
+router.post(
+	'/api/users/validateUsername',
+	requireAuth,
+	UsersController.validateUsername
+);
+router.post(
+	'/api/users/validateEmail',
+	requireAuth,
+	UsersController.validateEmail
+);
+router.post(
+	'/api/users/validatePhone',
+	requireAuth,
+	UsersController.validatePhone
+);
 
 router.post(
 	'/api/attendance/getAttendanceOfCourseType',

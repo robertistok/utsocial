@@ -56,4 +56,59 @@ function changePassword(req, res, next) {
 		.catch(err => next(err));
 }
 
-module.exports = { getAll, usersForAutocomplete, changePassword };
+function validateUsername(req, res, next) {
+	const { value: username } = req.body;
+
+	if (username !== undefined) {
+		User.findOne({ username }).then((user) => {
+			if (!user) {
+				return res.status(200).send('All good');
+			}
+
+			return res.status(400).send('Username is already taken');
+		});
+	} else {
+		return res.status(304).send('Nothing changed');
+	}
+}
+
+function validateEmail(req, res, next) {
+	const { value: email } = req.body;
+
+	if (email !== undefined) {
+		User.findOne({ email }).then((user) => {
+			if (!user) {
+				return res.status(200).send('All good');
+			}
+
+			return res.status(400).send('Email is already taken');
+		});
+	} else {
+		return res.status(304).send('Nothing changed');
+	}
+}
+
+function validatePhone(req, res, next) {
+	const { value: phone } = req.body;
+
+	if (phone !== undefined) {
+		User.findOne({ phone }).then((user) => {
+			if (!user) {
+				return res.status(200).send('All good');
+			}
+
+			return res.status(400).send('Phone is already taken');
+		});
+	} else {
+		return res.status(304).send('Nothing changed');
+	}
+}
+
+module.exports = {
+	getAll,
+	usersForAutocomplete,
+	changePassword,
+	validateUsername,
+	validatePhone,
+	validateEmail
+};

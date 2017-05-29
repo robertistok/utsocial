@@ -28,14 +28,16 @@ const Password = (props) => {
       {changePasswordStatus && changePasswordStatus.text}
       <FieldGroup>
         <StyledLabel htmlFor="oldPassword">Current password</StyledLabel>
-        <Field
-          name="oldPassword"
-          type="password"
-          placeholder="Current password..."
-          component={BorderedInput}
-          validate={requiredWithText}
-        />
-        Forgot password?
+        <CurrentPasswordWrapper>
+          <Field
+            name="oldPassword"
+            type="password"
+            placeholder="Current password..."
+            component={BorderedInput}
+            validate={requiredWithText}
+          />
+          <ForgotPassword>Forogt password?</ForgotPassword>
+        </CurrentPasswordWrapper>
       </FieldGroup>
 
       <FieldGroup>
@@ -80,5 +82,14 @@ Password.propTypes = {
     text: string.isRequired
   })
 };
+
+const CurrentPasswordWrapper = styled.div`
+	position: relative;
+`;
+
+const ForgotPassword = styled.span`
+	color: blue;
+	position: absolute;
+`;
 
 export default Password;

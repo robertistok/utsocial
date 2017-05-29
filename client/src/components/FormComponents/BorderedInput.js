@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const BorderedInput = (
-  { input, placeholder, type, meta: { touched, error } }
+  { input, placeholder, type, meta: { touched, error }, maxLength }
 ) => (
   <Wrapper>
     <StyledInput
@@ -10,6 +10,7 @@ const BorderedInput = (
       type={type}
       placeholder={placeholder}
       error={touched && error}
+      maxLength={maxLength}
     />
     {touched && error && <Error>{error}</Error>}
   </Wrapper>
@@ -29,6 +30,7 @@ BorderedInput.propTypes = {
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
+	position: relative;
 `;
 
 const StyledInput = styled.input`
@@ -50,6 +52,8 @@ const Error = styled.span`
 	color: #ff0033;
 	font-size: 11px;
 	font-weight: lighter;
+	position: absolute;
+	top: 40px;
 `;
 
 export default BorderedInput;

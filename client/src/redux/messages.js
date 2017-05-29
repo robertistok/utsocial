@@ -6,9 +6,11 @@ const ROOT_URL = '/api/messages';
 const FETCH_CONVERSATIONS_OFUSER = 'redux/messages/fetch-conversations-ofuser';
 const FETCH_CONVERSATIONS_OFUSER_SUCCESS = 'redux/messages/fetch-conversations-ofuser-success';
 const FETCH_CONVERSATIONS_OFUSER_ERROR = 'redux/messages/fetch-conversations-ofuser-error';
+
 const FETCH_MESSAGES_OF_CONVERSATION = 'redux/messages/fetch-messages-of-conversation';
 const FETCH_MESSAGES_OF_CONVERSATION_SUCCESS = 'redux/messages/fetch-messages-of-conversation-success';
 const FETCH_MESSAGES_OF_CONVERSATION_ERROR = 'redux/messages/fetch-messages-of-conversation-error';
+
 const READ_MESSAGES_OF_CONVERSATION = 'redux/messages/read-messages-of-conversation';
 const STAR_CONVERSATION_FOR_USER = 'redux/messages/star-conversation-for-user';
 const FILTER_CONVERSATIONS = 'redux/messages/filter-conversations';

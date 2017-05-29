@@ -3,11 +3,10 @@ import { media } from '../../../utils/style-utils';
 
 export const SettingTitle = styled.span`
 	font-size: 16px;
-	width: 100%;
-	height: 40px;
+	height: 30px;
 	display: flex;
 	align-items: center;
-	padding-left: 50px;
+	margin: 20px auto;
 `;
 
 export const StyledForm = styled.form`
@@ -16,24 +15,23 @@ export const StyledForm = styled.form`
 	flex-direction: column;
 	background-color: #FFFFFF;
 	justify-content: space-around;
+	align-items: center;
 	margin: 15px auto;
 	font-size: 13px;
 
 	@media screen and (max-width: 768px) {
 		width: 100%;
 	}
-
-
 `;
 
 export const StyledLabel = styled.label`
 	display: flex;
-	justify-content: flex-end;
+	justify-content: flex-start;
 	align-items: center;
-	height: 40px;
+	height: 30px;
 	padding: 5px 10px;
-	width: 200px;
-	margin-right: 15px;
+	width: 150px;
+	margin: 0px 15px;
 `;
 
 export const FieldGroup = styled.div`
@@ -49,9 +47,9 @@ export const FieldGroup = styled.div`
 
 export const SaveButton = styled.button`
 	outline: none
-	margin-left: 100px;
-	height: 40px;
-	width: 120px;
+	margin: 0px 10px 0px 10px;
+	height: 30px;
+	width: 150px;
 
 	@media screen and (max-width: 600px) {
 		margin-left: 50px;
