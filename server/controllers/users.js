@@ -1,4 +1,7 @@
 const User = require('../models/user');
+const Teacher = require('../models/teacher');
+const Student = require('../models/student');
+
 const { tokenForUser, getCleanUser } = require('../utils/index');
 
 function getAll(req, res, next) {
@@ -56,52 +59,68 @@ function changePassword(req, res, next) {
 		.catch(err => next(err));
 }
 
-function validateUsername(req, res, next) {
+function validateUsername(req, res) {
 	const { value: username } = req.body;
 
 	if (username !== undefined) {
-		User.findOne({ username }).then((user) => {
+		return User.findOne({ username }).then((user) => {
 			if (!user) {
 				return res.status(200).send('All good');
 			}
 
 			return res.status(400).send('Username is already taken');
 		});
-	} else {
-		return res.status(304).send('Nothing changed');
 	}
+	return res.status(304).send('Nothing changed');
 }
 
-function validateEmail(req, res, next) {
+function validateEmail(req, res) {
 	const { value: email } = req.body;
 
 	if (email !== undefined) {
-		User.findOne({ email }).then((user) => {
+		return User.findOne({ email }).then((user) => {
 			if (!user) {
 				return res.status(200).send('All good');
 			}
 
 			return res.status(400).send('Email is already taken');
 		});
-	} else {
-		return res.status(304).send('Nothing changed');
 	}
+	return res.status(304).send('Nothing changed');
 }
 
-function validatePhone(req, res, next) {
+function validatePhone(req, res) {
 	const { value: phone } = req.body;
 
 	if (phone !== undefined) {
-		User.findOne({ phone }).then((user) => {
+		return User.findOne({ phone }).then((user) => {
 			if (!user) {
 				return res.status(200).send('All good');
 			}
 
 			return res.status(400).send('Phone is already taken');
 		});
-	} else {
-		return res.status(304).send('Nothing changed');
 	}
+	return res.status(304).send('Nothing changed');
+}
+
+function changeAccountDetails(req, res) {
+	const { userID, query } = req.body;
+
+	return Promise.all([
+		User.findOneAndUpdate({ _id: userID }, query, { new: true }),
+		Student.findOneAndUpdate({ _id: userID }, query, { new: true }),
+		Teacher.findOneAndUpdate({ _id: userID }, query, { new: true })
+	]).then((values) => {
+		const [modifiedUser] = values;
+		getCleanUser(modifiedUser).then((cleanUser) => {
+			res.status(200).send({
+				token: tokenForUser(cleanUser),
+				cleanUser,
+				message: 'Account information updated successfully'
+			});
+		});
+	});
 }
 
 module.exports = {
@@ -110,5 +129,6 @@ module.exports = {
 	changePassword,
 	validateUsername,
 	validatePhone,
-	validateEmail
+	validateEmail,
+	changeAccountDetails
 };

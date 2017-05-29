@@ -14,11 +14,13 @@ const VALIDATION = './redux/auth/validation';
 const VALIDATION_SUCCESS = './redux/auth/validation-success';
 const VALIDATION_ERROR = './redux/auth/validation-error';
 
-const CHNAGE_ACCOUNT_DETAILS = './redux/auth/change-account-details';
-const CHNAGE_ACCOUNT_DETAILS_SUCCESS = './redux/auth/change-account-details-success';
-const CHNAGE_ACCOUNT_DETAILS_ERROR = './redux/auth/change-account-details-error';
+const CHANGE_ACCOUNT_DETAILS = './redux/auth/change-account-details';
+const CHANGE_ACCOUNT_DETAILS_SUCCESS = './redux/auth/change-account-details-success';
+const CHANGE_ACCOUNT_DETAILS_ERROR = './redux/auth/change-account-details-error';
 
 const RESET_CHANGE_PASSWORD_STATUS = '/redux/auth/resetChangePasswordStatus';
+const RESET_CHANGE_ACCOUNT_STATUS = '/redux/auth/resetChangeAccountStatus';
+
 const DEAUTH_USER = 'utsocial/auth/deauth';
 const ME_FROM_TOKEN = 'utsocial/auth/mefromtoken';
 
@@ -100,7 +102,6 @@ export function changePassword(formValues, username) {
 }
 
 export function validation({ blurredField, value }) {
-  console.log(blurredField, value);
   const request = {
     method: 'post',
     data: { value },
@@ -116,10 +117,6 @@ export function validation({ blurredField, value }) {
   } else if (blurredField === 'phone') {
     request.url = '/api/users/validatePhone';
   }
-
-  // const promise = axios(request);
-
-  // console.log(promise);
 
   return {
     type: VALIDATION,
@@ -141,9 +138,41 @@ export function validationError(err, type) {
   };
 }
 
+export function changeAccountDetails(userID, query) {
+  return (dispatch) => {
+    dispatch({ type: CHANGE_ACCOUNT_DETAILS });
+    axios({
+      method: 'put',
+      url: '/api/users/changeAccountDetails',
+      data: {
+        userID,
+        query
+      },
+      headers: {
+        authorization: sessionStorage.getItem('token')
+      }
+    })
+      .then((response) => {
+        sessionStorage.setItem('token', response.data.token);
+        return dispatch({
+          type: CHANGE_ACCOUNT_DETAILS_SUCCESS,
+          payload: response.data
+        });
+      })
+      .catch(err =>
+        dispatch({ type: CHANGE_ACCOUNT_DETAILS_ERROR, payload: err }));
+  };
+}
+
 export function resetChangePasswordStatus() {
   return {
     type: RESET_CHANGE_PASSWORD_STATUS
+  };
+}
+
+export function resetChangeAccountStatus() {
+  return {
+    type: RESET_CHANGE_ACCOUNT_STATUS
   };
 }
 
@@ -160,10 +189,13 @@ const INITIAL_STATE = {
   error: null,
   loading: false,
   changePasswordStatus: null,
-  accountValidationStatus: {
-    email: undefined,
-    username: undefined,
-    phone: undefined
+  changeAccountStatus: {
+    validation: {
+      email: undefined,
+      username: undefined,
+      phone: undefined
+    },
+    status: null
   }
 };
 
@@ -209,34 +241,70 @@ export default function (state = INITIAL_STATE, action) {
     case VALIDATION:
       return {
         ...state,
-        accountValidationStatus: {
-          ...state.accountValidationStatus,
-          [action.type.validationType]: { loading: true }
+        changeAccountStatus: {
+          ...state.changeAccountStatus,
+          validation: {
+            ...state.changeAccountStatus,
+            [action.type.validationType]: { loading: true }
+          }
         }
       };
     case VALIDATION_SUCCESS:
       return {
         ...state,
-        accountValidationStatus: {
-          ...state.accountValidationStatus,
-          [action.payload.validationType]: {
-            loading: false,
-            message: action.payload.response
+        changeAccountStatus: {
+          ...state.changeAccountStatus,
+          validation: {
+            ...state.changeAccountStatus,
+            [action.type.validationType]: {
+              loading: false,
+              message: action.payload.response
+            }
           }
         }
       };
     case VALIDATION_ERROR:
-      console.log(action.payload);
-
       return {
         ...state,
-        accountValidationStatus: {
-          ...state.accountValidationStatus,
-          [action.payload.validationType]: {
-            loading: false,
-            message: action.payload.err
+        changeAccountStatus: {
+          ...state.changeAccountStatus,
+          validation: {
+            ...state.changeAccountStatus,
+            [action.type.validationType]: {
+              loading: false,
+              message: action.payload.err
+            }
           }
         }
+      };
+
+    case CHANGE_ACCOUNT_DETAILS:
+      return {
+        ...state,
+        changeAccountStatus: { loading: true },
+        loading: true
+      };
+    case CHANGE_ACCOUNT_DETAILS_SUCCESS:
+      return {
+        ...state,
+        user: action.payload.cleanUser,
+        changeAccountStatus: {
+          error: false,
+          text: action.payload.message,
+          loading: false
+        },
+        error: null,
+        loading: false
+      };
+    case CHANGE_ACCOUNT_DETAILS_ERROR:
+      return {
+        ...state,
+        changeAccountStatus: {
+          error: true,
+          text: action.payload,
+          loading: false
+        },
+        loading: false
       };
     case ME_FROM_TOKEN:
       return {
@@ -249,6 +317,8 @@ export default function (state = INITIAL_STATE, action) {
       return { ...state, user: null, authenticated: false, error: null };
     case RESET_CHANGE_PASSWORD_STATUS:
       return { ...state, changePasswordStatus: null };
+    case RESET_CHANGE_ACCOUNT_STATUS:
+      return { ...state, changeAccountStatus: null };
     default:
       return state;
   }

@@ -139,6 +139,11 @@ router.post(
 	requireAuth,
 	UsersController.validatePhone
 );
+router.put(
+	'/api/users/changeAccountDetails',
+	requireAuth,
+	UsersController.changeAccountDetails
+);
 
 router.post(
 	'/api/attendance/getAttendanceOfCourseType',

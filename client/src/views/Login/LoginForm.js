@@ -41,8 +41,8 @@ const LoginForm = (props) => {
           </Message>}
         <Field
           name="username"
-          label="Username"
-          placeholder="Enter your username"
+          label="User"
+          placeholder="Username, email or phone-number"
           type="text"
           component={InputField}
         />

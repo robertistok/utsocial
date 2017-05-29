@@ -8,9 +8,14 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 
 const User = require('../models/user');
 
-const localLogin = new LocalStrategy((username, password, done) => {
-	User.findOne({ username })
-		.populate('_id')
+const localLogin = new LocalStrategy((user, password, done) => {
+	User.findOne({
+		$or: [
+			{ username: user },
+			{ email: user },
+			{ phone: !isNaN(user) ? parseInt(user, 10) : undefined }
+		]
+	})
 		.then((user) => {
 			if (!user) return done(null, false, { message: 'Incorrect username' });
 

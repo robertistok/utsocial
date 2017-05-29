@@ -19,12 +19,14 @@ const Account = (props) => {
     pristine,
     valid,
     submitting,
-    reset
+    reset,
+    changeAccountStatus
   } = props;
 
   return (
-    <StyledForm>
+    <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <SettingTitle>Account</SettingTitle>
+      {changeAccountStatus && changeAccountStatus.text}
       <FieldGroup>
         <StyledLabel htmlFor="username">Username</StyledLabel>
         <Field
@@ -59,7 +61,7 @@ const Account = (props) => {
         <SaveButton type="submit" disabled={pristine || !valid || submitting}>
           Save changes
         </SaveButton>
-        <SaveButton type="button" onClick={reset}>
+        <SaveButton type="button" disabled={pristine} onClick={reset}>
           Reset
         </SaveButton>
       </FieldGroup>

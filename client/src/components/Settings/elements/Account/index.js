@@ -47,30 +47,65 @@ const asyncValidate = (values, dispatch, props, blurredField) => {
         : res.payload.response.data;
       if (status === 200) {
         validationSuccess(data, blurredField);
-        errors[blurredField] = undefined;
+        // delete errors[blurredField];
       } else if (status === 400) {
         errors[blurredField] = data;
       }
-      throw errors;
+
+      if (Object.keys(errors).length !== 0) {
+        throw errors;
+      }
     });
   }
 
   return sleep(100).then(() => {
-    throw errors;
+    if (Object.keys(errors).length !== 0) {
+      throw errors;
+    }
   });
 };
 
 class AccountContainer extends Component {
-  // asyncValidateFields(values) {
-  //   const { validateAccountFields } = this.props;
-  //
-  //   validateAccountFields(values)
-  //     .then(response => console.log(response))
-  //     .catch(err => console.log(err));
-  // }
+  constructor(props) {
+    super(props);
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentWillUnmount() {
+    this.props.resetChangeAccountStatus();
+  }
+
+  handleSubmit(values) {
+    const {
+      initialValues: {
+        phone: initialPhone,
+        username: initialUsername,
+        email: initialEmail
+      },
+      user: { _id: userID },
+      changeAccountDetails
+    } = this.props;
+    const { phone, username, email } = values;
+    const query = {};
+
+    if (initialPhone !== phone) {
+      query.phone = phone;
+    }
+
+    if (initialEmail !== email) {
+      query.email = email;
+    }
+
+    if (initialUsername !== username) {
+      query.username = username;
+    }
+
+    changeAccountDetails(userID, query);
+  }
 
   render() {
-    return <Account {...this.props} />;
+    return <Account {...this.props} onSubmit={this.handleSubmit} />;
   }
 }
 
@@ -78,7 +113,7 @@ const mapStateToProps = (state) => {
   const { user: { profile: { username, email, phone } } } = state.auth;
   return {
     user: state.auth.user,
-    changePasswordStatus: state.auth.changePasswordStatus,
+    changeAccountStatus: state.auth.changeAccountStatus,
     initialValues: {
       username,
       email,
