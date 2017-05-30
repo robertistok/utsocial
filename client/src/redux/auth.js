@@ -10,6 +10,20 @@ const CHANGE_PASSWORD = '/redux/auth/change-password';
 const CHANGE_PASSWORD_SUCCESS = '/redux/auth/change-password-success';
 const CHANGE_PASSWORD_ERROR = '/redux/auth/change-password-error';
 
+const VALIDATE_FORGOT_EMAIL = '/redux/auth/validate-forgot-email';
+const VALIDATE_FORGOT_EMAIL_SUCCESS = '/redux/auth/validate-forgot-email-success';
+
+const SEND_RESET_PASSWORD_MAIL = '/redux/auth/send-reset-password-mail';
+const SEND_RESET_PASSWORD_MAIL_SUCCESS = '/redux/auth/send-reset-password-mail-success';
+const SEND_RESET_PASSWORD_MAIL_ERROR = '/redux/auth/send-reset-password-mail-error';
+
+const CHECK_VALIDITY_OF_TOKEN_SUCCESS = '/redux/auth/check-validity-of-token-success';
+const CHECK_VALIDITY_OF_TOKEN_ERROR = '/redux/auth/check-validity-of-token-error';
+
+const RESET_PASSWORD = 'redux/auth/reset-password';
+const RESET_PASSWORD_SUCCESS = 'redux/auth/reset-password-success';
+const RESET_PASSWORD_ERROR = 'redux/auth/reset-password-error';
+
 const VALIDATION = './redux/auth/validation';
 const VALIDATION_SUCCESS = './redux/auth/validation-success';
 const VALIDATION_ERROR = './redux/auth/validation-error';
@@ -101,6 +115,78 @@ export function changePassword(formValues, username) {
   };
 }
 
+export function validateForgotEmail(email) {
+  const request = axios({
+    method: 'get',
+    url: `/api/auth/validateEmail/${email}`
+  });
+
+  return {
+    type: VALIDATE_FORGOT_EMAIL,
+    payload: request
+  };
+}
+
+export function validateForgotEmailSuccess(payload) {
+  return {
+    type: VALIDATE_FORGOT_EMAIL_SUCCESS,
+    payload
+  };
+}
+
+export function sendResetPasswordEmail(email) {
+  return (dispatch) => {
+    dispatch({ type: SEND_RESET_PASSWORD_MAIL });
+    axios({
+      method: 'post',
+      url: '/api/auth/forgotPassword',
+      data: email
+    })
+      .then(response =>
+        dispatch({ type: SEND_RESET_PASSWORD_MAIL_SUCCESS, payload: response }))
+      .catch(err =>
+        dispatch({ type: SEND_RESET_PASSWORD_MAIL_ERROR, payload: err }));
+  };
+}
+
+export function checkValidityOfToken(token) {
+  return (dispatch) => {
+    axios({
+      method: 'get',
+      url: `/api/auth/checkValidityOfToken/${token}`
+    })
+      .then(response =>
+        dispatch({
+          type: CHECK_VALIDITY_OF_TOKEN_SUCCESS,
+          payload: response.data
+        }))
+      .catch(err =>
+        dispatch({
+          type: CHECK_VALIDITY_OF_TOKEN_ERROR,
+          payload: err.response.data
+        }));
+  };
+}
+
+export function resetForgottenPassword(token, newPassword, verifyNewPassword) {
+  return (dispatch) => {
+    dispatch({ type: RESET_PASSWORD });
+    axios({
+      method: 'post',
+      url: '/api/auth/resetForgottenPassword',
+      data: {
+        token,
+        newPassword,
+        verifyNewPassword
+      }
+    })
+      .then(response =>
+        dispatch({ type: RESET_PASSWORD_SUCCESS, payload: response.data }))
+      .catch(err =>
+        dispatch({ type: RESET_PASSWORD_ERROR, payload: err.response.data }));
+  };
+}
+
 export function validation({ blurredField, value }) {
   const request = {
     method: 'post',
@@ -188,6 +274,11 @@ const INITIAL_STATE = {
   authenticated: false,
   error: undefined,
   loading: false,
+  forgotPassword: {
+    status: undefined,
+    loading: false,
+    error: false
+  },
   changePasswordStatus: undefined,
   changeAccountStatus: {
     validation: {
@@ -239,6 +330,50 @@ export default function (state = INITIAL_STATE, action) {
         changePasswordStatus: { error: true, text: action.payload },
         loading: false
       };
+
+    case SEND_RESET_PASSWORD_MAIL: {
+      return { ...state, forgotPassword: { loading: true } };
+    }
+    case SEND_RESET_PASSWORD_MAIL_SUCCESS: {
+      return {
+        ...state,
+        forgotPassword: { status: action.payload.data.message, loading: false }
+      };
+    }
+    case SEND_RESET_PASSWORD_MAIL_ERROR: {
+      return {
+        ...state,
+        forgotPassword: { status: action.payload, loading: false }
+      };
+    }
+
+    case CHECK_VALIDITY_OF_TOKEN_SUCCESS: {
+      return {
+        ...state,
+        forgotPassword: { status: action.payload }
+      };
+    }
+
+    case CHECK_VALIDITY_OF_TOKEN_ERROR: {
+      return {
+        ...state,
+        forgotPassword: { status: action.payload, error: true }
+      };
+    }
+
+    case RESET_PASSWORD_SUCCESS: {
+      return {
+        ...state,
+        forgotPassword: { status: action.payload.message }
+      };
+    }
+
+    case RESET_PASSWORD_ERROR: {
+      return {
+        ...state,
+        forgotPassword: { status: action.payload, error: true }
+      };
+    }
 
     case VALIDATION:
       return {

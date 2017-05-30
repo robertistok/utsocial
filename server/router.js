@@ -27,6 +27,22 @@ router.get(
 	requireAuth,
 	AuthenticationController.meFromToken
 );
+router.get(
+	'/api/auth/validateEmail/:email',
+	AuthenticationController.validateEmailAddress
+);
+router.post(
+	'/api/auth/forgotPassword',
+	AuthenticationController.forgotPassword
+);
+router.get(
+	'/api/auth/checkValidityOfToken/:token',
+	AuthenticationController.checkValidityOfToken
+);
+router.post(
+	'/api/auth/resetForgottenPassword',
+	AuthenticationController.resetForgottenPassword
+);
 
 router.post('/api/schedules/new', requireAuth, SchedulesController.addNew);
 router.get('/api/schedules/get/:id', requireAuth, SchedulesController.getOne);

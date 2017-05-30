@@ -1,14 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Input = ({ input, placeholder, type, autoFocus }) => (
+const Input = (
+  { input, placeholder, type, meta: { touched, error }, showError }
+) => (
   <Wrapper>
     <StyledInput
+      error={showError && touched && error !== undefined && error !== true}
       {...input}
       type={type}
       placeholder={placeholder}
-      autoFocus={autoFocus}
     />
+    {showError &&
+      touched &&
+      error !== undefined &&
+      error !== true &&
+      <Error>{error}</Error>}
   </Wrapper>
 );
 
@@ -22,6 +29,7 @@ Input.propTypes = {
 const Wrapper = styled.div`
 	width: 90%;
 	margin: 20px auto;
+	position: relative;
 `;
 
 const StyledInput = styled.input`
@@ -36,6 +44,16 @@ const StyledInput = styled.input`
 	&:focus {
 		border: 1px solid ${props => props.theme.primary};
 	}
+`;
+
+const Error = styled.span`
+	margin-left: 10px;
+	color: #ff0033;
+	font-size: 11px;
+	font-weight: lighter;
+	position: absolute;
+	top: 40px;
+	left: 0px;
 `;
 
 export default Input;

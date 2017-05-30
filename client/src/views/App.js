@@ -5,7 +5,7 @@ import createBrowserHistory from 'history/createBrowserHistory';
 import { ThemeProvider } from 'styled-components';
 
 import Authorized from './Authorized';
-import Login from './Login';
+import Home from './Home';
 import theme from '../utils/theme';
 
 const history = createBrowserHistory();
@@ -18,7 +18,7 @@ const App = ({ auth: { authenticated } }) => (
       <Switch>
         <Route
           path="/"
-          component={authenticated === true ? Authorized : Login}
+          component={authenticated === true ? Authorized : Home}
         />
         <Route component={ForOhFor} />
       </Switch>

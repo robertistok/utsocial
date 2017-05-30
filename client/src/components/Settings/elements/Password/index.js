@@ -5,19 +5,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as authActions from '../../../../redux/auth';
+import {
+  matchingPasswords
+} from '../../../../components/FormComponents/validation';
 import Password from './Password';
-
-const validate = (values) => {
-  const errors = {};
-  const { verifyNewPassword, newPassword } = values;
-
-  if (newPassword !== verifyNewPassword) {
-    errors.newPassword = 'Passwords must match..';
-    errors.verifyNewPassword = 'Passwords must match..';
-  }
-
-  return errors;
-};
 
 class PasswordContainer extends Component {
   constructor(props) {
@@ -59,7 +50,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators({ ...authActions }, dispatch);
 
 const enhance = compose(
-  reduxForm({ form: 'changePasswordForm', validate }),
+  reduxForm({ form: 'changePasswordForm', validate: matchingPasswords }),
   connect(mapStateToProps, mapDispatchToProps)
 );
 

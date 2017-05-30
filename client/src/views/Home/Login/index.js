@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { reduxForm } from 'redux-form';
 
 import LoginForm from './LoginForm';
-import * as authActions from '../../redux/auth';
+import * as authActions from '../../../redux/auth';
 
 class Login extends Component {
   constructor(props) {
