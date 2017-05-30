@@ -184,18 +184,20 @@ export function logOutUser() {
 }
 
 const INITIAL_STATE = {
-  user: null,
+  user: undefined,
   authenticated: false,
-  error: null,
+  error: undefined,
   loading: false,
-  changePasswordStatus: null,
+  changePasswordStatus: undefined,
   changeAccountStatus: {
     validation: {
       email: undefined,
       username: undefined,
       phone: undefined
     },
-    status: null
+    error: undefined,
+    text: undefined,
+    loading: false
   }
 };
 
@@ -209,7 +211,7 @@ export default function (state = INITIAL_STATE, action) {
         ...state,
         user: action.payload.user,
         authenticated: true,
-        error: null,
+        error: undefined,
         loading: false
       };
     case AUTH_USER_ERROR:
@@ -222,13 +224,13 @@ export default function (state = INITIAL_STATE, action) {
       };
 
     case CHANGE_PASSWORD:
-      return { ...state, changePasswordStatus: null, loading: true };
+      return { ...state, changePasswordStatus: undefined, loading: true };
     case CHANGE_PASSWORD_SUCCESS:
       return {
         ...state,
         user: action.payload.cleanUser,
         changePasswordStatus: { error: false, text: action.payload.message },
-        error: null,
+        error: undefined,
         loading: false
       };
     case CHANGE_PASSWORD_ERROR:
@@ -281,8 +283,7 @@ export default function (state = INITIAL_STATE, action) {
     case CHANGE_ACCOUNT_DETAILS:
       return {
         ...state,
-        changeAccountStatus: { loading: true },
-        loading: true
+        changeAccountStatus: { loading: true }
       };
     case CHANGE_ACCOUNT_DETAILS_SUCCESS:
       return {
@@ -293,7 +294,7 @@ export default function (state = INITIAL_STATE, action) {
           text: action.payload.message,
           loading: false
         },
-        error: null,
+        error: undefined,
         loading: false
       };
     case CHANGE_ACCOUNT_DETAILS_ERROR:
@@ -311,14 +312,19 @@ export default function (state = INITIAL_STATE, action) {
         ...state,
         user: action.payload,
         authenticated: true,
-        error: null
+        error: undefined
       };
     case DEAUTH_USER:
-      return { ...state, user: null, authenticated: false, error: null };
+      return {
+        ...state,
+        user: undefined,
+        authenticated: false,
+        error: undefined
+      };
     case RESET_CHANGE_PASSWORD_STATUS:
-      return { ...state, changePasswordStatus: null };
+      return { ...state, changePasswordStatus: undefined };
     case RESET_CHANGE_ACCOUNT_STATUS:
-      return { ...state, changeAccountStatus: null };
+      return { ...state, changeAccountStatus: undefined };
     default:
       return state;
   }

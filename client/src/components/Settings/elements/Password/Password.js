@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Field } from 'redux-form';
 
-import BorderedInput from '../../../FormComponents/BorderedInput';
+import StandardInput from '../../../FormComponents/StandardInput';
 import { requiredWithText } from '../../../FormComponents/validation';
 import {
   SettingTitle,
@@ -33,7 +33,7 @@ const Password = (props) => {
             name="oldPassword"
             type="password"
             placeholder="Current password..."
-            component={BorderedInput}
+            component={StandardInput}
             validate={requiredWithText}
           />
           <ForgotPassword>Forogt password?</ForgotPassword>
@@ -46,7 +46,7 @@ const Password = (props) => {
           name="newPassword"
           type="password"
           placeholder="New password..."
-          component={BorderedInput}
+          component={StandardInput}
           validate={requiredWithText}
         />
       </FieldGroup>
@@ -57,7 +57,7 @@ const Password = (props) => {
           name="verifyNewPassword"
           type="password"
           placeholder="Verify password..."
-          component={BorderedInput}
+          component={StandardInput}
           validate={requiredWithText}
         />
       </FieldGroup>

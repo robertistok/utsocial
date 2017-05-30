@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import styled from 'styled-components';
 import { Form, Button } from 'semantic-ui-react';
 
-import InputField from '../../../FormComponents/InputField';
+import InputWithLabel from '../../../FormComponents/InputWithLabel';
 
 const NewMessageBox = (props) => {
   const { handleSubmit } = props;
@@ -12,7 +12,7 @@ const NewMessageBox = (props) => {
       <Field
         name="message"
         placeholder="Enter your message"
-        component={InputField}
+        component={InputWithLabel}
         type="text"
         rows={1}
       />

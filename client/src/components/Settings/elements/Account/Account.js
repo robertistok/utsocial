@@ -1,8 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Field } from 'redux-form';
 
-import BorderedInput from '../../../FormComponents/BorderedInput';
+import StandardInput from '../../../FormComponents/StandardInput';
 import { requiredWithText } from '../../../FormComponents/validation';
 import {
   SettingTitle,
@@ -32,7 +31,7 @@ const Account = (props) => {
         <Field
           name="username"
           type="text"
-          component={BorderedInput}
+          component={StandardInput}
           validate={requiredWithText}
         />
       </FieldGroup>
@@ -42,7 +41,7 @@ const Account = (props) => {
         <Field
           name="email"
           type="text"
-          component={BorderedInput}
+          component={StandardInput}
           validate={requiredWithText}
         />
       </FieldGroup>
@@ -52,7 +51,7 @@ const Account = (props) => {
         <Field
           name="phone"
           type="text"
-          component={BorderedInput}
+          component={StandardInput}
           validate={requiredWithText}
           maxLength={11}
         />
@@ -69,16 +68,23 @@ const Account = (props) => {
   );
 };
 
-const { func, bool, string, shape } = React.PropTypes;
+const { func, bool, string, shape, number } = React.PropTypes;
 Account.propTypes = {
   pristine: bool.isRequired,
   valid: bool.isRequired,
   submitting: bool.isRequired,
   handleSubmit: func.isRequired,
   onSubmit: func.isRequired,
-  changePasswordStatus: shape({
-    error: bool.isRequired,
-    text: string.isRequired
+  reset: func.isRequired,
+  changeAccountStatus: shape({
+    validation: shape({
+      username: string,
+      phone: number,
+      email: string
+    }),
+    error: bool,
+    text: string,
+    loading: bool
   })
 };
 

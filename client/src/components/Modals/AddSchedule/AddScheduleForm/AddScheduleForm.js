@@ -5,7 +5,7 @@ import { Form, Loader, Message } from 'semantic-ui-react';
 import { SEMIGROUP, DAYS, HOURS } from '../../../../utils/constants';
 import RadioButton from '../../../FormComponents/Radio';
 import DropDownField from '../../../FormComponents/Dropdown';
-import InputField from '../../../FormComponents/InputField';
+import InputWithLabel from '../../../FormComponents/InputWithLabel';
 import { required } from '../../../FormComponents/validation';
 import { teacherOptions, courseOptions, frequencyOptions } from './options';
 
@@ -127,7 +127,7 @@ const AddScheduleForm = (props) => {
               type="number"
               normalize={between(1, 4)}
               placeholder="Select the duration"
-              component={InputField}
+              component={InputWithLabel}
               validate={required}
             />}
           {formValues.duration &&
@@ -147,7 +147,7 @@ const AddScheduleForm = (props) => {
             label="Where"
             type="text"
             placeholder="Type the location"
-            component={InputField}
+            component={InputWithLabel}
             validate={required}
           />}
       </Form.Group>

@@ -47,7 +47,6 @@ const asyncValidate = (values, dispatch, props, blurredField) => {
         : res.payload.response.data;
       if (status === 200) {
         validationSuccess(data, blurredField);
-        // delete errors[blurredField];
       } else if (status === 400) {
         errors[blurredField] = data;
       }
@@ -109,6 +108,18 @@ class AccountContainer extends Component {
   }
 }
 
+const { func, string, shape, number, oneOfType } = React.PropTypes;
+AccountContainer.propTypes = {
+  resetChangeAccountStatus: func.isRequired,
+  changeAccountDetails: func.isRequired,
+  initialValues: shape({
+    username: string.isRequired,
+    phone: oneOfType([string, number]).isRequired,
+    email: string.isRequired
+  }).isRequired,
+  user: shape({ _id: string.isRequired }).isRequired
+};
+
 const mapStateToProps = (state) => {
   const { user: { profile: { username, email, phone } } } = state.auth;
   return {
@@ -156,7 +167,6 @@ const enhance = compose(
       }
       switch (trigger) {
         case 'blur':
-          // blurring
           return true;
         case 'submit':
           return !pristine || !initialized;

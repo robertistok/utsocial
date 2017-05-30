@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
-import { Dimmer, Loader } from 'semantic-ui-react';
+// import { Dimmer, Loader } from 'semantic-ui-react';
 
 import Table from './Table';
 import * as modalActions from '../../../redux/modals';
@@ -46,7 +46,7 @@ class TableContainer extends Component {
   }
 
   render() {
-    const { schedule: { loading } } = this.props;
+    // const { schedule: { loading } } = this.props;
 
     // if (loading) {
     //   return <LoadingIndicator />;
@@ -68,11 +68,11 @@ TableContainer.propTypes = {
   }).isRequired
 };
 
-const LoadingIndicator = () => (
-  <Dimmer active>
-    <Loader>Loading..</Loader>
-  </Dimmer>
-);
+// const LoadingIndicator = () => (
+//   <Dimmer active>
+//     <Loader>Loading..</Loader>
+//   </Dimmer>
+// );
 
 const nullConditionFn = props => !props.schedule;
 

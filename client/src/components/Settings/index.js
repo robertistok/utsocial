@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import PasswordContainer from './elements/Password/';
 import AccountContainer from './elements/Account/';
+import { withMountingTransition } from '../hocs';
 
 const Settings = () => (
   <Wrapper><PasswordContainer /><AccountContainer /></Wrapper>
@@ -13,4 +14,4 @@ const Wrapper = styled.div`
 	flex-direction: column;
 `;
 
-export default Settings;
+export default withMountingTransition(Settings);

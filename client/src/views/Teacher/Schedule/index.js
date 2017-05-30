@@ -2,6 +2,7 @@ import React from 'react';
 
 import FilterContainer from './Filter';
 import TableContainer from '../../../components/Schedule/Table';
+import { withMountingTransition } from '../../../components/hocs';
 
 const Schedule = () => (
   <div>
@@ -10,4 +11,4 @@ const Schedule = () => (
   </div>
 );
 
-export default Schedule;
+export default withMountingTransition(Schedule);

@@ -6,7 +6,8 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
 import { StyledButton, ButtonGroup } from './styled-components';
-import InputField from '../../../../../../components/FormComponents/InputField';
+import InputWithLabel
+  from '../../../../../../components/FormComponents/InputWithLabel';
 import {
   required
 } from '../../../../../../components/FormComponents/validation';
@@ -41,7 +42,7 @@ const MaterialForm = (props) => {
           label="Link"
           placeholder="Enter the link..."
           type="text"
-          component={InputField}
+          component={InputWithLabel}
           validate={required}
         />
         <Field
@@ -49,7 +50,7 @@ const MaterialForm = (props) => {
           label="Description"
           placeholder="Enter a description..."
           type="text"
-          component={InputField}
+          component={InputWithLabel}
           validate={required}
         />
         <ButtonGroup>

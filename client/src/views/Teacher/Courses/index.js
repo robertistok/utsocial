@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import OverviewContainer from './Overview';
 import Details from './Details';
+import { withMountingTransition } from '../../../components/hocs';
 
 const TeacherCourses = () => (
   <div>
@@ -13,4 +14,4 @@ const TeacherCourses = () => (
   </div>
 );
 
-export default TeacherCourses;
+export default withMountingTransition(TeacherCourses);

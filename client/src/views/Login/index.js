@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import { compose } from 'recompose';
 import { bindActionCreators } from 'redux';
+import { reduxForm } from 'redux-form';
 
 import LoginForm from './LoginForm';
 import * as authActions from '../../redux/auth';
@@ -61,6 +62,7 @@ Login.propTypes = {
 
 const enhance = compose(
   withRouter,
+  reduxForm({ form: 'loginForm' }),
   connect(mapStateToProps, mapDispatchToProps)
 );
 
