@@ -6,7 +6,7 @@ import { compose } from 'recompose';
 import { withRouter } from 'react-router-dom';
 
 import ForgotPassword from './ForgotPassword';
-import * as authActions from '../../../redux/auth';
+import * as forgotPasswordActions from '../../../redux/account/forgotPassword';
 
 const asyncValidate = (values, dispatch, props) => {
   const { validateForgotEmail } = props;
@@ -57,11 +57,11 @@ class ForgotPasswordContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  forgotPassword: state.account.forgotPassword
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ ...authActions }, dispatch);
+  bindActionCreators({ ...forgotPasswordActions }, dispatch);
 
 const enhance = compose(
   withRouter,

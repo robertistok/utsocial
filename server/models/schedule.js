@@ -1,4 +1,5 @@
 /* eslint no-use-before-define: 0*/
+
 const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;

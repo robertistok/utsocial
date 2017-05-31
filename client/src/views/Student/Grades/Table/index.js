@@ -43,7 +43,7 @@ const mapStateToProps = (state) => {
     gradesList: state.grades.gradesList,
     coursesByYear,
     visibleCourses,
-    student: state.auth.user,
+    student: state.account.auth.user,
     semester: state.grades.filter.semester
   };
 };

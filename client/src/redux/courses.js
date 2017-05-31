@@ -393,7 +393,7 @@ export default function (state = INITIAL_STATE, action) {
 
 const getFilter = state => state.courses.newsFeedFilter;
 const getPosts = state => state.courses.newsFeed;
-const getUser = state => state.auth.user._id;
+const getUser = state => state.account.auth.user._id;
 
 export const postList = createSelector(
   [getFilter, getPosts, getUser],

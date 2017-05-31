@@ -1,3 +1,6 @@
+// disallow rule in favor of updating
+/* eslint no-param-reassign: 0*/
+
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 
@@ -63,7 +66,7 @@ function forgotPassword(req, res) {
 					to: user.email,
 					from: 'utsocial18@gmail.com',
 					subject: 'UTSocial password reset',
-					text: `${'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' + 'Please click on the following link, or paste this into your browser to complete the process:\n\n' + 'http://'}localhost:3000/reset/${token}\n\n` +
+					text: `${'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\nPlease click on the following link, or paste this into your browser to complete the process:\n\nhttp://'}localhost:3000/reset/${token}\n\n` +
 						'If you did not request this, please ignore this email and your password will remain unchanged.\n'
 				};
 
@@ -119,7 +122,7 @@ function resetForgottenPassword(req, res) {
 		user.resetPasswordToken = undefined;
 		user.resetPasswordExpires = undefined;
 
-		user.save().then(user => getCleanUser(user)).then(cleanUser =>
+		return user.save().then(user => getCleanUser(user)).then(cleanUser =>
 			res.status(200).send({
 				token: tokenForUser(user),
 				user: cleanUser,

@@ -122,7 +122,7 @@ FilterContainer.propTypes = {
 const mapStateToProps = state => ({
   schedule: state.schedule,
   groups: state.groups,
-  user: state.auth.user,
+  user: state.account.auth.user,
   courses: state.teachers.courses,
   colleagues: state.teachers.colleagues
 });

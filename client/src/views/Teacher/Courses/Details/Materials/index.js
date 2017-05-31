@@ -10,7 +10,7 @@ import { withToggle } from '../../../../../components/hocs';
 const MaterialsContainer = props => <Materials {...props} />;
 
 const mapStateToProps = state => ({
-  loggedInUser: state.auth.user,
+  loggedInUser: state.account.auth.user,
   courses: state.courses,
   selectedCourse: state.courses.selectedCourse,
   selectedGroup: state.grades.selectedGroup,

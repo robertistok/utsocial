@@ -12,7 +12,7 @@ import {
   Description,
   Wrapper
 } from '../elements/styled';
-import { required, email } from '../../../components/FormComponents/validation';
+import { required } from '../../../components/FormComponents/validation';
 
 const ResetPassword = (props) => {
   const {
@@ -21,7 +21,7 @@ const ResetPassword = (props) => {
     pristine,
     valid,
     submitting,
-    auth: { forgotPassword: { error, status } }
+    forgotPassword: { error, status }
   } = props;
 
   return (

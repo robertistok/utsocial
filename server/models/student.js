@@ -4,10 +4,6 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-// TODO: expectedFinish virtual implementation
-// TODO: requried fields and validation
-// TODO: it should have notifications
-
 const StudentSchema = new Schema(
 	{
 		CNP: String,

@@ -1,17 +1,46 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { compose } from 'recompose';
 
 import PasswordContainer from './elements/Password/';
 import AccountContainer from './elements/Account/';
+import * as preferencesActions from '../../redux/account/preferences';
 import { withMountingTransition } from '../hocs';
 
-const Settings = () => (
-  <Wrapper><PasswordContainer /><AccountContainer /></Wrapper>
-);
+class Settings extends Component {
+  componentWillUnmount() {
+    const { resetPreferencesState } = this.props;
+
+    resetPreferencesState();
+  }
+
+  render() {
+    return (
+      <Wrapper>
+        <PasswordContainer /><AccountContainer />
+      </Wrapper>
+    );
+  }
+}
+
+const { func } = React.PropTypes;
+Settings.propTypes = {
+  resetPreferencesState: func.isRequired
+};
 
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 `;
 
-export default withMountingTransition(Settings);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ ...preferencesActions }, dispatch);
+
+const enhance = compose(
+  withMountingTransition,
+  connect(null, mapDispatchToProps)
+);
+
+export default enhance(Settings);

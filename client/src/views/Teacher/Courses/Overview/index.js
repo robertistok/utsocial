@@ -23,7 +23,7 @@ OverviewContainer.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  user: state.auth.user,
+  user: state.account.auth.user,
   courses: state.teachers.courses
 });
 

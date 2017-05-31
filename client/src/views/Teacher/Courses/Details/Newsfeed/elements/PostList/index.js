@@ -21,7 +21,7 @@ PostListContainer.propTypes = {
 
 const mapStateToProps = state => ({
   newsFeed: courseActions.postList(state),
-  loggedInUser: state.auth.user
+  loggedInUser: state.account.auth.user
 });
 
 const mapDispatchToProps = dispatch =>

@@ -20,7 +20,7 @@ const ForgotPassword = (props) => {
     valid,
     handleSubmit,
     onSubmit,
-    auth: { forgotPassword: { status } }
+    forgotPassword: { status }
   } = props;
 
   return (

@@ -36,7 +36,7 @@ DescriptionContainer.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  loggedInUser: state.auth.user,
+  loggedInUser: state.account.auth.user,
   selectedCourse: state.courses.selectedCourse,
   description: state.metadatacourse.description
 });

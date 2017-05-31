@@ -114,7 +114,7 @@ const mapStateToProps = (state, props) => {
 
   return {
     course: state.courses.selectedCourse.course._id,
-    assignor: state.auth.user._id,
+    assignor: state.account.auth.user._id,
     selectedGroup: state.grades.selectedGroup,
     gradeObj
   };

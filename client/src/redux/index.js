@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 
-import authReducer from './auth';
+import accountReducer from './account';
 import scheduleReducer from './schedule';
 import groupsReducer from './groups';
 import teachersReducer from './teachers';
@@ -14,7 +14,6 @@ import gradesReducer from './grades';
 import metadatacourseReducer from './metadatacourse';
 
 const rootReducer = combineReducers({
-  auth: authReducer,
   schedule: scheduleReducer,
   groups: groupsReducer,
   modals: modalsReducer,
@@ -25,7 +24,8 @@ const rootReducer = combineReducers({
   courses: coursesReducer,
   attendance: attendanceReducer,
   grades: gradesReducer,
-  metadatacourse: metadatacourseReducer
+  metadatacourse: metadatacourseReducer,
+  account: accountReducer
 });
 
 export default rootReducer;

@@ -19,13 +19,13 @@ const Password = (props) => {
     pristine,
     valid,
     submitting,
-    changePasswordStatus
+    passwordStatus
   } = props;
 
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <SettingTitle>Password</SettingTitle>
-      {changePasswordStatus && changePasswordStatus.text}
+      {passwordStatus && passwordStatus.status}
       <FieldGroup>
         <StyledLabel htmlFor="oldPassword">Current password</StyledLabel>
         <CurrentPasswordWrapper>
@@ -77,9 +77,10 @@ Password.propTypes = {
   submitting: bool.isRequired,
   handleSubmit: func.isRequired,
   onSubmit: func.isRequired,
-  changePasswordStatus: shape({
+  passwordStatus: shape({
     error: bool.isRequired,
-    text: string.isRequired
+    status: string,
+    loading: bool.isRequired
   })
 };
 

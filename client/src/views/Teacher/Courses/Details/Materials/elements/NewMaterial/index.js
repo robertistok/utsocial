@@ -48,7 +48,7 @@ NewMaterialContainer.propTypes = {
 
 const mapStateToProps = (state, props) => ({
   selectedCourse: state.courses.selectedCourse,
-  loggedInUser: state.auth.user,
+  loggedInUser: state.account.auth.user,
   initialValues: {
     type: props.type
   }

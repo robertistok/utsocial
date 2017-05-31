@@ -4,7 +4,7 @@ import { compose } from 'recompose';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as authActions from '../../../../redux/auth';
+import * as preferencesActions from '../../../../redux/account/preferences';
 import Account from './Account';
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -71,10 +71,6 @@ class AccountContainer extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentWillUnmount() {
-    this.props.resetChangeAccountStatus();
-  }
-
   handleSubmit(values) {
     const {
       initialValues: {
@@ -110,7 +106,6 @@ class AccountContainer extends Component {
 
 const { func, string, shape, number, oneOfType } = React.PropTypes;
 AccountContainer.propTypes = {
-  resetChangeAccountStatus: func.isRequired,
   changeAccountDetails: func.isRequired,
   initialValues: shape({
     username: string.isRequired,
@@ -121,10 +116,10 @@ AccountContainer.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const { user: { profile: { username, email, phone } } } = state.auth;
+  const { user: { profile: { username, email, phone } } } = state.account.auth;
   return {
-    user: state.auth.user,
-    changeAccountStatus: state.auth.changeAccountStatus,
+    user: state.account.auth.user,
+    accountStatus: state.account.preferences.account,
     initialValues: {
       username,
       email,
@@ -134,7 +129,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ ...authActions }, dispatch);
+  bindActionCreators({ ...preferencesActions }, dispatch);
 
 const enhance = compose(
   connect(mapStateToProps, mapDispatchToProps),

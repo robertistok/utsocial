@@ -40,7 +40,7 @@ class Authorized extends Component {
 }
 
 const mapStateToprops = state => ({
-  auth: state.auth
+  auth: state.account.auth
 });
 
 export default connect(mapStateToprops)(Authorized);

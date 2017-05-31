@@ -72,7 +72,7 @@ const withConditionalRendering = compose(
 const mapStateToProps = state => ({
   selectedConversation: state.messages.selectedConversation,
   conversations: state.messages.conversations,
-  loggedInUser: state.auth.user
+  loggedInUser: state.account.auth.user
 });
 
 const mapDispatchToProps = dispatch =>

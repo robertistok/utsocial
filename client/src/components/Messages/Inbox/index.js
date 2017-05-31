@@ -75,7 +75,7 @@ const mapStateToProps = state => ({
   isLoading: state.messages.loading,
   filter: state.messages.filter,
   searchTerm: state.messages.searchTerm,
-  user: state.auth.user
+  user: state.account.auth.user
 });
 
 const mapDispatchToProps = dispatch =>

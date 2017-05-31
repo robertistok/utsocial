@@ -35,7 +35,7 @@ StudentsHomeContainer.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  loggedInUser: state.auth.user,
+  loggedInUser: state.account.auth.user,
   newsFeed: state.courses.newsFeed
 });
 

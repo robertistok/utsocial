@@ -63,7 +63,7 @@ const mapStateToProps = state => ({
   selectedCourseGroups: state.courses.selectedCourse.groups,
   selectedCourseTeachingTypes: state.courses.selectedCourse.course.teachingTypes,
   selectedCourse: state.courses.selectedCourse,
-  loggedInUser: state.auth.user,
+  loggedInUser: state.account.auth.user,
   initialValues: {
     includeTeachers: 'true',
     relatedTo: 'general',

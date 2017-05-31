@@ -215,7 +215,7 @@ export default function (state = INITIAL_STATE, action) {
 const getFilter = state => state.messages.filter;
 const getSearchTerm = state => state.messages.searchTerm;
 const getConversations = state => state.messages.conversations;
-const getUser = state => state.auth.user.username;
+const getUser = state => state.account.auth.user.username;
 
 export const conversationsSelector = createSelector(
   [getFilter, getSearchTerm, getConversations, getUser],

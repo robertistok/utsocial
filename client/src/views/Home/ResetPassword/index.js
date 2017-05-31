@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { compose } from 'recompose';
 
 import ResetPassword from './ResetPassword';
-import * as authActions from '../../../redux/auth';
+import * as forgotPasswordActions from '../../../redux/account/forgotPassword';
 import {
   matchingPasswords
 } from '../../../components/FormComponents/validation';
@@ -36,11 +36,11 @@ class ResetPasswordContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  forgotPassword: state.account.forgotPassword
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ ...authActions }, dispatch);
+  bindActionCreators({ ...forgotPasswordActions }, dispatch);
 
 const enhance = compose(
   connect(mapStateToProps, mapDispatchToProps),

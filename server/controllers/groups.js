@@ -13,8 +13,6 @@ function getGroupsFromYear(req, res, next) {
 		.catch(err => next(err));
 }
 
-function getGroupsForCourse(req, res, next) {}
-
 function getGroupById(req, res, next) {
 	Group.findById(req.body.id)
 		.populate({

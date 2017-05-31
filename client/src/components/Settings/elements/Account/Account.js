@@ -19,13 +19,13 @@ const Account = (props) => {
     valid,
     submitting,
     reset,
-    changeAccountStatus
+    accountStatus
   } = props;
 
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <SettingTitle>Account</SettingTitle>
-      {changeAccountStatus && changeAccountStatus.text}
+      {accountStatus && accountStatus.status}
       <FieldGroup>
         <StyledLabel htmlFor="username">Username</StyledLabel>
         <Field
@@ -76,15 +76,15 @@ Account.propTypes = {
   handleSubmit: func.isRequired,
   onSubmit: func.isRequired,
   reset: func.isRequired,
-  changeAccountStatus: shape({
+  accountStatus: shape({
     validation: shape({
       username: string,
       phone: number,
       email: string
     }),
-    error: bool,
-    text: string,
-    loading: bool
+    error: bool.isRequired,
+    status: string,
+    loading: bool.isRequired
   })
 };
 

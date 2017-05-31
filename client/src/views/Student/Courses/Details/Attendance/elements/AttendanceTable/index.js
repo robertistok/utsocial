@@ -41,7 +41,7 @@ AttendanceTableContainer.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  loggedInTeacher: state.auth.user,
+  loggedInTeacher: state.account.auth.user,
   selectedCourse: state.courses.selectedCourse,
   attendance: state.attendance
 });

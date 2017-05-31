@@ -26,7 +26,7 @@ const mapStateToProps = state => ({
   courses: state.courses,
   attendance: state.attendance,
   filter: state.attendance.filter,
-  studentID: state.auth.user._id
+  studentID: state.account.auth.user._id
 });
 
 const mapDispatchToProps = dispatch =>

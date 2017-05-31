@@ -79,7 +79,7 @@ MaterialCardContainer.propTypes = {
 
 const mapStateToProps = (state, props) => ({
   selectedCourse: state.courses.selectedCourse,
-  loggedInUser: state.auth.user,
+  loggedInUser: state.account.auth.user,
   initialValues: {
     link: props.material.link,
     description: props.material.description,

@@ -10,8 +10,7 @@ import { withToggle } from '../../components/hocs';
 const Home = (props) => {
   const {
     toggle: toggleForgotPassword,
-    toggledOn: forgotPassword,
-    location: { pathname }
+    toggledOn: forgotPassword
   } = props;
 
   return (

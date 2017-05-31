@@ -12,23 +12,31 @@ const history = createBrowserHistory();
 
 const ForOhFor = () => <h1>No match found</h1>;
 
-const App = ({ auth: { authenticated } }) => (
-  <ThemeProvider theme={theme}>
-    <Router history={history}>
-      <Switch>
-        <Route
-          path="/"
-          component={authenticated === true ? Authorized : Home}
-        />
-        <Route component={ForOhFor} />
-      </Switch>
-    </Router>
-  </ThemeProvider>
-);
+const App = (props) => {
+  const { authenticated } = props;
 
-const { shape, bool } = React.PropTypes;
-App.propTypes = {
-  auth: shape({ authenticated: bool })
+  return (
+    <ThemeProvider theme={theme}>
+      <Router history={history}>
+        <Switch>
+          <Route
+            path="/"
+            component={authenticated === true ? Authorized : Home}
+          />
+          <Route component={ForOhFor} />
+        </Switch>
+      </Router>
+    </ThemeProvider>
+  );
 };
 
-export default connect(state => state)(App);
+const { bool } = React.PropTypes;
+App.propTypes = {
+  authenticated: bool.isRequired
+};
+
+const mapStateToprops = state => ({
+  authenticated: state.account.auth.authenticated
+});
+
+export default connect(mapStateToprops)(App);

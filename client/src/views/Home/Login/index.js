@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { reduxForm } from 'redux-form';
 
 import LoginForm from './LoginForm';
-import * as authActions from '../../../redux/auth';
+import * as authActions from '../../../redux/account/auth';
 
 class Login extends Component {
   constructor(props) {
@@ -30,7 +30,7 @@ class Login extends Component {
 
   authUser(values) {
     this.props.loginUser(values);
-    this.props.history.push('/home');
+    // this.props.history.push('/home');
   }
 
   render() {
@@ -43,7 +43,7 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.account.auth
 });
 
 const mapDispatchToProps = dispatch =>

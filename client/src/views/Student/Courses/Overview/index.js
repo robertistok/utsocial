@@ -6,9 +6,9 @@ import Overview from './Overview';
 const OverviewContainer = props => <Overview {...props} />;
 
 const mapStateToProps = state => ({
-  user: state.auth.user,
-  courses: state.auth.user.profile.group.courses,
-  lang: state.auth.user.profile.group.lang
+  user: state.account.auth.user,
+  courses: state.account.auth.user.profile.group.courses,
+  lang: state.account.auth.user.profile.group.lang
 });
 
 export default connect(mapStateToProps)(OverviewContainer);

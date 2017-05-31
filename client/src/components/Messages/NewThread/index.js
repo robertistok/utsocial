@@ -26,7 +26,7 @@ class NewThreadContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-  sender: state.auth.user
+  sender: state.account.auth.user
 });
 
 export default connect(mapStateToProps)(NewThreadContainer);

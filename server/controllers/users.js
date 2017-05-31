@@ -1,3 +1,6 @@
+// disallow rule in favor of updating
+/* eslint no-param-reassign: 0*/
+
 const User = require('../models/user');
 const Teacher = require('../models/teacher');
 const Student = require('../models/student');

@@ -4,7 +4,7 @@ import { compose } from 'recompose';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as authActions from '../../../../redux/auth';
+import * as preferencesActions from '../../../../redux/account/preferences';
 import {
   matchingPasswords
 } from '../../../../components/FormComponents/validation';
@@ -15,10 +15,6 @@ class PasswordContainer extends Component {
     super(props);
 
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentWillUnmount() {
-    this.props.resetChangePasswordStatus();
   }
 
   handleSubmit(values) {
@@ -35,19 +31,18 @@ class PasswordContainer extends Component {
 
 const { func, string } = React.PropTypes;
 PasswordContainer.propTypes = {
-  resetChangePasswordStatus: func.isRequired,
   changePassword: func.isRequired,
   reset: func.isRequired,
   username: string.isRequired
 };
 
 const mapStateToProps = state => ({
-  username: state.auth.user.username,
-  changePasswordStatus: state.auth.changePasswordStatus
+  username: state.account.auth.user.username,
+  passwordStatus: state.account.preferences.password
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ ...authActions }, dispatch);
+  bindActionCreators({ ...preferencesActions }, dispatch);
 
 const enhance = compose(
   reduxForm({ form: 'changePasswordForm', validate: matchingPasswords }),
