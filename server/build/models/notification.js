@@ -1,2 +1,0 @@
-// TODO: Implements
-"use strict";
