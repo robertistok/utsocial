@@ -12,9 +12,9 @@ const ActionBar = (props) => {
       <StyledIcon size="large" name="bell" />
       <StyledIcon size="large" name="envelope" />
       <User>{user}</User>
-      <NavLink activeClassName="active" to="/preferences">
+      <StyledNavLink to="/preferences">
         <StyledIcon size="large" name="settings" />
-      </NavLink>
+      </StyledNavLink>
       <StyledPopup
         trigger={<StyledIcon size="large" name="log out" onClick={logOut} />}
         content="Log out"
@@ -44,8 +44,21 @@ const Wrapper = styled.div`
 	}
 `;
 
+const StyledNavLink = styled(NavLink)`
+	.icon {
+		color: #FFFFFF;
+	}
+
+	&.active {
+		.icon {
+			color: #000000;
+			transform: translateY(-2px);
+		}
+	}
+`;
+
 const StyledIcon = styled(Icon)`
-	color: #FFFFFF !important;
+	color: #FFFFFF;
 	transition-duration: 0.3s;
 	transition-timing-function: ease-out;
 

@@ -62,9 +62,6 @@ const MenuItem = styled(NavLink)`
 `;
 
 const LinksWrapper = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
 	margin: 40px 25px;
 `;
 

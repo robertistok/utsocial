@@ -1,9 +1,13 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Field } from 'redux-form';
 
 import StandardInput from '../../../FormComponents/StandardInput';
-import { requiredWithText } from '../../../FormComponents/validation';
+import {
+  matchingPasswords,
+  required
+} from '../../../FormComponents/validation';
 import {
   SettingTitle,
   StyledForm,
@@ -26,7 +30,7 @@ const Password = (props) => {
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <SettingTitle>Password</SettingTitle>
       {passwordStatus && passwordStatus.status}
-      <FieldGroup>
+      <FieldGroup style={{ marginBottom: 23 }}>
         <StyledLabel htmlFor="oldPassword">Current password</StyledLabel>
         <CurrentPasswordWrapper>
           <Field
@@ -34,9 +38,9 @@ const Password = (props) => {
             type="password"
             placeholder="Current password..."
             component={StandardInput}
-            validate={requiredWithText}
+            validate={required}
           />
-          <ForgotPassword>Forogt password?</ForgotPassword>
+          <ForgotPassword>Forgot password?</ForgotPassword>
         </CurrentPasswordWrapper>
       </FieldGroup>
 
@@ -47,7 +51,6 @@ const Password = (props) => {
           type="password"
           placeholder="New password..."
           component={StandardInput}
-          validate={requiredWithText}
         />
       </FieldGroup>
 
@@ -58,7 +61,9 @@ const Password = (props) => {
           type="password"
           placeholder="Verify password..."
           component={StandardInput}
-          validate={requiredWithText}
+          // validate={matchingPasswords}
+          showError
+          validMessage="Passwords match"
         />
       </FieldGroup>
       <FieldGroup>
@@ -89,8 +94,15 @@ const CurrentPasswordWrapper = styled.div`
 `;
 
 const ForgotPassword = styled.span`
-	color: blue;
+	color: ${props => props.theme.secondary};
 	position: absolute;
+	font-size: 11px;
+	left: 15px;
+	bottom: -20px;
+
+	@media screen and (max-width: 500px) {
+		bottom: -25px;
+	}
 `;
 
 export default Password;

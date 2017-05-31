@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import * as coursesActions from '../../../redux/courses';
 import StudentsHome from './StudentsHome';
+import { getToken } from '../../../utils/sessionOperations';
 
 class StudentsHomeContainer extends Component {
   componentDidMount() {
@@ -13,7 +14,7 @@ class StudentsHomeContainer extends Component {
       getFeedForStudent
     } = this.props;
 
-    if (sessionStorage.getItem('token') !== null) {
+    if (getToken() !== null) {
       getFeedForStudent(studentGroupID);
     }
   }

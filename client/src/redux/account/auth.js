@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { deleteToken, saveToken } from '../../utils/sessionOperations';
+
 const ROOT_URL = '/api/auth';
 
 const AUTH_USER = 'redux/account/auth/auth';
@@ -24,7 +26,7 @@ export function authError(err) {
   };
 }
 
-export function loginUser({ username, password }) {
+export function loginUser({ username, password, remember = false }) {
   return (dispatch) => {
     dispatch({ type: AUTH_USER });
     axios
@@ -40,7 +42,7 @@ export function loginUser({ username, password }) {
             user: response.data.user
           }
         });
-        sessionStorage.setItem('token', response.data.token);
+        saveToken(response.data.token, remember);
       })
       .catch(err => dispatch(authError(err)));
   };
@@ -58,7 +60,7 @@ export function meFromToken(token) {
 }
 
 export function logOutUser() {
-  sessionStorage.removeItem('token');
+  deleteToken();
   return {
     type: DEAUTH_USER
   };

@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { getToken } from '../utils/sessionOperations';
+
 import { SEMIGROUP, FREQUENCY } from '../utils/constants';
 
 const ROOT_URL = '/api/schedules';
@@ -46,7 +48,7 @@ export function addNewSchedule(values) {
     method: 'post',
     url: `${ROOT_URL}/new`,
     headers: {
-      authorization: sessionStorage.getItem('token')
+      authorization: getToken()
     },
     data: values
   });
@@ -77,7 +79,7 @@ export function fetchSchedulesFor(id) {
       method: 'get',
       url: `${ROOT_URL}/get/${id}`,
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then(response =>

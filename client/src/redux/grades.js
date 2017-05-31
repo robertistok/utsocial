@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { createSelector } from 'reselect';
 
+import { getToken } from '../utils/sessionOperations';
+
 const CHANGE_GROUP = 'redux/grades/change-group';
 const CHANGE_GROUP_SUCCESS = 'redux/grades/change-group-success';
 const CHANGE_GROUP_ERROR = 'redux/grades/change-group-error';
@@ -38,7 +40,7 @@ export function changeGroup(group) {
       method: 'get',
       url: `/api/groups/getStudents/${group}`,
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then(response =>
@@ -72,7 +74,7 @@ export function fetchGradesTeachers(group, course) {
       url: '/api/grades/getGradesListOfGroup',
       data: { group, course },
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then(response =>
@@ -96,7 +98,7 @@ export function fetchGradesStudents(studentID, courses) {
       url: '/api/grades/getGradesListOfStudent',
       data: { studentID, courses: Object.keys(courses) },
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then(response =>
@@ -119,7 +121,7 @@ export function insertGrade(gradeProps) {
       url: '/api/grades/insert',
       data: gradeProps,
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then((response) => {
@@ -140,7 +142,7 @@ export function updateGrade(id, student, grade, assignor) {
       url: '/api/grades/update',
       data: { id, grade, assignor },
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then(response =>
@@ -159,7 +161,7 @@ export function deleteGrade(id, student) {
       method: 'get',
       url: `/api/grades/delete/${id}`,
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then(() =>

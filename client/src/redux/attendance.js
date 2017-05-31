@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { getToken } from '../utils/sessionOperations';
+
 const CHANGE_GROUP = 'redux/attendance/change-group';
 const CHANGE_GROUP_SUCCESS = 'redux/attendance/change-group-success';
 const CHANGE_GROUP_ERROR = 'redux/attendance/change-group-error';
@@ -26,7 +28,7 @@ export function changeGroup(group) {
       method: 'get',
       url: `/api/groups/getStudents/${group}`,
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then(response =>
@@ -46,7 +48,7 @@ export function fetchAttendance(props) {
       url: '/api/attendance/getAttendanceOfCourseType',
       data: props,
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then(response =>
@@ -70,7 +72,7 @@ export function markAsPresent({ student, date, course, type, teacher, group }) {
       url: '/api/attendance/markAsPresent',
       data: { student, date, course, type, teacher, group },
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then(response =>
@@ -86,7 +88,7 @@ export function removeAttendance(id) {
       method: 'get',
       url: `/api/attendance/remove/${id}`,
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then(() => dispatch({ type: REMOVE_ATTENDANCE_SUCCESS, payload: id }))

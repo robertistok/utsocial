@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { getToken } from '../utils/sessionOperations';
+
 const GET_METADATA = 'utsocial/metadatacourse/get-metadata';
 const GET_METADATA_SUCCESS = 'utsocial/metadatacourse/get-metadata-success';
 const GET_METADATA_ERROR = 'utsocial/metadatacourse/get-metadata-error';
@@ -29,7 +31,7 @@ export function getMetaData(courseID, lang) {
       method: 'get',
       url: `/api/courses/meta/get/${courseID}/${lang}`,
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then((response) => {
@@ -53,7 +55,7 @@ export function addMaterial(id, lang, type, link, description) {
       url: '/api/courses/meta/addMaterial',
       data: { id, lang, type, link, description },
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then((response) => {
@@ -74,7 +76,7 @@ export function updateMaterial(materialID, courseID, lang, link, description) {
       url: '/api/courses/meta/updateMaterial',
       data: { materialID, courseID, lang, link, description },
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then((response) => {
@@ -95,7 +97,7 @@ export function deleteMaterial(id, lang, materialID) {
       url: '/api/courses/meta/deleteMaterial',
       data: { id, lang, materialID },
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then(() => {
@@ -122,7 +124,7 @@ export function updateDescription(
       url: '/api/courses/meta/updateDescription',
       data: { courseID, lang, updatedBy, text },
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then((response) => {

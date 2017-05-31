@@ -32,16 +32,21 @@ export const StyledLabel = styled.label`
 	padding: 5px 10px;
 	width: 150px;
 	margin: 0px 15px;
+
+	@media screen and (max-width: 500px) {
+		margin: 5px 0px;
+	}
 `;
 
 export const FieldGroup = styled.div`
 	display: flex;
 	flex-direction: row;
 	margin: 15px 0px;
+	align-items: baseline;
 
-	@media screen and (max-width: 600px) {
+	@media screen and (max-width: 500px) {
 		flex-direction: column;
-		align-items: center;
+		align-items: flex-start;
 	}
 `;
 

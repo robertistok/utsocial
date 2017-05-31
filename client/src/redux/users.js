@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { getToken } from '../utils/sessionOperations';
+
 const ROOT_URL = '/api/users';
 
 export const FETCH_ALL_USERS = '/redux/users/fetchall';
@@ -17,7 +19,7 @@ export function getAllUsers() {
       method: 'get',
       url: `${ROOT_URL}/all`,
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then((response) => {
@@ -37,7 +39,7 @@ export function searchUsers(term) {
       method: 'get',
       url: `${ROOT_URL}/autocomplete/${term || 'none'}`,
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then((response) => {

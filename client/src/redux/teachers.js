@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { getToken } from '../utils/sessionOperations';
+
 const ROOT_URL = '/api/teachers';
 
 const FETCH_TEACHERS = 'utsocial/teachers/fetchteachers';
@@ -36,7 +38,7 @@ export function fetchTeachingOfTeacher(id) {
       method: 'get',
       url: `${ROOT_URL}/getTeaching/${id}`,
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then(response =>
@@ -59,7 +61,7 @@ export function fetchColleagues(courses, teacherID) {
       url: `${ROOT_URL}/getColleagues/`,
       data: { courses, teacherID },
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then(response =>

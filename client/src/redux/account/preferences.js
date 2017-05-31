@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { getToken } from '../../utils/sessionOperations';
+
 const CHANGE_PASSWORD = '/redux/account/preferences/change-password';
 const CHANGE_PASSWORD_SUCCESS = '/redux/account/preferences/change-password-success';
 const CHANGE_PASSWORD_ERROR = '/redux/account/preferences/change-password-error';
@@ -28,7 +30,7 @@ export function changePassword(formValues, username) {
         username
       },
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then((response) => {
@@ -48,7 +50,7 @@ export function validation({ blurredField, value }) {
     method: 'post',
     data: { value },
     headers: {
-      authorization: sessionStorage.getItem('token')
+      authorization: getToken()
     }
   };
 
@@ -91,7 +93,7 @@ export function changeAccountDetails(userID, query) {
         query
       },
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then((response) => {

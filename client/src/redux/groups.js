@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { getToken } from '../utils/sessionOperations';
+
 const ROOT_URL = '/api/groups';
 
 const FETCH_GROUPS = 'utsocial/schedule/fetchgroups';
@@ -17,7 +19,7 @@ export function getGroups(year) {
       method: 'get',
       url: `${ROOT_URL}/groupsFromYear/${year}`,
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then((response) => {
@@ -40,7 +42,7 @@ export function getGroup(id) {
         id
       },
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then(response =>

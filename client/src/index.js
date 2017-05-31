@@ -7,9 +7,10 @@ import { meFromToken } from './redux/account/auth';
 import './index.css';
 import './semantic/dist/semantic.min.css';
 import store from './redux/store';
+import { getToken } from './utils/sessionOperations';
 
-const token = sessionStorage.getItem('token');
-if (token) {
+const token = getToken();
+if (token !== null) {
   store.dispatch(meFromToken(token));
 }
 

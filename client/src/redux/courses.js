@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { createSelector } from 'reselect';
 
+import { getToken } from '../utils/sessionOperations';
+
 const ROOT_URL = '/api/courses';
 
 const RESET_COURSES = 'redux/courses/reset-courses';
@@ -49,7 +51,7 @@ export function selectCourse(_id, lang) {
       method: 'get',
       url: `${ROOT_URL}/getCourseGroups/${_id}/${lang}`,
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then(response =>
@@ -74,7 +76,7 @@ export function getFeedForStudent(groupID) {
       method: 'get',
       url: `/api/posts/getFeedForStudent/${groupID}`,
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then(response =>
@@ -95,7 +97,7 @@ export function getFeedForCourse(props) {
       url: '/api/posts/getFeedForCourse',
       data: props,
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then(response =>
@@ -112,7 +114,7 @@ export function addPost(props) {
       url: '/api/posts/addPost',
       data: props,
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then(response =>
@@ -129,7 +131,7 @@ export function updatePost(postID, content) {
       url: '/api/posts/update',
       data: { postID, content },
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then(response =>
@@ -148,7 +150,7 @@ export function deletePost(postID) {
       method: 'delete',
       url: `/api/posts/delete/${postID}`,
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then(response =>
@@ -165,7 +167,7 @@ export function mark(postID, userID, type) {
       url: '/api/posts/mark',
       data: { postID, userID, type },
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then(response =>
@@ -182,7 +184,7 @@ export function unMark(postID, userID, type) {
       url: '/api/posts/unMark',
       data: { postID, userID, type },
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then(response =>
@@ -211,7 +213,7 @@ export function fetchAllCourses() {
       method: 'get',
       url: '/api/courses/getAll',
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then(response =>

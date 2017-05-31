@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { createSelector } from 'reselect';
 
+import { getToken } from '../utils/sessionOperations';
+
 const ROOT_URL = '/api/messages';
 
 const FETCH_CONVERSATIONS_OFUSER = 'redux/messages/fetch-conversations-ofuser';
@@ -54,7 +56,7 @@ export function getConversationsOfUser(user) {
       method: 'get',
       url: `${ROOT_URL}/${user}`,
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then((response) => {
@@ -75,7 +77,7 @@ export function selectConversation(id) {
       method: 'get',
       url: `${ROOT_URL}/conversation/${id}`,
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     })
       .then((response) => {
@@ -95,7 +97,7 @@ export function readMessages(id) {
       method: 'get',
       url: `${ROOT_URL}/read/${id}`,
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     }).then(() => {
       dispatch({
@@ -113,7 +115,7 @@ export function starConversation(id, user) {
       url: `${ROOT_URL}/star`,
       data: { id, user },
       headers: {
-        authorization: sessionStorage.getItem('token')
+        authorization: getToken()
       }
     }).then((response) => {
       dispatch({
