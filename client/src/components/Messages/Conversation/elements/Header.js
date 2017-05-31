@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import starFilled from '../../../../../public/star_filled.svg';
-import starEmpty from '../../../../../public/star_empty.svg';
+import starFilled from '../../../../assets/star_filled.svg';
+import starEmpty from '../../../../assets/star_empty.svg';
 
 const Wrapper = styled.div`
 	height: 50px;

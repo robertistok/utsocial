@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
 
-import settingsLogo from '../../../../../public/settings.svg';
-import composeLogo from '../../../../../public/compose.svg';
+import settingsLogo from '../../../../assets/settings.svg';
+import composeLogo from '../../../../assets/compose.svg';
 
 const Wrapper = styled.div`
 	height: 50px;

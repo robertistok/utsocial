@@ -1,3 +1,6 @@
+// Code splitting
+/* eslint import/prefer-default-export: 0*/
+
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
@@ -29,4 +32,4 @@ const Teacher = () => (
     </Content>
   </Wrapper>
 );
-export default Teacher;
+export { Teacher };

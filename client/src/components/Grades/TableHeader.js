@@ -2,7 +2,7 @@ import React from 'react';
 import { Table } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import plusIcon from '../../../public/plus.svg';
+import plusIcon from '../../assets/plus.svg';
 import { capitalizeFirstLetter } from '../../utils/string-operations';
 
 const TableHeader = (props) => {

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import cancelLogo from '../../../../../public/cancel.svg';
+import cancelLogo from '../../../../assets/cancel.svg';
 
 const Wrapper = styled.div`
 	height: 50px;

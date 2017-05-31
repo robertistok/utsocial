@@ -1,4 +1,6 @@
-import React from 'react';
+// Code splitting
+/* eslint import/prefer-default-export: 0*/ import React from 'react';
+
 import { Route, Switch } from 'react-router-dom';
 
 import HeaderContainer from '../../components/Header/';
@@ -39,4 +41,4 @@ const Student = () => (
   </Wrapper>
 );
 
-export default Student;
+export { Student };

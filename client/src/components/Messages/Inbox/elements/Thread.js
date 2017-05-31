@@ -5,8 +5,8 @@ import styled from 'styled-components';
 
 import { formatTime } from '../../../../utils/timestamp';
 import { truncate } from '../../../../utils/style-utils';
-import starFilled from '../../../../../public/star_filled.svg';
-import starEmpty from '../../../../../public/star_empty.svg';
+import starFilled from '../../../../assets/star_filled.svg';
+import starEmpty from '../../../../assets/star_empty.svg';
 
 const Thread = (props) => {
   const {
