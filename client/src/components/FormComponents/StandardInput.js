@@ -25,8 +25,6 @@ const StandardInput = (props) => {
     active !== true &&
     asyncValidating !== true;
 
-  console.log(props);
-
   return (
     <Wrapper>
       <StyledInput

@@ -58,6 +58,13 @@ class Authorized extends Component {
           return null;
       }
     }
+
+    if (
+      nextProps.location.pathname === '/' &&
+      nextProps.auth.authenticated === true
+    ) {
+      nextProps.history.push('/home');
+    }
   }
 
   componentWillUnmount() {
@@ -88,7 +95,8 @@ Authorized.propTypes = {
   }).isRequired,
   history: shape({
     push: func.isRequired
-  })
+  }),
+  location: shape({ pathname: string.isRequired }).isRequired
 };
 
 const mapStateToProps = state => ({

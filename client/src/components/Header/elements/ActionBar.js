@@ -52,7 +52,6 @@ const StyledNavLink = styled(NavLink)`
 	&.active {
 		.icon {
 			color: #000000;
-			transform: translateY(-2px);
 		}
 	}
 `;
