@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Accordion } from 'semantic-ui-react';
 
 import {
@@ -39,7 +39,7 @@ const Materials = (props) => {
   );
 };
 
-const { arrayOf, shape, func, bool, string } = React.PropTypes;
+const { arrayOf, shape, func, bool, string } = PropTypes;
 Materials.propTypes = {
   toggle: func.isRequired,
   toggledOn: bool.isRequired,

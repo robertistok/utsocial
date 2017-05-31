@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import styled from 'styled-components';
 
 import Post from './Post';
@@ -65,7 +65,7 @@ const PostList = (props) => {
   );
 };
 
-const { shape, string, func, arrayOf, bool } = React.PropTypes;
+const { shape, string, func, arrayOf, bool } = PropTypes;
 PostList.propTypes = {
   mark: func.isRequired,
   unMark: func.isRequired,

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Table } from 'semantic-ui-react';
 
@@ -35,7 +36,7 @@ class AttendanceItem extends Component {
   }
 }
 
-const { bool, func } = React.PropTypes;
+const { bool, func } = PropTypes;
 AttendanceItem.propTypes = {
   isBeforeToday: bool.isRequired,
   hasAttendance: bool.isRequired,

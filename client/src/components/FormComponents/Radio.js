@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Form } from 'semantic-ui-react';
 
 const RadioButton = ({ input, label, disabled, customOnChange }) => {
@@ -19,7 +19,7 @@ const RadioButton = ({ input, label, disabled, customOnChange }) => {
   );
 };
 
-const { shape, string, bool, func } = React.PropTypes;
+const { shape, string, bool, func } = PropTypes;
 RadioButton.propTypes = {
   input: shape({
     name: string.isRequired,

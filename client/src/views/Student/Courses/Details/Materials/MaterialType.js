@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Segment } from 'semantic-ui-react';
 import styled from 'styled-components';
 
@@ -31,7 +31,7 @@ const MaterialType = (props) => {
   );
 };
 
-const { shape, arrayOf, string } = React.PropTypes;
+const { shape, arrayOf, string } = PropTypes;
 MaterialType.propTypes = {
   materials: arrayOf(
     shape({

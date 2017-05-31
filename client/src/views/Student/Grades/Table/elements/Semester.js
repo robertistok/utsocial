@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import styled from 'styled-components';
 
 import CourseRow from './CourseRow';
@@ -24,7 +24,7 @@ const Semester = (props) => {
   );
 };
 
-const { number } = React.PropTypes;
+const { number } = PropTypes;
 Semester.propTypes = {
   semester: number.isRequired
 };

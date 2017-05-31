@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Form } from 'semantic-ui-react';
 
 const Filter = (props) => {
@@ -33,7 +33,7 @@ const Filter = (props) => {
   );
 };
 
-const { arrayOf, func, shape, string } = React.PropTypes;
+const { arrayOf, func, shape, string } = PropTypes;
 Filter.propTypes = {
   studentID: string.isRequired,
   changeType: func.isRequired,

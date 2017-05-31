@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import styled from 'styled-components';
 
 const Checkbox = ({ input, label }) => (
@@ -15,7 +15,7 @@ const Checkbox = ({ input, label }) => (
   </div>
 );
 
-const { shape, string, any } = React.PropTypes;
+const { shape, string, any } = PropTypes;
 Checkbox.propTypes = {
   input: shape({ value: any, name: string }).isRequired,
   label: string.isRequired

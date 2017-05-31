@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -25,7 +26,7 @@ class Settings extends Component {
   }
 }
 
-const { func } = React.PropTypes;
+const { func } = PropTypes;
 Settings.propTypes = {
   resetPreferencesState: func.isRequired
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import styled from 'styled-components';
 import { Form } from 'semantic-ui-react';
 
@@ -46,7 +46,7 @@ const Filter = (props) => {
   );
 };
 
-const { oneOfType, string, number, shape, func } = React.PropTypes;
+const { oneOfType, string, number, shape, func } = PropTypes;
 Filter.propTypes = {
   filterState: shape({
     year: number,

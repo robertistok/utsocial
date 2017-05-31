@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { reduxForm } from 'redux-form';
 import { compose } from 'recompose';
 import { bindActionCreators } from 'redux';
@@ -29,7 +30,7 @@ class PasswordContainer extends Component {
   }
 }
 
-const { func, string } = React.PropTypes;
+const { func, string } = PropTypes;
 PasswordContainer.propTypes = {
   changePassword: func.isRequired,
   reset: func.isRequired,

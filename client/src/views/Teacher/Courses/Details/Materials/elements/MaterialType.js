@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Segment } from 'semantic-ui-react';
 import styled from 'styled-components';
 
@@ -62,7 +62,7 @@ const MaterialType = (props) => {
   );
 };
 
-const { func, bool, string, shape, arrayOf } = React.PropTypes;
+const { func, bool, string, shape, arrayOf } = PropTypes;
 MaterialType.propTypes = {
   toggle: func.isRequired,
   toggledOn: bool.isRequired,

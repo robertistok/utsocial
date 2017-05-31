@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Form, TextArea, Button } from 'semantic-ui-react';
 import styled from 'styled-components';
 // import ContentEditableDiv from '../../../../../elements/ContentEditableDiv';
@@ -22,7 +22,7 @@ const DescriptionArea = (props) => {
   );
 };
 
-const { string, bool, shape } = React.PropTypes;
+const { string, bool, shape } = PropTypes;
 DescriptionArea.propTypes = {
   label: string,
   meta: shape({

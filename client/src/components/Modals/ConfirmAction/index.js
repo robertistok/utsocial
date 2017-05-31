@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Button, Header, Icon, Modal } from 'semantic-ui-react';
 import styled from 'styled-components';
 
@@ -28,7 +28,7 @@ const ConfirmAction = (props) => {
   );
 };
 
-const { string, func } = React.PropTypes;
+const { string, func } = PropTypes;
 ConfirmAction.propTypes = {
   hideModal: func.isRequired,
   confirmAction: func.isRequired,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import TableContainer from '../../../components/Schedule/Table';
 import FilterContainer from './Filter';
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -16,7 +17,7 @@ class GradesTableContainer extends Component {
   }
 }
 
-const { string } = React.PropTypes;
+const { string } = PropTypes;
 GradesTableContainer.propTypes = {
   selectedGroup: string
 };

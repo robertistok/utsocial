@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import styled from 'styled-components';
 import { Field } from 'redux-form';
 
@@ -70,7 +70,7 @@ const Password = (props) => {
   );
 };
 
-const { func, bool, string, shape } = React.PropTypes;
+const { func, bool, string, shape } = PropTypes;
 Password.propTypes = {
   pristine: bool.isRequired,
   valid: bool.isRequired,

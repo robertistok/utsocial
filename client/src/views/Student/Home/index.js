@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -24,7 +25,7 @@ class StudentsHomeContainer extends Component {
   }
 }
 
-const { shape, func, string } = React.PropTypes;
+const { shape, func, string } = PropTypes;
 StudentsHomeContainer.propTypes = {
   getFeedForStudent: func.isRequired,
   loggedInUser: shape({

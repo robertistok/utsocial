@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { bindActionCreators } from 'redux';
@@ -42,7 +42,7 @@ class NewPostFormContainer extends React.Component {
   }
 }
 
-const { func, string, number, shape, arrayOf } = React.PropTypes;
+const { func, string, number, shape, arrayOf } = PropTypes;
 NewPostFormContainer.propTypes = {
   addPost: func.isRequired,
   hideContainer: func.isRequired,

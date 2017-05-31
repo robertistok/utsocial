@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Field, reduxForm } from 'redux-form';
 import styled from 'styled-components';
 import { Form, Button } from 'semantic-ui-react';

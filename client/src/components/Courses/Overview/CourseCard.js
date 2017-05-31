@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -36,7 +36,7 @@ const CourseCard = (props) => {
   );
 };
 
-const { string, number, bool } = React.PropTypes;
+const { string, number, bool } = PropTypes;
 CourseCard.propTypes = {
   name: string.isRequired,
   year: number.isRequired,

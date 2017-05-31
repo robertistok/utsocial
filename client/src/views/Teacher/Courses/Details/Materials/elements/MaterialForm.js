@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Field, reduxForm } from 'redux-form';
 import { Form } from 'semantic-ui-react';
 import styled from 'styled-components';
@@ -76,7 +76,7 @@ const MaterialForm = (props) => {
   );
 };
 
-const { func, string, bool } = React.PropTypes;
+const { func, string, bool } = PropTypes;
 MaterialForm.propTypes = {
   reset: func.isRequired,
   handleSubmit: func.isRequired,

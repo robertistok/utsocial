@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -120,7 +121,7 @@ const mapStateToProps = (state, props) => {
   };
 };
 
-const { number, string, shape, func, oneOfType } = React.PropTypes;
+const { number, string, shape, func, oneOfType } = PropTypes;
 GradeItemContainer.propTypes = {
   gradeObj: shape({
     _id: string.isRequired,

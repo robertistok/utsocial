@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
@@ -30,7 +31,7 @@ const App = (props) => {
   );
 };
 
-const { bool } = React.PropTypes;
+const { bool } = PropTypes;
 App.propTypes = {
   authenticated: bool.isRequired
 };

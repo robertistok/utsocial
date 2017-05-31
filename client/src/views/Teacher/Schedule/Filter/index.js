@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
@@ -99,7 +100,7 @@ class FilterContainer extends Component {
   }
 }
 
-const { func, shape, string, arrayOf } = React.PropTypes;
+const { func, shape, string, arrayOf } = PropTypes;
 FilterContainer.propTypes = {
   changeScheduleOf: func.isRequired,
   changeSemigroup: func.isRequired,

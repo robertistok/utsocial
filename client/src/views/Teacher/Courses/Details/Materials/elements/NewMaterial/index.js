@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -36,7 +37,7 @@ class NewMaterialContainer extends Component {
   }
 }
 
-const { string, func, shape } = React.PropTypes;
+const { string, func, shape } = PropTypes;
 NewMaterialContainer.propTypes = {
   addMaterial: func.isRequired,
   selectedCourse: shape({

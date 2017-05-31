@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { compose } from 'recompose';
@@ -29,7 +29,7 @@ const DescriptionContainer = (props) => {
     </div>
   );
 };
-const { bool, func, string, shape } = React.PropTypes;
+const { bool, func, string, shape } = PropTypes;
 DescriptionContainer.propTypes = {
   toggle: func.isRequired,
   toggledOn: bool.isRequired,

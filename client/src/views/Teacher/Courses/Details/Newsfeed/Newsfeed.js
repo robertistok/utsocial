@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Accordion } from 'semantic-ui-react';
 
 import {
@@ -30,7 +30,7 @@ const Newsfeed = (props) => {
   );
 };
 
-const { bool, func } = React.PropTypes;
+const { bool, func } = PropTypes;
 Newsfeed.propTypes = {
   toggle: func.isRequired,
   toggledOn: bool.isRequired

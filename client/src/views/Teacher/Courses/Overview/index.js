@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -16,7 +17,7 @@ class OverviewContainer extends Component {
   }
 }
 
-const { shape, string, func } = React.PropTypes;
+const { shape, string, func } = PropTypes;
 OverviewContainer.propTypes = {
   fetchTeachingOfTeacher: func.isRequired,
   user: shape({ _id: string.isRequired }).isRequired

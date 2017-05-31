@@ -1,6 +1,7 @@
 /* eslint no-confusing-arrow: "off"*/
 /* eslint-env es6*/
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { formatTime } from '../../../../utils/timestamp';

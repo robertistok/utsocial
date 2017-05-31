@@ -310,6 +310,7 @@ For example:
 
 ```js
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Button extends Component {
   render() {
@@ -325,6 +326,7 @@ export default Button; // Don’t forget to use export default!
 
 ```js
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Button from './Button'; // Import a component from another file
 
 class DangerButton extends Component {
@@ -364,6 +366,7 @@ This project setup uses [Webpack](https://webpack.github.io/) for handling all a
 
 ```js
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './Button.css'; // Tell Webpack that Button.js uses these styles
 
 class Button extends Component {
@@ -477,7 +480,7 @@ You can **`import` an image right in a JavaScript module**. This tells Webpack t
 Here is an example:
 
 ```js
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import logo from './logo.png'; // Tell Webpack this JS file uses this image
 
 console.log(logo); // /logo.84287d09.png
@@ -955,7 +958,7 @@ There is a broad spectrum of component testing techniques. They range from a “
 Different projects choose different testing tradeoffs based on how often components change, and how much logic they contain. If you haven’t decided on a testing strategy yet, we recommend that you start with creating simple smoke tests for your components:
 
 ```js
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom';
 import App from './App';
 
@@ -976,7 +979,7 @@ npm install --save-dev enzyme react-addons-test-utils
 ```
 
 ```js
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { shallow } from 'enzyme';
 import App from './App';
 
@@ -992,7 +995,7 @@ You can read the [Enzyme documentation](http://airbnb.io/enzyme/) for more testi
 Here is an example from Enzyme documentation that asserts specific output, rewritten to use Jest matchers:
 
 ```js
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { shallow } from 'enzyme';
 import App from './App';
 

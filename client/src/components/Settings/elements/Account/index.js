@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { reduxForm } from 'redux-form';
 import { compose } from 'recompose';
 import { bindActionCreators } from 'redux';
@@ -104,7 +105,7 @@ class AccountContainer extends Component {
   }
 }
 
-const { func, string, shape, number, oneOfType } = React.PropTypes;
+const { func, string, shape, number, oneOfType } = PropTypes;
 AccountContainer.propTypes = {
   changeAccountDetails: func.isRequired,
   initialValues: shape({

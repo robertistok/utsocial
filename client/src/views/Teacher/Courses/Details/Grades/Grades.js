@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Accordion } from 'semantic-ui-react';
 
 import Filter from './elements/Filter';
@@ -29,7 +29,7 @@ const Grades = (props) => {
   );
 };
 
-const { func, bool } = React.PropTypes;
+const { func, bool } = PropTypes;
 Grades.propTypes = {
   toggle: func.isRequired,
   toggledOn: bool.isRequired

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import styled from 'styled-components';
 
 import { formatTime } from '../../../utils/timestamp';
@@ -34,7 +34,7 @@ const Card = (props) => {
   );
 };
 
-const { string, bool, func } = React.PropTypes;
+const { string, bool, func } = PropTypes;
 Card.propTypes = {
   link: string.isRequired,
   description: string.isRequired,

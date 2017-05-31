@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -59,7 +60,7 @@ class MaterialCardContainer extends Component {
   }
 }
 
-const { func, shape, string, bool } = React.PropTypes;
+const { func, shape, string, bool } = PropTypes;
 MaterialCardContainer.propTypes = {
   updateMaterial: func.isRequired,
   deleteMaterial: func.isRequired,

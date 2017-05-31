@@ -1,7 +1,7 @@
 // Code splitting
 /* eslint import/prefer-default-export: 0*/
 
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Route, Switch } from 'react-router-dom';
 
 import HeaderContainer from '../../components/Header/';

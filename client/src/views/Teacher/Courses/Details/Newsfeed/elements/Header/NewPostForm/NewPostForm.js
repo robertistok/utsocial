@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Form } from 'semantic-ui-react';
 import { Field } from 'redux-form';
 import styled from 'styled-components';
@@ -84,7 +84,7 @@ const NewPostForm = (props) => {
   );
 };
 
-const { func, shape, string, bool, arrayOf, number } = React.PropTypes;
+const { func, shape, string, bool, arrayOf, number } = PropTypes;
 NewPostForm.propTypes = {
   onSubmit: func.isRequired,
   handleSubmit: func.isRequired,

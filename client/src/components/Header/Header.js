@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import styled from 'styled-components';
@@ -36,7 +37,7 @@ class Header extends PureComponent {
   }
 }
 
-const { string, func, arrayOf, shape } = React.PropTypes;
+const { string, func, arrayOf, shape } = PropTypes;
 Header.propTypes = {
   history: shape({ push: func.isRequired }).isRequired,
   logOutUser: func.isRequired,

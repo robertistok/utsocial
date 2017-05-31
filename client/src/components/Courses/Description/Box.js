@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import styled from 'styled-components';
 import { Message } from 'semantic-ui-react';
 
@@ -33,7 +33,7 @@ const Box = (props) => {
   );
 };
 
-const { string, shape, bool, func } = React.PropTypes;
+const { string, shape, bool, func } = PropTypes;
 Box.propTypes = {
   onClick: func,
   text: string.isRequired,

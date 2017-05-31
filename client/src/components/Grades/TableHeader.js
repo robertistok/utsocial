@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Table } from 'semantic-ui-react';
 import styled from 'styled-components';
 
@@ -89,7 +89,7 @@ const TableHeader = (props) => {
   );
 };
 
-const { object, string, arrayOf, bool, func } = React.PropTypes;
+const { object, string, arrayOf, bool, func } = PropTypes;
 TableHeader.propTypes = {
   cellDescription: string,
   numberOfGrades: object.isRequired,

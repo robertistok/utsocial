@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Header, Modal, Label } from 'semantic-ui-react';
 
 import './ShowSchedule.css';
@@ -49,7 +49,7 @@ const ShowSchedule = (props) => {
   );
 };
 
-const { func, object } = React.PropTypes;
+const { func, object } = PropTypes;
 ShowSchedule.propTypes = {
   hideModal: func.isRequired,
   schedule: object.isRequired

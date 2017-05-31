@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import styled from 'styled-components';
 
 const Grade = (props) => {
@@ -11,7 +11,7 @@ const Grade = (props) => {
   );
 };
 
-const { number, func, oneOfType, string } = React.PropTypes;
+const { number, func, oneOfType, string } = PropTypes;
 Grade.propTypes = {
   onClick: func,
   grade: oneOfType([string, number]).isRequired

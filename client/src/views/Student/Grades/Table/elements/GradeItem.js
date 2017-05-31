@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Table } from 'semantic-ui-react';
 import styled from 'styled-components';
 
@@ -14,7 +14,7 @@ const GradeItem = (props) => {
   );
 };
 
-const { number, shape } = React.PropTypes;
+const { number, shape } = PropTypes;
 GradeItem.propTypes = {
   gradeObj: shape({ grade: number })
 };

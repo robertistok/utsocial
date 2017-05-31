@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import styled from 'styled-components';
 import { Popup, Icon } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
@@ -24,7 +24,7 @@ const ActionBar = (props) => {
   );
 };
 
-const { string, func } = React.PropTypes;
+const { string, func } = PropTypes;
 ActionBar.propTypes = {
   logOut: func.isRequired,
   user: string.isRequired

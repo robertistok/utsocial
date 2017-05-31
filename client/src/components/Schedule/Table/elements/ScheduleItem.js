@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import styled from 'styled-components';
 
 const ScheduleItem = (props) => {
@@ -19,7 +19,7 @@ const ScheduleItem = (props) => {
   );
 };
 
-const { func, shape, object, number, string } = React.PropTypes;
+const { func, shape, object, number, string } = PropTypes;
 ScheduleItem.propTypes = {
   onClick: func,
   schedule: shape({

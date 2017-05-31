@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Dropdown } from 'semantic-ui-react';
 import styled from 'styled-components';
 
@@ -34,7 +34,7 @@ const Filter = (props) => {
   );
 };
 
-const { func, bool, shape } = React.PropTypes;
+const { func, bool, shape } = PropTypes;
 Filter.propTypes = {
   onChange: func.isRequired,
   types: shape({

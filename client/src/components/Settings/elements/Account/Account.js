@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Field } from 'redux-form';
 
 import StandardInput from '../../../FormComponents/StandardInput';
@@ -68,7 +68,7 @@ const Account = (props) => {
   );
 };
 
-const { func, bool, string, shape, number } = React.PropTypes;
+const { func, bool, string, shape, number } = PropTypes;
 Account.propTypes = {
   pristine: bool.isRequired,
   valid: bool.isRequired,

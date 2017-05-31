@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Popup, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
 
@@ -20,7 +20,7 @@ const SettingsGroup = (props) => {
   );
 };
 
-const { string, shape, func, arrayOf } = React.PropTypes;
+const { string, shape, func, arrayOf } = PropTypes;
 SettingsGroup.propTypes = {
   options: arrayOf(
     shape({

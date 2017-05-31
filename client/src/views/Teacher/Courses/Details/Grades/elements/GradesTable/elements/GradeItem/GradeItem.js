@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Table } from 'semantic-ui-react';
 import styled from 'styled-components';
 
@@ -34,7 +34,7 @@ const GradeItem = (props) => {
   );
 };
 
-const { number, bool, func, oneOfType, string } = React.PropTypes;
+const { number, bool, func, oneOfType, string } = PropTypes;
 GradeItem.propTypes = {
   error: bool.isRequired,
   editing: bool.isRequired,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Table } from 'semantic-ui-react';
 
 import GradeRow from '../../../../../../../../components/Grades/GradeRow';
@@ -42,7 +42,7 @@ const Body = (props) => {
   );
 };
 
-const { arrayOf, string, object } = React.PropTypes;
+const { arrayOf, string, object } = PropTypes;
 Body.propTypes = {
   numberOfGrades: object,
   students: arrayOf(object),

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Field } from 'redux-form';
 
 import Form from '../elements/Form';
@@ -49,7 +49,7 @@ const ForgotPassword = (props) => {
   );
 };
 
-const { bool, func, shape, string } = React.PropTypes;
+const { bool, func, shape, string } = PropTypes;
 ForgotPassword.propTypes = {
   pristine: bool.isRequired,
   submitting: bool.isRequired,

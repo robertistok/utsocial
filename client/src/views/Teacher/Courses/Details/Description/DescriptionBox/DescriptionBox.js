@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Button } from 'semantic-ui-react';
 import styled from 'styled-components';
 
@@ -51,7 +51,7 @@ const DescriptionBox = (props) => {
   );
 };
 
-const { bool, string, func, shape } = React.PropTypes;
+const { bool, string, func, shape } = PropTypes;
 DescriptionBox.propTypes = {
   description: shape({
     text: string.isRequired,

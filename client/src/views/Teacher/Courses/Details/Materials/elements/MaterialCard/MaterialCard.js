@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 
 import MaterialForm from '../MaterialForm';
 import Card from '../../../../../../../components/Courses/Materials/Card';
@@ -40,7 +40,7 @@ const MaterialCard = (props) => {
   );
 };
 
-const { func, string, shape, bool } = React.PropTypes;
+const { func, string, shape, bool } = PropTypes;
 MaterialCard.propTypes = {
   toggle: func.isRequired,
   handleCardEdit: func.isRequired,

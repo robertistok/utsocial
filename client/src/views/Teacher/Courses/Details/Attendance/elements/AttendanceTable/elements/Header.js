@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Table } from 'semantic-ui-react';
 
 const Header = (props) => {
@@ -18,7 +18,7 @@ const Header = (props) => {
   );
 };
 
-const { bool, string, arrayOf, shape } = React.PropTypes;
+const { bool, string, arrayOf, shape } = PropTypes;
 Header.propTypes = {
   dates: arrayOf(
     shape({

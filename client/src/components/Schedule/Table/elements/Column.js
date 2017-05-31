@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import styled from 'styled-components';
 import moment from 'moment';
 
@@ -63,7 +63,7 @@ const Column = (props) => {
   );
 };
 
-const { string, func, shape, arrayOf } = React.PropTypes;
+const { string, func, shape, arrayOf } = PropTypes;
 Column.propTypes = {
   handleCellClick: func,
   week: string.isRequired,

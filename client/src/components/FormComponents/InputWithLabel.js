@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Form } from 'semantic-ui-react';
 
 const InputWithLabel = (
@@ -10,7 +10,7 @@ const InputWithLabel = (
   </Form.Field>
 );
 
-const { shape, string, bool, number } = React.PropTypes;
+const { shape, string, bool, number } = PropTypes;
 InputWithLabel.propTypes = {
   input: shape({ name: string.isRequired, value: string }).isRequired,
   label: string,

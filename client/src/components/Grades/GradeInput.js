@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import styled from 'styled-components';
 import { Input } from 'semantic-ui-react';
 
@@ -20,7 +20,7 @@ const GradeInput = (props) => {
   );
 };
 
-const { number, func, oneOfType, string, bool } = React.PropTypes;
+const { number, func, oneOfType, string, bool } = PropTypes;
 GradeInput.propTypes = {
   onChange: func.isRequired,
   onBlur: func.isRequired,

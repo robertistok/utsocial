@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Table } from 'semantic-ui-react';
 import styled from 'styled-components';
 
@@ -26,7 +26,7 @@ const GradesTable = (props) => {
   );
 };
 
-const { func, object, arrayOf, string } = React.PropTypes;
+const { func, object, arrayOf, string } = PropTypes;
 GradesTable.propTypes = {
   addColumnGrade: func.isRequired,
   numberOfGrades: object.isRequired,

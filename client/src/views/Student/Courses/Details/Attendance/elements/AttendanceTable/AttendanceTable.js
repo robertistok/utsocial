@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Table } from 'semantic-ui-react';
 import styled from 'styled-components';
 
@@ -16,7 +16,7 @@ const AttendanceTable = (props) => {
   );
 };
 
-const { arrayOf, shape, string } = React.PropTypes;
+const { arrayOf, shape, string } = PropTypes;
 AttendanceTable.propTypes = {
   dates: arrayOf(shape({ day: string.isRequired }).isRequired).isRequired,
   attendance: shape(

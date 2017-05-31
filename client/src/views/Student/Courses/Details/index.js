@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { compose } from 'recompose';
 
 import AttendanceContainer from './Attendance';
@@ -30,7 +30,7 @@ const Details = (props) => {
   );
 };
 
-const { shape, string } = React.PropTypes;
+const { shape, string } = PropTypes;
 Details.propTypes = {
   selectedCourse: shape({
     course: shape({ _id: string.isRequired }).isRequired

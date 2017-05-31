@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Table } from 'semantic-ui-react';
 import moment from 'moment';
 
@@ -29,7 +29,7 @@ const Body = (props) => {
   );
 };
 
-const { arrayOf, shape, string } = React.PropTypes;
+const { arrayOf, shape, string } = PropTypes;
 Body.propTypes = {
   dates: arrayOf(shape({ day: string.isRequired }).isRequired).isRequired,
   attendanceList: arrayOf(shape({ enteredFor: string.isRequired })).isRequired

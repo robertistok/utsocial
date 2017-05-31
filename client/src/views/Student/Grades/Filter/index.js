@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { compose } from 'recompose';
@@ -40,7 +41,7 @@ class FilterContainer extends Component {
   }
 }
 
-const { func, number, shape, string } = React.PropTypes;
+const { func, number, shape, string } = PropTypes;
 FilterContainer.propTypes = {
   changeYear: func.isRequired,
   changeSemester: func.isRequired,

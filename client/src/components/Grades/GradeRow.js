@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
 import styled from 'styled-components';
 
@@ -83,7 +84,7 @@ const {
   object,
   bool,
   func
-} = React.PropTypes;
+} = PropTypes;
 GradeRow.propTypes = {
   _id: string,
   numberOfGrades: object.isRequired,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as courseActions from '../../../../../../../redux/courses';
@@ -14,7 +14,7 @@ const PostListContainer = (props) => {
   return <PostList {...props} updateFunction={updateFunction} />;
 };
 
-const { func } = React.PropTypes;
+const { func } = PropTypes;
 PostListContainer.propTypes = {
   updatePost: func.isRequired
 };

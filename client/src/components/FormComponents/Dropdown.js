@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Form, Dropdown } from 'semantic-ui-react';
 
 const DropDownField = (
@@ -36,7 +36,7 @@ const {
   arrayOf,
   oneOfType,
   number
-} = React.PropTypes;
+} = PropTypes;
 DropDownField.propTypes = {
   input: shape({
     name: string.isRequired,

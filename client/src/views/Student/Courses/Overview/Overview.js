@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import styled from 'styled-components';
 
 import CourseCard from '../../../../components/Courses/Overview/CourseCard';
@@ -15,7 +15,7 @@ const Overview = (props) => {
   );
 };
 
-const { string, shape, number, arrayOf } = React.PropTypes;
+const { string, shape, number, arrayOf } = PropTypes;
 Overview.propTypes = {
   lang: string.isRequired,
   courses: arrayOf(

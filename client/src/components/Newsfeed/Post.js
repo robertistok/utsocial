@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Button, Popup } from 'semantic-ui-react';
 
@@ -164,7 +165,7 @@ class Post extends Component {
   }
 }
 
-const { func, bool, string, shape, oneOfType } = React.PropTypes;
+const { func, bool, string, shape, oneOfType } = PropTypes;
 Post.propTypes = {
   deletePost: func,
   updatePost: oneOfType([func, bool]),

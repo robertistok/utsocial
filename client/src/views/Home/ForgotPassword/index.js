@@ -3,6 +3,7 @@
 /* eslint consistent-return: 0*/
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -50,7 +51,7 @@ class ForgotPasswordContainer extends Component {
   }
 }
 
-const { func } = React.PropTypes;
+const { func } = PropTypes;
 ForgotPasswordContainer.propTypes = {
   sendResetPasswordEmail: func.isRequired,
   resetForgotPasswordState: func.isRequired

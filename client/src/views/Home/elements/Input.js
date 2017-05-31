@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import styled from 'styled-components';
 import { Icon } from 'semantic-ui-react';
 
@@ -36,7 +36,7 @@ const Input = (props) => {
   );
 };
 
-const { shape, string, bool, oneOfType } = React.PropTypes;
+const { shape, string, bool, oneOfType } = PropTypes;
 Input.propTypes = {
   input: shape({ name: string.isRequired, value: string }).isRequired,
   placeholder: string,

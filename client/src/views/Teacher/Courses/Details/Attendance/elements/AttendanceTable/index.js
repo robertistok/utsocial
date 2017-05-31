@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -54,7 +55,7 @@ class AttendanceTableContainer extends Component {
   }
 }
 
-const { string, shape, func, oneOf } = React.PropTypes;
+const { string, shape, func, oneOf } = PropTypes;
 AttendanceTableContainer.propTypes = {
   markAsPresent: func.isRequired,
   selectedCourse: shape({

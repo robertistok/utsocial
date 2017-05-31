@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
 import moment from 'moment';
 
@@ -56,7 +57,7 @@ class StudentRow extends Component {
   }
 }
 
-const { string, number, shape, arrayOf, func } = React.PropTypes;
+const { string, number, shape, arrayOf, func } = PropTypes;
 StudentRow.propTypes = {
   name: string.isRequired,
   index: number.isRequired,

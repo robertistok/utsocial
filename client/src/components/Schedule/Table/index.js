@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
@@ -56,7 +57,7 @@ class TableContainer extends Component {
   }
 }
 
-const { func, shape, string, bool, array } = React.PropTypes;
+const { func, shape, string, bool, array } = PropTypes;
 TableContainer.propTypes = {
   showModal: func.isRequired,
   fetchSchedulesFor: func.isRequired,

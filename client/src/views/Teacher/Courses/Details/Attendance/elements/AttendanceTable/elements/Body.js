@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Table } from 'semantic-ui-react';
 
 import StudentRow from './StudentRow';
@@ -42,7 +42,7 @@ const Body = (props) => {
   );
 };
 
-const { shape, string, arrayOf, func } = React.PropTypes;
+const { shape, string, arrayOf, func } = PropTypes;
 Body.propTypes = {
   students: arrayOf(
     shape({

@@ -1,5 +1,5 @@
 /* eslint no-nested-ternary: 0*/
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { Table } from 'semantic-ui-react';
 
 const AttendanceRow = (props) => {
@@ -21,7 +21,7 @@ const AttendanceRow = (props) => {
   );
 };
 
-const { string, bool } = React.PropTypes;
+const { string, bool } = PropTypes;
 AttendanceRow.propTypes = {
   isBeforeToday: bool.isRequired,
   hasAttendance: bool.isRequired,

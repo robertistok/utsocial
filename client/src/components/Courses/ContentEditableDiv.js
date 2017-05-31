@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { formatMultiLineText } from '../../utils/style-utils';
@@ -27,7 +28,7 @@ class ContentEditableDiv extends Component {
   }
 }
 
-const { func, string } = React.PropTypes;
+const { func, string } = PropTypes;
 ContentEditableDiv.propTypes = {
   onContentChange: func.isRequired,
   text: string.isRequired

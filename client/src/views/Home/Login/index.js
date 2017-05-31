@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { compose } from 'recompose';
@@ -35,7 +36,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ ...authActions }, dispatch);
 
-const { func, bool, shape } = React.PropTypes;
+const { func, bool, shape } = PropTypes;
 Login.propTypes = {
   auth: shape({
     authenticated: bool.isRequired

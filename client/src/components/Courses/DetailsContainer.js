@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -31,7 +32,7 @@ function withSelectedCourse(DetailsComponent) {
     }
   }
 
-  const { func, shape, string } = React.PropTypes;
+  const { func, shape, string } = PropTypes;
   DetailsContainer.propTypes = {
     selectCourse: func.isRequired,
     getMetaData: func.isRequired,

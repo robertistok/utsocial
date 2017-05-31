@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { compose } from 'recompose';
@@ -17,7 +18,7 @@ class GradesContainer extends Component {
   }
 }
 
-const { func } = React.PropTypes;
+const { func } = PropTypes;
 GradesContainer.propTypes = {
   resetGrades: func.isRequired
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'; import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 
 import AddScheduleContainer from './AddSchedule/index';
@@ -31,7 +31,7 @@ const ModalSwitcher = (props) => {
   return <Modal {...props} {...customProps} />;
 };
 
-const { string, object, shape } = React.PropTypes;
+const { string, object, shape } = PropTypes;
 ModalSwitcher.propTypes = {
   modals: shape({ currentModal: string, customProps: object })
 };
