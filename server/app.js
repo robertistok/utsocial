@@ -14,8 +14,6 @@ const app = express();
 const staticFiles = express.static(path.join(__dirname, '../../client/build'));
 
 app.use(morgan('combined'));
-app.use('/*', staticFiles);
-app.use(staticFiles);
 app.use(bodyParser.json({ type: '*/*' }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
@@ -29,6 +27,9 @@ app.use(cookieParser());
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use('/*', staticFiles);
+app.use(staticFiles);
 app.use(router);
 
 // MongodDb connection
