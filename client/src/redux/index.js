@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
+import { reducer as burgerMenu } from 'redux-burger-menu';
 
 import accountReducer from './account';
 import scheduleReducer from './schedule';
@@ -25,7 +26,8 @@ const rootReducer = combineReducers({
   attendance: attendanceReducer,
   grades: gradesReducer,
   metadatacourse: metadatacourseReducer,
-  account: accountReducer
+  account: accountReducer,
+  burgerMenu
 });
 
 export default rootReducer;

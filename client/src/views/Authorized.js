@@ -1,3 +1,5 @@
+/* eslint consistent-return: 0 */
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -17,11 +19,18 @@ class Authorized extends Component {
   }
 
   componentDidMount() {
-    socket.emit('join', this.props.auth.user);
-    const { history, auth } = this.props;
+    const {
+      history,
+      auth: { user, authenticated },
+      location: { pathname }
+    } = this.props;
+    socket.emit('join', user);
 
-    if (auth.authenticated === true) {
-      history.push('/home');
+    if (authenticated === true) {
+      if (pathname === '/') {
+        history.push('/home');
+      }
+      history.push(pathname);
     }
   }
 
@@ -52,7 +61,8 @@ class Authorized extends Component {
   }
 
   componentWillUnmount() {
-    socket.emit('leave', this.props.auth.user);
+    const { auth: { user } } = this.props;
+    socket.emit('leave', user);
   }
 
   changeUser(User) {
@@ -69,6 +79,17 @@ class Authorized extends Component {
     return <User />;
   }
 }
+
+const { shape, string, bool, func } = PropTypes;
+Authorized.propTypes = {
+  auth: shape({
+    authenticated: bool.isRequired,
+    user: shape({ username: string.isRequired, type: string.isRequired })
+  }).isRequired,
+  history: shape({
+    push: func.isRequired
+  })
+};
 
 const mapStateToProps = state => ({
   auth: state.account.auth

@@ -6,11 +6,70 @@ import styled from 'styled-components';
 import { Sticky } from 'react-sticky';
 
 import { capitalizeFirstLetter } from '../../utils/string-operations';
+import { media } from '../../utils/style-utils';
+
 import ActionBar from './elements/ActionBar';
+import MobileNavigation from './elements/MobileNavigation';
 
 class Header extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.updateDimensions = this.updateDimensions.bind(this);
+  }
+
+  componentWillMount() {
+    this.updateDimensions();
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.updateDimensions);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateDimensions);
+  }
+
+  updateDimensions() {
+    const w = window;
+    const d = document;
+    const documentElement = d.documentElement;
+    const body = d.getElementsByTagName('body')[0];
+    const width = w.innerWidth ||
+      documentElement.clientWidth ||
+      body.clientWidth;
+    const height = w.innerHeight ||
+      documentElement.clientHeight ||
+      body.clientHeight;
+
+    this.setState({ width, height });
+  }
+
   render() {
     const { links, history, logOutUser, user } = this.props;
+    const { width } = this.state;
+
+    if (width <= 768) {
+      return (
+        <div>
+          <Sticky>
+            {({ style }) => (
+              <Wrapper style={style}>
+                <Title>UTSocial</Title>
+                <ActionBar
+                  logOut={() => {
+                    logOutUser();
+                    history.push('/');
+                  }}
+                  user={user.profile.firstname}
+                />
+              </Wrapper>
+            )}
+          </Sticky>
+          <MobileNavigation links={links} />
+        </div>
+      );
+    }
 
     return (
       <Sticky>
@@ -53,8 +112,27 @@ const Wrapper = styled.header`
 	height: 100px;
 	background: #51D1B9;
 	overflow: auto;
-	z-index: 10;
+	z-index: 1;
 	padding: 0px 20px;
+
+
+	${media.tablet`
+		height: 50px;
+		padding: 0px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		`}
+`;
+
+const Title = styled.span`
+	color: ${props => props.theme.white};
+	font-size: 22px;
+	margin: auto;
+
+	@media screen and (max-width: 550px) {
+		display: none;
+	}
 `;
 
 const Menu = styled.div`

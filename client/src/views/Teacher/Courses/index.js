@@ -1,4 +1,4 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import OverviewContainer from './Overview';
