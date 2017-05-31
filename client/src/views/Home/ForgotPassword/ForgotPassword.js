@@ -20,7 +20,7 @@ const ForgotPassword = (props) => {
     valid,
     handleSubmit,
     onSubmit,
-    forgotPassword: { status }
+    forgotPasswordState: { status }
   } = props;
 
   return (
@@ -38,6 +38,7 @@ const ForgotPassword = (props) => {
           type="text"
           component={Input}
           showError
+          validMessage="Email found"
           validate={[required, email]}
         />
         <SubmitButton type="submit" disabled={pristine || !valid || submitting}>
@@ -46,6 +47,16 @@ const ForgotPassword = (props) => {
       </Form>
     </Wrapper>
   );
+};
+
+const { bool, func, shape, string } = React.PropTypes;
+ForgotPassword.propTypes = {
+  pristine: bool.isRequired,
+  submitting: bool.isRequired,
+  valid: bool.isRequired,
+  handleSubmit: func.isRequired,
+  onSubmit: func.isRequired,
+  forgotPasswordState: shape({ status: string }).isRequired
 };
 
 export default ForgotPassword;

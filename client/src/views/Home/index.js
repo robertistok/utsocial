@@ -5,38 +5,18 @@ import { Route, Switch } from 'react-router-dom';
 import Login from './Login';
 import ForgotPassword from './ForgotPassword';
 import ResetPassword from './ResetPassword';
-import { withToggle } from '../../components/hocs';
 
-const Home = (props) => {
-  const {
-    toggle: toggleForgotPassword,
-    toggledOn: forgotPassword
-  } = props;
-
-  return (
-    <Wrapper>
-      <Title>Welcome to UTSocial!</Title>
-      <Switch>
-        <Route
-          exact
-          path="/"
-          render={() => <Login showForgotPassword={toggleForgotPassword} />}
-        />
-        <Route
-          path="/forgot"
-          render={() => (
-            <ForgotPassword
-              toggleForgotPassword={toggleForgotPassword}
-              forgotPassword={forgotPassword}
-            />
-          )}
-        />
-        <Route path="/reset/:token" component={ResetPassword} />
-        <Route render={() => <h1>Not found</h1>} />
-      </Switch>
-    </Wrapper>
-  );
-};
+const Home = () => (
+  <Wrapper>
+    <Title>Welcome to UTSocial!</Title>
+    <Switch>
+      <Route exact path="/" component={Login} />
+      <Route path="/forgot" component={ForgotPassword} />
+      <Route path="/reset/:token" component={ResetPassword} />
+      <Route render={() => <h1>Not found</h1>} />
+    </Switch>
+  </Wrapper>
+);
 
 const Wrapper = styled.div`
 	background-color: ${props => props.theme.primary}
@@ -56,12 +36,4 @@ const Title = styled.h1`
 	margin-bottom: 20px;
 `;
 
-const Description = styled.div`
-	font-size: 15px;
-	color: ${props => props.theme.white};
-	margin-bottom: 20px;
-	width: 90%;
-	text-align: center;
-`;
-
-export default withToggle(Home);
+export default Home;

@@ -11,6 +11,11 @@ const AuthError = (props) => {
   );
 };
 
+const { string } = React.PropTypes;
+AuthError.propTypes = {
+  error: string.isRequired
+};
+
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;

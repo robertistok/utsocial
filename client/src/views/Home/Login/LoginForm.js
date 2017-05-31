@@ -19,8 +19,7 @@ const LoginForm = (props) => {
     pristine,
     valid,
     submitting,
-    onSubmit,
-    showForgotPassword
+    onSubmit
   } = props;
   return (
     <Wrapper>
@@ -45,11 +44,7 @@ const LoginForm = (props) => {
         />
         <ActionWrapper>
           <Field name="remember" label="Remember me" component={Checkbox} />
-          <Link to="/forgot">
-            <ForgotPassword onClick={showForgotPassword}>
-              Forgot password?
-            </ForgotPassword>
-          </Link>
+          <StyledLink to="/forgot">Forgot password?</StyledLink>
         </ActionWrapper>
         <SubmitButton type="submit" disabled={pristine || submitting || !valid}>
           Log In
@@ -61,7 +56,6 @@ const LoginForm = (props) => {
 
 const { func, shape, bool, string } = React.PropTypes;
 LoginForm.propTypes = {
-  showForgotPassword: func.isRequired,
   handleSubmit: func.isRequired,
   onSubmit: func.isRequired,
   pristine: bool.isRequired,
@@ -86,12 +80,8 @@ const ActionWrapper = styled.div`
 	`}
 `;
 
-const ForgotPassword = styled.span`
+const StyledLink = styled(Link)`
 	color: ${props => props.theme.secondary};
-
-	&:hover {
-		cursor: pointer;
-	}
 `;
 
 export default LoginForm;

@@ -67,7 +67,7 @@ export function logOutUser() {
 const INITIAL_STATE = {
   user: undefined,
   authenticated: false,
-  error: false,
+  error: undefined,
   loading: false
 };
 

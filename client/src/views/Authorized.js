@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import { compose } from 'recompose';
 import io from 'socket.io-client';
 
 import Admin from './Admin';
@@ -11,6 +13,11 @@ export const socket = io();
 class Authorized extends Component {
   componentDidMount() {
     socket.emit('join', this.props.auth.user);
+    const { history, auth } = this.props;
+
+    if (auth.authenticated === true) {
+      history.push('/home');
+    }
   }
 
   componentWillUnmount() {
@@ -39,8 +46,10 @@ class Authorized extends Component {
   }
 }
 
-const mapStateToprops = state => ({
+const mapStateToProps = state => ({
   auth: state.account.auth
 });
 
-export default connect(mapStateToprops)(Authorized);
+const enhance = compose(connect(mapStateToProps), withRouter);
+
+export default enhance(Authorized);

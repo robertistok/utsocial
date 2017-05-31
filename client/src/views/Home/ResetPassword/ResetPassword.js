@@ -21,7 +21,7 @@ const ResetPassword = (props) => {
     pristine,
     valid,
     submitting,
-    forgotPassword: { error, status }
+    forgotPasswordState: { error, status }
   } = props;
 
   return (
@@ -39,7 +39,6 @@ const ResetPassword = (props) => {
               placeholder="Enter your new password"
               type="password"
               component={Input}
-              showError
               validate={[required]}
             />
             <Field
@@ -48,6 +47,7 @@ const ResetPassword = (props) => {
               type="password"
               component={Input}
               showError
+              validMessage="Passwords match"
               validate={[required]}
             />
             <SubmitButton
@@ -60,6 +60,16 @@ const ResetPassword = (props) => {
         : <ReturnLink to="/">Return to the homepage</ReturnLink>}
     </Wrapper>
   );
+};
+
+const { bool, func, shape, string } = React.PropTypes;
+ResetPassword.propTypes = {
+  pristine: bool.isRequired,
+  submitting: bool.isRequired,
+  valid: bool.isRequired,
+  handleSubmit: func.isRequired,
+  onSubmit: func.isRequired,
+  forgotPasswordState: shape({ status: string }).isRequired
 };
 
 const ReturnLink = styled(Link)`

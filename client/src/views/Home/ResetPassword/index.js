@@ -23,6 +23,11 @@ class ResetPasswordContainer extends Component {
     checkValidityOfToken(token);
   }
 
+  componentWillUnmount() {
+    const { resetForgotPasswordState } = this.props;
+    resetForgotPasswordState();
+  }
+
   handleSubmit(values) {
     const { match: { params: { token } }, resetForgottenPassword } = this.props;
     const { newPassword, verifyNewPassword } = values;
@@ -35,8 +40,16 @@ class ResetPasswordContainer extends Component {
   }
 }
 
+const { func, shape, string } = React.PropTypes;
+ResetPasswordContainer.propTypes = {
+  checkValidityOfToken: func.isRequired,
+  resetForgotPasswordState: func.isRequired,
+  resetForgottenPassword: func.isRequired,
+  match: shape({ params: shape({ token: string }) }).isRequired
+};
+
 const mapStateToProps = state => ({
-  forgotPassword: state.account.forgotPassword
+  forgotPasswordState: state.account.forgotPassword
 });
 
 const mapDispatchToProps = dispatch =>

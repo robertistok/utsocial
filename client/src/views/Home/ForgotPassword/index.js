@@ -1,3 +1,7 @@
+// This has to be done to the redux-form asyncValidate function
+/* eslint no-throw-literal: 0*/
+/* eslint consistent-return: 0*/
+
 import React, { Component } from 'react';
 import { reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
@@ -30,24 +34,14 @@ class ForgotPasswordContainer extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    const { forgotPassword, toggleForgotPassword } = this.props;
-
-    if (forgotPassword !== true) {
-      toggleForgotPassword();
-    }
-  }
-
   componentWillUnmount() {
-    const { forgotPassword, toggleForgotPassword } = this.props;
+    const { resetForgotPasswordState } = this.props;
 
-    if (forgotPassword === true) {
-      toggleForgotPassword();
-    }
+    resetForgotPasswordState();
   }
 
   handleSubmit(email) {
-    const { sendResetPasswordEmail, history } = this.props;
+    const { sendResetPasswordEmail } = this.props;
     sendResetPasswordEmail(email);
   }
 
@@ -56,8 +50,14 @@ class ForgotPasswordContainer extends Component {
   }
 }
 
+const { func } = React.PropTypes;
+ForgotPasswordContainer.propTypes = {
+  sendResetPasswordEmail: func.isRequired,
+  resetForgotPasswordState: func.isRequired
+};
+
 const mapStateToProps = state => ({
-  forgotPassword: state.account.forgotPassword
+  forgotPasswordState: state.account.forgotPassword
 });
 
 const mapDispatchToProps = dispatch =>

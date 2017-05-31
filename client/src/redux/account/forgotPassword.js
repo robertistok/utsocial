@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const VALIDATE_FORGOT_EMAIL = '/redux/account/forgotPassword/validate-forgot-email';
-const VALIDATE_FORGOT_EMAIL_SUCCESS = '/redux/account/forgotPassword/validate-forgot-email-success';
 
 const SEND_RESET_PASSWORD_MAIL = '/redux/account/forgotPassword/send-reset-password-mail';
 const SEND_RESET_PASSWORD_MAIL_SUCCESS = '/redux/account/forgotPassword/send-reset-password-mail-success';
@@ -14,6 +13,8 @@ const RESET_PASSWORD = 'redux/account/forgotPassword/reset-password';
 const RESET_PASSWORD_SUCCESS = 'redux/account/forgotPassword/reset-password-success';
 const RESET_PASSWORD_ERROR = 'redux/account/forgotPassword/reset-password-error';
 
+const RESET_FORGOT_PASSWORD_STATE = 'redux/acount/forgotPassword/reset-state';
+
 export function validateForgotEmail(email) {
   const request = axios({
     method: 'get',
@@ -23,13 +24,6 @@ export function validateForgotEmail(email) {
   return {
     type: VALIDATE_FORGOT_EMAIL,
     payload: request
-  };
-}
-
-export function validateForgotEmailSuccess(payload) {
-  return {
-    type: VALIDATE_FORGOT_EMAIL_SUCCESS,
-    payload
   };
 }
 
@@ -86,6 +80,12 @@ export function resetForgottenPassword(token, newPassword, verifyNewPassword) {
   };
 }
 
+export function resetForgotPasswordState() {
+  return {
+    type: RESET_FORGOT_PASSWORD_STATE
+  };
+}
+
 const INITIAL_STATE = {
   status: undefined,
   loading: false,
@@ -127,20 +127,22 @@ export default function (state = INITIAL_STATE, action) {
         error: true
       };
     }
-
     case RESET_PASSWORD_SUCCESS: {
       return {
         ...state,
         status: action.payload.message
       };
     }
-
     case RESET_PASSWORD_ERROR: {
       return {
         ...state,
         status: action.payload,
         error: true
       };
+    }
+
+    case RESET_FORGOT_PASSWORD_STATE: {
+      return INITIAL_STATE;
     }
 
     default:
