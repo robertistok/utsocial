@@ -1,11 +1,11 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 
 import Input from '../elements/Input';
 import SubmitButton from '../elements/SubmitButton';
 import Form from '../elements/Form';
+import ReturnLink from '../elements/ReturnLink';
 import {
   StyledLink,
   StyledIcon,
@@ -29,7 +29,8 @@ const ResetPassword = (props) => {
       <Description>
         {status !== undefined ? status : 'Enter your new password'}
       </Description>
-      {error !== true
+      {error !== true ||
+        status === 'Your password was changed succesfully, you can now sign in.'
         ? <Form onSubmit={handleSubmit(onSubmit)}>
             <StyledLink to="/">
               <StyledIcon name="close" size="big" />
@@ -57,7 +58,7 @@ const ResetPassword = (props) => {
               Change password
             </SubmitButton>
           </Form>
-        : <ReturnLink to="/">Return to the homepage</ReturnLink>}
+        : <ReturnLink content="Return to the login page" />}
     </Wrapper>
   );
 };
@@ -71,9 +72,5 @@ ResetPassword.propTypes = {
   onSubmit: func.isRequired,
   forgotPasswordState: shape({ status: string }).isRequired
 };
-
-const ReturnLink = styled(Link)`
-	color: ${props => props.theme.white}
-`;
 
 export default ResetPassword;

@@ -72,7 +72,7 @@ const Wrapper = styled.div`
 
 const Partner = styled.span`
 	font-size: 16px;
-	${truncate('100%')};
+	${truncate('170px')}
 	font-weight: ${props => props.unread ? 'bold' : 'normal'};
 	color: ${props => props.unread ? 'rgba(0, 0, 0, 1)' : 'rgba(75, 75, 75, 1)'};
 `;
@@ -92,7 +92,7 @@ const Subject = styled.h6`
 	font-size: 13px;
 	font-weight: ${props => props.unread ? 'bold' : 'normal'};
 	color: ${props => props.unread ? 'rgba(0, 0, 0, 1)' : 'rgba(75, 75, 75, 1)'};
-	${truncate('100%')}
+	${truncate('170px')}
 `;
 
 const Logo = styled.img`

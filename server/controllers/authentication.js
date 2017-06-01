@@ -126,7 +126,7 @@ function resetForgottenPassword(req, res) {
 			res.status(200).send({
 				token: tokenForUser(user),
 				user: cleanUser,
-				message: 'Your password was changed succesfully'
+				message: 'Your password was changed succesfully, you can now sign in.'
 			})
 		);
 	});

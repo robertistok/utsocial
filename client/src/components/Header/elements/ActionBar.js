@@ -1,22 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Popup, Icon } from 'semantic-ui-react';
+import { Popup } from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
+
+import { NavIcon } from '../../common/Icons';
+import Messages from './Messages';
 
 const ActionBar = (props) => {
   const { user, logOut } = props;
 
   return (
     <Wrapper>
-      <StyledIcon size="large" name="bell" />
-      <StyledIcon size="large" name="envelope" />
+      <NavIcon size="large" name="bell" />
+      <Messages />
       <User>{user}</User>
       <StyledNavLink to="/preferences">
-        <StyledIcon size="large" name="settings" />
+        <NavIcon size="large" name="settings" />
       </StyledNavLink>
       <StyledPopup
-        trigger={<StyledIcon size="large" name="log out" onClick={logOut} />}
+        trigger={<NavIcon size="large" name="log out" onClick={logOut} />}
         content="Log out"
         size="mini"
         position="top left"
@@ -53,18 +56,6 @@ const StyledNavLink = styled(NavLink)`
 		.icon {
 			color: #000000;
 		}
-	}
-`;
-
-const StyledIcon = styled(Icon)`
-	color: #FFFFFF;
-	transition-duration: 0.3s;
-	transition-timing-function: ease-out;
-
-	&:hover {
-		color: #000000 !important;
-		cursor: pointer;
-		transform: translateY(-2px);
 	}
 `;
 
