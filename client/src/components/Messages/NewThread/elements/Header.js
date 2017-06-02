@@ -1,8 +1,26 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import cancelLogo from '../../../../assets/cancel.svg';
+
+const Header = (props) => {
+  const { returnToOnCancel } = props;
+
+  return (
+    <Wrapper>
+      <StyledLink to={returnToOnCancel()}>
+        <Logo src={cancelLogo} alt="cancel" />
+      </StyledLink>
+    </Wrapper>
+  );
+};
+
+const { func } = PropTypes;
+Header.propTypes = {
+  returnToOnCancel: func.isRequired
+};
 
 const Wrapper = styled.div`
 	height: 50px;
@@ -21,13 +39,5 @@ const StyledLink = styled(Link)`
 	height: 20px;
 	width: 20px;
 `;
-
-const Header = props => (
-  <Wrapper>
-    <StyledLink to="/messages">
-      <Logo src={cancelLogo} alt="cancel" />
-    </StyledLink>
-  </Wrapper>
-);
 
 export default Header;

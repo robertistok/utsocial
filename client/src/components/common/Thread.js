@@ -35,7 +35,6 @@ class Thread extends Component {
   render() {
     const {
       subject,
-      timestamp,
       participants,
       messages,
       user,
@@ -47,6 +46,7 @@ class Thread extends Component {
 
     const lastMessage = messages[0];
     let { unread } = lastMessage;
+    const { timestamp } = lastMessage;
 
     if (unread && lastMessage.sender !== partner.username) {
       unread = false;

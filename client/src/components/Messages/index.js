@@ -45,12 +45,17 @@ const Wrapper = styled.div`
 
 const StartingPoint = styled.div`
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	flex-grow: 2;
+	flex-basis: 66.6666%;
+	height: 100%;
+	background-color: #FFFFFF;
+	color: ${props => props.theme.secondary};
 	text-align: center;
 	padding: 15px;
 	font-size: 26px;
-	color: ${props => props.theme.secondary}
 `;
 
 const mapStateToProps = state => ({

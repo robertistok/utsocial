@@ -1,9 +1,10 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 import ContentEditableDiv
-  from '../../../../../../components/Courses/ContentEditableDiv';
+  from '../../../../../../components/common/ContentEditableDiv';
 import Box from '../../../../../../components/Courses/Description/Box';
 
 const DescriptionBox = (props) => {

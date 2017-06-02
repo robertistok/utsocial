@@ -6,12 +6,12 @@
 <g>
 	<g>
 		<g>
-			<rect x="-11.8" y="30" transform="matrix(0.7071 0.7071 -0.7071 0.7071 32 -13.2548)" width="87.7" height="4"/>
+			<rect fill="#51D1B9" x="-11.8" y="30" transform="matrix(0.7071 0.7071 -0.7071 0.7071 32 -13.2548)" width="87.7" height="4"/>
 		</g>
 	</g>
 	<g>
 		<g>
-			<rect x="30" y="-11.8" transform="matrix(0.7071 0.7071 -0.7071 0.7071 32 -13.2548)" width="4" height="87.7"/>
+			<rect fill="#51D1B9" x="30" y="-11.8" transform="matrix(0.7071 0.7071 -0.7071 0.7071 32 -13.2548)" width="4" height="87.7"/>
 		</g>
 	</g>
 </g>

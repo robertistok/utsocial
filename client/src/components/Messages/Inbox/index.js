@@ -25,44 +25,75 @@ class InboxContainer extends Component {
     this.state = {
       firstTime: true
     };
-
-    this.onStarClick = this.onStarClick.bind(this);
   }
 
   componentDidMount() {
-    this.props.getConversationsOfUser(this.props.user.username);
+    const {
+      getConversationsOfUser,
+      addNewConversation,
+      user: { username },
+      history,
+      selectedConversation
+    } = this.props;
 
-    socket.on('new:thread', value => this.props.addNewConversation(value));
+    getConversationsOfUser(username);
 
+    socket.on('new:thread', value => addNewConversation(value));
     socket.on('message:sent', (value) => {
-      this.props.addNewConversation(value);
-      this.props.history.push('/messages');
+      addNewConversation(value);
+      history.push('/messages');
     });
+
+    if (selectedConversation !== null) {
+      history.push(`/messages/${selectedConversation._id}`);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
     if (
       this.state.firstTime &&
       nextProps.conversations !== null &&
-      nextProps.conversations.length !== 0
+      nextProps.conversations.length !== 0 &&
+      this.props.location.pathname.match(/messages\/.{24}/) !== null &&
+      this.props.selectedConversation === null
     ) {
-      const { conversations } = nextProps;
-      const { selectConversation } = this.props;
-      selectConversation(conversations[0]._id);
+      const {
+        location,
+        conversations,
+        history
+      } = nextProps;
+      const conversationID = location.pathname.split('/')[2];
+
       this.setState({ firstTime: false });
+
+      if (
+        conversations.find(
+          conversation => conversation._id === conversationID
+        ) !== undefined
+      ) {
+        this.props.selectConversation(conversationID);
+      } else {
+        history.push('/messages');
+      }
     }
   }
 
-  onStarClick(id) {
-    const { starConversation, user } = this.props;
-
-    starConversation(id, user.username);
-  }
-
   render() {
-    return <Inbox {...this.props} onStarClick={this.onStarClick} />;
+    return <Inbox {...this.props} />;
   }
 }
+
+const { func, shape, string, arrayOf } = PropTypes;
+InboxContainer.propTypes = {
+  getConversationsOfUser: func.isRequired,
+  addNewConversation: func.isRequired,
+  selectConversation: func.isRequired,
+  selectedConversation: shape({ _id: string.isRequired }),
+  location: shape({ pathname: string.isRequired }).isRequired,
+  history: shape({ push: func.isRequired }).isRequired,
+  conversations: arrayOf(shape({ _id: string.isRequired })),
+  user: shape({ username: string.isRequired })
+};
 
 // const LoadingIndicator = () => (
 //   <Dimmer active>

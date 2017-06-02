@@ -18,12 +18,12 @@ const Inbox = (props) => {
         <SearchBar {...props} />
         {conversations && conversations.length !== 0
           ? conversations
-              .sort(
-                (c1, c2) => c1.messages[0].timestamp < c2.messages[0].timestamp
-              )
-              .map(conversation => (
-                <Thread key={conversation._id} {...conversation} {...props} />
-              ))
+					.sort(
+						(c1, c2) => c1.messages[0].timestamp < c2.messages[0].timestamp
+					)
+					.map(conversation => (
+						<Thread key={conversation._id} {...conversation} {...props} />
+					))
           : <NoMessages>No messages</NoMessages>}
       </ThreadsContainer>
     </Wrapper>
@@ -62,7 +62,8 @@ const NoMessages = styled.div`
 	color: ${props => props.theme.secondary};
 	font-size: 26px;
 	height: 100%;
-	width: 100%;
+	flex-grow: 2;
+	flex-basis: 66.6666%;
 `;
 
 export default Inbox;

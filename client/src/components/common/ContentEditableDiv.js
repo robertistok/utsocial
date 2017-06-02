@@ -10,11 +10,11 @@ class ContentEditableDiv extends Component {
   }
 
   render() {
-    const { onContentChange, text } = this.props;
+    const { onContentChange, text, autoFocus = true } = this.props;
 
     return (
       <Wrapper
-        autoFocus
+        autoFocus={autoFocus}
         onInput={onContentChange}
         contentEditable
         suppressContentEditableWarning
@@ -28,14 +28,16 @@ class ContentEditableDiv extends Component {
   }
 }
 
-const { func, string } = PropTypes;
+const { func, string, bool } = PropTypes;
 ContentEditableDiv.propTypes = {
   onContentChange: func.isRequired,
-  text: string.isRequired
+  text: string.isRequired,
+  autoFocus: bool
 };
 
 const Wrapper = styled.div`
 	padding: 10px;
+	display: inline-block;
 
 	&:focus {
 		outline: none

@@ -1,22 +1,83 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Field } from 'redux-form';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-import Header from './elements/Header';
-import NewThreadForm from './elements/NewThreadForm';
+import InputField from './elements/InputField';
+import MessageBox from './elements//MessageBox';
+import UsersField from './elements/UsersField';
+import { required } from '../../FormComponents/validation';
+import SubmitButton from '../../common/SubmitButton';
+import cancelLogo from '../../../assets/cancel.svg';
 
-const Wrapper = styled.div`
-	flex: 3;
+const NewThreadForm = (props) => {
+  const { handleSubmit, returnToOnCancel, onSubmit } = props;
+
+  return (
+    <StyledForm onSubmit={handleSubmit(onSubmit)}>
+      <StyledLink to={returnToOnCancel()}>
+        <Logo src={cancelLogo} alt="cancel" />
+      </StyledLink>
+      <Field
+        name="target"
+        component={UsersField}
+        placeholder="To"
+        {...props}
+        validate={required}
+      />
+      <Field
+        name="subject"
+        type="text"
+        placeholder="Subject"
+        component={InputField}
+        validate={required}
+      />
+      <Field
+        name="message"
+        type="text"
+        label="Message"
+        placeholder="Enter your message..."
+        component={MessageBox}
+        validate={required}
+      />
+      <SubmitButton width="70%" type="submit">Send message</SubmitButton>
+    </StyledForm>
+  );
+};
+
+const { func } = PropTypes;
+NewThreadForm.propTypes = {
+  handleSubmit: func.isRequired,
+  returnToOnCancel: func.isRequired
+};
+
+const StyledForm = styled.form`
+	position: relative;
 	display: flex;
 	flex-direction: column;
-	height: 100%;
+	flex-grow: 2;
+	flex-basis: 66.6666%;
 	background-color: #FFFFFF;
+	color: ${props => props.theme.secondary}
+	width: 100%;
+	padding: 30px 40px 20px 40px;
+	align-items: center;
+	justify-content: center;
 `;
 
-const NewThread = props => (
-  <Wrapper>
-    <Header />
-    <NewThreadForm onSubmit={props.handleSubmit} />
-  </Wrapper>
-);
+const StyledLink = styled(Link)`
+	margin: 15px;
+	height: 20px;
+	width: 20px;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+`;
 
-export default NewThread;
+const Logo = styled.img`
+	width: 20px;
+	height: 20px;
+`;
+
+export default NewThreadForm;

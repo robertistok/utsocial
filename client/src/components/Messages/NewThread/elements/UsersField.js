@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Form, Dropdown } from 'semantic-ui-react';
+import { Dropdown } from 'semantic-ui-react';
+import styled from 'styled-components';
 
 import * as usersActions from '../../../../redux/users';
+import { media } from '../../../../utils/style-utils';
 
 const renderOptions = users =>
   users.map(({ username }) => ({
@@ -40,16 +42,14 @@ class UsersField extends Component {
   render() {
     const {
       input,
-      label,
       placeholder,
       meta: { touched, error },
       users
     } = this.props;
     return (
-      <Form.Field error={touched && error} required>
-        <label htmlFor={input.name}>{label}</label>
+      <Wrapper error={touched && error} required>
         {users.matched &&
-          <Dropdown
+          <StyledDropdown
             options={renderOptions(users.matched)}
             value={input.value}
             search
@@ -60,10 +60,55 @@ class UsersField extends Component {
             closeOnChange
             noResultsMessage={this.state.noResultsMessage}
           />}
-      </Form.Field>
+      </Wrapper>
     );
   }
 }
+
+const { func, bool, shape, string, arrayOf } = PropTypes;
+UsersField.propTypes = {
+  blur: func.isRequired,
+  placeholder: string,
+  meta: shape({ touched: bool.isRequired }),
+  searchUsers: func.isRequired,
+  users: shape({ matched: arrayOf(shape({ username: string.isRequired })) }),
+  input: shape({
+    value: string.isRequired
+  })
+};
+
+const Wrapper = styled.div`
+	margin: 20px;
+	width: 100%;
+`;
+
+const StyledDropdown = styled(Dropdown)`
+	font-size: 14px !important;
+	border-radius: 0px !important;
+	max-height: 40px !important;
+	text-align: center;
+	width: 100%;
+
+	&.active {
+		border-color: ${props => props.theme.primary} !important;
+	}
+
+	div {
+		border-color: ${props => props.theme.primary} !important;
+	}
+
+	div .text {
+		font-size: 13px !important;
+	}
+
+	${media.phone`
+		font-size: 12px !important;
+
+		div .text {
+			font-size: 12px !important;
+		}
+	`}
+`;
 
 const mapStateToProps = state => ({ users: state.users });
 
