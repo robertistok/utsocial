@@ -1,4 +1,4 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
 import styled from 'styled-components';
 
 import Header from './elements/Header';
@@ -6,9 +6,10 @@ import Discussion from './elements/Discussion';
 import NewMessageBox from './elements/NewMessageBox';
 
 const Wrapper = styled.div`
-	flex: 3;
 	display: flex;
 	flex-direction: column;
+	flex-grow: 2;
+	flex-basis: 66.6666%;
 	height: 100%;
 	background-color: #FFFFFF;
 `;

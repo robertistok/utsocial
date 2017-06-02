@@ -11,6 +11,8 @@ const SearchBar = (props) => {
       <StyledInput
         type="text"
         placeholder="search"
+        icon="search"
+        iconPosition="left"
         value={searchTerm}
         onChange={(e, data) => changeSearchterm(data.value)}
       />
@@ -18,18 +20,31 @@ const SearchBar = (props) => {
   );
 };
 
+const { string, func } = PropTypes;
+SearchBar.propTypes = {
+  changeSearchterm: func.isRequired,
+  searchTerm: string.isRequired
+};
+
 const Wrapper = styled.div`
-	height: 30px;
-	order:-1;
+	height: 40px;
+	order: -1;
 `;
 
 const StyledInput = styled(Input)`
-	height: 30px;
 	width: 100%;
+	height: 100%;
+	border-bottom: 1px solid ${props => props.theme.lightGray} !important;
+
 
 	input {
 		font-family: Roboto !important;
 		border-radius: 0 !important;
+		border-color: ${props => props.theme.white} !important;
+
+		&:focus {
+			border-color: ${props => props.theme.primary} !important;
+		}
 	}
 `;
 

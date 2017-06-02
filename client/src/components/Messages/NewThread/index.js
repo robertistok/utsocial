@@ -22,6 +22,7 @@ class NewThreadContainer extends Component {
   }
 
   render() {
+    console.log('new thread');
     return <NewThread {...this.props} handleSubmit={this.handleSubmit} />;
   }
 }

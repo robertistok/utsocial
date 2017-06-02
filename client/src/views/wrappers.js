@@ -15,11 +15,9 @@ export const Content = styled.div`
 	margin-top: 110px;
 	left: 0px;
 	right: 0px;
-	min-height: calc(100% - 220px);
+	min-height: calc(100% - 110px);
 	max-width: 1178px;
 	margin: auto;
-	margin-top: 50px;
-	margin-bottom: 20px;
-
+	margin-top: 20px;
 	${media.tablet`width: 100%`}
 `;

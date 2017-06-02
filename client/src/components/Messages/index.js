@@ -1,4 +1,4 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Route, Switch } from 'react-router-dom';
@@ -11,29 +11,52 @@ import { withMountingTransition } from '../hocs';
 
 const ForOhFor = () => <h1>No match found</h1>;
 
-const Wrapper = styled.div`
-	width: 100%;
-	display: flex;
-	height: calc(100vh - 105px);
-	overflow: auto;
-	border: 1px solid rgba(0, 0, 0, .10);
-`;
-
 const MessageaContainer = () => (
   <Wrapper>
     <InboxContainer />
     <Switch>
-      <Route exact path="/messages" component={ConversationContainer} />
+      <Route
+        exact
+        path="/messages"
+        render={() => (
+          <StartingPoint>
+            Select a conversation or start a new one
+          </StartingPoint>
+        )}
+      />
       <Route path="/messages/new" component={NewThreadContainer} />
+      <Route
+        path="/messages/:conversationID"
+        component={ConversationContainer}
+      />
       <Route component={ForOhFor} />
     </Switch>
   </Wrapper>
 );
 
+const Wrapper = styled.div`
+	display: flex;
+	height: calc(100vh - 120px);
+	max-width: 100%;
+	max-height: 700px;
+	overflow: auto;
+	border: 1px solid rgba(0, 0, 0, .10);
+`;
+
+const StartingPoint = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	padding: 15px;
+	font-size: 26px;
+	color: ${props => props.theme.secondary}
+`;
+
 const mapStateToProps = state => ({
   messages: state.messages
 });
 
-const enhance = compose(withMountingTransition, connect(mapStateToProps));
+const enhance = compose(connect(mapStateToProps), withMountingTransition);
 
 export default enhance(MessageaContainer);

@@ -18,39 +18,55 @@ class ConversationContainer extends Component {
   }
 
   componentDidMount() {
+    const {
+      match: { params: { conversationID } },
+      loggedInUser
+    } = this.props;
     socket.on('new:message', message => this.props.addNewMessage(message));
     socket.emit('subscribeToRoom', {
-      room: this.props.selectedConversation._id,
-      user: this.props.loggedInUser
+      room: conversationID,
+      user: loggedInUser
     });
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.selectedConversation !== this.props.selectedConversation) {
+      const {
+        match: { params: { conversationID: previousConversationID } },
+        loggedInUser
+      } = this.props;
+
+      const {
+        match: { params: { conversationID: selectedConversationID } }
+      } = nextProps;
+
       socket.emit('leaveRoom', {
-        room: this.props.selectedConversation._id,
-        user: this.props.loggedInUser
+        room: previousConversationID,
+        user: loggedInUser
       });
       socket.emit('subscribeToRoom', {
-        room: nextProps.selectedConversation._id,
-        user: this.props.loggedInUser
+        room: selectedConversationID,
+        user: loggedInUser
       });
     }
   }
 
   componentWillUnmount() {
+    const { match: { params: { conversationID } }, loggedInUser } = this.props;
     socket.emit('leaveRoom', {
-      room: this.props.selectedConversation._id,
-      user: this.props.loggedInUser
+      room: conversationID,
+      user: loggedInUser
     });
   }
 
   sendMessage(values) {
+    const { match: { params: { conversationID } }, loggedInUser } = this.props;
+
     socket.emit('send:message', {
-      room: this.props.selectedConversation._id,
-      sender: this.props.loggedInUser.username,
+      room: conversationID,
+      sender: loggedInUser.username,
       text: values.message,
-      id: this.props.selectedConversation._id
+      id: conversationID
     });
   }
 
@@ -58,6 +74,16 @@ class ConversationContainer extends Component {
     return <Conversation {...this.props} onSubmit={this.sendMessage} />;
   }
 }
+
+const { shape, string, func } = PropTypes;
+ConversationContainer.propTypes = {
+  loggedInUser: shape({ username: string.isRequired }).isRequired,
+  addNewMessage: func.isRequired,
+  match: shape({
+    params: shape({ conversationID: string.isRequired }).isRequired
+  }).isRequired,
+  selectedConversation: shape({ _id: string.isRequired })
+};
 
 const noSelectedConversations = props => props.selectedConversation === null;
 const noConversations = props =>

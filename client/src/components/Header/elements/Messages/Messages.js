@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import enhanceWithClickOutside from 'react-click-outside';
 
 import { NavIcon } from '../../../common/Icons';
-import Thread from './elements/Thread';
+import Thread from '../../../common/Thread';
 
 class Messages extends Component {
   handleClickOutside() {
@@ -44,12 +44,14 @@ class Messages extends Component {
         </NavIcon>
         {shown &&
           <Content>
+            <Title>{'Messages'.toUpperCase()}</Title>
             {conversations !== null &&
               conversations.map(conversation => (
                 <Thread
                   key={conversation._id}
                   {...conversation}
-                  current={username}
+                  customOnClickhandler={toggleDropdown}
+                  {...this.props}
                 />
               ))}
           </Content>}
@@ -80,12 +82,20 @@ const Content = styled.div`
 	}
 `;
 
+const Title = styled.span`
+	font-size: 14px;
+	color: ${props => props.theme.secondary};
+	font-weight: bolder;
+	padding: 10px 15px;
+	border-bottom: 1px solid ${props => props.theme.lightGray} !important;
+`;
+
 const Number = styled.span`
 	position: absolute;
 	right: 14px;
 	top: -3px;
 	color: ${props => props.theme.white};
-	font-size: 11px;
+	font-size: 12px;
 	z-index: 10;
 	font-weight: bolder;
 	border: 1px solid #FF0000

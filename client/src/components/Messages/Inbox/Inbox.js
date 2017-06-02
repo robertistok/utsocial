@@ -1,15 +1,46 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import SearchBar from './elements/SearchBar';
-import Thread from './elements/Thread';
+import Thread from '../../common/Thread';
 import Header from './elements/Header';
+
+const Inbox = (props) => {
+  const {
+    conversations
+  } = props;
+
+  return (
+    <Wrapper>
+      <Header {...props} />
+      <ThreadsContainer>
+        <SearchBar {...props} />
+        {conversations && conversations.length !== 0
+          ? conversations
+              .sort(
+                (c1, c2) => c1.messages[0].timestamp < c2.messages[0].timestamp
+              )
+              .map(conversation => (
+                <Thread key={conversation._id} {...conversation} {...props} />
+              ))
+          : <NoMessages>No messages</NoMessages>}
+      </ThreadsContainer>
+    </Wrapper>
+  );
+};
+
+const { shape, arrayOf, string } = PropTypes;
+Inbox.propTypes = {
+  conversations: arrayOf(shape({ _id: string.isRequired }))
+};
 
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	height: 100%;
-	flex: 1;
+	flex-grow: 1;
+	flex-basis: 250px;
 	border-right: 1px solid rgba(0, 0, 0, .10);
 	background-color: #FFFFFF;
 `;
@@ -22,68 +53,16 @@ const ThreadsContainer = styled.div`
 	height: calc(100% - 50px)
 `;
 
-const Inbox = (props) => {
-  const {
-    conversations,
-    user,
-    selectConversation,
-    readMessages,
-    selectedConversation,
-    changeSearchterm,
-    onStarClick,
-    history
-  } = props;
-
-  const renderThreads = (conv) => {
-    const partner = conv.participants.find(p => p.username !== user.username);
-
-    const lastMessage = conv.messages[0];
-
-    const onClick = () => {
-      if (lastMessage.unread && lastMessage.sender === partner.username) {
-        readMessages(conv._id);
-      }
-      if (selectedConversation._id !== conv._id) {
-        selectConversation(conv._id);
-      }
-      changeSearchterm('');
-      history.push('/messages');
-    };
-
-    return (
-      <Thread
-        key={lastMessage.timestamp}
-        id={conv._id}
-        user={user}
-        starred={conv.starred}
-        subject={conv.subject}
-        partner={partner}
-        lastMessage={lastMessage}
-        timestamp={lastMessage.timestamp}
-        onClick={onClick}
-        onStarClick={() => onStarClick(conv._id)}
-        selectedConversation={selectedConversation}
-      />
-    );
-  };
-
-  return (
-    <Wrapper>
-      <Header {...props} />
-      <ThreadsContainer>
-        <SearchBar {...props} />
-        {conversations && conversations.length !== 0
-          ? conversations
-              .sort(
-                (c1, c2) => c1.messages[0].timestamp < c2.messages[0].timestamp
-              )
-              .map(renderThreads)
-          : <div>
-              <h1>No messages</h1>
-            </div>}
-      </ThreadsContainer>
-    </Wrapper>
-  );
-};
+const NoMessages = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	padding: 10px;
+	color: ${props => props.theme.secondary};
+	font-size: 26px;
+	height: 100%;
+	width: 100%;
+`;
 
 export default Inbox;
