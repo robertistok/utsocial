@@ -5,6 +5,14 @@ import Header from './elements/Header';
 import Discussion from './elements/Discussion';
 import NewMessageBox from './elements/NewMessageBox';
 
+const Conversation = props => (
+  <Wrapper>
+    <Header {...props} />
+    <Discussion {...props} />
+    <NewMessageBox {...props} />
+  </Wrapper>
+);
+
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -13,13 +21,5 @@ const Wrapper = styled.div`
 	height: 100%;
 	background-color: #FFFFFF;
 `;
-
-const Conversation = props => (
-  <Wrapper>
-    <Header {...props} />
-    <Discussion {...props} />
-    <NewMessageBox {...props} />
-  </Wrapper>
-);
 
 export default Conversation;

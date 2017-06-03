@@ -1,10 +1,16 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { formatTime } from '../../../../utils/timestamp';
+import { formatMultiLineText } from '../../../../utils/style-utils';
 
 const Discussion = (props) => {
-  const { selectedConversation, loggedInUser } = props;
+  const { selectedConversation, loggedInUser, fields } = props;
+
+  const newMessageActive = fields !== undefined &&
+    fields.message !== undefined &&
+    fields.message.active === true;
 
   const partner = selectedConversation.participants.find(
     p => p.username !== loggedInUser.username
@@ -24,7 +30,7 @@ const Discussion = (props) => {
           <Partner self={sender === 'Me'}>{sender}</Partner>
           <Timestamp>{formatTime(m.timestamp)}</Timestamp>
         </Info>
-        <Message>{m.text}</Message>
+        <Message>{formatMultiLineText(m.text)}</Message>
       </MessageWrapper>
     );
   };
@@ -32,14 +38,25 @@ const Discussion = (props) => {
   if (!selectedConversation) return null;
 
   return (
-    <Wrapper>
+    <Wrapper newMessageActive={newMessageActive}>
       {selectedConversation.messages.map(renderMessage)}
     </Wrapper>
   );
 };
 
+const { arrayOf, shape, string, bool } = PropTypes;
+Discussion.propTypes = {
+  selectedConversation: shape({
+    participants: arrayOf(shape({ username: string.isRequired })),
+    messages: arrayOf(
+      shape({ _id: string.isRequired, unread: bool.isRequired })
+    )
+  }),
+  loggedInUser: shape({ username: string.isRequired }).isRequired
+};
+
 const Wrapper = styled.div`
-	height: calc(100% - 49px - 40px);
+	height: ${props => props.newMessageActive ? 'calc(100% - 49px - 130px)' : 'calc(100% - 49px - 40px)'};
 
 	border-bottom: 1px solid rgba(0, 0, 0, .10);
 	overflow: auto;
@@ -74,11 +91,10 @@ const Timestamp = styled.span`
 	margin-right: 25px;
 `;
 
-const Message = styled.p`
+const Message = styled.div`
 	width: 100%;
+	height: min-content;
 	display: flex;
-	flex-wrap: wrap;
-	word-wrap: normal;
 	padding: 10px 20px;
 `;
 

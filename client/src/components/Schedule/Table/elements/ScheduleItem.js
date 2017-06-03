@@ -1,5 +1,8 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
+import { onlyFirstLetters } from '../../../../utils/string-operations';
 
 const ScheduleItem = (props) => {
   const { schedule, onClick } = props;
@@ -14,7 +17,7 @@ const ScheduleItem = (props) => {
       onClick={onClick}
       data-schedule={JSON.stringify(schedule)}
     >
-      {schedule.what.course.name.match(/\b([A-Z0-9])/g).join('')}
+      {onlyFirstLetters(schedule.what.course.name)}
     </Wrapper>
   );
 };

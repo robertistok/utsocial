@@ -51,6 +51,14 @@ class InboxContainer extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (
+      this.props.location.pathname.match(/messages\/.{24}/) === null &&
+      this.props.location.pathname !== '/messages' &&
+      this.props.location.pathname !== '/messages/new'
+    ) {
+      this.props.history.push('/messages');
+    }
+
+    if (
       this.state.firstTime &&
       nextProps.conversations !== null &&
       nextProps.conversations.length !== 0 &&

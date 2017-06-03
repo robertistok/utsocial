@@ -29,6 +29,10 @@ SearchBar.propTypes = {
 const Wrapper = styled.div`
 	height: 40px;
 	order: -1;
+
+	@media screen and (max-width: 768px) {
+		display: none;
+	}
 `;
 
 const StyledInput = styled(Input)`

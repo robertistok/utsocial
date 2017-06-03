@@ -78,7 +78,7 @@ UsersField.propTypes = {
 };
 
 const Wrapper = styled.div`
-	margin: 20px;
+	margin: 15px;
 	width: 100%;
 `;
 

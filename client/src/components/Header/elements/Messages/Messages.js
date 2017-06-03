@@ -45,15 +45,19 @@ class Messages extends Component {
         {shown &&
           <Content>
             <Title>{'Messages'.toUpperCase()}</Title>
-            {conversations !== null &&
-              conversations.map(conversation => (
-                <Thread
-                  key={conversation._id}
-                  {...conversation}
-                  customOnClickhandler={toggleDropdown}
-                  {...this.props}
-                />
-              ))}
+            <ItemContainer>
+              {conversations !== null &&
+                conversations.map(conversation => (
+                  <Thread
+                    key={conversation._id}
+                    {...conversation}
+                    customOnClickhandler={toggleDropdown}
+                    {...this.props}
+                    isNotification
+                  />
+                ))}
+            </ItemContainer>
+
           </Content>}
       </Dropdown>
     );
@@ -88,6 +92,12 @@ const Title = styled.span`
 	font-weight: bolder;
 	padding: 10px 15px;
 	border-bottom: 1px solid ${props => props.theme.lightGray} !important;
+`;
+
+const ItemContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	overflow: auto;
 `;
 
 const Number = styled.span`

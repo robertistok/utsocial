@@ -18,7 +18,7 @@ InputField.propTypes = {
 
 const StyledInput = styled(Input)`
 	width: 100%;
-	margin: 20px;
+	margin: 15px 15px 38px 15px;
 	height: 40px !important;
 
 	input {
@@ -26,13 +26,14 @@ const StyledInput = styled(Input)`
 		border-radius: 0 !important;
 		height: 40px !important;
 
+		&:hover {
+			border-color: rgba(34,36,38,.35) !important;
+		}
+
 		&:focus {
 			border-color: ${props => props.theme.primary} !important;
 		}
 
-		&:hover {
-			border-color: rgba(34,36,38,.35) !important;
-		}
 	}
 `;
 

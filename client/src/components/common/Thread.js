@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -7,8 +8,8 @@ import { bindActionCreators } from 'redux';
 import * as messagesActions from '../../redux/messages';
 import femaleLogo from '../../assets/female.svg';
 import maleLogo from '../../assets/male.svg';
-import { truncate } from '../../utils/style-utils';
 import { formatTime } from '../../utils/timestamp';
+import { onlyFirstLetters } from '../../utils/string-operations';
 
 class Thread extends Component {
   constructor(props) {
@@ -22,14 +23,17 @@ class Thread extends Component {
       selectConversation,
       changeSearchterm,
       customOnClickhandler,
+      readMessages,
       _id: id
     } = this.props;
 
     if (customOnClickhandler !== undefined) {
       customOnClickhandler();
     }
+
     changeSearchterm('');
     selectConversation(id);
+    readMessages(id);
   }
 
   render() {
@@ -38,7 +42,8 @@ class Thread extends Component {
       participants,
       messages,
       user,
-      _id: id
+      _id: id,
+      isNotification = false
     } = this.props;
 
     const partner = participants.find(p => p.username !== user.username);
@@ -53,36 +58,68 @@ class Thread extends Component {
     }
 
     return (
-      <StyledNavLink to={`/messages/${id}`}>
+      <StyledNavLink
+        to={`/messages/${id}`}
+        activeClassName={isNotification ? '' : 'active'}
+      >
         <Wrapper unread={unread} onClick={this.onClick}>
           <GenderLogo gender={gender} />
-          <InfoWrapper>
+          <InfoWrapper isNotification={isNotification}>
             <PartnerAndTimestampWrapper>
               <Partner unread={unread}>
                 {`${firstname} ${lastname}`}
               </Partner>
               <Timestamp>{formatTime(timestamp)}</Timestamp>
             </PartnerAndTimestampWrapper>
-            <div><Subject>{subject}</Subject></div>
+            <Subject>{subject}</Subject>
           </InfoWrapper>
-
+          {!isNotification &&
+            <MobilePartner>
+              <Partner unread={unread}>
+                {onlyFirstLetters(`${firstname} ${lastname}`)}
+              </Partner>
+            </MobilePartner>}
         </Wrapper>
       </StyledNavLink>
     );
   }
 }
 
+const { func, string, shape, arrayOf, bool } = PropTypes;
+Thread.propTypes = {
+  customOnClickhandler: func,
+  selectConversation: func.isRequired,
+  changeSearchterm: func.isRequired,
+  readMessages: func.isRequired,
+  _id: string.isRequired,
+  subject: string.isRequired,
+  user: shape({ username: string.isRequired }).isRequired,
+  participants: arrayOf(
+    shape({ username: string.isRequired }).isRequired
+  ).isRequired,
+  messages: arrayOf(
+    shape({ unread: bool.isRequired, timestamp: string.isRequired })
+  ),
+  isNotification: bool
+};
+
 const StyledNavLink = styled(NavLink)`
+	border-bottom: 1px solid ${props => props.theme.lightGray};
+
 	&:hover {
 		background-color: rgba(0, 0, 0, .05)
 		cursor: pointer;
 	}
 
 	&.active {
-		background-color: rgba(0, 0, 0, .05)
+		background-color: rgba(0, 0, 0, .05);
 	}
 
-	border-bottom: 1px solid ${props => props.theme.lightGray}
+	@media screen and (max-width: 768px) {
+		height: min-content;
+		border-bottom: 0px;
+	}
+
 `;
 
 const Wrapper = styled.div`
@@ -96,6 +133,19 @@ const InfoWrapper = styled.div`
 	flex-direction: column;
 	width: 100%;
 	justify-content: space-between;
+
+	@media screen and (max-width: 768px) {
+		display: ${props => !props.isNotification && 'none'};
+	}
+`;
+
+const MobilePartner = styled.div`
+	display: none;
+
+	@media screen and (max-width: 768px) {
+		display: flex;
+		color: ${props => props.theme.black};
+	}
 `;
 
 const PartnerAndTimestampWrapper = styled.div`
@@ -144,10 +194,6 @@ const GenderLogo = styled.img`
 	margin: 5px;
 
 	content: url(${props => props.gender === 'male' ? maleLogo : femaleLogo});
-
-	&.compose {
-		margin: 0px;
-	}
 `;
 
 const mapStateToProps = state => ({

@@ -38,7 +38,6 @@ const Wrapper = styled.div`
 	display: flex;
 	height: calc(100vh - 120px);
 	max-width: 100%;
-	max-height: 700px;
 	overflow: auto;
 	border: 1px solid rgba(0, 0, 0, .10);
 `;

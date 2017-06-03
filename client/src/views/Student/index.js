@@ -1,6 +1,6 @@
 // Code splitting
-/* eslint import/prefer-default-export: 0*/ import React from 'react'; import PropTypes from 'prop-types'
-
+/* eslint import/prefer-default-export: 0*/
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import HeaderContainer from '../../components/Header/';
@@ -14,14 +14,7 @@ import { Wrapper, Content } from '../wrappers';
 
 const ForOhFor = () => <h1>No match found</h1>;
 
-const links = [
-  'home',
-  'courses',
-  'messages',
-  'schedules',
-  'grades',
-  'settings'
-];
+const links = ['home', 'courses', 'messages', 'schedules', 'grades'];
 
 const Student = () => (
   <Wrapper id="mainWrapper">

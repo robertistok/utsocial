@@ -1,34 +1,67 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import styled from 'styled-components';
-import { Form, Button } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 
-import InputWithLabel from '../../../FormComponents/InputWithLabel';
+import ExpandableTextArea from '../../../common/ExpandableTextArea';
+import { required } from '../../../FormComponents/validation';
 
 const NewMessageBox = (props) => {
-  const { handleSubmit } = props;
+  const { handleSubmit, fields, pristine, valid, submitting } = props;
+
+  const isActive = fields !== undefined &&
+    fields.message !== undefined &&
+    fields.message.active === true;
+
   return (
-    <StyledForm onSubmit={handleSubmit}>
+    <StyledForm onSubmit={handleSubmit} isActive={isActive}>
       <Field
         name="message"
         placeholder="Enter your message"
-        component={InputWithLabel}
+        component={ExpandableTextArea}
         type="text"
-        rows={1}
+        validation={required}
+        rows={isActive ? 5 : 1}
       />
-      <Button>Send message</Button>
+      <SubmitButton
+        disabled={pristine || !valid || submitting}
+        content="Send"
+      />
+
     </StyledForm>
   );
 };
 
-const StyledForm = styled(Form)`
-	height: 40px;
+const { func } = PropTypes;
+NewMessageBox.propTypes = {
+  handleSubmit: func.isRequired
+};
+
+const StyledForm = styled.form`
+	position: relative;
+	height: ${props => props.isActive ? '130px' : '40px'};
 	display: flex;
 	width: 100%;
+`;
 
-	:first-child {
-		flex: 4;
-	}
+const SubmitButton = styled(Button)`
+	margin-top: auto !important;
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+
+	width: ${(props) => {
+  if (props.width !== undefined) {
+    return props.width;
+  }
+
+  return '100px';
+}};
+
+	height: 40px;
+	background-color: ${props => props.theme.primary} !important;
+	color: ${props => props.theme.white} !important;
 `;
 
 export default reduxForm({ form: 'newMessageForm' })(NewMessageBox);

@@ -12,7 +12,14 @@ import SubmitButton from '../../common/SubmitButton';
 import cancelLogo from '../../../assets/cancel.svg';
 
 const NewThreadForm = (props) => {
-  const { handleSubmit, returnToOnCancel, onSubmit } = props;
+  const {
+    handleSubmit,
+    returnToOnCancel,
+    onSubmit,
+    valid,
+    submitting,
+    pristine
+  } = props;
 
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
@@ -41,7 +48,12 @@ const NewThreadForm = (props) => {
         component={MessageBox}
         validate={required}
       />
-      <SubmitButton width="70%" type="submit">Send message</SubmitButton>
+      <SubmitButton
+        disabled={pristine || !valid || submitting}
+        type="submit"
+        icon="compose"
+        content="Send"
+      />
     </StyledForm>
   );
 };
@@ -49,7 +61,8 @@ const NewThreadForm = (props) => {
 const { func } = PropTypes;
 NewThreadForm.propTypes = {
   handleSubmit: func.isRequired,
-  returnToOnCancel: func.isRequired
+  returnToOnCancel: func.isRequired,
+  onSubmit: func.isRequired
 };
 
 const StyledForm = styled.form`
@@ -61,23 +74,23 @@ const StyledForm = styled.form`
 	background-color: #FFFFFF;
 	color: ${props => props.theme.secondary}
 	width: 100%;
-	padding: 30px 40px 20px 40px;
+	padding: 25px 70px 20px 70px;
 	align-items: center;
 	justify-content: center;
 `;
 
 const StyledLink = styled(Link)`
 	margin: 15px;
-	height: 20px;
-	width: 20px;
+	height: 15px;
+	width: 15px;
 	position: absolute;
 	top: 0px;
 	right: 0px;
 `;
 
 const Logo = styled.img`
-	width: 20px;
-	height: 20px;
+	width: 15px;
+	height: 15px;
 `;
 
 export default NewThreadForm;

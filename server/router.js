@@ -17,7 +17,6 @@ const PostsController = require('./controllers/posts');
 const passportService = require('./services/passport');
 
 const requireSignin = passport.authenticate('local', {
-	failureFlash: true,
 	session: false
 });
 const requireAuth = passport.authenticate('jwt', { session: false });

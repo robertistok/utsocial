@@ -25,19 +25,27 @@ const Header = (props) => {
 
   const filtertext = options.find(op => op.value === filter).text;
   return (
-    <Wrapper>
-      <StyledDropdown
-        defaultValue="all"
-        trigger={<Logo src={filterLogo} alt="settings" />}
-        options={options}
-        onChange={(e, val) => filterConversations(val.value)}
-      />
-      <Filter>{filtertext}</Filter>
-      <StyledLink to="/messages/new">
-        <Logo className="compose" src={composeLogo} alt="compose" />
-      </StyledLink>
-    </Wrapper>
+    <div>
+      <Wrapper>
+        <StyledDropdown
+          defaultValue="all"
+          trigger={<Logo src={filterLogo} alt="settings" />}
+          options={options}
+          onChange={(e, val) => filterConversations(val.value)}
+        />
+        <Filter>{filtertext}</Filter>
+        <StyledLink to="/messages/new">
+          <Logo className="compose" src={composeLogo} alt="compose" />
+        </StyledLink>
+      </Wrapper>
+    </div>
   );
+};
+
+const { func, string } = PropTypes;
+Header.propTypes = {
+  filter: string,
+  filterConversations: func.isRequired
 };
 
 const Wrapper = styled.div`
@@ -45,6 +53,21 @@ const Wrapper = styled.div`
 	border-bottom: 1px solid rgba(0, 0, 0, .10);
 	display: flex;
 	justify-content: space-between;
+
+	@media screen and (max-width: 768px) {
+		justify-content: center;
+		align-items: center;
+
+		.dropdown {
+			display: none !important;
+		}
+	}
+`;
+
+const StyledLink = styled(Link)`
+	margin: 15px;
+	height: min-content;
+	width: min-content;
 `;
 
 const Logo = styled.img`
@@ -57,16 +80,15 @@ const Logo = styled.img`
 	}
 `;
 
-const StyledLink = styled(Link)`
-	margin: 15px;
-	height: 20px;
-	width: 20px;
-`;
-
 const Filter = styled.span`
 	margin: 15px 0px;
 	font-size: 20px;
-	color: ${props => props.theme.secondary}
+	color: ${props => props.theme.secondary};
+
+	@media screen and (max-width: 768px) {
+		display: none;
+	}
+
 `;
 
 const StyledDropdown = styled(Dropdown)`
