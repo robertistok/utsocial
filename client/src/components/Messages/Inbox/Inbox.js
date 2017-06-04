@@ -17,13 +17,9 @@ const Inbox = (props) => {
       <ThreadsContainer>
         <SearchBar {...props} />
         {conversations && conversations.length !== 0
-          ? conversations
-              .sort(
-                (c1, c2) => c1.messages[0].timestamp < c2.messages[0].timestamp
-              )
-              .map(conversation => (
-                <Thread key={conversation._id} {...conversation} {...props} />
-              ))
+          ? conversations.map(conversation => (
+              <Thread key={conversation._id} {...conversation} {...props} />
+            ))
           : <NoMessages>No messages</NoMessages>}
       </ThreadsContainer>
     </Wrapper>
@@ -57,7 +53,6 @@ const ThreadsContainer = styled.div`
 
 	@media screen and (max-width: 768px) {
 		overflow: auto;
-		border-bottom: 1px solid ${props => props.theme.lightGray};
 		width: 100%;
 		height: 100%;
 	}

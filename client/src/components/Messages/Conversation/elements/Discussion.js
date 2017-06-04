@@ -28,7 +28,7 @@ const Discussion = (props) => {
       <MessageWrapper key={m._id} self={sender === 'Me'}>
         <Info>
           <Partner self={sender === 'Me'}>{sender}</Partner>
-          <Timestamp>{formatTime(m.timestamp)}</Timestamp>
+          <Timestamp>{formatTime(m.timestamp, true)}</Timestamp>
         </Info>
         <Message>{formatMultiLineText(m.text)}</Message>
       </MessageWrapper>
@@ -52,7 +52,8 @@ Discussion.propTypes = {
       shape({ _id: string.isRequired, unread: bool.isRequired })
     )
   }),
-  loggedInUser: shape({ username: string.isRequired }).isRequired
+  loggedInUser: shape({ username: string.isRequired }).isRequired,
+  fields: shape({ message: shape({ active: bool }) })
 };
 
 const Wrapper = styled.div`

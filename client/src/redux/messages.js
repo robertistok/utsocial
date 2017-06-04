@@ -28,10 +28,10 @@ export function addNewConversation(conversation) {
   };
 }
 
-export function addNewMessage(message) {
+export function addNewMessage(props) {
   return {
     type: ADD_NEW_MESSAGE,
-    payload: message
+    payload: { ...props }
   };
 }
 
@@ -149,14 +149,24 @@ export default function (state = INITIAL_STATE, action) {
         ...state,
         selectedConversation: {
           ...state.selectedConversation,
-          messages: [action.payload, ...state.selectedConversation.messages]
+          messages: state.selectedConversation._id === action.payload.convID
+            ? [
+                action.payload.newMessage,
+                ...state.selectedConversation.messages
+              ]
+            : [...state.selectedConversation.messages]
         },
-        conversations: state.conversations.map((c) => {
-          if (c._id === state.selectedConversation._id) {
-            return Object.assign({}, c, { messages: [action.payload] });
-          }
-          return c;
-        })
+        conversations: state.conversations
+          .map((c) => {
+            if (c._id === action.payload.convID) {
+              return Object.assign({}, c, {
+                messages: [action.payload.newMessage]
+              });
+            }
+            return c;
+          })
+          .slice(0)
+          .sort((c1, c2) => c2.messages[0].timestamp - c1.messages[0].timestamp)
       };
     }
     case FETCH_CONVERSATIONS_OFUSER:
@@ -217,7 +227,7 @@ export default function (state = INITIAL_STATE, action) {
 const getFilter = state => state.messages.filter;
 const getSearchTerm = state => state.messages.searchTerm;
 const getConversations = state => state.messages.conversations;
-const getUser = state => state.account.auth.user.username;
+const getUser = state => state.account.auth.user._id;
 
 export const conversationsSelector = createSelector(
   [getFilter, getSearchTerm, getConversations, getUser],

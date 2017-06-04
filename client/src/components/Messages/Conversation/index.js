@@ -19,48 +19,6 @@ class ConversationContainer extends Component {
     this.onStarClick = this.onStarClick.bind(this);
   }
 
-  componentDidMount() {
-    const {
-      match: { params: { conversationID } },
-      loggedInUser
-    } = this.props;
-    socket.on('new:message', message => this.props.addNewMessage(message));
-    socket.emit('subscribeToRoom', {
-      room: conversationID,
-      user: loggedInUser
-    });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.selectedConversation !== this.props.selectedConversation) {
-      const {
-        match: { params: { conversationID: previousConversationID } },
-        loggedInUser
-      } = this.props;
-
-      const {
-        match: { params: { conversationID: selectedConversationID } }
-      } = nextProps;
-
-      socket.emit('leaveRoom', {
-        room: previousConversationID,
-        user: loggedInUser
-      });
-      socket.emit('subscribeToRoom', {
-        room: selectedConversationID,
-        user: loggedInUser
-      });
-    }
-  }
-
-  componentWillUnmount() {
-    const { match: { params: { conversationID } }, loggedInUser } = this.props;
-    socket.emit('leaveRoom', {
-      room: conversationID,
-      user: loggedInUser
-    });
-  }
-
   onStarClick() {
     const {
       selectedConversation: { _id: conversationID },
@@ -101,7 +59,6 @@ class ConversationContainer extends Component {
 
 const { shape, string, func } = PropTypes;
 ConversationContainer.propTypes = {
-  addNewMessage: func.isRequired,
   starConversation: func.isRequired,
   reset: func.isRequired,
   loggedInUser: shape({

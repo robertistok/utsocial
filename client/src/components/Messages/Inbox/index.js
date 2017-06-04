@@ -38,7 +38,6 @@ class InboxContainer extends Component {
 
     getConversationsOfUser(username);
 
-    socket.on('new:thread', value => addNewConversation(value));
     socket.on('message:sent', (value) => {
       addNewConversation(value);
       history.push('/messages');

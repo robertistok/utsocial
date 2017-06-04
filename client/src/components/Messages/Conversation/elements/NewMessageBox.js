@@ -50,6 +50,7 @@ const SubmitButton = styled(Button)`
 	position: absolute;
 	right: 0px;
 	bottom: 0px;
+	margin-right: 0px !important;
 
 	width: ${(props) => {
   if (props.width !== undefined) {

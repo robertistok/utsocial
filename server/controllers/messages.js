@@ -4,14 +4,14 @@
 const Conversation = require('../models/conversation');
 
 function getConversationsOfUser(req, res, next) {
-	const username = req.params.username;
+	const { username } = req.params;
 
 	Conversation.find({ 'participants.username': username })
 		.slice('messages', -1)
 		.then((conversations) => {
 			res.send(
 				conversations.sort(
-					(c1, c2) => c1.messages[0].timestamp < c2.messages[0].timestamp
+					(c1, c2) => c2.messages[0].timestamp - c1.messages[0].timestamp
 				)
 			);
 		})
@@ -19,14 +19,12 @@ function getConversationsOfUser(req, res, next) {
 }
 
 function getMessagesOfConversation(req, res, next) {
-	const id = req.params.id;
+	const { id } = req.params;
 
 	Conversation.findOne({ _id: id })
 		.slice('messages', 25)
 		.then((conversation) => {
-			conversation.messages = conversation.messages.sort(
-				(m1, m2) => m1.timestamp < m2.timestamp
-			);
+			conversation.messages.sort((m1, m2) => m2.timestamp - m1.timestamp);
 			res.send(conversation);
 		})
 		.catch(err => next(err));

@@ -16,24 +16,10 @@ const connectedUsers = {};
 io.on('connection', (socket) => {
 	socket.on('join', (data) => {
 		connectedUsers[data.username] = socket.id;
-		// console.log(Object.keys(connectedUsers));
 	});
 
 	socket.on('leave', (data) => {
 		delete connectedUsers[data.username];
-		// console.log(Object.keys(connectedUsers));
-	});
-
-	socket.on('subscribeToRoom', (data) => {
-		const { room } = data;
-
-		socket.join(room);
-	});
-
-	socket.on('leaveRoom', (data) => {
-		const { room } = data;
-
-		socket.leave(room);
 	});
 
 	socket.on('send:message', (data) => {
@@ -41,12 +27,16 @@ io.on('connection', (socket) => {
 
 		Conversation.findOne({ _id: id }).then((conversation) => {
 			conversation.messages.push({ sender, text });
-			conversation.save();
+			conversation.save().then((conv) => {
+				const newMessage = conv.messages[conv.messages.length - 1];
+				const receiver = conv.participants.find(p => p.username !== sender)
+					.username;
 
-			const newMessage =
-				conversation.messages[conversation.messages.length - 1];
-
-			io.sockets.in(id).emit('new:message', newMessage);
+				io
+					.to(connectedUsers[receiver])
+					.emit('new:message', { convID: id, newMessage });
+				socket.emit('new:message', { convID: id, newMessage });
+			});
 		});
 	});
 
