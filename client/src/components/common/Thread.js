@@ -19,7 +19,8 @@ class Thread extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.messages[0] !== this.props.messages[0] ||
+    return JSON.stringify(nextProps.messages[0]) !==
+      JSON.stringify(this.props.messages[0]) ||
       nextProps.location !== this.props.location;
   }
 
@@ -106,7 +107,7 @@ Thread.propTypes = {
     shape({ unread: bool.isRequired, timestamp: string.isRequired })
   ),
   isNotification: bool,
-  location: shape({ pathname: string.isRequired }).isRequired
+  location: shape({ pathname: string.isRequired })
 };
 
 const StyledNavLink = styled(NavLink)`
@@ -132,6 +133,15 @@ const Wrapper = styled.div`
 	display: flex;
 	padding: 12px 16px;
 	background-color: ${props => props.unread === true && props.theme.newNotification};
+	font-size: 14px;
+
+	@media screen and (max-width: 768px) {
+		font-size: 13px;
+	}
+
+	@media screen and (max-width: 768px) {
+		font-size: 12px;
+	}
 `;
 
 const InfoWrapper = styled.div`
@@ -172,11 +182,18 @@ const Subject = styled.span`
 	max-width: 13rem;
 	color: ${props => props.theme.black};
 	margin: 0px 10px;
+
+	@media screen and (max-width: 768px) {
+		font-size: 12px;
+	}
+
+	@media screen and (max-width: 768px) {
+		font-size: 11px;
+	}
 `;
 
 const Partner = styled.span`
 	display: inline-block;
-	font-size: 14px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -192,6 +209,14 @@ const Timestamp = styled.span`
 	margin-left: auto;
 	width: 50px;
 	text-align: right;
+
+	@media screen and (max-width: 768px) {
+		font-size: 11px;
+	}
+
+	@media screen and (max-width: 768px) {
+		font-size: 10px;
+	}
 `;
 
 const GenderLogo = styled.img`
@@ -200,6 +225,16 @@ const GenderLogo = styled.img`
 	margin: 5px;
 
 	content: url(${props => props.gender === 'male' ? maleLogo : femaleLogo});
+
+	@media screen and (max-width: 768px) {
+		width: 25px;
+		height: 25px;
+	}
+
+	@media screen and (max-width: 378px) {
+		width: 20px;
+		height: 20px;
+	}
 `;
 
 const mapStateToProps = state => ({

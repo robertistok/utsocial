@@ -53,6 +53,14 @@ table {
 	border-spacing: 0;
 }
 
+input[type="password"] {
+    padding: 12px;
+}
+
+input[type="text"] {
+    padding: 12px;
+}
+
 .mount-enter {
   opacity: 0.01;
 }

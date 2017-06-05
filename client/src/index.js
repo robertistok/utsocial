@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import 'normalize.css';
 
 import App from './views/App';
 import { meFromToken } from './redux/account/auth';

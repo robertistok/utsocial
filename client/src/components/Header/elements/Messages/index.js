@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { compose } from 'recompose';
 
-import Messages from './Messages';
 import * as messagesActions from '../../../../redux/messages';
 import { withToggle } from '../../../hocs';
+import Thread from '../../../common/Thread';
+import DropDown from '../DropDown';
 
 class MessagesContainer extends Component {
   componentDidMount() {
@@ -14,10 +16,46 @@ class MessagesContainer extends Component {
     getConversationsOfUser(username);
   }
 
+  filterForUnreadMessages() {
+    const { conversations, user: { _id: userID } } = this.props;
+    return conversations !== null
+      ? conversations.filter(
+          conv =>
+            conv.messages[0].unread === true &&
+            conv.messages[0].sender !== userID
+        ).length
+      : 0;
+  }
+
   render() {
-    return <Messages {...this.props} />;
+    const { user, conversations, toggle, toggledOn } = this.props;
+    return (
+      <DropDown
+        user={user}
+        items={conversations}
+        shown={toggledOn}
+        toggleDropdown={toggle}
+        title="MESSAGES"
+        icon="envelope"
+        newAlertCount={this.filterForUnreadMessages()}
+        Item={Thread}
+        customItemProps={{ isNotification: true, customOnClickhandler: toggle }}
+      />
+    );
   }
 }
+
+const { bool, shape, string, func, arrayOf } = PropTypes;
+MessagesContainer.propTypes = {
+  getConversationsOfUser: func.isRequired,
+  toggledOn: bool.isRequired,
+  toggle: func.isRequired,
+  conversations: arrayOf(shape({ _id: string.isRequired }).isRequired),
+  user: shape({
+    username: string.isRequired,
+    _id: string.isRequired
+  }).isRequired
+};
 
 const mapStateToProps = state => ({
   user: state.account.auth.user,

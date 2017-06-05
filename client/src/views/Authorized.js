@@ -10,7 +10,12 @@ import { bindActionCreators } from 'redux';
 
 import * as messagesActions from '../redux/messages';
 
-export const socket = io('http://localhost:3001');
+export const socket = new io.connect('http://localhost:3001', {
+  reconnection: true,
+  reconnectionDelay: 1000,
+  reconnectionDelayMax: 5000,
+  reconnectionAttempts: 5
+});
 
 class Authorized extends Component {
   constructor(props) {
@@ -34,7 +39,8 @@ class Authorized extends Component {
       socket.emit('join', user);
       socket.on('new:thread', value => addNewConversation(value));
       socket.on('new:message', message => addNewMessage(message));
-      // socket.on('new:attendance', value => console.log(value));
+      socket.on('new:attendance', value => console.log(value));
+      socket.on('remove:attendance', value => console.log(value));
 
       if (pathname === '/') {
         history.push('/home');

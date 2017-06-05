@@ -64,13 +64,13 @@ export function changeType(type) {
   };
 }
 
-export function markAsPresent({ student, date, course, type, teacher, group }) {
+export function markAsPresent(props) {
   return (dispatch) => {
     dispatch({ type: MARK_AS_PRESENT });
     axios({
       method: 'post',
       url: '/api/attendance/markAsPresent',
-      data: { student, date, course, type, teacher, group },
+      data: { ...props },
       headers: {
         authorization: getToken()
       }
