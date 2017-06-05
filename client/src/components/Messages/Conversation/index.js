@@ -32,13 +32,13 @@ class ConversationContainer extends Component {
   sendMessage(values) {
     const {
       match: { params: { conversationID } },
-      loggedInUser,
+      loggedInUser: { _id: userID },
       reset
     } = this.props;
 
     socket.emit('send:message', {
       room: conversationID,
-      sender: loggedInUser.username,
+      sender: userID,
       text: values.message,
       id: conversationID
     });

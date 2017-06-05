@@ -1,3 +1,5 @@
+const socketIO = require('socket.io');
+
 const app = require('./app');
 const Conversation = require('./models/conversation');
 const Student = require('./models/student');
@@ -9,17 +11,17 @@ const server = app.listen(app.get('port'), () => {
 	);
 });
 
-const io = require('socket.io')(server);
+export const io = socketIO(server);
 
-const connectedUsers = {};
+export const connectedUsers = {};
 
 io.on('connection', (socket) => {
 	socket.on('join', (data) => {
-		connectedUsers[data.username] = socket.id;
+		connectedUsers[data._id] = socket.id;
 	});
 
 	socket.on('leave', (data) => {
-		delete connectedUsers[data.username];
+		delete connectedUsers[data._id];
 	});
 
 	socket.on('send:message', (data) => {
@@ -29,11 +31,12 @@ io.on('connection', (socket) => {
 			conversation.messages.push({ sender, text });
 			conversation.save().then((conv) => {
 				const newMessage = conv.messages[conv.messages.length - 1];
-				const receiver = conv.participants.find(p => p.username !== sender)
-					.username;
+				const receiver = conv.participants.find(
+					p => p._id.toString() !== sender
+				);
 
 				io
-					.to(connectedUsers[receiver])
+					.to(connectedUsers[receiver._id])
 					.emit('new:message', { convID: id, newMessage });
 				socket.emit('new:message', { convID: id, newMessage });
 			});
@@ -51,17 +54,37 @@ io.on('connection', (socket) => {
 		});
 
 		Promise.all([
-			Student.find({ username: { $in: [sender, target] } }),
-			Teacher.find({ username: { $in: [sender, target] } })
+			Student.find(
+				{ _id: { $in: [sender, target] } },
+				'_id group semigroup username firstname lastname gender'
+			),
+			Teacher.find(
+				{ _id: { $in: [sender, target] } },
+				'_id username firstname lastname gender'
+			)
 		]).then((values) => {
 			const [students, teachers] = values;
+			const onlyRequiredFieldsStudents = students.map(
+				({ _id, semigroup, group, username, firstname, lastname, gender }) => ({
+					_id,
+					semigroup,
+					group,
+					username,
+					firstname,
+					lastname,
+					gender
+				})
+			);
 
-			newConversation.participants = teachers.concat(students);
+			newConversation.participants = [
+				...teachers,
+				...onlyRequiredFieldsStudents
+			];
 
-			socket.emit('message:sent', newConversation);
-			io.to(connectedUsers[target]).emit('new:thread', newConversation);
-
-			newConversation.save();
+			newConversation.save(() => {
+				socket.emit('message:sent', newConversation);
+				io.to(connectedUsers[target]).emit('new:thread', newConversation);
+			});
 		});
 	});
 });

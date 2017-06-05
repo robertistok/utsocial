@@ -1,5 +1,6 @@
 import moment from 'moment';
 
+import { connectedUsers, io } from '../server';
 import Attendance from '../models/attendance';
 
 function getAttendanceOfCourseType(req, res, next) {
@@ -24,7 +25,10 @@ function markAsPresent(req, res, next) {
 
 	newAttendance
 		.save()
-		.then(attendance => res.send(attendance))
+		.then((attendance) => {
+			io.to(connectedUsers[student]).emit('new:attendance', attendance);
+			return res.send(attendance);
+		})
 		.catch(err => next(err));
 }
 

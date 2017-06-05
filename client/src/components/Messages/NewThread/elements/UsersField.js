@@ -8,10 +8,10 @@ import * as usersActions from '../../../../redux/users';
 import { media } from '../../../../utils/style-utils';
 
 const renderOptions = users =>
-  users.map(({ username }) => ({
-    key: username,
+  users.map(({ username, _id: userID }) => ({
+    key: userID,
     text: username,
-    value: username
+    value: userID
   }));
 
 class UsersField extends Component {

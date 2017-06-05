@@ -29,6 +29,7 @@ export function addNewConversation(conversation) {
 }
 
 export function addNewMessage(props) {
+  console.log(props);
   return {
     type: ADD_NEW_MESSAGE,
     payload: { ...props }

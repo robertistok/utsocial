@@ -22,7 +22,7 @@ class Messages extends Component {
       conversations,
       toggledOn: shown,
       toggle: toggleDropdown,
-      user: { username }
+      user: { _id: userID }
     } = this.props;
 
     return (
@@ -38,7 +38,7 @@ class Messages extends Component {
               conversations.filter(
                 conv =>
                   conv.messages[0].unread === true &&
-                  conv.messages[0].sender !== username
+                  conv.messages[0].sender !== userID
               ).length}
           </Number>
         </NavIcon>

@@ -13,19 +13,19 @@ const Discussion = (props) => {
     fields.message.active === true;
 
   const partner = selectedConversation.participants.find(
-    p => p.username !== loggedInUser.username
+    p => p._id !== loggedInUser._id
   );
 
   const renderMessage = (m) => {
     let sender;
-    if (m.sender === partner.username) {
+    if (m.sender === partner._id) {
       sender = `${partner.firstname} ${partner.lastname}`;
     } else {
       sender = 'Me';
     }
 
     return (
-      <MessageWrapper key={m._id} self={sender === 'Me'}>
+      <MessageWrapper key={m._id + m.timestamp} self={sender === 'Me'}>
         <Info>
           <Partner self={sender === 'Me'}>{sender}</Partner>
           <Timestamp>{formatTime(m.timestamp, true)}</Timestamp>

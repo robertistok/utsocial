@@ -29,7 +29,7 @@ class NewThreadContainer extends Component {
   sendMessage(values) {
     socket.emit('new:thread', {
       target: values.target,
-      sender: this.props.sender.username,
+      sender: this.props.sender._id,
       subject: values.subject,
       text: values.message
     });

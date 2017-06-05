@@ -18,6 +18,10 @@ class Thread extends Component {
     this.onClick = this.onClick.bind(this);
   }
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps.messages !== this.props.messages;
+  }
+
   onClick() {
     const {
       selectConversation,
@@ -41,19 +45,19 @@ class Thread extends Component {
       subject,
       participants,
       messages,
-      user,
+      user: { _id: userID },
       _id: id,
       isNotification = false
     } = this.props;
 
-    const partner = participants.find(p => p.username !== user.username);
+    const partner = participants.find(p => p._id !== userID);
     const { firstname, lastname, gender } = partner;
 
     const lastMessage = messages[0];
     let { unread } = lastMessage;
     const { timestamp } = lastMessage;
 
-    if (unread && lastMessage.sender !== partner.username) {
+    if (unread && lastMessage.sender !== partner._id) {
       unread = false;
     }
 
