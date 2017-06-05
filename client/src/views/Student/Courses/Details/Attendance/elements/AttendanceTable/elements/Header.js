@@ -1,4 +1,4 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
 import { Table } from 'semantic-ui-react';
 
 const Header = () => (

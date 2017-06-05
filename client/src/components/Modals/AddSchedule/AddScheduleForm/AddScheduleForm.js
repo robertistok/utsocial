@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { reduxForm, Field } from 'redux-form';
 import { Form, Loader, Message } from 'semantic-ui-react';
 
@@ -155,10 +156,13 @@ const AddScheduleForm = (props) => {
   );
 };
 
+const { object, func, bool } = PropTypes;
 AddScheduleForm.propTypes = {
-  formValues: PropTypes.object,
-  selectedGroup: PropTypes.object,
-  resetTypes: PropTypes.func
+  formValues: object,
+  selectedGroup: object,
+  resetTypes: func,
+  error: bool,
+  handleSubmit: func.isRequired
 };
 
 AddScheduleForm.defaultProps = {

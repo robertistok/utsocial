@@ -17,6 +17,12 @@ class AddScheduleContainer extends Component {
   }
 }
 
+const { func, string } = PropTypes;
+AddScheduleContainer.propTypes = {
+  getGroup: func.isRequired,
+  selectedGroupID: string.isRequired
+};
+
 const mapStateToProps = state => ({
   selectedGroupID: state.schedule.group
 });

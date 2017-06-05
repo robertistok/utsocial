@@ -43,6 +43,14 @@ class AddScheduleFormContainer extends Component {
   }
 }
 
+const { func } = PropTypes;
+AddScheduleFormContainer.propTypes = {
+  reset: func.isRequired,
+  addNewSchedule: func.isRequired,
+  addNewScheduleSucces: func.isRequired,
+  addNewScheduleError: func.isRequired
+};
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ ...scheduleActions, reset }, dispatch);
 

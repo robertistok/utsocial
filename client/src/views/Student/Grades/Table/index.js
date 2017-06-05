@@ -20,6 +20,26 @@ class TableContainer extends Component {
   }
 }
 
+const { func, shape, string, objectOf, bool, number } = PropTypes;
+TableContainer.propTypes = {
+  fetchGradesStudents: func.isRequired,
+  student: shape({ _id: string.isRequired }).isRequired,
+  coursesByYear: objectOf(
+    shape({
+      _id: string.isRequired,
+      credits: number.isRequired,
+      name: string.isRequired,
+      semester: number.isRequired,
+      teachingTypes: shape({
+        lab: bool,
+        lecture: bool,
+        seminar: bool,
+        project: bool
+      }).isRequired
+    }).isRequired
+  ).isRequired
+};
+
 const mapStateToProps = (state) => {
   const { filter: { semester } } = state.grades;
 

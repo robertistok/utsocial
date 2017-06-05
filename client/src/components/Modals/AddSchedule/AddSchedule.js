@@ -1,4 +1,5 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Header, Modal, Button } from 'semantic-ui-react';
 
 import AddScheduleFormContainer from './AddScheduleForm/index';

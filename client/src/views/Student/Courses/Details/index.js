@@ -1,5 +1,5 @@
-import React from 'react'; import PropTypes from 'prop-types'
-import { compose } from 'recompose';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import AttendanceContainer from './Attendance';
 import MaterialsContainer from './Materials';
@@ -11,7 +11,6 @@ import {
 } from '../../../../components/Courses/styled-components';
 import withSelectedCourse
   from '../../../../components/Courses/DetailsContainer';
-import { withMountingTransition } from '../../../../components/hocs';
 
 const Details = (props) => {
   const { selectedCourse } = props;

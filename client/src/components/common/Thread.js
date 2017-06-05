@@ -19,7 +19,8 @@ class Thread extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.messages[0] !== this.props.messages[0];
+    return nextProps.messages[0] !== this.props.messages[0] ||
+      nextProps.location !== this.props.location;
   }
 
   onClick() {
@@ -104,7 +105,8 @@ Thread.propTypes = {
   messages: arrayOf(
     shape({ unread: bool.isRequired, timestamp: string.isRequired })
   ),
-  isNotification: bool
+  isNotification: bool,
+  location: shape({ pathname: string.isRequired }).isRequired
 };
 
 const StyledNavLink = styled(NavLink)`

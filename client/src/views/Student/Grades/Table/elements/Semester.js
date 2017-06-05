@@ -1,4 +1,5 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import CourseRow from './CourseRow';
@@ -16,7 +17,7 @@ const Semester = (props) => {
           gradesList={
             gradesList[key] !== undefined
               ? gradesList[key]
-						: { numberOfGrades: {}, list: [] }
+              : { numberOfGrades: {}, list: [] }
           }
         />
       ))}
@@ -24,9 +25,34 @@ const Semester = (props) => {
   );
 };
 
-const { number } = PropTypes;
+const { number, shape, arrayOf, string, object, oneOfType } = PropTypes;
 Semester.propTypes = {
-  semester: number.isRequired
+  semester: number.isRequired,
+  courses: object,
+  gradesList: shape({
+    list: oneOfType([
+      arrayOf(
+        shape({
+          _id: string.isRequired,
+          grade: number.isRequired,
+          group: string.isRequired,
+          student: string.isRequired,
+          enteredOn: string.isRequired,
+          course: string.isRequired,
+          assignor: string.isRequired,
+          type: string.isRequired
+        }).isRequired
+      ),
+      object
+    ]),
+    numberOfGrades: shape({
+      lab: number,
+      lecture: number,
+      final: number,
+      seminar: number,
+      project: number
+    })
+  })
 };
 
 const Wrapper = styled.div`

@@ -1,4 +1,5 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import Semester from './elements/Semester';
@@ -24,6 +25,59 @@ const Table = (props) => {
 
     </Wrapper>
   );
+};
+
+const {
+  shape,
+  string,
+  number,
+  objectOf,
+  bool,
+  arrayOf,
+  oneOfType,
+  object
+} = PropTypes;
+Table.propTypes = {
+  visibleCourses: objectOf(
+    objectOf(
+      shape({
+        _id: string.isRequired,
+        credits: number.isRequired,
+        name: string.isRequired,
+        semester: number.isRequired,
+        teachingTypes: shape({
+          lab: bool,
+          lecture: bool,
+          seminar: bool,
+          project: bool
+        }).isRequired
+      }).isRequired
+    )
+  ).isRequired,
+  gradesList: shape({
+    list: oneOfType([
+      arrayOf(
+        shape({
+          _id: string.isRequired,
+          grade: number.isRequired,
+          group: string.isRequired,
+          student: string.isRequired,
+          enteredOn: string.isRequired,
+          course: string.isRequired,
+          assignor: string.isRequired,
+          type: string.isRequired
+        }).isRequired
+      ),
+      object
+    ]),
+    numberOfGrades: shape({
+      lab: number,
+      lecture: number,
+      final: number,
+      seminar: number,
+      project: number
+    })
+  })
 };
 
 const Wrapper = styled.div`

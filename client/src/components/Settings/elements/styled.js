@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { media } from '../../../utils/style-utils';
 
 export const SettingTitle = styled.span`
 	font-size: 16px;

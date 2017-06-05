@@ -5,7 +5,7 @@ import { Field } from 'redux-form';
 
 import StandardInput from '../../../FormComponents/StandardInput';
 import {
-  matchingPasswords,
+  // matchingPasswords,
   required
 } from '../../../FormComponents/validation';
 import {

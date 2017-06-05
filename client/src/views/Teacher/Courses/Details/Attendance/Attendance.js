@@ -1,4 +1,5 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Accordion } from 'semantic-ui-react';
 
 import Filter from './elements/Filter';

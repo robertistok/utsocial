@@ -1,4 +1,4 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
 import { compose, withState, withHandlers } from 'recompose';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
