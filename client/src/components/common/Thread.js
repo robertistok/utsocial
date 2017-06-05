@@ -19,7 +19,7 @@ class Thread extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.messages !== this.props.messages;
+    return nextProps.messages[0] !== this.props.messages[0];
   }
 
   onClick() {

@@ -29,7 +29,6 @@ export function addNewConversation(conversation) {
 }
 
 export function addNewMessage(props) {
-  console.log(props);
   return {
     type: ADD_NEW_MESSAGE,
     payload: { ...props }
@@ -148,15 +147,16 @@ export default function (state = INITIAL_STATE, action) {
     case ADD_NEW_MESSAGE: {
       return {
         ...state,
-        selectedConversation: {
-          ...state.selectedConversation,
-          messages: state.selectedConversation._id === action.payload.convID
-            ? [
+        selectedConversation: state.selectedConversation !== null &&
+          state.selectedConversation._id === action.payload.convID
+          ? {
+              ...state.selectedConversation,
+              messages: [
                 action.payload.newMessage,
                 ...state.selectedConversation.messages
               ]
-            : [...state.selectedConversation.messages]
-        },
+            }
+          : state.selectedConversation,
         conversations: state.conversations
           .map((c) => {
             if (c._id === action.payload.convID) {

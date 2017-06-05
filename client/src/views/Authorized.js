@@ -10,7 +10,7 @@ import { bindActionCreators } from 'redux';
 
 import * as messagesActions from '../redux/messages';
 
-export const socket = io();
+export const socket = io('http://localhost:3001');
 
 class Authorized extends Component {
   constructor(props) {
