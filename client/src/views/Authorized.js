@@ -9,8 +9,9 @@ import io from 'socket.io-client';
 import { bindActionCreators } from 'redux';
 
 import * as messagesActions from '../redux/messages';
+import * as notificationsActions from '../redux/notifications';
 
-export const socket = new io.connect('http://localhost:3001', {
+export const socket = io.connect('http://localhost:3001', {
   reconnection: true,
   reconnectionDelay: 1000,
   reconnectionDelayMax: 5000,
@@ -39,8 +40,12 @@ class Authorized extends Component {
       socket.emit('join', user);
       socket.on('new:thread', value => addNewConversation(value));
       socket.on('new:message', message => addNewMessage(message));
-      socket.on('new:attendance', value => console.log(value));
-      socket.on('remove:attendance', value => console.log(value));
+
+      if (user.type === 'student') {
+        const { addNotification } = this.props;
+        socket.on('new:attendance', value => addNotification(value));
+        socket.on('remove:attendance', value => addNotification(value));
+      }
 
       if (pathname === '/') {
         history.push('/home');
@@ -115,7 +120,8 @@ Authorized.propTypes = {
   }),
   location: shape({ pathname: string.isRequired }).isRequired,
   addNewConversation: func.isRequired,
-  addNewMessage: func.isRequired
+  addNewMessage: func.isRequired,
+  addNotification: func
 };
 
 const mapStateToProps = state => ({
@@ -123,7 +129,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ ...messagesActions }, dispatch);
+  bindActionCreators({ ...messagesActions, ...notificationsActions }, dispatch);
 
 const enhance = compose(
   connect(mapStateToProps, mapDispatchToProps),

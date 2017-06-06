@@ -12,9 +12,8 @@ import Grades from './Grades';
 import Home from './Home';
 import { Wrapper, Content } from '../wrappers';
 
-const ForOhFor = () => <h1>No match found</h1>;
-
 const links = ['home', 'courses', 'messages', 'schedules', 'grades'];
+const ForOhFor = () => <h1>No match found</h1>;
 
 const Student = () => (
   <Wrapper id="mainWrapper">

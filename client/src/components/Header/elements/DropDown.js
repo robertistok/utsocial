@@ -122,12 +122,14 @@ const Number = styled.span`
 	right: 14px;
 	top: -3px;
 	color: ${props => props.theme.white};
-	font-size: 12px;
+	font-size: 10px;
 	z-index: 10;
 	font-weight: bolder;
 	border: 1px solid #FF0000
 	border-radius: 50%;
-	width: 16px;
+	width: 18px;
+	height: 16px;
+	padding: 2px;
 	background-color: #FF0000
 `;
 

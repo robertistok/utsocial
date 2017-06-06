@@ -32,6 +32,9 @@ const NotificationSchema = new Schema({
 				ref: 'course',
 				required: true
 			},
+			type: {
+				type: String
+			},
 			lang: String
 		},
 		groups: [
@@ -56,6 +59,7 @@ const NotificationSchema = new Schema({
 			}
 		]
 	},
+	seenBy: [String],
 	info: {
 		enteredFor: Date
 	}

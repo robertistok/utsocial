@@ -139,7 +139,7 @@ const Wrapper = styled.div`
 		font-size: 13px;
 	}
 
-	@media screen and (max-width: 768px) {
+	@media screen and (max-width: 378px) {
 		font-size: 12px;
 	}
 `;

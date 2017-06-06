@@ -1,5 +1,7 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Form } from 'semantic-ui-react';
+import styled from 'styled-components';
 
 const Filter = (props) => {
   const {
@@ -24,7 +26,7 @@ const Filter = (props) => {
 
   return (
     <Form>
-      <Form.Group inline>
+      <StyledFormGroup inline>
         <Form.Select
           options={groupOptions}
           placeholder="Group"
@@ -46,7 +48,7 @@ const Filter = (props) => {
           value={type}
           disabled={group === undefined}
         />
-      </Form.Group>
+      </StyledFormGroup>
     </Form>
   );
 };
@@ -73,5 +75,12 @@ Filter.propTypes = {
     }).isRequired
   })
 };
+
+const StyledFormGroup = styled(Form.Group)`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 110px;
+`;
 
 export default Filter;

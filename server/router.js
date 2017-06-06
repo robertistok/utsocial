@@ -13,6 +13,7 @@ const UsersController = require('./controllers/users');
 const AttendanceController = require('./controllers/attendance');
 const GradesController = require('./controllers/grades');
 const PostsController = require('./controllers/posts');
+const NotificationsController = require('./controllers/notifications');
 
 const passportService = require('./services/passport');
 
@@ -212,5 +213,16 @@ router.delete(
 router.put('/api/posts/mark', requireAuth, PostsController.mark);
 router.put('/api/posts/unMark', requireAuth, PostsController.unMark);
 router.put('/api/posts/update', requireAuth, PostsController.updatePost);
+
+router.post(
+	'/api/notifications/fetch',
+	requireAuth,
+	NotificationsController.fetch
+);
+router.put(
+	'/api/notifications/markAsSeen',
+	requireAuth,
+	NotificationsController.markAsSeen
+);
 
 export default router;

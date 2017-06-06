@@ -13,6 +13,7 @@ import coursesReducer from './courses';
 import attendanceReducer from './attendance';
 import gradesReducer from './grades';
 import metadatacourseReducer from './metadatacourse';
+import notificationsReducer from './notifications';
 
 const rootReducer = combineReducers({
   schedule: scheduleReducer,
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   grades: gradesReducer,
   metadatacourse: metadatacourseReducer,
   account: accountReducer,
+  notifications: notificationsReducer,
   burgerMenu
 });
 

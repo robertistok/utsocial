@@ -6,13 +6,14 @@ import { NavLink } from 'react-router-dom';
 
 import { NavIcon } from '../../common/Icons';
 import Messages from './Messages';
+import Notifications from './Notifications';
 
 const ActionBar = (props) => {
   const { user, logOut } = props;
 
   return (
     <Wrapper>
-      <NavIcon size="large" name="bell" />
+      <Notifications />
       <Messages />
       <User>{user}</User>
       <StyledNavLink to="/preferences">

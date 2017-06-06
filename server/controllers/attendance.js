@@ -14,9 +14,10 @@ function getAttendanceOfCourseType(req, res, next) {
 
 function markAsPresent(req, res, next) {
 	const { student, date, course, type, assignor, group } = req.body;
+	const enteredFor = moment(date, 'DD/MM').valueOf();
 
 	const newAttendance = new Attendance({
-		enteredFor: moment(date, 'DD/MM').valueOf(),
+		enteredFor,
 		course,
 		student,
 		assignor,
@@ -29,52 +30,68 @@ function markAsPresent(req, res, next) {
 		triggeredBy: assignor,
 		target: {
 			course: {
-				id: course
+				id: course,
+				type
 			},
 			students: [student]
 		},
 		info: {
-			enteredFor: Date.now()
+			enteredFor
 		}
 	});
 
 	Promise.all([newAttendance.save(), newAttendanceNotification.save()])
 		.then((values) => {
-			const [attendance, notification] = values;
+			const notification = values[1];
 
-			io.to(connectedUsers[student]).emit('new:attendance', notification);
-			return res.send(attendance);
+			return Notification.populate(notification, [
+				{ path: 'triggeredBy', select: 'firstname lastname name' },
+				{ path: 'target.course.id', select: 'name' }
+			]);
+		})
+		.then((notificationpopualted) => {
+			io
+				.to(connectedUsers[student])
+				.emit('new:attendance', notificationpopualted);
+			return res.send(newAttendance);
 		})
 		.catch(err => next(err));
 }
 
 function removeAttendance(req, res, next) {
 	const { id } = req.params;
+	let targetStudent;
 
 	Attendance.findByIdAndRemove(id)
 		.then((attendance) => {
-			const { assignor, student, course, enteredFor } = attendance;
+			const { assignor, student, course, enteredFor, type } = attendance;
 			const removeAttendanceNotification = new Notification({
 				type: 'attendanceRemove',
 				triggeredBy: assignor,
 				target: {
 					course: {
-						id: course
+						id: course,
+						type
 					},
 					students: [student]
 				},
-				enteredFor
+				info: { enteredFor }
 			});
+			targetStudent = student;
 
-			removeAttendanceNotification
-				.save()
-				.then((removeAttendanceNotification) => {
-					io
-						.to(connectedUsers[student])
-						.emit('remove:attendance', removeAttendanceNotification);
-					return res.send({ message: 'succes' });
-				})
-				.catch(err => next(err));
+			return removeAttendanceNotification.save();
+		})
+		.then(removeAttendanceNotification =>
+			Notification.populate(removeAttendanceNotification, [
+				{ path: 'triggeredBy', select: 'firstname lastname name' },
+				{ path: 'target.course.id', select: 'name' }
+			])
+		)
+		.then((notificationpopulated) => {
+			io
+				.to(connectedUsers[targetStudent])
+				.emit('remove:attendance', notificationpopulated);
+			return res.send({ message: 'succes' });
 		})
 		.catch(err => next(err));
 }
