@@ -26,6 +26,7 @@ class DropDown extends Component {
       title,
       icon,
       Item,
+      noItemsMessage,
       customItemProps
     } = this.props;
 
@@ -46,15 +47,16 @@ class DropDown extends Component {
           <Content>
             <Title>{title}</Title>
             <ItemsContainer>
-              {items !== null &&
-                items.map(item => (
-                  <Item
-                    key={item._id}
-                    {...item}
-                    {...this.props}
-                    {...customItemProps}
-                  />
-                ))}
+              {items !== null && items.length !== 0
+                ? items.map(item => (
+                    <Item
+                      key={item._id}
+                      {...item}
+                      {...this.props}
+                      {...customItemProps}
+                    />
+                  ))
+                : <NoItems>{noItemsMessage}</NoItems>}
             </ItemsContainer>
 
           </Content>}
@@ -72,6 +74,7 @@ DropDown.propTypes = {
   newAlertCount: number.isRequired,
   customItemProps: object,
   Item: func.isRequired,
+  noItemsMessage: string.isRequired,
   items: arrayOf(object) // Implement properly..
 };
 
@@ -131,6 +134,10 @@ const Number = styled.span`
 	height: 16px;
 	padding: 2px;
 	background-color: #FF0000
+`;
+
+const NoItems = styled.span`
+	margin: 10px 15px;
 `;
 
 export default enhanceWithClickOutside(DropDown);

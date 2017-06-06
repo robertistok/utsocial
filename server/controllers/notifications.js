@@ -11,6 +11,7 @@ export function fetch(req, res) {
 		]
 	})
 		.limit(30)
+		.sort({ timestamp: -1 })
 		.populate([
 			{ path: 'triggeredBy', select: 'firstname lastname name' },
 			{ path: 'target.course.id', select: 'name' }

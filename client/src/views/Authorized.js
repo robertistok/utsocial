@@ -45,6 +45,8 @@ class Authorized extends Component {
         const { addNotification } = this.props;
         socket.on('new:attendance', value => addNotification(value));
         socket.on('remove:attendance', value => addNotification(value));
+        socket.on('add:grade', value => addNotification(value));
+        socket.on('delete:grade', value => addNotification(value));
       }
 
       if (pathname === '/') {

@@ -56,6 +56,7 @@ class MessagesContainer extends Component {
         title="NOTIFICATIONS"
         icon="bell"
         newAlertCount={unseen}
+        noItemsMessage="No notifications..."
         Item={NotificationItem}
       />
     );

@@ -192,7 +192,7 @@ router.post(
 );
 router.post('/api/grades/insert', requireAuth, GradesController.insertGrade);
 router.post('/api/grades/update', requireAuth, GradesController.updateGrade);
-router.get('/api/grades/delete/:id', requireAuth, GradesController.deleteGrade);
+router.post('/api/grades/delete', requireAuth, GradesController.deleteGrade);
 
 router.get(
 	'/api/posts/getFeedForStudent/:groupID',

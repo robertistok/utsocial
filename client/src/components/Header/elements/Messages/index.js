@@ -39,6 +39,7 @@ class MessagesContainer extends Component {
         icon="envelope"
         newAlertCount={this.filterForUnreadMessages()}
         Item={Thread}
+        noItemsMessage="No messages..."
         customItemProps={{ isNotification: true, customOnClickhandler: toggle }}
       />
     );

@@ -77,7 +77,7 @@ class GradeItemContainer extends Component {
         updateGrade(gradeObj._id, student, newGrade, assignor);
       } else if (gradeObj !== undefined && newGrade === '') {
         this.setState({ edited: true });
-        deleteGrade(gradeObj._id, student);
+        deleteGrade(gradeObj._id, student, assignor);
       }
     }
 

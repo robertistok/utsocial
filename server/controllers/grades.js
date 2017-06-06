@@ -1,4 +1,7 @@
 import Grade from '../models/grade';
+import Notification from '../models/notification';
+
+import { connectedUsers, io } from '../server';
 
 function getGradesListOfGroup(req, res, next) {
 	const { group, course } = req.body;
@@ -122,14 +125,73 @@ function insertGrade(req, res, next) {
 		number
 	});
 
-	newGrade.save().then(grade => res.send({ grade })).catch(err => next(err));
+	const newGradeNotification = new Notification({
+		type: 'gradeAdd',
+		triggeredBy: assignor,
+		target: {
+			course: {
+				id: course,
+				type
+			},
+			students: [student]
+		},
+		info: {
+			grade,
+			gradeNumber: number
+		}
+	});
+
+	Promise.all([newGrade.save(), newGradeNotification.save()])
+		.then((values) => {
+			const notification = values[1];
+
+			return Notification.populate(notification, [
+				{ path: 'triggeredBy', select: 'firstname lastname name' },
+				{ path: 'target.course.id', select: 'name' }
+			]);
+		})
+		.then((notificationPopulated) => {
+			io.to(connectedUsers[student]).emit('add:grade', notificationPopulated);
+			return res.send({ grade: newGrade });
+		})
+		.catch(err => next(err));
 }
 
 function deleteGrade(req, res, next) {
-	const { id } = req.params;
+	const { id, deletedBy, student: studentID } = req.body;
 
 	Grade.findOneAndRemove({ _id: id })
-		.then(() => res.send({ message: 'success' }))
+		.then((gradeToDelete) => {
+			const { student, course, type, number } = gradeToDelete;
+			const deleteGradeNotification = new Notification({
+				type: 'gradeDelete',
+				triggeredBy: deletedBy,
+				target: {
+					course: {
+						id: course,
+						type
+					},
+					students: [student]
+				},
+				info: {
+					gradeNumber: number
+				}
+			});
+
+			return deleteGradeNotification.save();
+		})
+		.then(notification =>
+			Notification.populate(notification, [
+				{ path: 'triggeredBy', select: 'firstname lastname name' },
+				{ path: 'target.course.id', select: 'name' }
+			])
+		)
+		.then((notificationPopulated) => {
+			io
+				.to(connectedUsers[studentID])
+				.emit('delete:grade', notificationPopulated);
+			return res.send({ message: 'Grade deleted successfully' });
+		})
 		.catch(err => next(err));
 }
 

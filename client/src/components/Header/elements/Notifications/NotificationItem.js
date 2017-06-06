@@ -20,6 +20,16 @@ function formatNotification(type, teacherName, target, info) {
     const { enteredFor } = info;
     return `${teacherName} removed your attendance for the ${onlyFirstLetters(course.id.name)} ${course.type} at ${formatTime(enteredFor)} `;
   }
+
+  if (type === 'gradeAdd') {
+    const { gradeNumber } = info;
+    return `${teacherName} added your ${gradeNumber}. grade for the ${onlyFirstLetters(course.id.name)} ${course.type}`;
+  }
+
+  if (type === 'gradeDelete') {
+    const { gradeNumber } = info;
+    return `${teacherName} removed your ${gradeNumber}. grade for the ${onlyFirstLetters(course.id.name)} ${course.type}`;
+  }
 }
 
 const NotificationItem = (props) => {
@@ -121,14 +131,13 @@ const InfoWrapper = styled.div`
 
 const Icon = styled.img`
 	width: 30px;
-	height: 30px;
 	margin-right: 15px;
 
 	content: url(${(props) => {
   const { type } = props;
   if (type === 'attendanceAdd') {
     return calendarLogo;
-  } else if (type === 'attendanceRemove' || type === 'gradeRemove') {
+  } else if (type === 'attendanceRemove' || type === 'gradeDelete') {
     return documentErrorLogo;
   } else if (type === 'gradeAdd') {
     return taskDoneLogo;

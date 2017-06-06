@@ -10,7 +10,7 @@ const NotificationSchema = new Schema({
 					'attendanceAdd',
 					'attendanceRemove',
 					'gradeAdd',
-					'gradeRemove',
+					'gradeDelete',
 					'post'
 				].indexOf(type) > -1,
 			message: 'Invalid type for notification item'
@@ -61,7 +61,8 @@ const NotificationSchema = new Schema({
 	},
 	seenBy: [String],
 	info: {
-		enteredFor: Date
+		enteredFor: Date,
+		gradeNumber: Number
 	}
 });
 

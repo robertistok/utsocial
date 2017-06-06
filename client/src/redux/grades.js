@@ -154,12 +154,13 @@ export function updateGrade(id, student, grade, assignor) {
   };
 }
 
-export function deleteGrade(id, student) {
+export function deleteGrade(id, student, deletedBy) {
   return (dispatch) => {
     dispatch({ type: DELETE_GRADE });
     axios({
-      method: 'get',
-      url: `/api/grades/delete/${id}`,
+      method: 'post',
+      url: '/api/grades/delete',
+      data: { id, student, deletedBy },
       headers: {
         authorization: getToken()
       }
