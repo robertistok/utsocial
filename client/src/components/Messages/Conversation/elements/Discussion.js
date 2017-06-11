@@ -47,7 +47,7 @@ const Discussion = (props) => {
 const { arrayOf, shape, string, bool } = PropTypes;
 Discussion.propTypes = {
   selectedConversation: shape({
-    participants: arrayOf(shape({ username: string.isRequired })),
+    participants: arrayOf(shape({ _id: string.isRequired })),
     messages: arrayOf(
       shape({ _id: string.isRequired, unread: bool.isRequired })
     )

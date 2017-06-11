@@ -11,9 +11,9 @@ import DropDown from '../DropDown';
 
 class MessagesContainer extends Component {
   componentDidMount() {
-    const { getConversationsOfUser, user: { username } } = this.props;
+    const { getConversationsOfUser, user: { _id: userID } } = this.props;
 
-    getConversationsOfUser(username);
+    getConversationsOfUser(userID);
   }
 
   filterForUnreadMessages() {

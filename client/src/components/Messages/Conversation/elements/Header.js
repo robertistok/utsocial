@@ -20,12 +20,15 @@ const Header = (props) => {
 const { arrayOf, shape, string, bool, func } = PropTypes;
 Header.propTypes = {
   selectedConversation: shape({
-    participants: arrayOf(shape({ username: string.isRequired })),
+    participants: arrayOf(shape({ _id: string.isRequired })),
     messages: arrayOf(
       shape({ _id: string.isRequired, unread: bool.isRequired })
     )
   }),
-  loggedInUser: shape({ username: string.isRequired }).isRequired,
+  loggedInUser: shape({
+    username: string.isRequired,
+    _id: string.isRequired
+  }).isRequired,
   onStarClick: func.isRequired
 };
 

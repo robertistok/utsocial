@@ -2,11 +2,12 @@
 /* eslint no-param-reassign: 0*/
 
 const Conversation = require('../models/conversation');
+const mongoose = require('mongoose');
 
 function getConversationsOfUser(req, res, next) {
-	const { username } = req.params;
+	const { userID } = req.params;
 
-	Conversation.find({ 'participants.username': username })
+	Conversation.find({ 'participants._id': mongoose.Types.ObjectId(userID) })
 		.slice('messages', -1)
 		.then((conversations) => {
 			res.send(

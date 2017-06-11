@@ -25,8 +25,6 @@ class StudentRow extends Component {
       attendanceList
     } = this.props;
 
-    console.log('updateing');
-
     return (
       <Table.Row>
         <Table.Cell>{index + 1}</Table.Cell>

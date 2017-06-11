@@ -31,12 +31,12 @@ class InboxContainer extends Component {
     const {
       getConversationsOfUser,
       addNewConversation,
-      user: { username },
+      user: { _id: userID },
       history,
       selectedConversation
     } = this.props;
 
-    getConversationsOfUser(username);
+    getConversationsOfUser(userID);
 
     socket.on('message:sent', (value) => {
       addNewConversation(value);
@@ -99,7 +99,7 @@ InboxContainer.propTypes = {
   location: shape({ pathname: string.isRequired }).isRequired,
   history: shape({ push: func.isRequired }).isRequired,
   conversations: arrayOf(shape({ _id: string.isRequired })),
-  user: shape({ username: string.isRequired })
+  user: shape({ username: string.isRequired, _id: string.isRequired })
 };
 
 // const LoadingIndicator = () => (

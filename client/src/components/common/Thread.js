@@ -101,7 +101,7 @@ Thread.propTypes = {
   subject: string.isRequired,
   user: shape({ username: string.isRequired }).isRequired,
   participants: arrayOf(
-    shape({ username: string.isRequired }).isRequired
+    shape({ _id: string.isRequired }).isRequired
   ).isRequired,
   messages: arrayOf(
     shape({ unread: bool.isRequired, timestamp: string.isRequired })

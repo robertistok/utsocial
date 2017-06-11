@@ -49,12 +49,12 @@ export function changeSearchterm(searchTerm) {
   };
 }
 
-export function getConversationsOfUser(user) {
+export function getConversationsOfUser(userID) {
   return (dispatch) => {
     dispatch({ type: FETCH_CONVERSATIONS_OFUSER });
     axios({
       method: 'get',
-      url: `${ROOT_URL}/${user}`,
+      url: `${ROOT_URL}/${userID}`,
       headers: {
         authorization: getToken()
       }

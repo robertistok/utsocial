@@ -56,25 +56,23 @@ io.on('connection', (socket) => {
 		Promise.all([
 			Student.find(
 				{ _id: { $in: [sender, target] } },
-				'_id group semigroup username firstname lastname gender'
+				'_id group semigroup firstname lastname gender'
 			),
 			Teacher.find(
 				{ _id: { $in: [sender, target] } },
-				'_id username firstname lastname gender'
+				'_id firstname lastname gender'
 			)
 		]).then((values) => {
 			const [students, teachers] = values;
-			const onlyRequiredFieldsStudents = students.map(
-				({ _id, semigroup, group, username, firstname, lastname, gender }) => ({
-					_id,
-					semigroup,
-					group,
-					username,
-					firstname,
-					lastname,
-					gender
-				})
-			);
+			const onlyRequiredFieldsStudents = students.map(student => ({
+				_id: student._id,
+				semigroup: student.semigroup,
+				group: student.group,
+				firstname: student.firstname,
+				lastname: student.lastname,
+				gender: student.gender,
+				name: student.name
+			}));
 
 			newConversation.participants = [
 				...teachers,

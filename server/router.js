@@ -112,7 +112,7 @@ router.post(
 );
 
 router.get(
-	'/api/messages/:username',
+	'/api/messages/:userID',
 	requireAuth,
 	MessagesController.getConversationsOfUser
 );
