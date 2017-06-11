@@ -58,6 +58,7 @@ class MessagesContainer extends Component {
         newAlertCount={unseen}
         noItemsMessage="No notifications..."
         Item={NotificationItem}
+        bellNotifications
       />
     );
   }

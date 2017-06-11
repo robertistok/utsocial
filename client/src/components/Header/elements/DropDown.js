@@ -27,7 +27,8 @@ class DropDown extends Component {
       icon,
       Item,
       noItemsMessage,
-      customItemProps
+      customItemProps,
+      bellNotifications = false
     } = this.props;
 
     return (
@@ -44,7 +45,7 @@ class DropDown extends Component {
             </Number>}
         </NavIcon>
         {shown &&
-          <Content>
+          <Content bellNotifications={bellNotifications}>
             <Title>{title}</Title>
             <ItemsContainer>
               {items !== null && items.length !== 0
@@ -75,6 +76,7 @@ DropDown.propTypes = {
   customItemProps: object,
   Item: func.isRequired,
   noItemsMessage: string.isRequired,
+  bellNotifications: bool,
   items: arrayOf(object) // Implement properly..
 };
 
@@ -92,16 +94,16 @@ const Content = styled.div`
 	height: min-content;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 3;
-	right: -60px;
+	right: -140px;
 	top: 60px;
 
 	@media screen and (max-width: 768px) {
 		top: 35px;
-		right: -150px;
+		right: ${props => props.bellNotifications === true ? '-187px' : '-150px'} ;
 	}
 
 	@media screen and (max-width: 400px) {
-		right: -86px;
+		right: ${props => props.bellNotifications === true ? '-126px' : '-86px'} ;
 		width: 100vw;
 	}
 `;
