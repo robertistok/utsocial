@@ -30,7 +30,7 @@ const Discussion = (props) => {
           <Partner self={sender === 'Me'}>{sender}</Partner>
           <Timestamp>{formatTime(m.timestamp, true)}</Timestamp>
         </Info>
-        <Message>{formatMultiLineText(m.text)}</Message>
+        <Message self={sender === 'Me'}>{formatMultiLineText(m.text)}</Message>
       </MessageWrapper>
     );
   };
@@ -58,45 +58,53 @@ Discussion.propTypes = {
 
 const Wrapper = styled.div`
 	height: ${props => props.newMessageActive ? 'calc(100% - 49px - 130px)' : 'calc(100% - 49px - 40px)'};
-
+	display: flex;
+	flex-direction: column;
+	flex: 1;
 	border-bottom: 1px solid rgba(0, 0, 0, .10);
 	overflow: auto;
+	width: 100%;
 `;
 
-const Info = styled.span`
+const Info = styled.div`
 	display: flex;
-	align-items: center;
-	justify-content: space-between;
+	margin-bottom: 3px;
 `;
 
-const MessageWrapper = styled.span`
+const MessageWrapper = styled.div`
 	display: flex;
+	flex: none;
 	flex-direction: column;
 	justify-content: center;
 	background-color: e2edff;
-	background-color: ${props => props.self ? '#fafafa' : '#e0e0e0'}
-	box-shadow: 0px 1px #e2edff;
-	border-bottom: 1px solid rgba(0, 0, 0, .10);
+	align-self: ${props => props.self === true ? 'flex-end' : 'flex-start'}
+	margin: 10px 25px;
+	max-width: 80%;
 `;
 
-const Partner = styled.span`
-	padding-top: 10px;
-	margin-left: 30px;
-	font-size: 16px;
+const Partner = styled.div`
+	margin-left: 5px;
+	margin-right: 15px;
+	font-size: 13px;
 	color: rgba(0, 0, 0, 0.7);
 `;
 
-const Timestamp = styled.span`
+const Timestamp = styled.div`
 	color: rgba(0, 0, 0, .40)
-	font-size: 12px;
-	margin-right: 25px;
+	font-size: 11px;
+	margin-right: 5px;
+	margin-left: auto;
 `;
 
 const Message = styled.div`
 	width: 100%;
-	height: min-content;
 	display: flex;
-	padding: 10px 20px;
+	flex-direction: column;
+	padding: 10px;
+	border-radius: 6px;
+	background-color: ${props => props.self === true ? '#f1f0f0' : props.theme.primary};
+	color: ${props => props.self === true ? props.theme.black : props.theme.white};
+	justify-content: center;
 `;
 
 export default Discussion;
