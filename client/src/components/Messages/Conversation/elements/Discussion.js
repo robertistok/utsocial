@@ -78,7 +78,7 @@ const MessageWrapper = styled.div`
 	justify-content: center;
 	background-color: e2edff;
 	align-self: ${props => props.self === true ? 'flex-end' : 'flex-start'}
-	margin: 10px 25px;
+	margin: 10px 20px;
 	max-width: 80%;
 `;
 
@@ -100,8 +100,8 @@ const Message = styled.div`
 	width: 100%;
 	display: flex;
 	flex-direction: column;
-	padding: 10px;
-	border-radius: 6px;
+	padding: 5px 10px;
+	border-radius: 7px;
 	background-color: ${props => props.self === true ? '#f1f0f0' : props.theme.primary};
 	color: ${props => props.self === true ? props.theme.black : props.theme.white};
 	justify-content: center;

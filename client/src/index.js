@@ -15,6 +15,11 @@ if (token !== null) {
   store.dispatch(meFromToken(token));
 }
 
+// if (process.env.NODE_ENV !== 'production') {
+//   const { whyDidYouUpdate } = require('why-did-you-update');
+//   whyDidYouUpdate(React);
+// }
+
 const Root = () => (
   <Provider store={store}>
     <App />

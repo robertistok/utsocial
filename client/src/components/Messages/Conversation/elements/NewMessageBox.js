@@ -33,9 +33,13 @@ const NewMessageBox = (props) => {
   );
 };
 
-const { func } = PropTypes;
+const { func, bool, shape } = PropTypes;
 NewMessageBox.propTypes = {
-  handleSubmit: func.isRequired
+  handleSubmit: func.isRequired,
+  pristine: bool.isRequired,
+  submitting: bool.isRequired,
+  valid: bool.isRequired,
+  fields: shape({ message: shape({ active: bool }) })
 };
 
 const StyledForm = styled.form`

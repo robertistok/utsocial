@@ -35,7 +35,7 @@ Header.propTypes = {
 const Wrapper = styled.div`
 	height: 50px;
 	display: flex;
-	justify-content: flex-start;
+	justify-content: center;
 	align-items: center;
 	border-bottom: 1px solid rgba(0, 0, 0, .10);
 	padding: 5px 40px;
@@ -49,7 +49,7 @@ const Subject = styled.span`
 const StarLogo = styled.img`
 	width: 20px;
 	height: 20px;
-	margin-right: 25px;
+	margin-right: 10px;
 
 	&:hover {
 		cursor: pointer;
