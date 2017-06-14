@@ -6,7 +6,7 @@ import 'normalize.css';
 import App from './views/App';
 import { meFromToken } from './redux/account/auth';
 import './index.css';
-import './semantic/dist/semantic.min.css';
+import './assets/semantic/dist/semantic.min.css';
 import store from './redux/store';
 import { getToken } from './utils/sessionOperations';
 
