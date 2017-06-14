@@ -5,7 +5,9 @@
  "main": "index.js",
  "license": "MIT",
  "engines": {
-  "node": "7.4.0"
+  "node": "7.4.0",
+	"npm": "4.0.5",
+	"yarn": "0.24.6"
  },
  "dependencies": {
   "concurrently": "^3.4.0",
