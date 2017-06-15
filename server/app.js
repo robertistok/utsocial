@@ -21,12 +21,13 @@ app.use('/*', staticFiles);
 
 mongoose.Promise = global.Promise;
 if (process.env.NODE_ENV === 'production') {
-	app.all('*', (req, res, next) => {
-		if (req.headers['x-forwarded-proto'] !== 'https') {
-			res.redirect(`https://${req.headers.host}${req.url}`);
-		} else next(); /* Continue to other routes if we're not redirecting */
-	});
+	app.get('*', (req, res) => {
+		if (req.isSocket) {
+			return res.redirect(`wss://${req.headers.host}${req.url}`);
+		}
 
+		return res.redirect(`https://${req.headers.host}${req.url}`);
+	});
 	mongoose.connect(process.env.MONGODB_URI);
 } else {
 	mongoose.connect('mongodb://localhost/universocial');
