@@ -19,7 +19,7 @@ app.use(router);
 
 app.use('/*', staticFiles);
 
-// MongodDb connection
+// MongodDB connection
 mongoose.Promise = global.Promise;
 if (process.env.NODE_ENV === 'production') {
 	mongoose.connect(process.env.MONGODB_URI);
