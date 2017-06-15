@@ -19,6 +19,12 @@ app.use(router);
 
 app.use('/*', staticFiles);
 
+app.all('*', (req, res, next) => {
+	if (req.headers['x-forwarded-proto'] !== 'https') {
+		res.redirect(`https://${req.headers.host}${req.url}`);
+	} else next();
+});
+
 // MongodDB connection
 mongoose.Promise = global.Promise;
 if (process.env.NODE_ENV === 'production') {
