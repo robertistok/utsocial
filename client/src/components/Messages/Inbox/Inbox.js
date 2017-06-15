@@ -18,7 +18,7 @@ const Inbox = (props) => {
         <SearchBar {...props} />
         {conversations && conversations.length !== 0
           ? conversations.map(conversation => (
-						<Thread key={conversation._id} {...conversation} {...props} />
+              <Thread key={conversation._id} {...conversation} {...props} />
             ))
           : <NoMessages>No messages</NoMessages>}
       </ThreadsContainer>

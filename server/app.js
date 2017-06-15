@@ -19,15 +19,14 @@ app.use(router);
 
 app.use('/*', staticFiles);
 
-app.all('*', (req, res, next) => {
-	if (req.headers['x-forwarded-proto'] !== 'https') {
-		res.redirect(`https://${req.headers.host}${req.url}`);
-	} else next();
-});
-
-// MongodDB connection
 mongoose.Promise = global.Promise;
 if (process.env.NODE_ENV === 'production') {
+	app.all('*', (req, res, next) => {
+		if (req.headers['x-forwarded-proto'] !== 'https') {
+			res.redirect(`https://${req.headers.host}${req.url}`);
+		} else next(); /* Continue to other routes if we're not redirecting */
+	});
+
 	mongoose.connect(process.env.MONGODB_URI);
 } else {
 	mongoose.connect('mongodb://localhost/universocial');
