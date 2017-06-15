@@ -23,7 +23,7 @@ mongoose.Promise = global.Promise;
 if (process.env.NODE_ENV === 'production') {
 	app.get('*', (req, res) => {
 		if (req.isSocket) {
-			return res.redirect(`wss://${req.headers.host}${req.url}`);
+			return res.redirect(`https://${req.headers.host}${req.url}`);
 		}
 
 		return res.redirect(`https://${req.headers.host}${req.url}`);

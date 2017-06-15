@@ -11,7 +11,7 @@ import { bindActionCreators } from 'redux';
 import * as messagesActions from '../redux/messages';
 import * as notificationsActions from '../redux/notifications';
 
-export const socket = io.connect('https://localhost:3001/', {
+export const socket = io.connect('http://localhost:3001/', {
   reconnection: true,
   reconnectionDelay: 1000,
   reconnectionDelayMax: 5000,
