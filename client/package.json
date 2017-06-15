@@ -8,7 +8,7 @@
       "ws": true
     },
     "/api": {
-      "target": "http://localhost:3001/",
+      "target": "https://localhost:3001/",
       "ws": true
     }
   },
