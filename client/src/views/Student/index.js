@@ -9,6 +9,7 @@ import Courses from './Courses';
 import ModalSwitcher from '../../components/Modals/ModalSwitcher';
 import Schedule from './Schedule';
 import Grades from './Grades';
+import Settings from '../../components/Settings';
 import Home from './Home';
 import { Wrapper, Content } from '../wrappers';
 
@@ -26,7 +27,7 @@ const Student = () => (
         <Route path="/messages" component={Messages} />
         <Route path="/schedules" component={Schedule} />
         <Route path="/grades" component={Grades} />
-        <Route path="/settings" render={() => <h1>StudentSettings</h1>} />
+        <Route path="/settings" component={Settings} />
         <Route component={ForOhFor} />
       </Switch>
     </Content>

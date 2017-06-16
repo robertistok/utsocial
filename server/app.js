@@ -21,7 +21,7 @@ app.use('/*', staticFiles);
 
 mongoose.Promise = global.Promise;
 if (process.env.NODE_ENV === 'production') {
-	app.get('*', (req, res) => res.redirect(`https://${req.headers.host}${req.url}`));
+	// app.get('*', (req, res) => res.redirect(`https://${req.headers.host}${req.url}`));
 	mongoose.connect(process.env.MONGODB_URI);
 } else {
 	mongoose.connect('mongodb://localhost/universocial');
