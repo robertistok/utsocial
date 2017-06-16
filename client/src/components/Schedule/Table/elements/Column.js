@@ -1,4 +1,5 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment';
 
@@ -25,10 +26,14 @@ const Column = (props) => {
   return (
     <Wrapper today={today}>
       <Day>{day.text}</Day>
-      <ColumnWrapper>
+      <Group>
+        {semigroups.map(sg => (
+          <GroupNumber key={`SG${sg}`}>{`SG${sg}`}</GroupNumber>
+        ))}
+      </Group>
+      <ColumnWrapper main>
         {semigroups.map(semigroup => (
           <SemigroupColumn key={semigroup}>
-            <GroupNumber>{`SG${semigroup}`}</GroupNumber>
             <ColumnWrapper>
               {weeks.map(week => (
                 <Week key={week}>
@@ -90,48 +95,73 @@ const Wrapper = styled.div`
 		width: 90%;
 		`}
 
-	background-color: ${props => props.today ? '#D3D3D3' : 'initial'}
+	background-color: ${props => props.today && props.theme.selected}
 `;
 
 const Day = styled.div`
+	width: 100%;
+	height: 40px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 100%;
 	text-align: center;
-	border-bottom: solid 1px black;
-	border-left: solid 1px black;
-	height: 50px;
+	font-weight: bolder;
+	border-left: ${props => props.theme.separator};
+	border-bottom: ${props => props.theme.separator};
 
+	@media screen and (max-width: 768px) {
+		border: ${props => props.theme.separator};
+	}
 `;
 
 const ColumnWrapper = styled.div`
 	display: flex;
 	justify-content: space-around;
+
+	@media screen and (max-width: 768px) {
+		border-left: ${props => props.main && props.theme.separator};
+		border-right: ${props => props.main && props.theme.separator};
+	}
 `;
 
 const SemigroupColumn = styled.div`
 	width: 100%;
 	text-align: center;
-	border-left: solid 1px black;
+	border-left: ${props => props.theme.separator};
 
-	${media.tablet`
-		&:first-child {
-			border-left: solid 1px black;
-			border-right: solid 1px black;
+	@media screen and (max-width: 768px) {
+		border-right: ${props => props.theme.separator};
+		border-left: 0px;
+
+		&:last-child {
+			border-right: 0px;
 		}
-		`}
+	}
 `;
 
-const GroupNumber = styled.div`
+const Group = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	width: 100%;
 	text-align: center;
-	border-bottom: solid 1px black;
-	height: 50px;
+	border-bottom: ${props => props.theme.separator};
+	height: 40px;
 	font-size: 12px;
+	font-weight: bold;
+
+	@media screen and (max-width: 768px) {
+		border-right: ${props => props.theme.separator};
+	}
+`;
+
+const GroupNumber = styled.div`
+	flex: 1;
+	height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+	border-left: ${props => props.theme.separator};
 `;
 
 const Week = styled.div`
@@ -140,15 +170,24 @@ const Week = styled.div`
 	justify-content: space-around;
 	width: 100%;
 	text-align: center;
+
+	&:first-child {
+		border-right: ${props => props.theme.separator};
+	}
+
+	&:last-child {
+		border-right: 0px;
+	}
 `;
 
 const WeekNumber = styled.div`
-	border-bottom: solid 1px black;
-	height: 50px;
+	border-bottom: ${props => props.theme.separator};
+	height: 40px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	font-size: 12px
+	font-size: 12px;
+	font-weight: bold;
 `;
 
 export default Column;

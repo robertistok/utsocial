@@ -13,9 +13,9 @@ const Table = (props) => {
   return (
     <Wrapper>
       <InfoColumn>
-        <Info>Day</Info>
-        <Info>Semigroup</Info>
-        <Info>Week</Info>
+        <Info annotation>Day</Info>
+        <Info annotation>Semigroup</Info>
+        <Info annotation>Week</Info>
         {HOURS.map(h => <Info key={h.key}>{h.text}</Info>)}
       </InfoColumn>
       {DAYS.map(d => (
@@ -44,17 +44,23 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	margin-bottom: 30px;
+	border-bottom: 0px;
 
-	${media.tablet`
+	@media screen and (min-width: 768px) {
+		border: ${props => props.theme.separator};
+		border-bottom: 0px;
+	}
+
+	@media screen and (max-width: 768px) {
 		flex-direction: column;
 		align-items: center;
-	`}
+	}
 `;
 
 const InfoColumn = styled.div`
 	display: flex;
 	flex-direction: column;
-	min-width: 5vw;
+	min-width: 8vw;
 
 	${media.tablet`
 		display: none
@@ -66,8 +72,9 @@ const Info = styled.div`
 	align-items: center;
 	justify-content: center;
 	text-align: center;
-	border-bottom: solid 1px black;
-	height: 50px;
+	border-bottom: ${props => props.theme.separator};
+	height: 40px;
+	font-weight: ${props => props.annotation && 'bolder'};
 `;
 
 export default Table;

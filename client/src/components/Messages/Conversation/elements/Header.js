@@ -44,6 +44,10 @@ const Wrapper = styled.div`
 const Subject = styled.span`
 	font-size: 20px;
 	color: ${props => props.theme.secondary};
+
+	@media screen and (max-width: 768px) {
+		font-size: 18px;
+	}
 `;
 
 const StarLogo = styled.img`

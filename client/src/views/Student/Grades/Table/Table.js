@@ -82,8 +82,12 @@ Table.propTypes = {
 
 const Wrapper = styled.div`
 	display: flex;
-	flex-direction: row;
 	justify-content: ${props => props.semesters === 2 ? 'space-around' : 'center'};
+
+	@media screen and (max-width: 768px) {
+		flex-direction: column;
+		align-items: center;
+	}
 `;
 
 export default Table;

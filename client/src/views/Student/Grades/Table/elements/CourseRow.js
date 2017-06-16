@@ -17,7 +17,7 @@ const CourseRow = (props) => {
   const numberOfGrades = gradesList.numberOfGrades;
 
   return (
-    <div>
+    <Wrapper>
       {name}
       <StyledTable celled collapsing structured size="small">
         <Header
@@ -39,7 +39,7 @@ const CourseRow = (props) => {
           />
         </Table.Body>
       </StyledTable>
-    </div>
+    </Wrapper>
   );
 };
 
@@ -78,8 +78,14 @@ CourseRow.propTypes = {
   })
 };
 
+const Wrapper = styled.div`
+	width: 80%;
+	margin: 15px 0px;
+`;
+
 const StyledTable = styled(Table)`
 	display: table;
+	width: 100% !important;
 `;
 
 export default CourseRow;

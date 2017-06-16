@@ -47,6 +47,14 @@ const StyledForm = styled.form`
 	height: ${props => props.isActive ? '130px' : '40px'};
 	display: flex;
 	width: 100%;
+
+	@media screen and (max-width: 768px) {
+		font-size: 13px !important;
+	}
+
+	@media screen and (max-width: 500px) {
+		font-size: 12px !important;
+	}
 `;
 
 const SubmitButton = styled(Button)`
@@ -55,18 +63,22 @@ const SubmitButton = styled(Button)`
 	right: 0px;
 	bottom: 0px;
 	margin-right: 0px !important;
+	border-radius: inherit !important;
 
-	width: ${(props) => {
-  if (props.width !== undefined) {
-    return props.width;
-  }
-
-  return '100px';
-}};
-
+	width: 100px;
 	height: 40px;
 	background-color: ${props => props.theme.primary} !important;
 	color: ${props => props.theme.white} !important;
+
+	@media screen and (max-width: 768px) {
+		font-size: 13px !important;
+		width: 75px;
+	}
+
+	@media screen and (max-width: 500px) {
+		font-size: 12px !important;
+		width: 50px;
+	}
 `;
 
 export default reduxForm({ form: 'newMessageForm' })(NewMessageBox);

@@ -9,7 +9,7 @@ const Semester = (props) => {
 
   return (
     <Wrapper>
-      {semester}
+      <SemesterNumber>Semster {semester}</SemesterNumber>
       {Object.keys(courses).map(key => (
         <CourseRow
           key={key}
@@ -58,8 +58,17 @@ Semester.propTypes = {
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
-	align-items: flex-start;
-	margin: 15px;
+	align-items: center;
+	margin: 30px;
+	width: 80%;
+	border: ${props => props.theme.separator};
+`;
+
+const SemesterNumber = styled.span`
+	width: 100%;
+	text-align: center;
+	font-size: 16px;
+	font-weight: bolder;
 `;
 
 export default Semester;

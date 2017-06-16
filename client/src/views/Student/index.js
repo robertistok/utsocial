@@ -27,7 +27,7 @@ const Student = () => (
         <Route path="/messages" component={Messages} />
         <Route path="/schedules" component={Schedule} />
         <Route path="/grades" component={Grades} />
-        <Route path="/settings" component={Settings} />
+        <Route path="/preferences" component={Settings} />
         <Route component={ForOhFor} />
       </Switch>
     </Content>

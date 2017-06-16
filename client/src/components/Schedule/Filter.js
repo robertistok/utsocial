@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Form, Select, Message } from 'semantic-ui-react';
+import { Dropdown, Message } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 import { SEMIGROUP, FREQUENCY } from '../../utils/constants';
-import { media } from '../../utils/style-utils';
 
 const optionsWeek = [
   { key: 'o', text: 'Odds', value: FREQUENCY.ODD },
@@ -29,35 +28,35 @@ const Filter = (props) => {
 
   return (
     <Wrapper>
-      <StyledForm>
-        <StyledFormField
-          control={Select}
+      <DropdownsWrapper>
+        <StyledDropdown
           options={scheduleOfOptions}
           placeholder="Group"
           onChange={onScheduleOfChange}
           value={scheduleOf}
+          selection
         />
-        <StyledFormField
-          control={Select}
+        <StyledDropdown
           options={optionsSemigroup}
           placeholder="Semigroup"
           value={semigroup}
+          selection
           onChange={onSemigroupChange}
         />
-        <StyledFormField
-          control={Select}
+        <StyledDropdown
           options={optionsWeek}
           placeholder="Week"
           value={week}
+          selection
           onChange={onWeekChange}
         />
-      </StyledForm>
+      </DropdownsWrapper>
       {scheduleOf !== undefined
         ? <ExplanationWrapper>
-            <Explanation lecture><span>Lecture</span></Explanation>
-            <Explanation lab><span>Lab</span></Explanation>
-            <Explanation project><span>Project</span></Explanation>
-            <Explanation seminar><span>Seminar</span></Explanation>
+            <Explanation type="lecture">Lecture</Explanation>
+            <Explanation type="lab">Lab</Explanation>
+            <Explanation type="project">Project</Explanation>
+            <Explanation type="seminar">Seminar</Explanation>
           </ExplanationWrapper>
         : <NoGroupsSelected />}
 
@@ -94,48 +93,60 @@ const Wrapper = styled.div`
 	}
 `;
 
-const StyledForm = styled(Form)`
-	padding-top: 20px;
-	margin-bottom: 30px;
+const DropdownsWrapper = styled.div`
 	display: flex;
-	justify-content: center;
+	margin-bottom: 20px;
 
-	${media.tablet`
+	@media screen and (max-width: 768px) {
 		flex-direction: column;
-		align-items: center;
-		`}
+	}
 `;
 
-const StyledFormField = styled(Form.Field)`
-	margin: 10px !important;
+const StyledDropdown = styled(Dropdown)`
+	flex: 1;
+	font-size: 14px !important;
+	border-radius: 0px !important;
+	max-height: 40px !important;
 	text-align: center;
+	margin: 10px;
+
+	&.active {
+		border-color: ${props => props.theme.primary} !important;
+	}
+
+	div {
+		border-color: ${props => props.theme.primary} !important;
+	}
+
+	div .text {
+		font-size: 13px !important;
+	}
+
+	@media screen and (max-width: 378px) {
+		font-size: 12px !important;
+
+		div .text {
+			font-size: 12px !important;
+		}
+	}
 `;
 
 const ExplanationWrapper = styled.div`
 	display: flex;
-	justify-content: center;
-	align-items: center;
 	margin-bottom: 30px;
 `;
 
 const Explanation = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	font-size: 12px;
-	text-align: center;
 	padding: 5px;
 	min-width: 70px;
-	min-height: 30px;
-	margin: 18px 5px;
+	min-height: 29px;
+	margin: 0px 5px;
 
-	background-color: ${(props) => {
-  if (props.lecture) {
-    return '#27ae60';
-  } else if (props.lab) {
-    return '#16a085';
-  } else if (props.seminar) {
-    return '#f1c40f';
-  }
-  return '#c0392b';
-}}
+	background-color: ${props => props.theme[props.type]}
 `;
 
 export default Filter;

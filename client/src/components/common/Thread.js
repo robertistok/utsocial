@@ -114,12 +114,12 @@ const StyledNavLink = styled(NavLink)`
 	border-bottom: 1px solid ${props => props.theme.lightGray};
 
 	&:hover {
-		background-color: rgba(0, 0, 0, .05)
+		background-color: ${props => props.theme.selected};
 		cursor: pointer;
 	}
 
 	&.active {
-		background-color: rgba(0, 0, 0, .05);
+		background-color: ${props => props.theme.selected};
 	}
 
 	@media screen and (max-width: 768px) {
