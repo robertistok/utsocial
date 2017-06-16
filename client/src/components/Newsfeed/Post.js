@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'recompose';
 import styled from 'styled-components';
 import { Button, Popup } from 'semantic-ui-react';
+import enhanceWithClickOutside from 'react-click-outside';
 
 import { formatTime } from '../../utils/timestamp';
 import { capitalizeFirstLetter } from '../../utils/string-operations';
@@ -38,6 +40,14 @@ class Post extends Component {
 
   toggleEdit() {
     this.setState(state => ({ editing: !state.editing }));
+  }
+
+  handleClickOutside() {
+    const { editing } = this.state;
+
+    if (editing === true) {
+      this.cancelEdit();
+    }
   }
 
   assignOptions() {
@@ -142,9 +152,9 @@ class Post extends Component {
           <RelatedTo>
             {capitalizeFirstLetter(target.course.relatedTo)}
           </RelatedTo>
-          <Timestamp>@{formatTime(created)}</Timestamp>
+          <Timestamp>{formatTime(created, true)}</Timestamp>
         </Header>
-        <Content>
+        <Content editing={this.state.editing}>
           {this.state.editing
             ? <ContentEditableDiv
                 text={this.state.content}
@@ -154,11 +164,13 @@ class Post extends Component {
         </Content>
         {this.state.editing &&
           <ActionButtonGroup>
-            <ActionButton onClick={() => updatePost(this.state.content)}>
-              Ok
-            </ActionButton>
             <ActionButton onClick={this.cancelEdit}>Cancel</ActionButton>
-
+            <ActionButton
+              className="confirmation"
+              onClick={() => updatePost(this.state.content)}
+            >
+              OK
+            </ActionButton>
           </ActionButtonGroup>}
       </Wrapper>
     );
@@ -212,7 +224,7 @@ const Header = styled.div`
 
 const Content = styled.div`
 	height: min-content;
-	padding: 10px;
+	padding: ${props => !props.editing && '10px'};
 `;
 
 const Author = styled.span`
@@ -233,17 +245,23 @@ const Timestamp = styled.span`
 
 const ActionButtonGroup = styled.div`
 	width: 100%;
-	height: 30px;
+	height: 35px;
 	position: relative;
 	display: flex;
 	justify-content: flex-end;
+	align-items: flex-end;
 `;
 
 const ActionButton = styled(Button)`
-	width: min-content;
-	margin: 5px !important;
-	height: 20px;
+	width: 50px;
+	margin: 7px !important;
+	height: 25px;
 	font-size: 10px !important;
+
+	&.confirmation {
+		background-color: ${props => props.theme.confirmation} !important;
+		color: ${props => props.theme.white} !important;
+	}
 
 	${media.phone`
 		font-size: 10px !important;
@@ -254,4 +272,6 @@ const StyledPopup = styled(Popup)`
 	max-height: min-content !important;
 `;
 
-export default withToggle(Post);
+const enhance = compose(withToggle, enhanceWithClickOutside);
+
+export default enhance(Post);

@@ -1,56 +1,69 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'semantic-ui-react';
 import styled from 'styled-components';
+import enhanceWithClickOutside from 'react-click-outside';
 
 import ContentEditableDiv
   from '../../../../../../components/common/ContentEditableDiv';
 import Box from '../../../../../../components/Courses/Description/Box';
 
-const DescriptionBox = (props) => {
-  const {
-    description: { text, lastUpdatedBy, updatedOn },
-    toggle: toggleEdit,
-    toggledOn: editing,
-    content,
-    handleTextBoxChange,
-    handleSave,
-    resetState
-  } = props;
+class DescriptionBox extends Component {
+  handleClickOutside() {
+    const { toggledOn: editing, toggle } = this.props;
 
-  if (editing === true) {
-    return (
-      <Wrapper>
-        <ContentEditableDiv
-          text={content}
-          onContentChange={handleTextBoxChange}
-        />
-        <ActionButtonGroup>
-          <ActionButton positive onClick={handleSave}>Save</ActionButton>
-          <ActionButton
-            onClick={() => {
-              resetState();
-              toggleEdit();
-            }}
-          >
-            Cancel
-          </ActionButton>
-        </ActionButtonGroup>
-
-      </Wrapper>
-    );
+    if (editing === true) {
+      toggle();
+    }
   }
 
-  return (
-    <Box
-      onClick={toggleEdit}
-      text={text}
-      updatedOn={updatedOn}
-      isTeacher
-      lastUpdatedBy={lastUpdatedBy}
-    />
-  );
-};
+  render() {
+    const {
+      description: { text, lastUpdatedBy, updatedOn },
+      toggle: toggleEdit,
+      toggledOn: editing,
+      content,
+      handleTextBoxChange,
+      handleSave,
+      resetState
+    } = this.props;
+
+    if (editing === true) {
+      return (
+        <Wrapper>
+          <ContentEditableDiv
+            text={content}
+            onContentChange={handleTextBoxChange}
+          />
+          <ActionButtonGroup>
+            <ActionButton className="confirmation" onClick={handleSave}>
+              Save
+            </ActionButton>
+            <ActionButton
+              onClick={() => {
+                resetState();
+                toggleEdit();
+              }}
+            >
+              Cancel
+            </ActionButton>
+          </ActionButtonGroup>
+
+        </Wrapper>
+      );
+    }
+
+    return (
+      <Box
+        onClick={toggleEdit}
+        text={text}
+        updatedOn={updatedOn}
+        isTeacher
+        lastUpdatedBy={lastUpdatedBy}
+      />
+    );
+  }
+}
 
 const { bool, string, func, shape } = PropTypes;
 DescriptionBox.propTypes = {
@@ -75,19 +88,28 @@ const Wrapper = styled.div`
 `;
 
 const ActionButtonGroup = styled.div`
+	width: 100%;
+	height: 35px;
 	position: relative;
-	height: 50px;
 	display: flex;
 	justify-content: flex-end;
-	background-color: #FFFFFF;
+	align-items: flex-end;
 `;
 
 const ActionButton = styled(Button)`
-	width: 90px;
-	margin-right: 20px !important;
-	margin-top: 10px !important;
-	margin-bottom: 10px !important;
-	height: 30px;
+	width: 50px;
+	margin: 7px !important;
+	height: 25px;
+	font-size: 10px !important;
+
+	&.confirmation {
+		background-color: ${props => props.theme.confirmation} !important;
+		color: ${props => props.theme.white} !important;
+	}
+
+	@media screen and (max-width: 768px) {
+		font-size: 10px;
+	}
 `;
 
-export default DescriptionBox;
+export default enhanceWithClickOutside(DescriptionBox);

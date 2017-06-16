@@ -9,7 +9,7 @@ import ResetPassword from './ResetPassword';
 import * as forgotPasswordActions from '../../../redux/account/forgotPassword';
 import {
   matchingPasswords
-} from '../../../components/FormComponents/validation';
+} from '../../../components/common/validation';
 
 class ResetPasswordContainer extends Component {
   constructor(props) {

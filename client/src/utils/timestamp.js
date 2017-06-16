@@ -1,5 +1,6 @@
 import moment from 'moment';
 
+// detailed is a boolean
 export const formatTime = (timestamp, detailed) => {
   const today = moment();
   const toCompare = moment(timestamp);

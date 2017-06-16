@@ -12,7 +12,7 @@ import {
   Description,
   Wrapper
 } from '../elements/styled';
-import { required } from '../../../components/FormComponents/validation';
+import { required } from '../../../components/common/validation';
 
 const ResetPassword = (props) => {
   const {

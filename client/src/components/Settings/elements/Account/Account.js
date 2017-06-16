@@ -1,8 +1,8 @@
 import React from 'react'; import PropTypes from 'prop-types'
 import { Field } from 'redux-form';
 
-import StandardInput from '../../../FormComponents/StandardInput';
-import { requiredWithText } from '../../../FormComponents/validation';
+import StandardInput from '../../../common/StandardInput';
+import { requiredWithText } from '../../../common/validation';
 import {
   SettingTitle,
   FieldGroup,

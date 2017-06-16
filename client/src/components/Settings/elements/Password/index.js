@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import * as preferencesActions from '../../../../redux/account/preferences';
 import {
   matchingPasswords
-} from '../../../../components/FormComponents/validation';
+} from '../../../../components/common/validation';
 import Password from './Password';
 
 class PasswordContainer extends Component {

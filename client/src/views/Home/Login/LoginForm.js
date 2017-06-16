@@ -11,7 +11,7 @@ import Checkbox from '../elements/Checkbox';
 import AuthError from '../elements/AuthError';
 import SubmitButton from '../elements/SubmitButton';
 import { Description, Wrapper } from '../elements/styled';
-import { required } from '../../../components/FormComponents/validation';
+import { required } from '../../../components/common/validation';
 
 const LoginForm = (props) => {
   const {

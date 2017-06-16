@@ -11,7 +11,7 @@ import {
   Wrapper
 } from '../elements/styled';
 
-import { required, email } from '../../../components/FormComponents/validation';
+import { required, email } from '../../../components/common/validation';
 
 const ForgotPassword = (props) => {
   const {

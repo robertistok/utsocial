@@ -7,10 +7,10 @@ import { compose } from 'recompose';
 
 import { StyledButton, ButtonGroup } from './styled-components';
 import InputWithLabel
-  from '../../../../../../components/FormComponents/InputWithLabel';
+  from '../../../../../../components/common/InputWithLabel';
 import {
   required
-} from '../../../../../../components/FormComponents/validation';
+} from '../../../../../../components/common/validation';
 
 const MaterialForm = (props) => {
   const {

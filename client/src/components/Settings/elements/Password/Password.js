@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Field } from 'redux-form';
 
-import StandardInput from '../../../FormComponents/StandardInput';
+import StandardInput from '../../../common/StandardInput';
 import {
   // matchingPasswords,
   required
-} from '../../../FormComponents/validation';
+} from '../../../common/validation';
 import {
   SettingTitle,
   StyledForm,

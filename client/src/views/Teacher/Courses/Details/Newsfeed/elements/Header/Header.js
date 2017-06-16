@@ -17,20 +17,23 @@ const Header = (props) => {
 
   return (
     <Wrapper writingPost={writingPost}>
-      {writingPost
-        ? <StyledButton
-            content="Discard"
-            icon="delete"
-            labelPosition="right"
-            onClick={writePost}
-          />
-        : <StyledButton
-            content="New"
-            icon="compose"
-            labelPosition="right"
-            onClick={writePost}
-          />}
-      <Filter types={selectedCourseTeachingTypes} onChange={filterNewsfeed} />
+      <InfoWrapper>
+        {writingPost
+          ? <StyledButton
+              content="Discard"
+              icon="delete"
+              labelPosition="right"
+              onClick={writePost}
+            />
+          : <StyledButton
+              className="new"
+              content="New"
+              icon="compose"
+              labelPosition="right"
+              onClick={writePost}
+            />}
+        <Filter types={selectedCourseTeachingTypes} onChange={filterNewsfeed} />
+      </InfoWrapper>
       {writingPost &&
         <NewPostFormContainer
           className="headerItem"
@@ -55,15 +58,30 @@ Header.propTypes = {
 
 const Wrapper = styled.div`
 	display: flex;
-	flex-direction: ${props => props.writingPost ? 'column' : 'row'};
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 80%;
+`;
+
+const InfoWrapper = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: center;
 	align-items: center;
 `;
 
 const StyledButton = styled(Button)`
-	width: 120px;
+	flex: 1;
+	max-width: 210px;
 	margin: 10px !important;
-	height: 39px;
+	height: 2.78em;
 	font-size: 14px !important;
+
+	&.new {
+		background-color: ${props => props.theme.confirmation} !important;
+		color: ${props => props.theme.white} !important;
+	}
 
 	${media.phone`
 		font-size: 12px !important;

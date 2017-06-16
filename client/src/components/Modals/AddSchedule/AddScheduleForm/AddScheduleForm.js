@@ -4,10 +4,10 @@ import { reduxForm, Field } from 'redux-form';
 import { Form, Loader, Message } from 'semantic-ui-react';
 
 import { SEMIGROUP, DAYS, HOURS } from '../../../../utils/constants';
-import RadioButton from '../../../FormComponents/Radio';
-import DropDownField from '../../../FormComponents/Dropdown';
-import InputWithLabel from '../../../FormComponents/InputWithLabel';
-import { required } from '../../../FormComponents/validation';
+import RadioButton from '../../../common/Radio';
+import DropDownField from '../../../common/Dropdown';
+import InputWithLabel from '../../../common/InputWithLabel';
+import { required } from '../../../common/validation';
 import { teacherOptions, courseOptions, frequencyOptions } from './options';
 
 const between = (min, max) =>

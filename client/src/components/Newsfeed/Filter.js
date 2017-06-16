@@ -1,9 +1,9 @@
-import React from 'react'; import PropTypes from 'prop-types'
-import { Dropdown } from 'semantic-ui-react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { capitalizeFirstLetter } from '../../utils/string-operations';
-import { media } from '../../utils/style-utils';
+import { StyledDropdown as Dropdown } from '../common/Dropdown';
 
 const Filter = (props) => {
   const { types, onChange } = props;
@@ -46,24 +46,9 @@ Filter.propTypes = {
 };
 
 const StyledDropdown = styled(Dropdown)`
-	min-width: 120px !important;
-	margin: 10px !important;
-	font-size: 14px !important;
-	border-radius: 0px !important;
+	flex: 1;
 	max-height: 39px !important;
-	text-align: center;
-
-	div .text {
-		font-size: 13px !important;
-	}
-
-	${media.phone`
-		font-size: 12px !important;
-
-		div .text {
-			font-size: 12px !important;
-		}
-	`}
+	min-width: inherit !important;
 `;
 
 export default Filter;

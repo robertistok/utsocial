@@ -6,6 +6,8 @@ const theme = {
   secondary: '#A0A0A0',
   newNotification: '#F2F9D9',
   lightGray: '#D3D3D3',
+  confirmation: '#51D1B9',
+
   inputBorder: 'rgba(34,36,38,.15)',
   inputBorderHover: 'rgba(34,36,38,.35)',
   selected: '	rgba(0, 0, 0, .05)',

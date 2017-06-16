@@ -1,7 +1,9 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 const CustomCheckbox = ({ input, label }) => (
-  <div className="field">
+  <Wrapper className="field">
     <div className="ui checkbox">
       <input
         {...input}
@@ -11,7 +13,7 @@ const CustomCheckbox = ({ input, label }) => (
       />
       <label htmlFor={input.name}>{label}</label>
     </div>
-  </div>
+  </Wrapper>
 );
 
 const { shape, string, any } = PropTypes;
@@ -19,5 +21,17 @@ CustomCheckbox.propTypes = {
   input: shape({ value: any, name: string }).isRequired,
   label: string.isRequired
 };
+
+const Wrapper = styled.div`
+	margin: auto;
+
+	@media screen and (max-width: 768px) {
+		margin: auto 10px;
+	}
+
+	input {
+		outline-color: ${props => props.theme.primary} !important;
+	}
+`;
 
 export default CustomCheckbox;

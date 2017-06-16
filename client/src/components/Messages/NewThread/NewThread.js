@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import InputField from './elements/InputField';
 import MessageBox from './elements//MessageBox';
 import UsersField from './elements/UsersField';
-import { required } from '../../FormComponents/validation';
+import { required } from '../../common/validation';
 import SubmitButton from '../../common/SubmitButton';
 import cancelLogo from '../../../assets/cancel.svg';
 

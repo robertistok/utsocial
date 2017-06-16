@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Button } from 'semantic-ui-react';
 
 import ExpandableTextArea from '../../../common/ExpandableTextArea';
-import { required } from '../../../FormComponents/validation';
+import { required } from '../../../common/validation';
 
 const NewMessageBox = (props) => {
   const { handleSubmit, fields, pristine, valid, submitting } = props;

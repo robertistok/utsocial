@@ -1,15 +1,11 @@
-import React from 'react'; import PropTypes from 'prop-types'
-import { Form } from 'semantic-ui-react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 import styled from 'styled-components';
 
-import Dropdown
-  from '../../../../../../../../components/FormComponents/Dropdown';
-import Checkbox
-  from '../../../../../../../../components/FormComponents/Checkbox';
-import {
-  required
-} from '../../../../../../../../components/FormComponents/validation';
+import Dropdown from '../../../../../../../../components/common/Dropdown';
+import Checkbox from '../../../../../../../../components/common/Checkbox';
+import { required } from '../../../../../../../../components/common/validation';
 import {
   capitalizeFirstLetter
 } from '../../../../../../../../utils/string-operations';
@@ -99,15 +95,21 @@ NewPostForm.propTypes = {
   }).isRequired
 };
 
-const StyledForm = styled(Form)`
+const StyledForm = styled.form`
+	width: 100%;
+	max-width: 600px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	margin: 10px !important;
 `;
 
-const StyledFormGroup = styled(Form.Group)`
+const StyledFormGroup = styled.div`
+	display: flex;
 	margin: 15px 0px !important;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
 
 	&.description {
 		display: flex !important;
@@ -116,6 +118,10 @@ const StyledFormGroup = styled(Form.Group)`
 		div:first-of-type {
 			margin-bottom: 20px !important;
 		}
+	}
+
+	@media screen and (max-width: 768px) {
+		flex-direction: column;
 	}
 `;
 
