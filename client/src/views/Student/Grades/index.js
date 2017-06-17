@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { compose } from 'recompose';
+import styled from 'styled-components';
 
 import { withMountingTransition } from '../../../components/hocs';
 import * as coursesActions from '../../../redux/courses';
@@ -17,10 +18,10 @@ class Grades extends Component {
 
   render() {
     return (
-      <div>
+      <Wrapper>
         <FilterContainer />
         <TableContainer />
-      </div>
+      </Wrapper>
     );
   }
 }
@@ -29,6 +30,10 @@ const { func } = PropTypes;
 Grades.propTypes = {
   fetchAllCourses: func.isRequired
 };
+
+const Wrapper = styled.div`
+	margin-top: 50px;
+`;
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ ...coursesActions }, dispatch);

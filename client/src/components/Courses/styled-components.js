@@ -16,7 +16,7 @@ export const ButtonGroup = styled.div`
 `;
 
 export const StyledAccordion = styled(Accordion)`
-	background-color: #f5f8fa !important;
+	background-color: ${props => props.theme.background} !important;
 	border: 0 !important;
   border-bottom-width: 0px !important;
   border-top-width: 0px !important;
@@ -26,10 +26,21 @@ export const StyledAccordion = styled(Accordion)`
 
 export const StyledAccordionTitle = styled(Accordion.Title)`
 	text-align: center;
+	font-size: 17px !important;
 `;
 
 export const StyledAccordionContent = styled.div`
 	display: flex;
 	align-items: center;
 	flex-direction: column;
+`;
+
+export const Title = styled.span`
+	display: inline-block;
+	width: 100%;
+	font-size: 20px;
+	font-weight: bolder;
+	margin: 30px 0px;
+	text-align: center;
+	text-decoration: underline;
 `;

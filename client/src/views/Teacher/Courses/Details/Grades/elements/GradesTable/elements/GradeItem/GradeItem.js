@@ -1,4 +1,5 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
 import styled from 'styled-components';
 
@@ -46,7 +47,7 @@ GradeItem.propTypes = {
 };
 
 const GradeCell = styled(Table.Cell)`
-padding: 0px !important;
+	padding: 0px !important;
 `;
 
 export default GradeItem;

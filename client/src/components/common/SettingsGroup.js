@@ -1,4 +1,5 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Popup, Icon } from 'semantic-ui-react';
 import styled from 'styled-components';
 
@@ -37,7 +38,7 @@ const Wrapper = styled.div`
 	align-self: flex-end;
 	display: flex;
 	flex-direction: row;
-	margin-right: 10px;
+	margin-right: 5px;
 	top: -22px;
 `;
 

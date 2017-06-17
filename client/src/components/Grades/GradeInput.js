@@ -1,4 +1,5 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Input } from 'semantic-ui-react';
 
@@ -31,8 +32,9 @@ GradeInput.propTypes = {
 const StyledInput = styled(Input)`
 	width: 100%;
 	height: 100%;
+
 	.error {
-		background-color: '#9f3a38' !important;
+		background-color: ${props => props.theme.error} !important;
 	}
 	input {
 		border-radius: 0px !important;

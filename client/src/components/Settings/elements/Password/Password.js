@@ -1,20 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { Field } from 'redux-form';
 
 import StandardInput from '../../../common/StandardInput';
-import {
-  // matchingPasswords,
-  required
-} from '../../../common/validation';
-import {
-  SettingTitle,
-  StyledForm,
-  FieldGroup,
-  StyledLabel,
-  SaveButton
-} from '../styled';
+import SubmitButton from '../../../common/SubmitButton';
+import { required } from '../../../common/validation';
+import { SettingTitle, StyledForm, FieldGroup, StyledLabel } from '../styled';
 
 const Password = (props) => {
   const {
@@ -32,16 +23,13 @@ const Password = (props) => {
       {passwordStatus && passwordStatus.status}
       <FieldGroup style={{ marginBottom: 23 }}>
         <StyledLabel htmlFor="oldPassword">Current password</StyledLabel>
-        <CurrentPasswordWrapper>
-          <Field
-            name="oldPassword"
-            type="password"
-            placeholder="Current password..."
-            component={StandardInput}
-            validate={required}
-          />
-          <ForgotPassword>Forgot password?</ForgotPassword>
-        </CurrentPasswordWrapper>
+        <Field
+          name="oldPassword"
+          type="password"
+          placeholder="Current password..."
+          component={StandardInput}
+          validate={required}
+        />
       </FieldGroup>
 
       <FieldGroup>
@@ -61,15 +49,18 @@ const Password = (props) => {
           type="password"
           placeholder="Verify password..."
           component={StandardInput}
-          // validate={matchingPasswords}
           showError
           validMessage="Passwords match"
         />
       </FieldGroup>
       <FieldGroup>
-        <SaveButton type="submit" disabled={pristine || !valid || submitting}>
+        <SubmitButton
+          className="confirmation"
+          type="submit"
+          disabled={pristine || !valid || submitting}
+        >
           Save changes
-        </SaveButton>
+        </SubmitButton>
       </FieldGroup>
     </StyledForm>
   );
@@ -88,21 +79,5 @@ Password.propTypes = {
     loading: bool.isRequired
   })
 };
-
-const CurrentPasswordWrapper = styled.div`
-	position: relative;
-`;
-
-const ForgotPassword = styled.span`
-	color: ${props => props.theme.secondary};
-	position: absolute;
-	font-size: 11px;
-	left: 15px;
-	bottom: -20px;
-
-	@media screen and (max-width: 500px) {
-		bottom: -25px;
-	}
-`;
 
 export default Password;

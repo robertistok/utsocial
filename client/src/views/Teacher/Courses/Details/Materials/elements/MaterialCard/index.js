@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import enhanceWithClickOutside from 'react-click-outside';
 
 import { withToggle } from '../../../../../../../components/hocs';
 import * as metadatacourseActions
@@ -41,6 +42,14 @@ class MaterialCardContainer extends Component {
     const { lang, course: { _id: courseID } } = this.props.selectedCourse;
 
     this.props.deleteMaterial(courseID, lang, materialID);
+  }
+
+  handleClickOutside() {
+    const { toggledOn: editing, toggle } = this.props;
+
+    if (editing === true) {
+      toggle();
+    }
   }
 
   toggleActionButtons() {
@@ -93,7 +102,8 @@ const mapDispatchToprops = dispatch =>
 
 const enhance = compose(
   withToggle,
-  connect(mapStateToProps, mapDispatchToprops)
+  connect(mapStateToProps, mapDispatchToprops),
+  enhanceWithClickOutside
 );
 
 export default enhance(MaterialCardContainer);

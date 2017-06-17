@@ -7,7 +7,8 @@ import DescriptionContainer from './Description';
 import NewsfeedContainer from './Newsfeed';
 
 import {
-  StyledAccordion
+  StyledAccordion,
+  Title
 } from '../../../../components/Courses/styled-components';
 import withSelectedCourse
   from '../../../../components/Courses/DetailsContainer';
@@ -17,7 +18,7 @@ const Details = (props) => {
 
   return (
     <div>
-      <h1>{selectedCourse.course.name}</h1>
+      <Title>{selectedCourse.course.name}</Title>
       <StyledAccordion styled fluid exclusive={false}>
 
         <NewsfeedContainer />

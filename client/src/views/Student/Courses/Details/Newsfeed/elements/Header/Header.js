@@ -30,7 +30,8 @@ Header.propTypes = {
 
 const Wrapper = styled.div`
 	display: flex;
-	align-items: center;
+	justify-content: center;
+	width: 80%;
 `;
 
 export default Header;

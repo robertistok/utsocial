@@ -1,4 +1,5 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Grade = (props) => {
@@ -22,6 +23,7 @@ const Wrapper = styled.span`
 	width: 100%;
 	text-align: center;
 	padding: 10px;
+	
 	&:hover {
 		cursor: pointer;
 	}

@@ -2,20 +2,23 @@ import styled from 'styled-components';
 
 export const SettingTitle = styled.span`
 	font-size: 16px;
-	height: 30px;
-	display: flex;
-	align-items: center;
-	margin: 20px auto;
+	height: 80px;
+	text-align: center;
+	margin: 20px 10px;
+	padding: 20px;
+	font-weight: bold;
+	width: 100%;
+	border-bottom: ${props => props.theme.separator};
 `;
 
 export const StyledForm = styled.form`
 	display: flex;
+	margin: 0px auto 30px auto;
 	width: 768px;
 	flex-direction: column;
 	background-color: #FFFFFF;
 	justify-content: space-around;
 	align-items: center;
-	margin: 15px auto;
 	font-size: 13px;
 
 	@media screen and (max-width: 768px) {

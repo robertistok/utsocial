@@ -1,4 +1,5 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Segment } from 'semantic-ui-react';
 import styled from 'styled-components';
 
@@ -45,17 +46,27 @@ MaterialType.propTypes = {
 
 const Wrapper = styled(Segment)`
 	display: flex;
+	width: 100%;
 	flex-direction: column;
-	background-color: #EDEFF0 !important;
-	border: 0px !important;
+	justify-content: center;
+	align-items: center;
+	background-color: ${props => props.theme.background} !important;
+	border: ${props => props.theme.separator} !important;
+	border-radius: 0px !important;
+	box-shadow: 5px 5px 7px rgba(0,0,0,.23) !important;
 `;
 
 const Header = styled.div`
 	display: flex;
 	height: 30px;
-	margin-top: 30px;
+	width: 150px;
+	margin-top: 20px;
+	justify-content: center;
 	align-self: center;
 	padding: 0px 25px;
+	font-size: 16px;
+	font-weight: bolder;
+	border-bottom: ${props => props.theme.separator}
 `;
 
 const Type = styled.span`

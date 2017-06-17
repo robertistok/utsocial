@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { compose } from 'recompose';
+import enhanceWithClickOutside from 'react-click-outside';
 
 import DescriptionBox from './DescriptionBox';
 import * as metadatacourseActions
@@ -46,6 +47,14 @@ class DescriptionBoxContainer extends Component {
     }
   }
 
+  handleClickOutside() {
+    const { toggledOn: editing, toggle } = this.props;
+
+    if (editing === true) {
+      toggle();
+    }
+  }
+
   resetState() {
     this.setState({ content: this.props.description.text });
   }
@@ -65,7 +74,7 @@ class DescriptionBoxContainer extends Component {
   }
 }
 
-const { string, func, shape } = PropTypes;
+const { string, func, shape, bool } = PropTypes;
 DescriptionBoxContainer.propTypes = {
   loggedInUser: shape({
     type: string.isRequired,
@@ -75,6 +84,7 @@ DescriptionBoxContainer.propTypes = {
     }).isRequired
   }).isRequired,
   toggle: func.isRequired,
+  toggledOn: bool.isRequired,
   description: shape({
     lastUpdatedBy: shape({
       name: string.isRequired
@@ -102,7 +112,8 @@ const mapDispatchToprops = dispatch =>
 
 const enhance = compose(
   withToggle,
-  connect(mapStateToProps, mapDispatchToprops)
+  connect(mapStateToProps, mapDispatchToprops),
+  enhanceWithClickOutside
 );
 
 export default enhance(DescriptionBoxContainer);

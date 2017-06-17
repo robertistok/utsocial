@@ -105,11 +105,11 @@ GradeRow.propTypes = {
 
 const StyledRow = styled(Table.Row)`
 	.editing {
-		background-color: #F8F8F8;
+		background-color: ${props => props.theme.selected};
 	}
 
 	.edited {
-		background-color: #E8E8E8;
+		background-color: ${props => props.theme.newNotification};
 	}
 `;
 

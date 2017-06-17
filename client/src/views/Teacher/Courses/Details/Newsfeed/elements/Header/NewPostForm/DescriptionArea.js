@@ -49,6 +49,10 @@ const ContentWrapper = styled.div`
 
 	border-color: ${props => props.active ? props.theme.primary : '#dddddd'};
 
+	&:hover {
+		border-color: ${props => props.theme.inputBorderHover}
+	}
+
 	@media screen and (max-width: 768px) {
 		width: 100% !important;
 	}

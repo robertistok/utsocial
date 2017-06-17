@@ -1,4 +1,5 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -48,7 +49,7 @@ CourseCard.propTypes = {
 };
 
 const StyledLink = styled(Link)`
-	margin: 20px;
+	margin: 50px 20px 0px 20px;
 `;
 
 const Wrapper = styled.div`

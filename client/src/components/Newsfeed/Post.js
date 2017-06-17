@@ -8,7 +8,7 @@ import enhanceWithClickOutside from 'react-click-outside';
 import { formatTime } from '../../utils/timestamp';
 import { capitalizeFirstLetter } from '../../utils/string-operations';
 import { media, formatMultiLineText } from '../../utils/style-utils';
-import SettingsGroup from './SettingsGroup';
+import SettingsGroup from '../common/SettingsGroup';
 import { withToggle } from '../hocs';
 import ContentEditableDiv from '../common/ContentEditableDiv';
 
@@ -137,21 +137,21 @@ class Post extends Component {
     } = this.props;
 
     return (
-      <Wrapper>
+      <Wrapper newPost={!isOwner && isNew}>
         <Header>
-          {!isOwner && isNew && <span>New</span>}
-          {edited !== undefined &&
-            <StyledPopup
-              trigger={<span>Edited</span>}
-              content={`Edited at ${formatTime(edited)}`}
-              size="mini"
-              position="top left"
-            />}
+          {!isOwner && isNew && <NewPostLabel>NEW</NewPostLabel>}
           <SettingsGroup options={this.assignOptions()} />
           <Author>{postedBy.name}</Author>
           <RelatedTo>
             {capitalizeFirstLetter(target.course.relatedTo)}
           </RelatedTo>
+          {edited !== undefined &&
+            <StyledPopup
+              trigger={<EditLabel>Edited</EditLabel>}
+              content={`Edited at ${formatTime(edited)}`}
+              size="mini"
+              position="top left"
+            />}
           <Timestamp>{formatTime(created, true)}</Timestamp>
         </Header>
         <Content editing={this.state.editing}>
@@ -208,17 +208,17 @@ const Wrapper = styled.div`
 	display: flex;
 	position: relative;
 	flex-direction: column;
-	background-color: #FFFFFF;
+	background-color: ${props => props.newPost ? props.theme.newNotification : props.theme.white};
 	box-shadow: 0 3px 5px rgba(0,0,0,.23)
 	height: min-content;
-	margin-bottom: 40px;
+	margin-bottom: 45px;
 	width: 100%;
 `;
 
 const Header = styled.div`
 	display: flex;
 	flex-direction: column;
-	padding: 10px 10px 0px 10px;
+	padding: 10px 10px;
 	border-bottom: 0.2px solid rgba(0,0,0,.23);
 `;
 
@@ -230,17 +230,18 @@ const Content = styled.div`
 const Author = styled.span`
 	display: inline-block;
 	width: 150px;
-	margin-bottom: 5px
+	font-size: 15px;
+	font-weight: bold;
 `;
 
-const RelatedTo = styled.span`
-	display: inline-block;
-	margin-bottom: 5px
-`;
+const RelatedTo = styled.span`;
+ 	display: inline - block;
+ `;
 
 const Timestamp = styled.span`
 	display: inline-block;
-	margin-bottom: 5px;
+	font-size: 11px;
+	font-weight: lighter;
 `;
 
 const ActionButtonGroup = styled.div`
@@ -270,6 +271,18 @@ const ActionButton = styled(Button)`
 
 const StyledPopup = styled(Popup)`
 	max-height: min-content !important;
+`;
+
+const NewPostLabel = styled.span`
+	position: absolute;
+	top: -22px;
+	left: 10px;
+	font-size: 15px;
+	font-weight: bolder;
+`;
+
+const EditLabel = styled.span`
+	font-size: 12px;
 `;
 
 const enhance = compose(withToggle, enhanceWithClickOutside);

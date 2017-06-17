@@ -1,5 +1,7 @@
-import React from 'react'; import PropTypes from 'prop-types'
-import { Form } from 'semantic-ui-react';
+import React from 'react';
+import PropTypes from 'prop-types';
+
+import { StyledDropdown } from '../../../../../../components/common/Dropdown';
 
 const Filter = (props) => {
   const { courses: { selectedCourse }, selectedGroup } = props;
@@ -12,19 +14,18 @@ const Filter = (props) => {
   }));
 
   return (
-    <Form>
-      <Form.Group inline>
-        <Form.Select
-          options={groupOptions}
-          placeholder="Group"
-          onChange={(e, { value }) => {
-            changeGroup(value);
-            fetchGradesTeachers(value, selectedCourse.course._id);
-          }}
-          value={selectedGroup}
-        />
-      </Form.Group>
-    </Form>
+    <div>
+      <StyledDropdown
+        selection
+        options={groupOptions}
+        placeholder="Group"
+        onChange={(e, { value }) => {
+          changeGroup(value);
+          fetchGradesTeachers(value, selectedCourse.course._id);
+        }}
+        value={selectedGroup}
+      />
+    </div>
   );
 };
 

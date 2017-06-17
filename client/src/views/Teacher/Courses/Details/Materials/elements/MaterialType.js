@@ -1,4 +1,5 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Segment } from 'semantic-ui-react';
 import styled from 'styled-components';
 
@@ -42,15 +43,14 @@ const MaterialType = (props) => {
               content="Cancel"
               icon="minus"
               labelPosition="left"
-              negative
               onClick={toggle}
             />
           : <StyledButton
+              className="confirmation"
               size="mini"
               content="Add new"
               icon="plus"
               labelPosition="left"
-              positive
               onClick={toggle}
             />}
       </Header>
@@ -81,9 +81,14 @@ MaterialType.propTypes = {
 
 const Wrapper = styled(Segment)`
 	display: flex;
+	width: 100%;
 	flex-direction: column;
-	background-color: #EDEFF0 !important;
-	border: 0px !important;
+	justify-content: center;
+	align-items: center;
+	background-color: ${props => props.theme.background} !important;
+	border: ${props => props.theme.separator} !important;
+	border-radius: 0px !important;
+	box-shadow: 5px 5px 7px rgba(0,0,0,.23) !important;
 `;
 
 const Header = styled.div`

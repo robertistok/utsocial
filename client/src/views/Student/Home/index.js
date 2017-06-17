@@ -19,8 +19,6 @@ class StudentsHomeContainer extends Component {
     }
   }
 
-  // load data only if token is present
-
   render() {
     return <StudentsHome {...this.props} />;
   }

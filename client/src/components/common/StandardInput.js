@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Icon } from 'semantic-ui-react';
+import { Icon, Input } from 'semantic-ui-react';
 
 const StandardInput = (props) => {
   const {
@@ -10,7 +10,8 @@ const StandardInput = (props) => {
     type,
     meta: { touched, error, active, valid, asyncValidating, pristine },
     showError,
-    validMessage
+    validMessage,
+    fluid = false
   } = props;
 
   const hasError = showError === true &&
@@ -26,13 +27,8 @@ const StandardInput = (props) => {
     asyncValidating !== true;
 
   return (
-    <Wrapper>
-      <StyledInput
-        error={showError && touched && error !== undefined && error !== true}
-        {...input}
-        type={type}
-        placeholder={placeholder}
-      />
+    <Wrapper fluid={fluid}>
+      <StyledInput {...input} type={type} placeholder={placeholder} />
       {hasError && <Status error><Icon name="remove" />{error}</Status>}
       {showValid && <Status><Icon name="checkmark" />{validMessage}</Status>}
     </Wrapper>
@@ -46,6 +42,7 @@ StandardInput.propTypes = {
   type: string.isRequired,
   showError: bool,
   validMessage: string,
+  fluid: bool,
   meta: shape({
     touched: bool.isRequired,
     error: oneOfType([string, bool]),
@@ -57,28 +54,36 @@ StandardInput.propTypes = {
 };
 
 const Wrapper = styled.div`
-	width: 200px;
+	width: ${props => props.fluid ? '100%' : '200px'};
 	position: relative;
 `;
 
-const StyledInput = styled.input`
+const StyledInput = styled(Input)`
 	outline: none;
-	border: 1px solid #e6ecf0;
 	width: 100%;
-	height: 40px
-	padding: 15px;
+	height: 40px;
 
-	border-color: ${props => props.error && '#ff0033'};
+	border-color: ${props => props.error && props.theme.error};
 
-	&:focus {
-		border: 1px solid ${props => props.theme.primary};
+	input {
+		border: 1px solid ${props => props.theme.inputBorder} !important;
+		border-radius: 0px !important;
 	}
+
+	input:hover {
+		border-color: ${props => props.theme.inputBorderHover} !important;
+	}
+
+	input:focus {
+		border: 1px solid ${props => props.theme.primary} !important;
+	}
+
 `;
 
 const Status = styled.div`
 	position: absolute;
 	margin-left: 10px;
-	color: ${props => props.error ? '#ff0033' : props.theme.primary}
+	color: ${props => props.error ? props.theme.error : props.theme.primary}
 	font-size: 11px;
 	font-weight: lighter;
 	top: 40px;

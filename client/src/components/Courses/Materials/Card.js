@@ -1,8 +1,23 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { formatTime } from '../../../utils/timestamp';
-import { StyledButton } from '../styled-components';
+import SettingsGroup from '../../common/SettingsGroup';
+
+const assignOptions = (editMaterial, handleCardDelete) => {
+  const options = [
+    { key: 'edit', icon: 'edit', text: 'Edit', onClick: editMaterial },
+    {
+      key: 'delete',
+      icon: 'delete',
+      text: 'Remove',
+      onClick: handleCardDelete
+    }
+  ];
+
+  return options;
+};
 
 const Card = (props) => {
   const {
@@ -16,20 +31,14 @@ const Card = (props) => {
   } = props;
 
   return (
-    <Wrapper student>
-      <Timestamp>Last updated at {formatTime(enteredOn)}</Timestamp>
-      <Link href={link}>{description}</Link>
+    <Wrapper>
       {!student &&
         !showButtons &&
-        <ButtonGroup>
-          <StyledButton positive onClick={editMaterial} content="Edit" />
-          <StyledButton
-            negative
-            onClick={handleCardDelete}
-            type="Submit"
-            content="Delete"
-          />
-        </ButtonGroup>}
+        <SettingsGroup
+          options={assignOptions(editMaterial, handleCardDelete)}
+        />}
+      <Timestamp>Last updated at {formatTime(enteredOn)}</Timestamp>
+      <Link href={link}>{description}</Link>
     </Wrapper>
   );
 };
@@ -46,25 +55,24 @@ Card.propTypes = {
 };
 
 const Wrapper = styled.div`
+	position: relative;
 	display: flex;
-	justify-content: ${props => props.student ? 'space-around' : 'space-between'};
-	background-color: #FFFFFF;
+	justify-content: space-around;
+	background-color: ${props => props.theme.white};
 	align-items: center;
 	flex-direction: column;
 	margin-left: 30px;
 	width: 250px;
 	height: 150px;
 	margin: 10px;
-	padding: 20px;
+	padding: 10px;
 	box-shadow: 0px 3px 5px rgba(0,0,0,.23)
-	transition-timing-function: ease-in;
+	transition-timing-function: ease-out;
 	transition: all 0.25s;
 	backface-visibility: hidden;
 
 	&:hover {
-		height: 157px;
-		margin-bottom: 3px;
-		padding-bottom: 27px;
+		transform: scale(1.1);
 		box-shadow: 0px 5px 7px rgba(0,0,0,.23)
 	}
 `;
@@ -77,11 +85,6 @@ const Timestamp = styled.span`
 const Link = styled.a`
 	text-align: center;
 	align-self: center;
-`;
-
-const ButtonGroup = styled.div`
-	display: flex;
-	justify-content: space-between;
 `;
 
 export default Card;

@@ -1,15 +1,11 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 
 import StandardInput from '../../../common/StandardInput';
+import SubmitButton from '../../../common/SubmitButton';
 import { requiredWithText } from '../../../common/validation';
-import {
-  SettingTitle,
-  FieldGroup,
-  StyledLabel,
-  SaveButton,
-  StyledForm
-} from '../styled';
+import { SettingTitle, FieldGroup, StyledLabel, StyledForm } from '../styled';
 
 const Account = (props) => {
   const {
@@ -57,12 +53,16 @@ const Account = (props) => {
         />
       </FieldGroup>
       <FieldGroup>
-        <SaveButton type="submit" disabled={pristine || !valid || submitting}>
+        <SubmitButton
+          className="confirmation"
+          type="submit"
+          disabled={pristine || !valid || submitting}
+        >
           Save changes
-        </SaveButton>
-        <SaveButton type="button" disabled={pristine} onClick={reset}>
+        </SubmitButton>
+        <SubmitButton type="button" onClick={reset}>
           Reset
-        </SaveButton>
+        </SubmitButton>
       </FieldGroup>
     </StyledForm>
   );

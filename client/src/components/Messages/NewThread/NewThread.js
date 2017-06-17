@@ -48,7 +48,8 @@ const NewThreadForm = (props) => {
         component={MessageBox}
         validate={required}
       />
-      <SubmitButton
+      <StyledSubmitButton
+        className="confirmation"
         disabled={pristine || !valid || submitting}
         type="submit"
         icon="compose"
@@ -58,11 +59,14 @@ const NewThreadForm = (props) => {
   );
 };
 
-const { func } = PropTypes;
+const { func, bool } = PropTypes;
 NewThreadForm.propTypes = {
   handleSubmit: func.isRequired,
   returnToOnCancel: func.isRequired,
-  onSubmit: func.isRequired
+  onSubmit: func.isRequired,
+  valid: bool.isRequired,
+  submitting: bool.isRequired,
+  pristine: bool.isRequired
 };
 
 const StyledForm = styled.form`
@@ -91,6 +95,10 @@ const StyledLink = styled(Link)`
 const Logo = styled.img`
 	width: 15px;
 	height: 15px;
+`;
+
+const StyledSubmitButton = styled(SubmitButton)`
+	margin: 10px auto !important;
 `;
 
 export default NewThreadForm;

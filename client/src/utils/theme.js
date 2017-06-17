@@ -1,6 +1,7 @@
 const theme = {
   primary: '#51D1B9',
   white: '#FFFFFF',
+  background: '#F5F8FA',
   black: '#000000',
   error: '#EE6055',
   secondary: '#A0A0A0',

@@ -28,6 +28,10 @@ AttendanceTable.propTypes = {
 const StyledTable = styled(Table)`
 	display: table;
 	width: 70% !important;
+
+	@media screen and (max-width: 500px) {
+		width: 90% !important;
+	}
 `;
 
 export default AttendanceTable;

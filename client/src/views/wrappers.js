@@ -18,6 +18,5 @@ export const Content = styled.div`
 	min-height: calc(100% - 110px);
 	max-width: 1178px;
 	margin: auto;
-	margin-top: 20px;
 	${media.tablet`width: 100%`}
 `;

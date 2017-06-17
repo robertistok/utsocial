@@ -1,4 +1,5 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import MaterialForm from '../MaterialForm';
 import Card from '../../../../../../../components/Courses/Materials/Card';

@@ -1,4 +1,5 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
 import styled from 'styled-components';
 
@@ -44,9 +45,9 @@ const TableHeader = (props) => {
               singleLine
               className={`${size}`}
             >
+              <Type>{capitalizeFirstLetter(type)}</Type>
               {isTeacher &&
                 <Icon src={plusIcon} onClick={() => addColumnGrade(type)} />}
-              {capitalizeFirstLetter(type)}
             </TypeCell>
           );
         })}
@@ -99,11 +100,26 @@ TableHeader.propTypes = {
   size: string
 };
 
+const Type = styled.span`
+	display: inline-block;
+	width: 50px;
+`;
+
 const Icon = styled.img`
 	display: inline-block;
-	height: 14px;
-	width: 14px;
-	margin-right: 10px;
+	height: 19px;
+	width: 19px;
+	margin-left: 10px;
+	vertical-align: middle;
+	opacity: 0.9;
+	transition-duration: 0.3s;
+	transition-timing-function: ease-out;
+
+	&:hover {
+		opacity: 1;
+		cursor: pointer;
+		transform: scale(1.2);
+	}
 `;
 
 const TypeCell = styled(Table.HeaderCell)`

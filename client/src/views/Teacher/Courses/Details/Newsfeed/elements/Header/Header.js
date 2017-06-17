@@ -20,13 +20,13 @@ const Header = (props) => {
       <InfoWrapper>
         {writingPost
           ? <StyledButton
-              content="Discard"
-              icon="delete"
-              labelPosition="right"
-              onClick={writePost}
+						content="Discard"
+						icon="delete"
+						labelPosition="right"
+						onClick={writePost}
             />
           : <StyledButton
-              className="new"
+						className="confirmation"
               content="New"
               icon="compose"
               labelPosition="right"
@@ -78,7 +78,7 @@ const StyledButton = styled(Button)`
 	height: 2.78em;
 	font-size: 14px !important;
 
-	&.new {
+	&.confirmation {
 		background-color: ${props => props.theme.confirmation} !important;
 		color: ${props => props.theme.white} !important;
 	}
