@@ -31,8 +31,6 @@ const Title = styled.h1`
 	font-size: 26px;
 	font-weight: bolder;
 	color: ${props => props.theme.white};
-	position: absolute;
-	top: 30px;
 	margin-bottom: 20px;
 `;
 

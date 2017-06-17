@@ -34,7 +34,7 @@ const Card = (props) => {
     <Wrapper>
       {!student &&
         !showButtons &&
-        <SettingsGroup
+					<SettingsGroup
           options={assignOptions(editMaterial, handleCardDelete)}
         />}
       <Timestamp>Last updated at {formatTime(enteredOn)}</Timestamp>
@@ -64,7 +64,7 @@ const Wrapper = styled.div`
 	margin-left: 30px;
 	width: 250px;
 	height: 150px;
-	margin: 10px;
+	margin: 20px;
 	padding: 10px;
 	box-shadow: 0px 3px 5px rgba(0,0,0,.23)
 	transition-timing-function: ease-out;

@@ -156,7 +156,7 @@ export default function (state = INITIAL_STATE, action) {
       return {
         ...state,
         materials: action.payload.materials.sort(
-          (a, b) => a.enteredOn < b.enteredOn
+          (a, b) => Date.parse(a.enteredOn) < Date.parse(b.enteredOn)
         ),
         description: action.payload.description,
         loading: false
@@ -189,7 +189,7 @@ export default function (state = INITIAL_STATE, action) {
                 ? action.payload.newMaterial
                 : material
           )
-          .sort((a, b) => a.enteredOn < b.enteredOn),
+          .sort((a, b) => Date.parse(b.enteredOn) - Date.parse(a.enteredOn)),
         loading: false
       };
     case UPDATE_MATERIAL_ERROR:

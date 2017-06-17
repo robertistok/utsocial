@@ -167,7 +167,11 @@ export default function (state = INITIAL_STATE, action) {
             return c;
           })
           .slice(0)
-          .sort((c1, c2) => c2.messages[0].timestamp - c1.messages[0].timestamp)
+          .sort(
+            (c1, c2) =>
+              Date.parse(c2.messages[0].timestamp) -
+              Date.parse(c1.messages[0].timestamp)
+          )
       };
     }
     case FETCH_CONVERSATIONS_OFUSER:

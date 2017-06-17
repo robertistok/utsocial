@@ -27,6 +27,10 @@ export const StyledAccordion = styled(Accordion)`
 export const StyledAccordionTitle = styled(Accordion.Title)`
 	text-align: center;
 	font-size: 17px !important;
+
+	@media screen and (max-width: 420px) {
+		font-size: 15px !important;
+	}
 `;
 
 export const StyledAccordionContent = styled.div`

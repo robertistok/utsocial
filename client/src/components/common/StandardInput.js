@@ -11,7 +11,8 @@ const StandardInput = (props) => {
     meta: { touched, error, active, valid, asyncValidating, pristine },
     showError,
     validMessage,
-    fluid = false
+    width,
+    home
   } = props;
 
   const hasError = showError === true &&
@@ -27,7 +28,7 @@ const StandardInput = (props) => {
     asyncValidating !== true;
 
   return (
-    <Wrapper fluid={fluid}>
+    <Wrapper width={width} home={home}>
       <StyledInput {...input} type={type} placeholder={placeholder} />
       {hasError && <Status error><Icon name="remove" />{error}</Status>}
       {showValid && <Status><Icon name="checkmark" />{validMessage}</Status>}
@@ -42,7 +43,8 @@ StandardInput.propTypes = {
   type: string.isRequired,
   showError: bool,
   validMessage: string,
-  fluid: bool,
+  width: string,
+  home: bool,
   meta: shape({
     touched: bool.isRequired,
     error: oneOfType([string, bool]),
@@ -54,7 +56,9 @@ StandardInput.propTypes = {
 };
 
 const Wrapper = styled.div`
-	width: ${props => props.fluid ? '100%' : '200px'};
+	width: ${props => props.width !== undefined ? props.width : '200px'};
+	margin: ${props => props.home && '20px auto'};
+	width: ${props => props.home && '90%'};
 	position: relative;
 `;
 
@@ -78,6 +82,11 @@ const StyledInput = styled(Input)`
 		border: 1px solid ${props => props.theme.primary} !important;
 	}
 
+	@media screen and (max-width: 420px) {
+		input {
+			font-size: 12px !important;
+		}
+	}
 `;
 
 const Status = styled.div`

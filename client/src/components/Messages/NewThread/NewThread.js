@@ -75,12 +75,20 @@ const StyledForm = styled.form`
 	flex-direction: column;
 	flex-grow: 2;
 	flex-basis: 66.6666%;
+	height: 100%;
 	background-color: #FFFFFF;
 	color: ${props => props.theme.secondary}
-	width: 100%;
 	padding: 25px 70px 20px 70px;
 	align-items: center;
 	justify-content: center;
+
+	@media screen and (max-width: 500px) {
+		padding: 25px 40px 20px 40px;
+	}
+
+	@media screen and (max-width: 400px) {
+		padding: 25px 20px 20px 20px;
+	}
 `;
 
 const StyledLink = styled(Link)`

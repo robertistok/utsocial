@@ -69,7 +69,7 @@ class Thread extends Component {
         activeClassName={isNotification ? '' : 'active'}
       >
         <Wrapper unread={unread} onClick={this.onClick}>
-          <GenderLogo gender={gender} />
+          <GenderLogo gender={gender} isNotification={isNotification} />
           <InfoWrapper isNotification={isNotification}>
             <PartnerAndTimestampWrapper>
               <Partner unread={unread}>
@@ -234,6 +234,10 @@ const GenderLogo = styled.img`
 	@media screen and (max-width: 378px) {
 		width: 20px;
 		height: 20px;
+	}
+
+	@media screen and (max-width: 350px) {
+		display: ${props => !props.isNotification && 'none'};
 	}
 `;
 

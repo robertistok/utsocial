@@ -40,6 +40,10 @@ const Wrapper = styled.div`
 	max-width: 100%;
 	overflow: auto;
 	border: 1px solid rgba(0, 0, 0, .10);
+
+	@media screen and (max-width: 768px) {
+		height: calc(100vh - 70px);
+	}
 `;
 
 const StartingPoint = styled.div`

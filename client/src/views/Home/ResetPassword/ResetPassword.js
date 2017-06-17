@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 
-import Input from '../elements/Input';
+import StandardInput from '../../../components/common/StandardInput';
 import SubmitButton from '../elements/SubmitButton';
 import Form from '../elements/Form';
 import ReturnLink from '../elements/ReturnLink';
@@ -31,22 +31,24 @@ const ResetPassword = (props) => {
       </Description>
       {error !== true ||
         status === 'Your password was changed succesfully, you can now sign in.'
-        ? <Form onSubmit={handleSubmit(onSubmit)}>
+					? <Form onSubmit={handleSubmit(onSubmit)}>
             <StyledLink to="/">
               <StyledIcon name="close" size="big" />
             </StyledLink>
             <Field
+              home
               name="newPassword"
               placeholder="Enter your new password"
               type="password"
-              component={Input}
+              component={StandardInput}
               validate={[required]}
             />
             <Field
+              home
               name="verifyNewPassword"
               placeholder="Confirm your password"
               type="password"
-              component={Input}
+              component={StandardInput}
               showError
               validMessage="Passwords match"
               validate={[required]}

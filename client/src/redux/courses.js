@@ -256,7 +256,9 @@ export default function (state = INITIAL_STATE, action) {
     case FETCH_FEED_SUCCESS:
       return {
         ...state,
-        newsFeed: action.payload.sort((a, b) => a.created < b.created),
+        newsFeed: action.payload.sort(
+          (a, b) => Date.parse(b.created) - Date.parse(a.created)
+        ),
         loading: false
       };
     case FETCH_FEED_ERROR:
@@ -268,7 +270,9 @@ export default function (state = INITIAL_STATE, action) {
     case FETCH_FEED_FOR_STUDENT_SUCCESS:
       return {
         ...state,
-        newsFeed: action.payload.sort((a, b) => a.created < b.created),
+        newsFeed: action.payload.sort(
+          (a, b) => Date.parse(b.created) - Date.parse(a.created)
+        ),
         loading: false
       };
     case FETCH_FEED_FOR_STUDENT_ERROR:

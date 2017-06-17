@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 import { media } from '../../../utils/style-utils';
 import Form from '../elements/Form';
-import Input from '../elements/Input';
+import StandardInput from '../../../components/common/StandardInput';
 import Checkbox from '../elements/Checkbox';
 import AuthError from '../elements/AuthError';
 import SubmitButton from '../elements/SubmitButton';
@@ -28,19 +28,21 @@ const LoginForm = (props) => {
       <Form onSubmit={handleSubmit(onSubmit)}>
         {!auth.authenticated && auth.error && <AuthError error={auth.error} />}
         <Field
+          home
           name="username"
           label="User"
           placeholder="Username, email or phone"
           type="text"
-          component={Input}
+          component={StandardInput}
           validate={required}
         />
         <Field
+          home
           name="password"
           label="Password"
           placeholder="Enter your password"
           type="password"
-          component={Input}
+          component={StandardInput}
           validate={required}
         />
         <ActionWrapper>

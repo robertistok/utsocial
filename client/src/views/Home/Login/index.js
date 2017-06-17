@@ -16,6 +16,10 @@ class Login extends Component {
     this.authUser = this.authUser.bind(this);
   }
 
+  componentWillUnmount() {
+    this.props.resetError();
+  }
+
   authUser(values) {
     this.props.loginUser(values);
   }
@@ -41,7 +45,7 @@ Login.propTypes = {
   auth: shape({
     authenticated: bool.isRequired
   }).isRequired,
-
+  resetError: func.isRequired,
   loginUser: func.isRequired
 };
 

@@ -93,10 +93,16 @@ const Wrapper = styled(Segment)`
 
 const Header = styled.div`
 	display: flex;
-	height: 30px;
+	justify-content: center;
+	align-items: center;
+	height: min-content;
 	margin-top: 30px;
 	align-self: center;
 	padding: 0px 25px;
+
+	@media screen and (max-width: 378px) {
+		flex-direction: column;
+	}
 `;
 
 const Type = styled.span`

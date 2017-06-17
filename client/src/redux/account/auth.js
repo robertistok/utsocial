@@ -10,6 +10,7 @@ const AUTH_USER_ERROR = 'redux/account/auth/autherror';
 
 const DEAUTH_USER = 'redux/account/auth/deauth';
 const ME_FROM_TOKEN = 'redux/account/auth/mefromtoken';
+const RESET_ERROR = 'redux/account/auth/reset-error';
 
 export function authError(err) {
   let error;
@@ -66,6 +67,12 @@ export function logOutUser() {
   };
 }
 
+export function resetError() {
+  return {
+    type: RESET_ERROR
+  };
+}
+
 const INITIAL_STATE = {
   user: undefined,
   authenticated: false,
@@ -110,6 +117,10 @@ export default function (state = INITIAL_STATE, action) {
         authenticated: false,
         error: undefined
       };
+
+    case RESET_ERROR: {
+      return { ...state, error: undefined };
+    }
 
     default:
       return state;

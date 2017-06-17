@@ -18,7 +18,7 @@ const Inbox = (props) => {
         <SearchBar {...props} />
         {conversations && conversations.length !== 0
           ? conversations.map(conversation => (
-						<Thread key={conversation._id} {...conversation} {...props} />
+              <Thread key={conversation._id} {...conversation} {...props} />
             ))
           : <NoMessages>No messages</NoMessages>}
       </ThreadsContainer>
@@ -35,7 +35,7 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	border-right: 1px solid rgba(0, 0, 0, .10);
-	background-color: #FFFFFF;
+	background-color: ${props => props.theme.white};
 
 	@media screen and (min-width: 769px) {
 		height: 100%;

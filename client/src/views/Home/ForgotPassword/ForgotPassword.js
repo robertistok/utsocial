@@ -1,8 +1,9 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Field } from 'redux-form';
 
 import Form from '../elements/Form';
-import Input from '../elements/Input';
+import StandardInput from '../../../components/common/StandardInput';
 import SubmitButton from '../elements/SubmitButton';
 import {
   StyledLink,
@@ -33,10 +34,11 @@ const ForgotPassword = (props) => {
           <StyledIcon name="close" size="big" />
         </StyledLink>
         <Field
+          home
           name="email"
           placeholder="Enter your e-mail address"
           type="text"
-          component={Input}
+          component={StandardInput}
           showError
           validMessage="Email found"
           validate={[required, email]}

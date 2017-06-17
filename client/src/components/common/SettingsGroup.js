@@ -35,11 +35,11 @@ SettingsGroup.propTypes = {
 
 const Wrapper = styled.div`
 	position: absolute;
-	align-self: flex-end;
 	display: flex;
 	flex-direction: row;
 	margin-right: 5px;
 	top: -22px;
+	right: 0px;
 `;
 
 const StyledIcon = styled(Icon)`

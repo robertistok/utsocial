@@ -7,6 +7,14 @@ const SubmitButton = styled(Button)`
 	height: 40px;
 	background-color: ${props => props.theme.primary} !important;
 	color: ${props => props.theme.white} !important;
+
+	@media screen and (max-width: 768px) {
+		font-size: 13px;
+	}
+
+	@media screen and (max-width: 378px) {
+		font-size: 12px;
+	}
 `;
 
 export default SubmitButton;

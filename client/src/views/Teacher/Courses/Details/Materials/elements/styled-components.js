@@ -18,6 +18,7 @@ export const StyledButton = styled(Button)`
 
 export const ButtonGroup = styled.div`
 	position: absolute;
+	width: 100%;
 	display: flex;
 	justify-content: space-between;
 	align-self: ${props => props.edit ? 'flex-end' : 'auto'}

@@ -19,7 +19,7 @@ const Wrapper = styled.div`
 	flex-grow: 2;
 	flex-basis: 66.6666%;
 	height: 100%;
-	background-color: #FFFFFF;
+	background-color: ${props => props.theme.white};
 `;
 
 export default Conversation;
