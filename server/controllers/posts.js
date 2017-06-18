@@ -9,8 +9,7 @@ export function getFeedForAllCourses(req, res, next) {
 				'target.groups': groupID
 			},
 			{
-				// 'target.course.id': courseIDs,
-				'target.course.lang': langs,
+				'target.course.id': courseIDs,
 				$or: [
 					{ 'target.includeTeachers': teacherID !== undefined },
 					{ postedBy: teacherID }
@@ -18,12 +17,26 @@ export function getFeedForAllCourses(req, res, next) {
 			}
 		]
 	})
-		.populate([{ path: 'postedBy', select: 'firstname lastname name' }])
+		.populate([
+			{ path: 'postedBy', select: 'firstname lastname name' },
+			{ path: 'target.course.id', select: 'name' }
+		])
 		.then((posts) => {
 			if (posts === undefined) {
 				return res.send({ posts: [] });
 			}
-			return res.send({ posts });
+
+			return res.send({
+				posts: langs !== undefined
+					? posts.filter(
+							post =>
+								langs[post.target.course.id._id] !== undefined &&
+								langs[post.target.course.id._id].indexOf(
+									post.target.course.lang
+								) > -1
+						)
+					: posts
+			});
 		})
 		.catch(err => next(err));
 }
@@ -48,7 +61,10 @@ export function getFeedForCourse(req, res, next) {
 			}
 		]
 	})
-		.populate([{ path: 'postedBy', select: 'firstname lastname name' }])
+		.populate([
+			{ path: 'postedBy', select: 'firstname lastname name' },
+			{ path: 'target.course.id', select: 'name' }
+		])
 		.then((posts) => {
 			if (posts === undefined) {
 				return res.send({ posts: [] });

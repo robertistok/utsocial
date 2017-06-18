@@ -9,7 +9,7 @@ const StyledForm = styled.form`
 	height: min-content;
 	box-shadow: 3px 5px 5px #888888;
 
-	padding: 30px;
+	padding: 20px;
 
 	@media screen and (max-width: 600px) {
 		width: 350px;

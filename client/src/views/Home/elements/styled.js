@@ -33,4 +33,5 @@ export const Wrapper = styled.div`
 	flex-direction: column;
 	align-items: center;
 	min-width: 260px;
+	max-height: 90%;
 `;

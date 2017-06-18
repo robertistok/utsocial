@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import PostList from '../Newsfeed/PostList';
 
-const Home = props => <Wrapper><PostList {...props} /></Wrapper>;
+const Home = props => <Wrapper><PostList {...props} homePage /></Wrapper>;
 
 const Wrapper = styled.div`
 	margin-top: 50px;

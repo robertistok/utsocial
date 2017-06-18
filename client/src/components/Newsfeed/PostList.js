@@ -14,7 +14,8 @@ const PostList = (props) => {
     updatePost,
     showModal,
     mark,
-    unMark
+    unMark,
+    homePage
   } = props;
 
   const updateFunction = postID => content => updatePost(postID, content);
@@ -24,7 +25,6 @@ const PostList = (props) => {
       {newsFeed.length === 0 && <NoPostMessage>No posts yet...</NoPostMessage>}
       {newsFeed.map((item) => {
         const { _id: postID, postedBy, seenBy, marked } = item;
-        console.log(item);
         const isOwner = userID === postedBy._id;
 
         const markFunction = type => () => mark(postID, userID, type);
@@ -62,6 +62,7 @@ const PostList = (props) => {
             unMarkImportant={
               marked.includes(userID) ? unMarkFunction('marked') : undefined
             }
+            homePage={homePage}
           />
         );
       })}
@@ -87,7 +88,7 @@ PostList.propTypes = {
       }).isRequired,
       target: shape({
         course: shape({
-          id: string.isRequired,
+          id: shape({ _id: string.isRequired }),
           lang: string.isRequired,
           relatedTo: string.isRequired
         }).isRequired,
@@ -98,7 +99,8 @@ PostList.propTypes = {
       marked: arrayOf(string).isRequired
     }).isRequired
   ).isRequired,
-  loggedInUser: shape({ _id: string.isRequired })
+  loggedInUser: shape({ _id: string.isRequired }),
+  homePage: bool
 };
 
 const Wrapper = styled.div`

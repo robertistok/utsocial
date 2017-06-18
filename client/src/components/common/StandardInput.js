@@ -60,6 +60,10 @@ const Wrapper = styled.div`
 	margin: ${props => props.home && '20px auto'};
 	width: ${props => props.home && '90%'};
 	position: relative;
+
+	@media screen and (max-height: 420px) {
+		margin: ${props => props.home && '10px auto'};
+	}
 `;
 
 const StyledInput = styled(Input)`

@@ -14,6 +14,12 @@ const SubmitButton = styled(Button)`
 
 	@media screen and (max-width: 378px) {
 		font-size: 12px;
+		height: 30px;
+		margin-top: 10px !important;
+	}
+
+	@media screen and (max-height: 420px) {
+		margin: 10px auto !important;
 	}
 `;
 

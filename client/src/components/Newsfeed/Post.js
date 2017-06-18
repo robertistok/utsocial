@@ -6,7 +6,10 @@ import { Button, Popup } from 'semantic-ui-react';
 import enhanceWithClickOutside from 'react-click-outside';
 
 import { formatTime } from '../../utils/timestamp';
-import { capitalizeFirstLetter } from '../../utils/string-operations';
+import {
+  capitalizeFirstLetter,
+  onlyFirstLetters
+} from '../../utils/string-operations';
 import { media, formatMultiLineText } from '../../utils/style-utils';
 import SettingsGroup from '../common/SettingsGroup';
 import { withToggle } from '../hocs';
@@ -131,48 +134,52 @@ class Post extends Component {
       created,
       postedBy,
       isOwner,
-      target,
+      target: { course: { relatedTo, id: { name }, lang } },
       content,
-      isNew
+      isNew,
+      homePage
     } = this.props;
 
     return (
-      <Wrapper newPost={!isOwner && isNew}>
-        <Header>
-          {!isOwner && isNew && <NewPostLabel>NEW</NewPostLabel>}
-          <SettingsGroup options={this.assignOptions()} />
-          <Author>{postedBy.name}</Author>
-          <RelatedTo>
-            {capitalizeFirstLetter(target.course.relatedTo)}
-          </RelatedTo>
-          {edited !== undefined &&
-            <StyledPopup
-              trigger={<EditLabel>Edited</EditLabel>}
-              content={`Edited at ${formatTime(edited)}`}
-              size="mini"
-              position="top left"
-            />}
-          <Timestamp>{formatTime(created, true)}</Timestamp>
-        </Header>
-        <Content editing={this.state.editing}>
-          {this.state.editing
-            ? <ContentEditableDiv
-                text={this.state.content}
-                onContentChange={this.onContentChange}
-              />
-            : formatMultiLineText(content)}
-        </Content>
-        {this.state.editing &&
-          <ActionButtonGroup>
-            <ActionButton onClick={this.cancelEdit}>Cancel</ActionButton>
-            <ActionButton
-              className="confirmation"
-              onClick={() => updatePost(this.state.content)}
-            >
-              OK
-            </ActionButton>
-          </ActionButtonGroup>}
-      </Wrapper>
+      <div>
+        {homePage === true && <Course>{onlyFirstLetters(name)} {lang}</Course>}
+        <Wrapper newPost={!isOwner && isNew}>
+          <Header>
+            {!isOwner && isNew && <NewPostLabel>NEW</NewPostLabel>}
+            <SettingsGroup options={this.assignOptions()} />
+            <Author>{postedBy.name}</Author>
+            <RelatedTo>
+              {capitalizeFirstLetter(relatedTo)}
+            </RelatedTo>
+            {edited !== undefined &&
+              <StyledPopup
+                trigger={<EditLabel>Edited</EditLabel>}
+                content={`Edited at ${formatTime(edited)}`}
+                size="mini"
+                position="top left"
+              />}
+            <Timestamp>{formatTime(created, true)}</Timestamp>
+          </Header>
+          <Content editing={this.state.editing}>
+            {this.state.editing
+              ? <ContentEditableDiv
+                  text={this.state.content}
+                  onContentChange={this.onContentChange}
+                />
+              : formatMultiLineText(content)}
+          </Content>
+          {this.state.editing &&
+            <ActionButtonGroup>
+              <ActionButton onClick={this.cancelEdit}>Cancel</ActionButton>
+              <ActionButton
+                className="confirmation"
+                onClick={() => updatePost(this.state.content)}
+              >
+                OK
+              </ActionButton>
+            </ActionButtonGroup>}
+        </Wrapper>
+      </div>
     );
   }
 }
@@ -189,7 +196,7 @@ Post.propTypes = {
   isOwner: bool.isRequired,
   target: shape({
     course: shape({
-      id: string.isRequired,
+      id: shape({ _id: string.isRequired, name: string.isRequired }),
       lang: string.isRequired,
       relatedTo: string.isRequired
     }).isRequired,
@@ -201,7 +208,12 @@ Post.propTypes = {
   postedBy: shape({
     _id: string.isRequired,
     name: string.isRequired
-  }).isRequired
+  }).isRequired,
+  homePage: bool
+};
+
+Post.defaultProps = {
+  homePage: false
 };
 
 const Wrapper = styled.div`
@@ -275,14 +287,21 @@ const StyledPopup = styled(Popup)`
 
 const NewPostLabel = styled.span`
 	position: absolute;
-	top: -22px;
-	left: 10px;
+	top: 10px;
+	right: 10px;
 	font-size: 15px;
 	font-weight: bolder;
 `;
 
 const EditLabel = styled.span`
 	font-size: 12px;
+`;
+
+const Course = styled.div`
+	margin-bottom: 10px;
+	font-size: 16px;
+	margin-left: 5px;
+	font-weight: bolder;
 `;
 
 const enhance = compose(withToggle, enhanceWithClickOutside);

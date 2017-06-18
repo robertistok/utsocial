@@ -44,6 +44,10 @@ const Wrapper = styled.div`
 	@media screen and (max-width: 768px) {
 		height: calc(100vh - 70px);
 	}
+
+	@media screen and (max-width: 768px) and (max-height: 420px) {
+		height: calc(100vh - 50px);
+	}
 `;
 
 const StartingPoint = styled.div`
