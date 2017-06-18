@@ -25,11 +25,11 @@ class FilterContainer extends Component {
 
   componentDidMount() {
     const {
-      fetchTeachingOfTeacher,
+      fetchColleagues,
       user: { _id: teacherID },
-      history
+      history,
+      courses
     } = this.props;
-    fetchTeachingOfTeacher(teacherID);
 
     const currentWeek = moment().week() % 2 === FIRST_WEEK.week() % 2
       ? '1'
@@ -37,6 +37,7 @@ class FilterContainer extends Component {
 
     this.onWeekChange(undefined, { value: currentWeek });
     this.onScheduleOfChange(undefined, { value: teacherID });
+    fetchColleagues(courses.map(course => course._id), teacherID);
     history.push(`/schedules/${teacherID}`);
   }
 
@@ -116,7 +117,7 @@ FilterContainer.propTypes = {
     }).isRequired
   ).isRequired,
   history: shape({ push: func.isRequired }),
-  fetchTeachingOfTeacher: func.isRequired,
+  fetchColleagues: func.isRequired,
   courses: arrayOf(shape({ _id: string.isRequired }).isRequired).isRequired
 };
 

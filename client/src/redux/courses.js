@@ -16,9 +16,13 @@ const FETCH_FEED = 'redux/courses/fetch-feed';
 const FETCH_FEED_SUCCESS = 'redux/courses/fetch-feed-success';
 const FETCH_FEED_ERROR = 'redux/courses/fetch-feed-error';
 
-const FETCH_FEED_FOR_STUDENT = 'redux/courses/fetch-feed';
+const FETCH_FEED_FOR_STUDENT = 'redux/courses/fetch-feed-for-student';
 const FETCH_FEED_FOR_STUDENT_SUCCESS = 'redux/courses/fetch-feed-for-student-success';
 const FETCH_FEED_FOR_STUDENT_ERROR = 'redux/courses/fetch-feed-for-student-error';
+
+const FETCH_FEED_FOR_TEACHER = 'redux/courses/fetch-feed-for-teacher';
+const FETCH_FEED_FOR_TEACHER_SUCCESS = 'redux/courses/fetch-feed-for-teacher-success';
+const FETCH_FEED_FOR_TEACHER_ERROR = 'redux/courses/fetch-feed-for-teacher-error';
 
 const ADD_POST = 'redux/courses/add-post';
 const ADD_POST_SUCCESS = 'redux/courses/add-post-success';
@@ -73,8 +77,11 @@ export function getFeedForStudent(groupID) {
   return (dispatch) => {
     dispatch({ type: FETCH_FEED_FOR_STUDENT });
     axios({
-      method: 'get',
-      url: `/api/posts/getFeedForStudent/${groupID}`,
+      method: 'post',
+      url: '/api/posts/getFeedForAllCourses',
+      data: {
+        groupID
+      },
       headers: {
         authorization: getToken()
       }
@@ -86,6 +93,31 @@ export function getFeedForStudent(groupID) {
         }))
       .catch(err =>
         dispatch({ type: FETCH_FEED_FOR_STUDENT_ERROR, payload: err }));
+  };
+}
+
+export function getFeedForTeacher(teacherID, courseIDs, langs) {
+  return (dispatch) => {
+    dispatch({ type: FETCH_FEED_FOR_TEACHER });
+    axios({
+      method: 'post',
+      url: '/api/posts/getFeedForAllCourses',
+      data: {
+        teacherID,
+        courseIDs,
+        langs
+      },
+      headers: {
+        authorization: getToken()
+      }
+    })
+      .then(response =>
+        dispatch({
+          type: FETCH_FEED_FOR_TEACHER_SUCCESS,
+          payload: response.data.posts
+        }))
+      .catch(err =>
+        dispatch({ type: FETCH_FEED_FOR_TEACHER_ERROR, payload: err }));
   };
 }
 
@@ -279,6 +311,20 @@ export default function (state = INITIAL_STATE, action) {
       error = action.payload || { message: action.payload.message };
       return { ...state, loading: false, error };
 
+    case FETCH_FEED_FOR_TEACHER:
+      return { ...state, loading: true };
+    case FETCH_FEED_FOR_TEACHER_SUCCESS:
+      return {
+        ...state,
+        newsFeed: action.payload.sort(
+          (a, b) => Date.parse(b.created) - Date.parse(a.created)
+        ),
+        loading: false
+      };
+    case FETCH_FEED_FOR_TEACHER_ERROR:
+      error = action.payload || { message: action.payload.message };
+      return { ...state, loading: false, error };
+
     case ADD_POST:
       return { ...state, loading: true };
     case ADD_POST_SUCCESS:
@@ -391,7 +437,7 @@ export default function (state = INITIAL_STATE, action) {
       };
 
     case RESET_COURSES:
-      return INITIAL_STATE;
+      return { ...INITIAL_STATE, newsFeed: state.newsFeed };
     default:
       return state;
   }

@@ -18,7 +18,7 @@ const CourseRow = (props) => {
 
   return (
     <Wrapper>
-      {name}
+      <MaterialName>{name}</MaterialName>
       <StyledTable celled collapsing structured size="small">
         <Header
           types={types}
@@ -79,13 +79,24 @@ CourseRow.propTypes = {
 };
 
 const Wrapper = styled.div`
-	width: 80%;
-	margin: 15px 0px;
+	width: 100%;
+	margin-bottom: 20px;
+	padding-bottom: 30px;
+	border-bottom: ${props => props.theme.separator};
+`;
+
+const MaterialName = styled.span`
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	margin-bottom: 10px;
+	font-weight: bold;
 `;
 
 const StyledTable = styled(Table)`
 	display: table;
-	width: 100% !important;
+	width: 80% !important;
+	margin: 0px auto !important;
 `;
 
 export default CourseRow;

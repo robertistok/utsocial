@@ -1,20 +1,22 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Form } from 'semantic-ui-react';
+
+import { StyledDropdown } from '../../../../components/common/Dropdown';
 
 const years = [1, 2, 3, 4];
 const yearOptions = [
-  ...years.map(year => ({ key: year, value: year, text: year }))
+  ...years.map(year => ({ key: year, value: year, text: `Year ${year}` }))
 ];
 
 const semesters = [1, 2];
 const semesterOptions = [
-  { key: 'both', value: 'both', text: 'Both' },
   ...semesters.map(semester => ({
     key: `${semester}semester`,
     value: semester,
-    text: semester
-  }))
+    text: `Semester ${semester}`
+  })),
+  { key: 'both', value: 'both', text: 'Both' }
 ];
 
 const Filter = (props) => {
@@ -25,8 +27,8 @@ const Filter = (props) => {
   } = props;
 
   return (
-    <StyledForm>
-      <StyledSelect
+    <Wrapper>
+      <StyledDropdown
         selection
         label="Year"
         placeholder="Select a year"
@@ -34,7 +36,7 @@ const Filter = (props) => {
         onChange={onYearChange}
         value={year}
       />
-      <StyledSelect
+      <StyledDropdown
         selection
         label="Semester"
         placeholder="Select a semester"
@@ -42,7 +44,7 @@ const Filter = (props) => {
         onChange={onSemesterChange}
         value={semester}
       />
-    </StyledForm>
+    </Wrapper>
   );
 };
 
@@ -56,7 +58,7 @@ Filter.propTypes = {
   onYearChange: func.isRequired
 };
 
-const StyledForm = styled(Form)`
+const Wrapper = styled.div`
 	display: flex;
 	justify-content: center;
 
@@ -64,10 +66,6 @@ const StyledForm = styled(Form)`
 		flex-direction: column;
 		align-items: center;
 	}
-`;
-
-const StyledSelect = styled(Form.Select)`
-	margin-right: 30px !important;
 `;
 
 export default Filter;

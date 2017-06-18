@@ -32,7 +32,7 @@ Grades.propTypes = {
 };
 
 const Wrapper = styled.div`
-	margin-top: 50px;
+	margin-top: 40px;
 `;
 
 const mapDispatchToProps = dispatch =>

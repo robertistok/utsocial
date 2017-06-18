@@ -21,7 +21,10 @@ function withSelectedCourse(DetailsComponent) {
 
     render() {
       const {
-        selectedCourse: { lang, course: { _id: courseID } }
+        selectedCourse: {
+          lang,
+          course: { _id: courseID }
+        }
       } = this.props;
 
       if (lang === undefined && courseID === undefined) {

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as coursesActions from '../../../redux/courses';
-import StudentsHome from './StudentsHome';
+import Home from '../../../components/Home';
 import { getToken } from '../../../utils/sessionOperations';
 
 class StudentsHomeContainer extends Component {
@@ -20,7 +20,7 @@ class StudentsHomeContainer extends Component {
   }
 
   render() {
-    return <StudentsHome {...this.props} />;
+    return <Home {...this.props} />;
   }
 }
 

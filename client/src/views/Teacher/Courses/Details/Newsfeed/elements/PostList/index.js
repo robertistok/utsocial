@@ -1,4 +1,4 @@
-import React from 'react'; import PropTypes from 'prop-types'
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as courseActions from '../../../../../../../redux/courses';
@@ -6,18 +6,7 @@ import * as modalsActions from '../../../../../../../redux/modals';
 
 import PostList from '../../../../../../../components/Newsfeed/PostList';
 
-const PostListContainer = (props) => {
-  const { updatePost } = props;
-
-  const updateFunction = postID => content => updatePost(postID, content);
-
-  return <PostList {...props} updateFunction={updateFunction} />;
-};
-
-const { func } = PropTypes;
-PostListContainer.propTypes = {
-  updatePost: func.isRequired
-};
+const PostListContainer = props => <PostList {...props} />;
 
 const mapStateToProps = state => ({
   newsFeed: courseActions.postList(state),

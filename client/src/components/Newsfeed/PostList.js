@@ -11,17 +11,20 @@ const PostList = (props) => {
     newsFeed,
     loggedInUser: { _id: userID },
     deletePost,
+    updatePost,
     showModal,
-    updateFunction,
     mark,
     unMark
   } = props;
+
+  const updateFunction = postID => content => updatePost(postID, content);
 
   return (
     <Wrapper>
       {newsFeed.length === 0 && <NoPostMessage>No posts yet...</NoPostMessage>}
       {newsFeed.map((item) => {
         const { _id: postID, postedBy, seenBy, marked } = item;
+        console.log(item);
         const isOwner = userID === postedBy._id;
 
         const markFunction = type => () => mark(postID, userID, type);
@@ -72,7 +75,7 @@ PostList.propTypes = {
   unMark: func.isRequired,
   deletePost: func.isRequired,
   showModal: func,
-  updateFunction: func,
+  updatePost: func,
   newsFeed: arrayOf(
     shape({
       created: string.isRequired,

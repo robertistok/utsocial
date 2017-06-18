@@ -10,6 +10,7 @@ import Schedule from './Schedule';
 import Messages from '../../components/Messages/index';
 import Courses from './Courses';
 import Settings from '../../components/Settings';
+import Home from './Home';
 import { Wrapper, Content } from '../wrappers';
 
 const ForOhFor = () => <h1>No match found</h1>;
@@ -22,7 +23,7 @@ const Teacher = () => (
     <ModalSwitcher />
     <Content>
       <Switch>
-        <Route path="/home" render={() => <h1>TeacherHome page</h1>} />
+        <Route path="/home" component={Home} />
         <Route path="/courses" component={Courses} />
         <Route path="/messages" component={Messages} />
         <Route path="/schedules" component={Schedule} />

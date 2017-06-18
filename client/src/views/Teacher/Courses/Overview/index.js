@@ -1,27 +1,11 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import Overview from './Overview';
-import * as teachersActions from '../../../../redux/teachers';
 import * as courseActions from '../../../../redux/courses';
 
-class OverviewContainer extends Component {
-  componentDidMount() {
-    const { fetchTeachingOfTeacher, user: { _id: userID } } = this.props;
-    fetchTeachingOfTeacher(userID);
-  }
-  render() {
-    return <Overview {...this.props} />;
-  }
-}
-
-const { shape, string, func } = PropTypes;
-OverviewContainer.propTypes = {
-  fetchTeachingOfTeacher: func.isRequired,
-  user: shape({ _id: string.isRequired }).isRequired
-};
+const OverviewContainer = props => <Overview {...props} />;
 
 const mapStateToProps = state => ({
   user: state.account.auth.user,
@@ -29,6 +13,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ ...teachersActions, ...courseActions }, dispatch);
+  bindActionCreators({ ...courseActions }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(OverviewContainer);

@@ -9,7 +9,7 @@ const Semester = (props) => {
 
   return (
     <Wrapper>
-      <SemesterNumber>Semster {semester}</SemesterNumber>
+      <SemesterNumber>Semester {semester}</SemesterNumber>
       {Object.keys(courses).map(key => (
         <CourseRow
           key={key}
@@ -67,8 +67,15 @@ const Wrapper = styled.div`
 const SemesterNumber = styled.span`
 	width: 100%;
 	text-align: center;
-	font-size: 16px;
+	font-size: 17px;
 	font-weight: bolder;
+	border-bottom: ${props => props.theme.separator};
+	padding: 20px;
+	margin-bottom: 20px;
+
+	@media screen and (max-width: 768px) {
+		font-size: 15px;
+	}
 `;
 
 export default Semester;

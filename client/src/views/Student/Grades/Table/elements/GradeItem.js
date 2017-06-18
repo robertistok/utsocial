@@ -10,7 +10,7 @@ const GradeItem = (props) => {
 
   return (
     <GradeCell>
-      <Grade grade={gradeObj !== undefined ? gradeObj.grade : ''} />
+      <Grade isStudent grade={gradeObj !== undefined ? gradeObj.grade : ''} />
     </GradeCell>
   );
 };
@@ -21,7 +21,7 @@ GradeItem.propTypes = {
 };
 
 const GradeCell = styled(Table.Cell)`
-padding: 0px !important;
+	padding: 0px !important;
 `;
 
 export default GradeItem;

@@ -10,6 +10,8 @@ import { bindActionCreators } from 'redux';
 
 import * as messagesActions from '../redux/messages';
 import * as notificationsActions from '../redux/notifications';
+import * as teachersActions from '../redux/teachers';
+import Loader from '../components/common/Loader';
 
 export const socket = io.connect('http://localhost:3001/', {
   reconnection: true,
@@ -33,8 +35,32 @@ class Authorized extends Component {
       auth: { user, authenticated },
       location: { pathname },
       addNewConversation,
-      addNewMessage
+      addNewMessage,
+      fetchTeachingOfTeacher
     } = this.props;
+
+    this.state = { loading: true };
+
+    switch (user && user.type) {
+      case 'admin':
+        import('./Admin').then(({ Admin }) => {
+          this.changeUser(Admin);
+        });
+        break;
+      case 'teacher':
+        import('./Teacher').then(({ Teacher }) => {
+          this.changeUser(Teacher);
+          fetchTeachingOfTeacher(user._id);
+        });
+        break;
+      case 'student':
+        import('./Student').then(({ Student }) => {
+          this.changeUser(Student);
+        });
+        break;
+      default:
+        return null;
+    }
 
     if (authenticated === true) {
       socket.emit('join', user);
@@ -57,30 +83,6 @@ class Authorized extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps !== this.props) {
-      const { auth: { user } } = nextProps;
-
-      switch (user && user.type) {
-        case 'admin':
-          import('./Admin').then(({ Admin }) => {
-            this.changeUser(Admin);
-          });
-          break;
-        case 'teacher':
-          import('./Teacher').then(({ Teacher }) => {
-            this.changeUser(Teacher);
-          });
-          break;
-        case 'student':
-          import('./Student').then(({ Student }) => {
-            this.changeUser(Student);
-          });
-          break;
-        default:
-          return null;
-      }
-    }
-
     if (
       nextProps.location.pathname === '/' &&
       nextProps.auth.authenticated === true
@@ -97,11 +99,15 @@ class Authorized extends Component {
   }
 
   changeUser(User) {
-    this.setState({ User });
+    this.setState({ User, loading: false });
   }
 
   render() {
-    const { User } = this.state;
+    const { User, loading } = this.state;
+
+    if (loading === true) {
+      return <Loader loadingText="We are signing you in, please wait..." />;
+    }
 
     if (User === undefined) {
       return null;
@@ -123,7 +129,8 @@ Authorized.propTypes = {
   location: shape({ pathname: string.isRequired }).isRequired,
   addNewConversation: func.isRequired,
   addNewMessage: func.isRequired,
-  addNotification: func
+  addNotification: func,
+  fetchTeachingOfTeacher: func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -131,7 +138,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ ...messagesActions, ...notificationsActions }, dispatch);
+  bindActionCreators(
+    { ...messagesActions, ...notificationsActions, ...teachersActions },
+    dispatch
+  );
 
 const enhance = compose(
   connect(mapStateToProps, mapDispatchToProps),

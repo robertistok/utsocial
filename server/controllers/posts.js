@@ -1,9 +1,23 @@
 import Post from '../models/post';
 
-export function getFeedForStudent(req, res, next) {
-	const { groupID } = req.params;
+export function getFeedForAllCourses(req, res, next) {
+	const { groupID, courseIDs, langs, teacherID } = req.body;
 
-	Post.find({ 'target.groups': groupID })
+	Post.find({
+		$or: [
+			{
+				'target.groups': groupID
+			},
+			{
+				// 'target.course.id': courseIDs,
+				'target.course.lang': langs,
+				$or: [
+					{ 'target.includeTeachers': teacherID !== undefined },
+					{ postedBy: teacherID }
+				]
+			}
+		]
+	})
 		.populate([{ path: 'postedBy', select: 'firstname lastname name' }])
 		.then((posts) => {
 			if (posts === undefined) {
