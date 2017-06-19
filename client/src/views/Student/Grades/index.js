@@ -9,6 +9,7 @@ import { withMountingTransition } from '../../../components/hocs';
 import * as coursesActions from '../../../redux/courses';
 import TableContainer from './Table';
 import FilterContainer from './Filter';
+import Loader from '../../../components/common/Loader';
 
 class Grades extends Component {
   componentDidMount() {
@@ -17,6 +18,11 @@ class Grades extends Component {
   }
 
   render() {
+    const { loading } = this.props;
+    if (loading === true) {
+      return <Loader />;
+    }
+
     return (
       <Wrapper>
         <FilterContainer />
@@ -26,21 +32,26 @@ class Grades extends Component {
   }
 }
 
-const { func } = PropTypes;
+const { func, bool } = PropTypes;
 Grades.propTypes = {
-  fetchAllCourses: func.isRequired
+  fetchAllCourses: func.isRequired,
+  loading: bool.isRequired
 };
 
 const Wrapper = styled.div`
 	margin-top: 40px;
 `;
 
+const mapStateToProps = state => ({
+  loading: state.courses.loading
+});
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ ...coursesActions }, dispatch);
 
 const enhance = compose(
   withMountingTransition,
-  connect(null, mapDispatchToProps)
+  connect(mapStateToProps, mapDispatchToProps)
 );
 
 export default enhance(Grades);

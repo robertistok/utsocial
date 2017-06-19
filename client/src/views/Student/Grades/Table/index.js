@@ -7,14 +7,21 @@ import * as gradesActions from '../../../../redux/grades';
 import Table from './Table';
 
 class TableContainer extends Component {
-  componentDidMount() {
-    const {
-      coursesByYear,
-      student: { _id: studentID },
-      fetchGradesStudents
-    } = this.props;
-    fetchGradesStudents(studentID, coursesByYear);
+  componentWillReceiveProps(nextProps) {
+    if (
+      this.props.coursesByYear !== nextProps.coursesByYear &&
+      Object.keys(nextProps.coursesByYear).length !== 0 &&
+      nextProps.coursesByYear.constructor === Object
+    ) {
+      const {
+        coursesByYear,
+        student: { _id: studentID },
+        fetchGradesStudents
+      } = nextProps;
+      fetchGradesStudents(studentID, coursesByYear);
+    }
   }
+
   render() {
     return <Table {...this.props} />;
   }
@@ -62,6 +69,7 @@ const mapStateToProps = (state) => {
 
   return {
     gradesList: state.grades.gradesList,
+    all: state.courses.all,
     coursesByYear,
     visibleCourses,
     student: state.account.auth.user,

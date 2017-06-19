@@ -92,8 +92,9 @@ export function addPost(req, res, next) {
 		.then(newPost =>
 			Post.populate(newPost, [
 				{ path: 'postedBy', select: 'firstname lastname name' }
-			]).then(newPost => res.send({ newPost }))
+			])
 		)
+		.then(newPost => res.send({ newPost }))
 		.catch(err => next(err));
 }
 

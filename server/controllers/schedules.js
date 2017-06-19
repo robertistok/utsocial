@@ -34,11 +34,8 @@ function addNew(req, res) {
 
 	schedule
 		.save()
-		.then(() => {
-			Schedule.populate(schedule, 'what.course').then(schedulePop =>
-				res.send(schedulePop)
-			);
-		})
+		.then(savedSchedule => Schedule.populate(savedSchedule, 'what.course'))
+		.then(schedulePop => res.send(schedulePop))
 		.catch(err => res.status(500).json({ message: err.message }));
 }
 

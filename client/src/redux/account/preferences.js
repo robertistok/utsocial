@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { getToken } from '../../utils/sessionOperations';
+import { getToken, saveToken } from '../../utils/sessionOperations';
 
 const CHANGE_PASSWORD = '/redux/account/preferences/change-password';
 const CHANGE_PASSWORD_SUCCESS = '/redux/account/preferences/change-password-success';
@@ -34,7 +34,7 @@ export function changePassword(formValues, username) {
       }
     })
       .then((response) => {
-        sessionStorage.setItem('token', response.data.token);
+        saveToken(response.data.token);
         return dispatch({
           type: CHANGE_PASSWORD_SUCCESS,
           payload: response.data
@@ -135,7 +135,7 @@ const INITIAL_STATE = {
 export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
     case CHANGE_PASSWORD:
-      return { ...state, password: { loading: true } };
+      return { ...state, password: { ...state.password, loading: true } };
     case CHANGE_PASSWORD_SUCCESS:
       return {
         ...state,

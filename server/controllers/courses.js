@@ -169,24 +169,25 @@ function updateMaterial(req, res, next) {
 function deleteMaterial(req, res, next) {
 	const { id, lang, materialID } = req.body;
 
-	Course.findOne({ _id: id }, 'meta').then((course) => {
-		const { meta } = course;
+	Course.findOne({ _id: id }, 'meta')
+		.then((course) => {
+			const { meta } = course;
 
-		const required = meta.indexOf(meta.find(item => item.lang === lang));
+			const required = meta.indexOf(meta.find(item => item.lang === lang));
 
-		course.meta[required].materials = course.meta[required].materials.filter(
-			material => String(material._id) !== materialID
-		);
+			course.meta[required].materials = course.meta[required].materials.filter(
+				material => String(material._id) !== materialID
+			);
 
-		course
-			.save()
-			.then(() => res.send({ message: 'success' }))
-			.catch(err => next(err));
-	});
+			return course.save();
+		})
+		.then(() => res.send({ message: 'success' }))
+		.catch(err => next(err));
 }
 
 function updateDescription(req, res, next) {
 	const { courseID, lang, text, updatedBy } = req.body;
+	let required;
 
 	const updatedDescription = {
 		text,
@@ -194,28 +195,28 @@ function updateDescription(req, res, next) {
 		updatedOn: Date.now()
 	};
 
-	Course.findOne({ _id: courseID }).then((course) => {
-		let required = course.meta.indexOf(
-			course.meta.find(item => item.lang === lang)
-		);
-
-		if (required < 0) {
-			course.meta.push({
-				lang,
-				description: updatedDescription
-			});
+	Course.findOne({ _id: courseID })
+		.then((course) => {
 			required = course.meta.indexOf(
 				course.meta.find(item => item.lang === lang)
 			);
-		} else {
-			course.meta[required].description = updatedDescription;
-		}
 
-		course
-			.save()
-			.then(course => res.send(course.meta[required].description))
-			.catch(err => next(err));
-	});
+			if (required < 0) {
+				course.meta.push({
+					lang,
+					description: updatedDescription
+				});
+				required = course.meta.indexOf(
+					course.meta.find(item => item.lang === lang)
+				);
+			} else {
+				course.meta[required].description = updatedDescription;
+			}
+
+			return course.save();
+		})
+		.then(course => res.send(course.meta[required].description))
+		.catch(err => next(err));
 }
 
 module.exports = {

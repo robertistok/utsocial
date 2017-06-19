@@ -1,5 +1,6 @@
 // disallow rule in favor of updating
 /* eslint no-param-reassign: 0*/
+/* eslint consistent-return: 0*/
 
 const User = require('../models/user');
 const Teacher = require('../models/teacher');
@@ -39,7 +40,7 @@ function changePassword(req, res, next) {
 				return res.status(404).send('User not found..');
 			}
 
-			return user.comparePassword(oldPassword, (err, isMatch) => {
+			user.comparePassword(oldPassword, (err, isMatch) => {
 				if (err) {
 					return res.status(500).send('Internal server error..');
 				}
@@ -48,17 +49,17 @@ function changePassword(req, res, next) {
 				}
 
 				user.password = newPassword;
-				return user.save().then((modifiedUser) => {
-					getCleanUser(modifiedUser).then((cleanUser) => {
-						res.status(200).send({
-							token: tokenForUser(cleanUser),
-							cleanUser,
-							message: 'Password changed successfully'
-						});
-					});
-				});
 			});
+			return user.save();
 		})
+		.then(modifiedUser => getCleanUser(modifiedUser))
+		.then(cleanUser =>
+			res.status(200).send({
+				token: tokenForUser(cleanUser),
+				cleanUser,
+				message: 'Password changed successfully'
+			})
+		)
 		.catch(err => next(err));
 }
 
@@ -114,16 +115,18 @@ function changeAccountDetails(req, res) {
 		User.findOneAndUpdate({ _id: userID }, query, { new: true }),
 		Student.findOneAndUpdate({ _id: userID }, query, { new: true }),
 		Teacher.findOneAndUpdate({ _id: userID }, query, { new: true })
-	]).then((values) => {
-		const [modifiedUser] = values;
-		getCleanUser(modifiedUser).then((cleanUser) => {
+	])
+		.then((values) => {
+			const [modifiedUser] = values;
+			return getCleanUser(modifiedUser);
+		})
+		.then((cleanUser) => {
 			res.status(200).send({
 				token: tokenForUser(cleanUser),
 				cleanUser,
 				message: 'Account information updated successfully'
 			});
 		});
-	});
 }
 
 module.exports = {

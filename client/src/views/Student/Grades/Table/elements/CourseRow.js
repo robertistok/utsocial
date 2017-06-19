@@ -8,13 +8,11 @@ import GradeRow from '../../../../../components/Grades/GradeRow';
 import GradeItem from './GradeItem';
 
 const CourseRow = (props) => {
-  const { teachingTypes, name, gradesList } = props;
+  const { teachingTypes, name, gradesList: { numberOfGrades, list } } = props;
 
   const types = Object.keys(teachingTypes).filter(
     type => teachingTypes[type] === true
   );
-
-  const numberOfGrades = gradesList.numberOfGrades;
 
   return (
     <Wrapper>
@@ -30,7 +28,7 @@ const CourseRow = (props) => {
         />
         <Table.Body>
           <GradeRow
-            gradesList={gradesList.list}
+            gradesList={list}
             types={types}
             numberOfGrades={numberOfGrades}
             component={GradeItem}
