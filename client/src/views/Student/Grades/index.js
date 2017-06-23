@@ -5,8 +5,8 @@ import { bindActionCreators } from 'redux';
 import { compose } from 'recompose';
 import styled from 'styled-components';
 
-import { withMountingTransition } from '../../../components/hocs';
 import * as coursesActions from '../../../redux/courses';
+import { withMountingTransition } from '../../../components/hocs';
 import TableContainer from './Table';
 import FilterContainer from './Filter';
 import Loader from '../../../components/common/Loader';

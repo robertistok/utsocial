@@ -22,12 +22,12 @@ export const withEither = (conditionalRenceringFn, EitherComponent) =>
         ? <EitherComponent />
         : <Component {...props} />;
 
-export function withMountingTransition(Component) {
+export function withMountingTransition(Component, transitionName = 'mount') {
   return class TransitionedComponent extends React.Component {
     render() {
       return (
         <CSSTransitionGroup
-          transitionName="mount"
+          transitionName={transitionName}
           transitionAppear
           transitionAppearTimeout={500}
           transitionEnter={false}

@@ -7,17 +7,10 @@ const Schema = mongoose.Schema;
 const StudentSchema = new Schema(
 	{
 		CNP: String,
-		username: String,
-		email: String,
 		firstname: String,
 		lastname: String,
 		gender: String,
-		phone: Number,
 		dateOfBirth: Date,
-		countyOfOrigin: String,
-		militaryStatus: String,
-		maritalStatus: String,
-		nationality: String,
 		bankAccount: String,
 		identificationNumber: {
 			type: Number,

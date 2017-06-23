@@ -5,12 +5,9 @@ const Schema = mongoose.Schema;
 const TeacherSchema = new Schema(
 	{
 		CNP: String,
-		username: String,
-		email: String,
 		firstname: String,
 		lastname: String,
 		gender: String,
-		phone: Number,
 		dateOfBirth: Date,
 		identificationNumber: Number,
 		teaching: [

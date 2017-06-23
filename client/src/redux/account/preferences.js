@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import { getToken, saveToken } from '../../utils/sessionOperations';
+import { setUser } from './auth';
 
 const CHANGE_PASSWORD = '/redux/account/preferences/change-password';
 const CHANGE_PASSWORD_SUCCESS = '/redux/account/preferences/change-password-success';
@@ -98,6 +99,7 @@ export function changeAccountDetails(userID, query) {
     })
       .then((response) => {
         sessionStorage.setItem('token', response.data.token);
+        dispatch(setUser(response.data.cleanUser));
         return dispatch({
           type: CHANGE_ACCOUNT_DETAILS_SUCCESS,
           payload: response.data

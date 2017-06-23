@@ -111,7 +111,7 @@ const Wrapper = styled.header`
 	left: 0px;
 	height: 100px;
 	background: #51D1B9;
-	z-index: 1;
+	z-index: 20;
 	padding: 0px 20px;
 
 

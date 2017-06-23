@@ -33,6 +33,8 @@ function getCleanUser(user) {
 				profile: student,
 				_id: user._id,
 				username: user.username,
+				email: user.email,
+				phone: user.phone,
 				type: user.type
 			};
 		} else if (teacher !== null) {
@@ -40,6 +42,8 @@ function getCleanUser(user) {
 				profile: teacher,
 				_id: user._id,
 				username: user.username,
+				email: user.email,
+				phone: user.phone,
 				type: user.type
 			};
 		}

@@ -59,6 +59,7 @@ class MessagesContainer extends Component {
         noItemsMessage="No notifications..."
         Item={NotificationItem}
         bellNotifications
+        customItemProps={{ onClick: this.onIconClick }}
       />
     );
   }

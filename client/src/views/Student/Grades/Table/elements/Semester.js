@@ -59,7 +59,7 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin: 30px;
+	margin: 30px 40px;
 	width: 80%;
 	border: ${props => props.theme.separator};
 `;

@@ -117,7 +117,7 @@ AccountContainer.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const { user: { profile: { username, email, phone } } } = state.account.auth;
+  const { user: { username, email, phone } } = state.account.auth;
   return {
     user: state.account.auth.user,
     accountStatus: state.account.preferences.account,

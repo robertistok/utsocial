@@ -11,6 +11,7 @@ const AUTH_USER_ERROR = 'redux/account/auth/autherror';
 const DEAUTH_USER = 'redux/account/auth/deauth';
 const ME_FROM_TOKEN = 'redux/account/auth/mefromtoken';
 const RESET_ERROR = 'redux/account/auth/reset-error';
+const SET_USER = 'redux/account/auth/set-user';
 
 export function authError(err) {
   let error;
@@ -24,6 +25,13 @@ export function authError(err) {
   return {
     type: AUTH_USER_ERROR,
     payload: error
+  };
+}
+
+export function setUser(user) {
+  return {
+    type: SET_USER,
+    payload: user
   };
 }
 
@@ -117,6 +125,13 @@ export default function (state = INITIAL_STATE, action) {
         authenticated: false,
         error: undefined
       };
+
+    case SET_USER: {
+      return {
+        ...state,
+        user: action.payload
+      };
+    }
 
     case RESET_ERROR: {
       return { ...state, error: undefined };

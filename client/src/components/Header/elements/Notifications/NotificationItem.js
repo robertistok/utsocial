@@ -8,6 +8,7 @@ import { formatTime } from '../../../../utils/timestamp';
 import calendarLogo from '../../../../assets/calendar.svg';
 import documentErrorLogo from '../../../../assets/document-error.svg';
 import taskDoneLogo from '../../../../assets/task-done.svg';
+import cancelLogo from '../../../../assets/cancel.svg';
 
 function formatNotification(type, teacherName, target, info) {
   const { course } = target;
@@ -30,6 +31,8 @@ function formatNotification(type, teacherName, target, info) {
     const { gradeNumber } = info;
     return `${teacherName} removed your ${gradeNumber}. grade for the ${onlyFirstLetters(course.id.name)} ${course.type}`;
   }
+
+  return `No notification of type ${type} found... :(`;
 }
 
 const NotificationItem = (props) => {
@@ -40,13 +43,17 @@ const NotificationItem = (props) => {
     target,
     seenBy,
     info,
-    user: { _id: userID, profile }
+    user: { _id: userID, profile },
+    customItemProps: { onClick }
   } = props;
 
   const lang = profile.group !== undefined ? profile.group.lang : 'ro';
 
   return (
-    <StyledLink to={`/courses/${target.course.id._id}/${lang}`}>
+    <StyledLink
+      to={`/courses/${target.course.id._id}/${lang}`}
+      onClick={onClick}
+    >
       <Wrapper unSeen={seenBy.find(user => user === userID) === undefined}>
         <InfoWrapper>
           <Icon type={type} />
@@ -60,7 +67,7 @@ const NotificationItem = (props) => {
   );
 };
 
-const { shape, string, arrayOf, object } = PropTypes;
+const { shape, string, arrayOf, object, func } = PropTypes;
 NotificationItem.propTypes = {
   type: string.isRequired,
   timestamp: string.isRequired,
@@ -71,7 +78,8 @@ NotificationItem.propTypes = {
   seenBy: arrayOf(string),
   triggeredBy: shape({ name: string.isRequired }).isRequired,
   target: shape({ course: shape({ id: shape({ name: string.isRequired }) }) }),
-  info: object
+  info: object,
+  customItemProps: shape({ onClick: func.isRequired }).isRequired
 };
 
 const StyledLink = styled(Link)`
@@ -142,6 +150,7 @@ const Icon = styled.img`
   } else if (type === 'gradeAdd') {
     return taskDoneLogo;
   }
+  return cancelLogo;
 }});
 
 	@media screen and (max-width: 768px) {

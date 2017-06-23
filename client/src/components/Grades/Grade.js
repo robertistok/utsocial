@@ -5,7 +5,11 @@ import styled from 'styled-components';
 const Grade = (props) => {
   const { onClick, grade, isStudent } = props;
   return (
-    <Wrapper onClick={onClick} isStudent={isStudent}>
+    <Wrapper
+      onClick={onClick}
+      aboveFive={typeof grade === 'number' ? grade >= 5 : null}
+      isStudent={isStudent}
+    >
       {grade === '' ? '-' : grade}
     </Wrapper>
   );
@@ -31,6 +35,8 @@ const Wrapper = styled.span`
 	&:hover {
 		cursor: ${props => !props.isStudent && 'pointer'};
 	}
+
+	
 `;
 
 export default Grade;
