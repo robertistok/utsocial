@@ -35,14 +35,31 @@ function getGradesListOfGroup(req, res, next) {
 					if (newAcc.gradesList[student] === undefined) {
 						newAcc = {
 							...newAcc,
-							gradesList: { ...newAcc.gradesList, [student]: [item] }
+							gradesList: {
+								...newAcc.gradesList,
+								[student]: { [type]: [item] }
+							}
+						};
+					} else if (newAcc.gradesList[student][type] === undefined) {
+						newAcc = {
+							...newAcc,
+							gradesList: {
+								...newAcc.gradesList,
+								[student]: {
+									...newAcc.gradesList[student],
+									[type]: [item]
+								}
+							}
 						};
 					} else {
 						newAcc = {
 							...newAcc,
 							gradesList: {
 								...newAcc.gradesList,
-								[student]: [...newAcc.gradesList[student], item]
+								[student]: {
+									...newAcc.gradesList[student],
+									[type]: [...newAcc.gradesList[student][type], item]
+								}
 							}
 						};
 					}
@@ -75,7 +92,7 @@ function getGradesListOfStudent(req, res, next) {
 						...acc,
 						[course]: {
 							numberOfGrades: { [type]: number },
-							list: [item]
+							list: { [type]: [item] }
 						}
 					};
 				}
@@ -88,7 +105,7 @@ function getGradesListOfStudent(req, res, next) {
 								...acc[course].numberOfGrades,
 								[type]: number
 							},
-							list: [...acc[course].list, item]
+							list: { ...acc[course].list, [type]: [item] }
 						}
 					};
 				}
@@ -102,7 +119,10 @@ function getGradesListOfStudent(req, res, next) {
 								? number
 								: acc[course].numberOfGrades[type]
 						},
-						list: [...acc[course].list, item]
+						list: {
+							...acc[course].list,
+							[type]: [...acc[course].list[type], item]
+						}
 					}
 				};
 			}, {});

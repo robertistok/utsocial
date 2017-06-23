@@ -9,7 +9,6 @@ import GradeItem from './GradeItem';
 class GradeItemContainer extends Component {
   constructor(props) {
     super(props);
-
     const { gradeObj } = this.props;
 
     this.state = {
@@ -17,13 +16,22 @@ class GradeItemContainer extends Component {
       focus: false,
       edited: false,
       pristine: true,
-      grade: (gradeObj && gradeObj.grade) || '',
+      grade: gradeObj !== undefined ? gradeObj.grade : '',
       error: false
     };
 
     this.editGrade = this.editGrade.bind(this);
     this.onGradeChange = this.onGradeChange.bind(this);
     this.onGradeBlur = this.onGradeBlur.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (
+      nextProps.gradeObj !== undefined &&
+      nextProps.gradeObj !== this.props.gradeObj
+    ) {
+      this.state = { ...this.state, grade: nextProps.gradeObj.grade };
+    }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -103,23 +111,13 @@ class GradeItemContainer extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
-  const { student, type, number } = props;
-  let gradeObj;
-
-  if (state.grades.gradesList[student] !== undefined) {
-    gradeObj = state.grades.gradesList[student].find(
-      item => item.type === type && item.number === number
-    );
-  }
-
-  return {
-    course: state.courses.selectedCourse.course._id,
-    assignor: state.account.auth.user._id,
-    selectedGroup: state.grades.selectedGroup,
-    gradeObj
-  };
-};
+const mapStateToProps = (state, props) => ({
+  course: state.courses.selectedCourse.course._id,
+  assignor: state.account.auth.user._id,
+  selectedGroup: state.grades.selectedGroup,
+  gradeObj: props.gradeObj,
+  grades: state.grades
+});
 
 const { number, string, shape, func, oneOfType } = PropTypes;
 GradeItemContainer.propTypes = {

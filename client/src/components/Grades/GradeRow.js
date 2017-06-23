@@ -37,11 +37,9 @@ class GradeRow extends Component {
             }
 
             return grades.map(({ type, index }) => {
-              let gradeObj = {};
-              if (gradesList !== undefined) {
-                gradeObj = gradesList.find(
-                  item => item.type === type && item.number === index
-                );
+              let gradeObj;
+              if (gradesList !== undefined && gradesList[type] !== undefined) {
+                gradeObj = gradesList[type].find(item => item.number === index);
               }
 
               return (
@@ -64,13 +62,6 @@ class GradeRow extends Component {
             />
           );
         })}
-        <GradeItem
-          key={`${_id}final`}
-          student={_id}
-          type="final"
-          number={1}
-          gradesList={gradesList}
-        />
       </StyledRow>
     );
   }
@@ -85,18 +76,27 @@ const {
   bool,
   func
 } = PropTypes;
+
+const gradeShape = arrayOf(
+  shape({
+    type: string.isRequired,
+    grade: number.isRequired,
+    number: number.isRequired
+  })
+);
+
 GradeRow.propTypes = {
   _id: string,
   numberOfGrades: object.isRequired,
   name: string,
   index: number,
-  gradesList: arrayOf(
-    shape({
-      type: string.isRequired,
-      grade: number.isRequired,
-      number: number.isRequired
-    })
-  ),
+  gradesList: shape({
+    final: gradeShape,
+    lab: gradeShape,
+    lecture: gradeShape,
+    seminar: gradeShape,
+    project: gradeShape
+  }),
   types: arrayOf(string),
   numbered: bool.isRequired,
   withName: bool.isRequired,

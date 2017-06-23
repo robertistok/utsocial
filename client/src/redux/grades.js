@@ -35,7 +35,7 @@ const RESET_GRADES = 'redux/grades/reset-state-grades';
 
 export function changeGroup(group) {
   return (dispatch) => {
-    dispatch({ type: CHANGE_GROUP, payload: group });
+    dispatch({ type: CHANGE_GROUP });
     axios({
       method: 'get',
       url: `/api/groups/getStudents/${group}`,
@@ -46,7 +46,7 @@ export function changeGroup(group) {
       .then(response =>
         dispatch({
           type: CHANGE_GROUP_SUCCESS,
-          payload: response.data.students
+          payload: { group, students: response.data.students }
         }))
       .catch(err => dispatch({ type: CHANGE_GROUP_ERROR, payload: err }));
   };
@@ -203,13 +203,13 @@ export default function (state = INITIAL_STATE, action) {
     case CHANGE_GROUP:
       return {
         ...state,
-        selectedGroup: action.payload,
         loading: true
       };
     case CHANGE_GROUP_SUCCESS:
       return {
         ...state,
-        students: [...action.payload],
+        students: [...action.payload.students],
+        selectedGroup: action.payload.group,
         loading: false
       };
     case CHANGE_GROUP_ERROR:
@@ -257,10 +257,19 @@ export default function (state = INITIAL_STATE, action) {
         ...state,
         gradesList: {
           ...state.gradesList,
-          [action.payload.student]: state.gradesList[action.payload.student] !==
-            undefined
-            ? [...state.gradesList[action.payload.student], action.payload]
-            : [action.payload]
+          [action.payload.student]: {
+            ...state.gradesList[action.payload.student],
+            [action.payload.type]: state.gradesList[action.payload.student][
+              action.payload.type
+            ] !== undefined
+              ? [
+                  ...state.gradesList[action.payload.student][
+                    action.payload.type
+                  ],
+                  action.payload
+                ]
+              : [action.payload]
+          }
         },
         loading: false
       };
@@ -275,14 +284,17 @@ export default function (state = INITIAL_STATE, action) {
         ...state,
         gradesList: {
           ...state.gradesList,
-          [action.payload.student]: [
-            ...state.gradesList[action.payload.student].map(
+          [action.payload.student]: {
+            ...state.gradesList[action.payload.student],
+            [action.payload.grade.type]: state.gradesList[
+              action.payload.student
+            ][action.payload.grade.type].map(
               grade =>
                 grade._id === action.payload.grade._id
                   ? action.payload.grade
                   : grade
             )
-          ]
+          }
         },
         loading: false
       };

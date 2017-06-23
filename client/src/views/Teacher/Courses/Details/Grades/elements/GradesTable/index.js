@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -7,15 +7,14 @@ import * as gradesActions from '../../../../../../../redux/grades';
 
 import GradesTable from './GradesTable';
 
-class GradesTableContainer extends Component {
-  render() {
-    if (this.props.selectedGroup === undefined) {
-      return null;
-    }
-
-    return <GradesTable {...this.props} />;
+const GradesTableContainer = (props) => {
+  const { selectedGroup } = props;
+  if (selectedGroup === undefined) {
+    return null;
   }
-}
+
+  return <GradesTable {...props} />;
+};
 
 const { string } = PropTypes;
 GradesTableContainer.propTypes = {
@@ -24,9 +23,12 @@ GradesTableContainer.propTypes = {
 
 const mapStateToProps = (state) => {
   const { selectedCourse: { course } } = state.courses;
-  const types = Object.keys(course.teachingTypes)
-    .filter(type => course.teachingTypes[type] === true)
-    .map(type => type);
+  const types = [
+    ...Object.keys(course.teachingTypes).filter(
+      type => course.teachingTypes[type] === true
+    ),
+    'final'
+  ];
 
   return {
     selectedGroup: state.grades.selectedGroup,

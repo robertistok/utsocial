@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 const Grade = (props) => {
   const { onClick, grade, isStudent } = props;
-
   return (
     <Wrapper onClick={onClick} isStudent={isStudent}>
       {grade === '' ? '-' : grade}

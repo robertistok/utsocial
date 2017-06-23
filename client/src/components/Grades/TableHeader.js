@@ -37,31 +37,28 @@ const TableHeader = (props) => {
           const numOfReasons = (numberOfGrades[type] !== undefined &&
             numberOfGrades[type]) ||
             1;
+          const isFinal = type === 'final';
           return (
             <TypeCell
               key={type}
-              colSpan={numOfReasons}
+              colSpan={!isFinal ? numOfReasons : '1'}
+              rowSpan={!isFinal ? '1' : '2'}
               textAlign="center"
-              singleLine
+              verticalAlign="middle"
+              singleLine={!isFinal}
               className={`${size}`}
             >
               <Type>{capitalizeFirstLetter(type)}</Type>
               {isTeacher &&
+                !isFinal &&
                 <Icon src={plusIcon} onClick={() => addColumnGrade(type)} />}
             </TypeCell>
           );
         })}
-        <TypeCell
-          rowSpan="2"
-          content="Final"
-          textAlign="center"
-          verticalAlign="middle"
-          className={`${size}`}
-        />
       </Table.Row>
 
       <Table.Row>
-        {types.map((type) => {
+        {types.filter(type => type !== 'final').map((type) => {
           if (numberOfGrades[type] !== undefined) {
             let index = 1;
             const grades = [];
@@ -75,8 +72,9 @@ const TableHeader = (props) => {
               );
               index += 1;
             }
-            return grades;
+            return [...grades];
           }
+
           return (
             <Table.HeaderCell
               key={`${type}first`}

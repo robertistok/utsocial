@@ -17,7 +17,7 @@ const Semester = (props) => {
           gradesList={
             gradesList[key] !== undefined
               ? gradesList[key]
-              : { numberOfGrades: {}, list: [] }
+              : { numberOfGrades: {}, list: {} }
           }
         />
       ))}
