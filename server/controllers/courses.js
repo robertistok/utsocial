@@ -1,10 +1,10 @@
 // disallow rule in favor of updating
 /* eslint no-param-reassign: 0*/
 
-const Course = require('../models/course');
-const Schedule = require('../models/schedule');
+import Course from '../models/course';
+import Schedule from '../models/schedule';
 
-function checkIfHttp(url) {
+export function checkIfHttp(url) {
 	const pattern = /^((http|https|ftp):\/\/)/;
 
 	if (!pattern.test(url)) {
@@ -14,7 +14,7 @@ function checkIfHttp(url) {
 	return url;
 }
 
-function getCourseGroups(req, res, next) {
+export function getCourseGroups(req, res, next) {
 	const { lang, courseID } = req.params;
 	Promise.all([
 		Schedule.find({ 'what.course': courseID }, [
@@ -63,11 +63,11 @@ function getCourseGroups(req, res, next) {
 		.catch(err => next(err));
 }
 
-function getAll(req, res, next) {
+export function getAll(req, res, next) {
 	Course.find({}).then(courses => res.send(courses)).catch(err => next(err));
 }
 
-function getMetaData(req, res, next) {
+export function getMetaData(req, res, next) {
 	const { courseID, lang } = req.params;
 
 	Course.findOne({ _id: courseID }, 'meta')
@@ -94,7 +94,7 @@ function getMetaData(req, res, next) {
 		.catch(err => next(err));
 }
 
-function addMaterial(req, res, next) {
+export function addMaterial(req, res, next) {
 	const { id, lang, type, link, description } = req.body;
 	const checkedLink = checkIfHttp(link);
 	const newMaterial = {
@@ -103,41 +103,43 @@ function addMaterial(req, res, next) {
 		description,
 		enteredOn: Date.now()
 	};
+	let required;
 
-	Course.findOne({ _id: id }, 'meta').then((course) => {
-		const { meta } = course;
+	Course.findOne({ _id: id }, 'meta')
+		.then((course) => {
+			const { meta } = course;
 
-		let required = course.meta.indexOf(meta.find(item => item.lang === lang));
-
-		if (required < 0) {
-			course.meta.push({
-				lang,
-				materials: [newMaterial]
-			});
 			required = course.meta.indexOf(meta.find(item => item.lang === lang));
-		} else {
-			course.meta[required].materials.push(newMaterial);
-		}
 
-		course
-			.save()
-			.then(course =>
-				res.send({
-					newMaterial: course.meta[required].materials.slice(-1).pop()
-				})
-			)
-			.catch(err => next(err));
-	});
+			if (required < 0) {
+				course.meta.push({
+					lang,
+					materials: [newMaterial]
+				});
+				required = course.meta.indexOf(meta.find(item => item.lang === lang));
+			} else {
+				course.meta[required].materials.push(newMaterial);
+			}
+
+			return course.save();
+		})
+		.then(course =>
+			res.send({
+				newMaterial: course.meta[required].materials.slice(-1).pop()
+			})
+		)
+		.catch(err => next(err));
 }
 
-function updateMaterial(req, res, next) {
+export function updateMaterial(req, res, next) {
 	const { courseID, lang, materialID, link, description } = req.body;
+	let required;
 
 	Course.findOne({ _id: courseID })
 		.then((course) => {
 			const { meta } = course;
 
-			const required = meta.indexOf(meta.find(item => item.lang === lang));
+			required = meta.indexOf(meta.find(item => item.lang === lang));
 
 			course.meta[required].materials = course.meta[required].materials.map(
 				material =>
@@ -152,21 +154,19 @@ function updateMaterial(req, res, next) {
 						: material)
 			);
 
-			course
-				.save()
-				.then(course =>
-					res.send(
-						course.meta[required].materials.find(
-							material => String(material._id) === materialID
-						)
-					)
-				)
-				.catch(err => next(err));
+			return course.save();
 		})
+		.then(course =>
+			res.send(
+				course.meta[required].materials.find(
+					material => String(material._id) === materialID
+				)
+			)
+		)
 		.catch(err => next(err));
 }
 
-function deleteMaterial(req, res, next) {
+export function deleteMaterial(req, res, next) {
 	const { id, lang, materialID } = req.body;
 
 	Course.findOne({ _id: id }, 'meta')
@@ -185,7 +185,7 @@ function deleteMaterial(req, res, next) {
 		.catch(err => next(err));
 }
 
-function updateDescription(req, res, next) {
+export function updateDescription(req, res, next) {
 	const { courseID, lang, text, updatedBy } = req.body;
 	let required;
 
@@ -218,13 +218,3 @@ function updateDescription(req, res, next) {
 		.then(course => res.send(course.meta[required].description))
 		.catch(err => next(err));
 }
-
-module.exports = {
-	getCourseGroups,
-	getAll,
-	getMetaData,
-	addMaterial,
-	updateMaterial,
-	deleteMaterial,
-	updateDescription
-};

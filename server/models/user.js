@@ -1,9 +1,7 @@
 /* eslint consistent-return: 0*/
 
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt-nodejs');
-
-const Schema = mongoose.Schema;
+import mongoose, { Schema } from 'mongoose';
+import bcrypt from 'bcrypt-nodejs';
 
 const UserSchema = new Schema({
 	username: {
@@ -27,6 +25,8 @@ const UserSchema = new Schema({
 
 UserSchema.pre('save', function encryptPassword(next) {
 	const user = this;
+
+	if (!user.isModified('password')) return next();
 
 	bcrypt.genSalt(10, (err, salt) => {
 		if (err) {
@@ -57,4 +57,4 @@ UserSchema.methods.comparePassword = function checkPassword(
 
 const User = mongoose.model('user', UserSchema);
 
-module.exports = User;
+export default User;

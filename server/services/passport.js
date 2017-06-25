@@ -1,12 +1,10 @@
 /* eslint consistent-return: 0*/
 
-const passport = require('passport');
+import passport from 'passport';
+import LocalStrategy from 'passport-local';
+import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 
-const LocalStrategy = require('passport-local');
-const JwtStrategy = require('passport-jwt').Strategy;
-const ExtractJwt = require('passport-jwt').ExtractJwt;
-
-const User = require('../models/user');
+import User from '../models/user';
 
 const localLogin = new LocalStrategy((user, password, done) => {
 	User.findOne({

@@ -91,7 +91,8 @@ export function addPost(req, res, next) {
 		.save()
 		.then(newPost =>
 			Post.populate(newPost, [
-				{ path: 'postedBy', select: 'firstname lastname name' }
+				{ path: 'postedBy', select: 'firstname lastname name' },
+				{ path: 'target.course.id', select: 'name' }
 			])
 		)
 		.then(newPost => res.send({ newPost }))

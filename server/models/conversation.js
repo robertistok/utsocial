@@ -1,6 +1,4 @@
-const mongoose = require('mongoose');
-
-const Schema = mongoose.Schema;
+import mongoose, { Schema } from 'mongoose';
 
 const ConversationSchema = new Schema({
 	participants: [],
@@ -25,4 +23,4 @@ const ConversationSchema = new Schema({
 
 const Conversation = mongoose.model('conversation', ConversationSchema);
 
-module.exports = Conversation;
+export default Conversation;

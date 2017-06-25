@@ -1,8 +1,6 @@
 /* eslint no-use-before-define: 0*/
 
-const mongoose = require('mongoose');
-
-const Schema = mongoose.Schema;
+import mongoose, { Schema } from 'mongoose';
 
 const ScheduleSchema = new Schema({
 	whom: {
@@ -107,4 +105,4 @@ ScheduleSchema.pre('save', function customValidation(next) {
 
 const Schedule = mongoose.model('schedule', ScheduleSchema);
 
-module.exports = Schedule;
+export default Schedule;

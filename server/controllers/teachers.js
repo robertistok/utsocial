@@ -1,11 +1,11 @@
-const Teacher = require('../models/teacher');
-const Schedule = require('../models/schedule');
+import Teacher from '../models/teacher';
+import Schedule from '../models/schedule';
 
-function getTeachers(req, res, next) {
+export function getTeachers(req, res, next) {
 	Teacher.find({}).then(teachers => res.send(teachers)).catch(err => next(err));
 }
 
-function getTeaching(req, res, next) {
+export function getTeaching(req, res, next) {
 	const id = req.params.id;
 	Schedule.find({ who: id })
 		.populate([{ path: 'what.course' }, { path: 'whom.group', select: 'lang' }])
@@ -32,7 +32,7 @@ function getTeaching(req, res, next) {
 		.catch(err => next(err));
 }
 
-function getColleagues(req, res, next) {
+export function getColleagues(req, res, next) {
 	const { courses, teacherID } = req.body;
 
 	Schedule.find({
@@ -61,5 +61,3 @@ function getColleagues(req, res, next) {
 		})
 		.catch(err => next(err));
 }
-
-module.exports = { getTeachers, getTeaching, getColleagues };

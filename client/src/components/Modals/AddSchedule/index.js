@@ -24,7 +24,7 @@ AddScheduleContainer.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  selectedGroupID: state.schedule.group
+  selectedGroupID: state.schedule.scheduleOf
 });
 
 const mapDispatchToProps = dispatch =>

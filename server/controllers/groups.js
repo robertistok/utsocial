@@ -1,6 +1,6 @@
-const Group = require('../models/group');
+import Group from '../models/group';
 
-function getGroupsFromYear(req, res, next) {
+export function getGroupsFromYear(req, res, next) {
 	const { year } = req.params;
 
 	const query = {};
@@ -13,7 +13,7 @@ function getGroupsFromYear(req, res, next) {
 		.catch(err => next(err));
 }
 
-function getGroupById(req, res, next) {
+export function getGroupById(req, res, next) {
 	Group.findById(req.body.id)
 		.populate({
 			path: 'courses',
@@ -27,16 +27,10 @@ function getGroupById(req, res, next) {
 		.catch(err => next(err));
 }
 
-function getStudents(req, res, next) {
+export function getStudents(req, res, next) {
 	const { id } = req.params;
 	Group.findOne({ _id: id }, ['students'])
 		.populate('students')
 		.then(students => res.send(students))
 		.catch(err => next(err));
 }
-
-module.exports = {
-	getGroupsFromYear,
-	getGroupById,
-	getStudents
-};

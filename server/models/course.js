@@ -1,6 +1,4 @@
-const mongoose = require('mongoose');
-
-const Schema = mongoose.Schema;
+import mongoose, { Schema } from 'mongoose';
 
 const Meta = new Schema({
 	lang: {
@@ -135,4 +133,5 @@ CourseSchema.virtual('teachingTypes').get(function getTeachingTypes() {
 });
 
 const Course = mongoose.model('course', CourseSchema);
-module.exports = Course;
+
+export default Course;

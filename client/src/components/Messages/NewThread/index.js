@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 import { reduxForm } from 'redux-form';
 
 import NewThread from './NewThread';
-import { socket } from '../../../views/Authorized';
+import { newConversation } from '../../../redux/messages';
 
 class NewThreadContainer extends Component {
   constructor(props) {
@@ -27,12 +28,10 @@ class NewThreadContainer extends Component {
   }
 
   sendMessage(values) {
-    socket.emit('new:thread', {
-      target: values.target,
-      sender: this.props.sender._id,
-      subject: values.subject,
-      text: values.message
-    });
+    const { sender: { _id: senderID }, newConversation } = this.props;
+    const { target, subject, message } = values;
+
+    newConversation(target, senderID, message, subject);
   }
 
   render() {
@@ -46,10 +45,11 @@ class NewThreadContainer extends Component {
   }
 }
 
-const { shape, string } = PropTypes;
+const { shape, string, func } = PropTypes;
 NewThreadContainer.propTypes = {
   sender: shape({ username: string.isRequired }).isRequired,
-  selectedConversation: shape({ _id: string.isRequired })
+  selectedConversation: shape({ _id: string.isRequired }),
+  newConversation: func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -57,8 +57,11 @@ const mapStateToProps = state => ({
   selectedConversation: state.messages.selectedConversation
 });
 
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ newConversation }, dispatch);
+
 const enhance = compose(
-  connect(mapStateToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   withRouter,
   reduxForm({ form: 'newThreadForm' })
 );

@@ -3,7 +3,7 @@ import Notification from '../models/notification';
 
 import { connectedUsers, io } from '../server';
 
-function getGradesListOfGroup(req, res, next) {
+export function getGradesListOfGroup(req, res, next) {
 	const { group, course } = req.body;
 
 	Grade.find({ group, course })
@@ -76,7 +76,7 @@ function getGradesListOfGroup(req, res, next) {
 		.catch(err => next(err));
 }
 
-function getGradesListOfStudent(req, res, next) {
+export function getGradesListOfStudent(req, res, next) {
 	const { studentID, courses } = req.body;
 
 	Grade.find({ student: studentID, course: { $in: courses } })
@@ -132,7 +132,7 @@ function getGradesListOfStudent(req, res, next) {
 		.catch(err => next(err));
 }
 
-function insertGrade(req, res, next) {
+export function insertGrade(req, res, next) {
 	const { grade, course, student, assignor, type, group, number } = req.body;
 
 	const newGrade = new Grade({
@@ -177,7 +177,7 @@ function insertGrade(req, res, next) {
 		.catch(err => next(err));
 }
 
-function deleteGrade(req, res, next) {
+export function deleteGrade(req, res, next) {
 	const { id, deletedBy, student: studentID } = req.body;
 
 	Grade.findOneAndRemove({ _id: id })
@@ -215,7 +215,7 @@ function deleteGrade(req, res, next) {
 		.catch(err => next(err));
 }
 
-function updateGrade(req, res, next) {
+export function updateGrade(req, res, next) {
 	const { id, assignor, grade } = req.body;
 
 	Grade.findOneAndUpdate(
@@ -226,11 +226,3 @@ function updateGrade(req, res, next) {
 		.then(grade => res.send({ grade }))
 		.catch(err => next(err));
 }
-
-module.exports = {
-	getGradesListOfGroup,
-	getGradesListOfStudent,
-	insertGrade,
-	deleteGrade,
-	updateGrade
-};

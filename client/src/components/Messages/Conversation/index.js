@@ -7,8 +7,7 @@ import { Redirect } from 'react-router';
 import { getFormMeta, reset } from 'redux-form';
 
 import Conversation from './Conversation';
-import { socket } from '../../../views/Authorized';
-import { addNewMessage, starConversation } from '../../../redux/messages';
+import * as messagesActions from '../../../redux/messages';
 import { withMaybe, withEither } from '../../hocs';
 
 class ConversationContainer extends Component {
@@ -33,16 +32,11 @@ class ConversationContainer extends Component {
     const {
       match: { params: { conversationID } },
       loggedInUser: { _id: userID },
+      sendMessage,
       reset
     } = this.props;
 
-    socket.emit('send:message', {
-      room: conversationID,
-      sender: userID,
-      text: values.message,
-      id: conversationID
-    });
-
+    sendMessage(conversationID, values.message, userID);
     reset('newMessageForm');
   }
 
@@ -60,6 +54,7 @@ class ConversationContainer extends Component {
 const { shape, string, func } = PropTypes;
 ConversationContainer.propTypes = {
   starConversation: func.isRequired,
+  sendMessage: func.isRequired,
   reset: func.isRequired,
   loggedInUser: shape({
     _id: string.isRequired,
@@ -90,7 +85,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ addNewMessage, starConversation, reset }, dispatch);
+  bindActionCreators({ ...messagesActions, reset }, dispatch);
 
 const ConversationContainerWithConditionalRendering = withConditionalRendering(
   ConversationContainer

@@ -1,25 +1,29 @@
 // disallow rule in favor of updating
 /* eslint no-param-reassign: 0*/
 
-const crypto = require('crypto');
-const nodemailer = require('nodemailer');
+import crypto from 'crypto';
+import nodemailer from 'nodemailer';
 
-const { tokenForUser, getCleanUser } = require('../utils/index');
-const User = require('../models/user');
+import { tokenForUser, getCleanUser } from '../utils/index';
+import User from '../models/user';
 
-function signIn(req, res) {
-	getCleanUser(req.user).then((user) => {
-		res.send({ token: tokenForUser(req.user), user });
-	});
+export function signIn(req, res) {
+	getCleanUser(req.user)
+		.then((user) => {
+			res.status(200).send({ token: tokenForUser(req.user), user });
+		})
+		.catch(() => res.status(500).send('Server unavailable'));
 }
 
-function meFromToken(req, res) {
-	getCleanUser(req.user).then((user) => {
-		res.send({ user });
-	});
+export function meFromToken(req, res) {
+	getCleanUser(req.user)
+		.then((user) => {
+			res.status(200).send({ user });
+		})
+		.catch(() => res.status(500).send('Server unavailable'));
 }
 
-function validateEmailAddress(req, res) {
+export function validateEmailAddress(req, res) {
 	const { email } = req.params;
 
 	User.findOne({ email })
@@ -35,7 +39,7 @@ function validateEmailAddress(req, res) {
 		);
 }
 
-function forgotPassword(req, res) {
+export function forgotPassword(req, res) {
 	const { email } = req.body;
 	crypto.randomBytes(20, (err, buffer) => {
 		const token = buffer.toString('hex');
@@ -84,7 +88,7 @@ function forgotPassword(req, res) {
 	});
 }
 
-function checkValidityOfToken(req, res) {
+export function checkValidityOfToken(req, res) {
 	const { token } = req.params;
 
 	User.findOne({
@@ -101,7 +105,7 @@ function checkValidityOfToken(req, res) {
 	});
 }
 
-function resetForgottenPassword(req, res) {
+export function resetForgottenPassword(req, res) {
 	const { token, newPassword, verifyNewPassword } = req.body;
 
 	if (newPassword !== verifyNewPassword) {
@@ -111,32 +115,27 @@ function resetForgottenPassword(req, res) {
 	return User.findOne({
 		resetPasswordToken: token,
 		resetPasswordExpires: { $gt: Date.now() }
-	}).then((user) => {
-		if (!user) {
-			return res
-				.status(404)
-				.send('Password reset token is invalid or has expired.');
-		}
+	})
+		.then((user) => {
+			if (!user) {
+				return res
+					.status(404)
+					.send('Password reset token is invalid or has expired.');
+			}
 
-		user.password = newPassword;
-		user.resetPasswordToken = undefined;
-		user.resetPasswordExpires = undefined;
+			user.password = newPassword;
+			user.resetPasswordToken = undefined;
+			user.resetPasswordExpires = undefined;
 
-		return user.save().then(user => getCleanUser(user)).then(cleanUser =>
+			return user.save();
+		})
+		.then(user => getCleanUser(user))
+		.then(cleanUser =>
 			res.status(200).send({
-				token: tokenForUser(user),
+				token: tokenForUser(cleanUser),
 				user: cleanUser,
 				message: 'Your password was changed succesfully, you can now sign in.'
 			})
-		);
-	});
+		)
+		.catch(() => res.status(500).send('Server unavailable'));
 }
-
-module.exports = {
-	signIn,
-	meFromToken,
-	validateEmailAddress,
-	forgotPassword,
-	checkValidityOfToken,
-	resetForgottenPassword
-};

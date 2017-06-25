@@ -1,21 +1,21 @@
 // Disable this rule in the favor of passportservice
 /* eslint no-unused-vars: 0*/
-const passport = require('passport');
-const express = require('express');
+import passport from 'passport';
+import express from 'express';
 
-const AuthenticationController = require('./controllers/authentication');
-const SchedulesController = require('./controllers/schedules');
-const GroupsController = require('./controllers/groups');
-const CoursesController = require('./controllers/courses');
-const TeachersController = require('./controllers/teachers');
-const MessagesController = require('./controllers/messages');
-const UsersController = require('./controllers/users');
-const AttendanceController = require('./controllers/attendance');
-const GradesController = require('./controllers/grades');
-const PostsController = require('./controllers/posts');
-const NotificationsController = require('./controllers/notifications');
+import * as AuthenticationController from './controllers/authentication';
+import * as SchedulesController from './controllers/schedules';
+import * as GroupsController from './controllers/groups';
+import * as CoursesController from './controllers/courses';
+import * as TeachersController from './controllers/teachers';
+import * as MessagesController from './controllers/messages';
+import * as UsersController from './controllers/users';
+import * as AttendanceController from './controllers/attendance';
+import * as GradesController from './controllers/grades';
+import * as PostsController from './controllers/posts';
+import * as NotificationsController from './controllers/notifications';
 
-const passportService = require('./services/passport');
+import passportService from './services/passport';
 
 const requireSignin = passport.authenticate('local', {
 	session: false
@@ -130,6 +130,16 @@ router.post(
 	'/api/messages/star',
 	requireAuth,
 	MessagesController.starConversationForUser
+);
+router.post(
+	'/api/messages/sendMessage',
+	requireAuth,
+	MessagesController.sendMessage
+);
+router.post(
+	'/api/messages/newConversation',
+	requireAuth,
+	MessagesController.newConversation
 );
 
 router.get('/api/users/all', requireAuth, UsersController.getAll);

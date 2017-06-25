@@ -1,6 +1,6 @@
-const Schedule = require('../models/schedule');
+import Schedule from '../models/schedule';
 
-function addNew(req, res) {
+export function addNew(req, res) {
 	const {
 		group,
 		semigroup,
@@ -39,7 +39,7 @@ function addNew(req, res) {
 		.catch(err => res.status(500).json({ message: err.message }));
 }
 
-function getOne(req, res, next) {
+export function getOne(req, res, next) {
 	const { id } = req.params;
 
 	Schedule.find({ $or: [{ 'whom.group': id }, { who: id }] })
@@ -61,7 +61,7 @@ function getOne(req, res, next) {
 		.catch(err => next(err));
 }
 
-function getForTeacher(req, res, next) {
+export function getForTeacher(req, res, next) {
 	const { id: teacherID } = req.params;
 
 	Schedule.find({ who: teacherID })
@@ -82,9 +82,3 @@ function getForTeacher(req, res, next) {
 		.then(schedules => res.send(schedules))
 		.catch(err => next(err));
 }
-
-module.exports = {
-	addNew,
-	getOne,
-	getForTeacher
-};

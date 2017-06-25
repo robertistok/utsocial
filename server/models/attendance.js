@@ -1,6 +1,4 @@
-const mongoose = require('mongoose');
-
-const Schema = mongoose.Schema;
+import mongoose, { Schema } from 'mongoose';
 
 const AttendanceSchema = new Schema({
 	enteredOn: {
@@ -37,4 +35,5 @@ const AttendanceSchema = new Schema({
 });
 
 const Attendance = mongoose.model('attendance', AttendanceSchema);
-module.exports = Attendance;
+
+export default Attendance;

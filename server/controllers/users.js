@@ -2,19 +2,19 @@
 /* eslint no-param-reassign: 0*/
 /* eslint consistent-return: 0*/
 
-const User = require('../models/user');
-const Teacher = require('../models/teacher');
-const Student = require('../models/student');
+import User from '../models/user';
+import Teacher from '../models/teacher';
+import Student from '../models/student';
 
-const { tokenForUser, getCleanUser } = require('../utils/index');
+import { tokenForUser, getCleanUser } from '../utils/index';
 
-function getAll(req, res, next) {
+export function getAll(req, res, next) {
 	User.find({}, 'username type')
 		.then(users => res.send(users))
 		.catch(err => next(err));
 }
 
-function usersForAutocomplete(req, res, next) {
+export function usersForAutocomplete(req, res, next) {
 	let searchTerm = {};
 	if (req.params.term !== 'none') {
 		const regex = new RegExp(req.params.term, 'i');
@@ -27,7 +27,7 @@ function usersForAutocomplete(req, res, next) {
 		.catch(err => next(err));
 }
 
-function changePassword(req, res, next) {
+export function changePassword(req, res, next) {
 	const { username, oldPassword, newPassword, verifyNewPassword } = req.body;
 
 	if (newPassword !== verifyNewPassword) {
@@ -63,7 +63,7 @@ function changePassword(req, res, next) {
 		.catch(err => next(err));
 }
 
-function validateUsername(req, res) {
+export function validateUsername(req, res) {
 	const { value: username } = req.body;
 
 	if (username !== undefined) {
@@ -78,7 +78,7 @@ function validateUsername(req, res) {
 	return res.status(304).send('Nothing changed');
 }
 
-function validateEmail(req, res) {
+export function validateEmail(req, res) {
 	const { value: email } = req.body;
 
 	if (email !== undefined) {
@@ -93,7 +93,7 @@ function validateEmail(req, res) {
 	return res.status(304).send('Nothing changed');
 }
 
-function validatePhone(req, res) {
+export function validatePhone(req, res) {
 	const { value: phone } = req.body;
 
 	if (phone !== undefined) {
@@ -108,7 +108,7 @@ function validatePhone(req, res) {
 	return res.status(304).send('Nothing changed');
 }
 
-function changeAccountDetails(req, res) {
+export function changeAccountDetails(req, res) {
 	const { userID, query } = req.body;
 
 	return Promise.all([
@@ -128,13 +128,3 @@ function changeAccountDetails(req, res) {
 			});
 		});
 }
-
-module.exports = {
-	getAll,
-	usersForAutocomplete,
-	changePassword,
-	validateUsername,
-	validatePhone,
-	validateEmail,
-	changeAccountDetails
-};

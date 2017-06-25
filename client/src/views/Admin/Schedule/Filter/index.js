@@ -35,8 +35,7 @@ class FilterContainer extends Component {
   }
 
   onGroupChange(e, { value }) {
-    this.props.changeGroup(value);
-    this.props.fetchSchedulesForGroup(value);
+    this.props.changeScheduleOf(value);
   }
 
   onAddButtonClick(event) {
@@ -64,14 +63,24 @@ class FilterContainer extends Component {
 
   render() {
     return (
-      <Filter
-        {...this.props}
-        groupOptions={this.extractOptionsFromGroup()}
-        onSemigroupChange={this.onSemigroupChange}
-        onWeekChange={this.onWeekChange}
-        onGroupChange={this.onGroupChange}
-        onAddButtonClick={this.onAddButtonClick}
-      />
+      // <table>
+      // 	<tr>
+      // 		<td>male</td>
+      // 		<td>Bonta M. Sergiu Andrei</td>
+      // 		<td>21021815</td>
+      // 	</tr>
+      // </table>
+
+      (
+        <Filter
+          {...this.props}
+          groupOptions={this.extractOptionsFromGroup()}
+          onSemigroupChange={this.onSemigroupChange}
+          onWeekChange={this.onWeekChange}
+          onGroupChange={this.onGroupChange}
+          onAddButtonClick={this.onAddButtonClick}
+        />
+      )
     );
   }
 }
@@ -79,10 +88,9 @@ class FilterContainer extends Component {
 const { func } = PropTypes;
 FilterContainer.propTypes = {
   getGroups: func.isRequired,
-  changeGroup: func.isRequired,
+  changeScheduleOf: func.isRequired,
   changeSemigroup: func.isRequired,
   changeWeek: func.isRequired,
-  fetchSchedulesForGroup: func.isRequired,
   showModal: func.isRequired
 };
 

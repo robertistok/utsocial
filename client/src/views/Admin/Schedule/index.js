@@ -1,11 +1,13 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
+
 import TableContainer from '../../../components/Schedule/Table';
 import FilterContainer from './Filter';
 
 const Schedule = () => (
   <div>
-    <FilterContainer />
-    <TableContainer />
+    <Route path="/schedules" component={FilterContainer} />
+    <Route path="/schedules/:id" component={TableContainer} />
   </div>
 );
 

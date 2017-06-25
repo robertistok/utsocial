@@ -1,9 +1,9 @@
-const jwt = require('jwt-simple');
+import jwt from 'jwt-simple';
 
-const Student = require('../models/student');
-const Teacher = require('../models/teacher');
+import Student from '../models/student';
+import Teacher from '../models/teacher';
 
-function tokenForUser(user) {
+export function tokenForUser(user) {
 	const timestamp = new Date().getTime();
 	const payload = {
 		sub: user._id,
@@ -13,7 +13,7 @@ function tokenForUser(user) {
 	return jwt.encode(payload, secret);
 }
 
-function getCleanUser(user) {
+export function getCleanUser(user) {
 	if (!user) return {};
 
 	return Promise.all([
@@ -54,8 +54,3 @@ function getCleanUser(user) {
 		};
 	});
 }
-
-module.exports = {
-	getCleanUser,
-	tokenForUser
-};

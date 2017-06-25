@@ -20,7 +20,7 @@ const optionsSemigroup = [
 
 const Filter = (props) => {
   const {
-    schedule: { semigroup, week, group },
+    schedule: { semigroup, week, scheduleOf },
     onSemigroupChange,
     onWeekChange,
     onGroupChange,
@@ -37,7 +37,7 @@ const Filter = (props) => {
           options={groupOptions}
           placeholder="Group"
           onChange={onGroupChange}
-          value={group}
+          value={scheduleOf}
         />
         <StyledFormField
           control={Select}
@@ -55,14 +55,14 @@ const Filter = (props) => {
         />
 
         {userType === 'admin' &&
-          <Button animated disabled={!group} onClick={onAddButtonClick}>
+          <Button animated disabled={!scheduleOf} onClick={onAddButtonClick}>
             <Button.Content visible>Add schedule</Button.Content>
             <Button.Content hidden>
               <Icon name="plus" size="large" />
             </Button.Content>
           </Button>}
       </StyledForm>
-      {group &&
+      {scheduleOf &&
         <ExplanationWrapper>
           <Explanation lecture><span>Lecture</span></Explanation>
           <Explanation lab><span>Lab</span></Explanation>

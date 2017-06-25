@@ -13,6 +13,12 @@ const FETCH_MESSAGES_OF_CONVERSATION = 'redux/messages/fetch-messages-of-convers
 const FETCH_MESSAGES_OF_CONVERSATION_SUCCESS = 'redux/messages/fetch-messages-of-conversation-success';
 const FETCH_MESSAGES_OF_CONVERSATION_ERROR = 'redux/messages/fetch-messages-of-conversation-error';
 
+const SEND_MESSAGE = 'redux/messages/send-message';
+const SEND_MESSAGE_ERROR = 'redux/messages/send-message-error';
+
+const NEW_CONVERSATION = 'redux/messages/new-conversation';
+const NEW_CONVERSATION_ERROR = 'redux/messages/new-conversation-error';
+
 const READ_MESSAGES_OF_CONVERSATION = 'redux/messages/read-messages-of-conversation';
 const STAR_CONVERSATION_FOR_USER = 'redux/messages/star-conversation-for-user';
 const FILTER_CONVERSATIONS = 'redux/messages/filter-conversations';
@@ -91,6 +97,46 @@ export function selectConversation(id) {
   };
 }
 
+export function sendMessage(conversationID, text, sender) {
+  return (dispatch) => {
+    dispatch({ type: SEND_MESSAGE });
+    axios({
+      method: 'post',
+      url: `${ROOT_URL}/sendMessage`,
+      data: { conversationID, text, sender },
+      headers: {
+        authorization: getToken()
+      }
+    })
+      .then(response =>
+        dispatch({
+          type: ADD_NEW_MESSAGE,
+          payload: response.data
+        }))
+      .catch(err => dispatch({ type: SEND_MESSAGE_ERROR, payload: err }));
+  };
+}
+
+export function newConversation(target, sender, text, subject) {
+  return (dispatch) => {
+    dispatch({ type: NEW_CONVERSATION });
+    axios({
+      method: 'post',
+      url: `${ROOT_URL}/newConversation`,
+      data: { target, sender, text, subject },
+      headers: {
+        authorization: getToken()
+      }
+    })
+      .then(response =>
+        dispatch({
+          type: ADD_NEW_CONVERSATON,
+          payload: response.data.newConversation
+        }))
+      .catch(err => dispatch({ type: NEW_CONVERSATION_ERROR, payload: err }));
+  };
+}
+
 export function readMessages(id) {
   return (dispatch) => {
     axios({
@@ -130,6 +176,7 @@ const INITIAL_STATE = {
   conversations: null,
   selectedConversation: null,
   loading: false,
+  sendingMessage: false,
   error: undefined,
   filter: 'all',
   searchTerm: ''
@@ -148,7 +195,7 @@ export default function (state = INITIAL_STATE, action) {
       return {
         ...state,
         selectedConversation: state.selectedConversation !== null &&
-          state.selectedConversation._id === action.payload.convID
+          state.selectedConversation._id === action.payload.conversationID
           ? {
               ...state.selectedConversation,
               messages: [
@@ -159,7 +206,7 @@ export default function (state = INITIAL_STATE, action) {
           : state.selectedConversation,
         conversations: state.conversations
           .map((c) => {
-            if (c._id === action.payload.convID) {
+            if (c._id === action.payload.conversationID) {
               return Object.assign({}, c, {
                 messages: [action.payload.newMessage]
               });
@@ -181,6 +228,7 @@ export default function (state = INITIAL_STATE, action) {
     case FETCH_CONVERSATIONS_OFUSER_ERROR:
       error = action.payload || { message: action.payload.message };
       return { ...state, loading: false, error };
+
     case FETCH_MESSAGES_OF_CONVERSATION:
       return { ...state, loading: true };
     case FETCH_MESSAGES_OF_CONVERSATION_SUCCESS:
@@ -188,6 +236,19 @@ export default function (state = INITIAL_STATE, action) {
     case FETCH_MESSAGES_OF_CONVERSATION_ERROR:
       error = action.payload || { message: action.payload.message };
       return { ...state, loading: false, error };
+
+    case SEND_MESSAGE:
+      return { ...state, sendingMessage: true };
+    case SEND_MESSAGE_ERROR:
+      error = action.payload || { message: action.payload.message };
+      return { ...state, sendingMessage: false, error };
+
+    case NEW_CONVERSATION:
+      return { ...state, sendingMessage: true };
+    case NEW_CONVERSATION_ERROR:
+      error = action.payload || { message: action.payload.message };
+      return { ...state, sendingMessage: false, error };
+
     case READ_MESSAGES_OF_CONVERSATION:
       return {
         ...state,

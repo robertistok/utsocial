@@ -4,7 +4,7 @@ import { connectedUsers, io } from '../server';
 import Attendance from '../models/attendance';
 import Notification from '../models/notification';
 
-function getAttendanceOfCourseType(req, res, next) {
+export function getAttendanceOfCourseType(req, res, next) {
 	const { group, type, course, studentID: student } = req.body;
 
 	Attendance.find({ course, type, $and: [{ $or: [{ group }, { student }] }] })
@@ -12,7 +12,7 @@ function getAttendanceOfCourseType(req, res, next) {
 		.catch(err => next(err));
 }
 
-function markAsPresent(req, res, next) {
+export function markAsPresent(req, res, next) {
 	const { student, date, course, type, assignor, group } = req.body;
 	const enteredFor = moment(date, 'DD/MM').valueOf();
 
@@ -58,7 +58,7 @@ function markAsPresent(req, res, next) {
 		.catch(err => next(err));
 }
 
-function removeAttendance(req, res, next) {
+export function removeAttendance(req, res, next) {
 	const { id } = req.params;
 	let targetStudent;
 
@@ -95,9 +95,3 @@ function removeAttendance(req, res, next) {
 		})
 		.catch(err => next(err));
 }
-
-module.exports = {
-	getAttendanceOfCourseType,
-	markAsPresent,
-	removeAttendance
-};

@@ -1,6 +1,4 @@
-const mongoose = require('mongoose');
-
-const Schema = mongoose.Schema;
+import mongoose, { Schema } from 'mongoose';
 
 const TeacherSchema = new Schema(
 	{
@@ -39,4 +37,5 @@ TeacherSchema.virtual('name').get(function getName() {
 });
 
 const Teacher = mongoose.model('teacher', TeacherSchema);
-module.exports = Teacher;
+
+export default Teacher;

@@ -58,7 +58,7 @@ const mapStateToProps = state => ({
   selectedGroup: state.groups.selected,
   formValues: getFormValues('addScheduleModalForm')(state),
   initialValues: {
-    group: state.schedule.group,
+    group: state.schedule.scheduleOf,
     semigroup: state.schedule.semigroup
   }
 });

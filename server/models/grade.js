@@ -1,6 +1,4 @@
-const mongoose = require('mongoose');
-
-const Schema = mongoose.Schema;
+import mongoose, { Schema } from 'mongoose';
 
 const GradeSchema = new Schema({
 	enteredOn: {
@@ -46,4 +44,5 @@ const GradeSchema = new Schema({
 });
 
 const Grade = mongoose.model('grade', GradeSchema);
-module.exports = Grade;
+
+export default Grade;
