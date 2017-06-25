@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import Grade from '../../../../../components/Grades/Grade';
+import Grade from '../../../components/Grades/Grade';
 
 const GradeItem = (props) => {
   const { gradeObj, type, gradesList } = props;

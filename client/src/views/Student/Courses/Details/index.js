@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import AttendanceContainer from './Attendance';
+import GradesContainer from './Grades';
 import MaterialsContainer from './Materials';
 import DescriptionContainer from './Description';
 import NewsfeedContainer from './Newsfeed';
@@ -24,6 +25,7 @@ const Details = (props) => {
         <NewsfeedContainer />
         <DescriptionContainer />
         <AttendanceContainer />
+        <GradesContainer />
         <MaterialsContainer />
       </StyledAccordion>
     </div>

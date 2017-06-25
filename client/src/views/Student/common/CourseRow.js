@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Table } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-import Header from '../../../../../components/Grades/TableHeader';
-import GradeRow from '../../../../../components/Grades/GradeRow';
+import Header from '../../../components/Grades/TableHeader';
+import GradeRow from '../../../components/Grades/GradeRow';
 import GradeItem from './GradeItem';
 
 const CourseRow = (props) => {
@@ -12,7 +12,8 @@ const CourseRow = (props) => {
     teachingTypes,
     name,
     credits,
-    gradesList: { numberOfGrades, list }
+    gradesList: { numberOfGrades, list },
+    individualItem
   } = props;
 
   const types = [
@@ -23,7 +24,7 @@ const CourseRow = (props) => {
   return (
     <Wrapper>
       <Info>
-        <MaterialName>{name}</MaterialName>
+        {!individualItem && <MaterialName>{name}</MaterialName>}
         <CreditsNumber>{credits} credits</CreditsNumber>
       </Info>
       <StyledTable celled collapsing structured size="small">
@@ -65,6 +66,7 @@ const gradeShape = shape({
 
 CourseRow.propTypes = {
   name: string.isRequired,
+  individualItem: bool.isRequired,
   credits: number.isRequired,
   teachingTypes: shape({
     lab: bool,
@@ -88,6 +90,10 @@ CourseRow.propTypes = {
       project: number
     })
   })
+};
+
+CourseRow.defaultProps = {
+  individualItem: false
 };
 
 const Wrapper = styled.div`
