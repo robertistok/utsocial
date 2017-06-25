@@ -4,7 +4,7 @@
 import React from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 
-import HeaderContainer from '../../components/Header/index';
+// import HeaderContainer from '../../components/Header/index';
 import ModalSwitcher from '../../components/Modals/ModalSwitcher';
 import Schedule from './Schedule';
 import { Wrapper, Content } from '../wrappers';
