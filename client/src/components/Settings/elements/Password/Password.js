@@ -5,7 +5,13 @@ import { Field } from 'redux-form';
 import StandardInput from '../../../common/StandardInput';
 import SubmitButton from '../../../common/SubmitButton';
 import { required } from '../../../common/validation';
-import { SettingTitle, StyledForm, FieldGroup, StyledLabel } from '../styled';
+import {
+  SettingTitle,
+  StyledForm,
+  FieldGroup,
+  StyledLabel,
+  Status
+} from '../common';
 
 const Password = (props) => {
   const {
@@ -20,7 +26,10 @@ const Password = (props) => {
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <SettingTitle>Password</SettingTitle>
-      {passwordStatus && passwordStatus.status}
+      {passwordStatus &&
+        passwordStatus.status !== undefined &&
+        <Status {...passwordStatus} />}
+
       <FieldGroup style={{ marginBottom: 23 }}>
         <StyledLabel htmlFor="oldPassword">Current password</StyledLabel>
         <Field

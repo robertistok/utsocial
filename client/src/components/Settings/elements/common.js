@@ -1,4 +1,20 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Icon } from 'semantic-ui-react';
+
+export const Status = props => (
+  <StatusWrapper error={props.error}>
+    <Icon name={props.error ? 'remove' : 'checkmark'} />
+    {props.status}
+  </StatusWrapper>
+);
+
+const { string, bool } = PropTypes;
+Status.propTypes = {
+  error: bool.isRequired,
+  status: string
+};
 
 export const SettingTitle = styled.span`
 	font-size: 16px;
@@ -65,4 +81,14 @@ export const SaveButton = styled.button`
 	@media screen and (max-width: 376px) {
 		margin-left: 25px;
 	}
+`;
+
+export const StatusWrapper = styled.div`
+	${''}
+	margin-left: 10px;
+	color: ${props => props.error ? props.theme.error : props.theme.primary}
+	font-size: 11px;
+	font-weight: lighter;
+	top: 40px;
+	left: 0px;
 `;

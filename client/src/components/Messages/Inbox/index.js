@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
+import { compose } from 'recompose';
 // import { Dimmer, Loader } from 'semantic-ui-react';
 
 import {
@@ -33,7 +34,8 @@ class InboxContainer extends Component {
       addNewConversation,
       user: { _id: userID },
       history,
-      selectedConversation
+      selectedConversation,
+      isLoading
     } = this.props;
 
     getConversationsOfUser(userID);
@@ -43,7 +45,7 @@ class InboxContainer extends Component {
       history.push('/messages');
     });
 
-    if (selectedConversation !== null) {
+    if (selectedConversation !== null && isLoading === false) {
       history.push(`/messages/${selectedConversation._id}`);
     }
   }
@@ -90,11 +92,12 @@ class InboxContainer extends Component {
   }
 }
 
-const { func, shape, string, arrayOf } = PropTypes;
+const { func, shape, string, arrayOf, bool } = PropTypes;
 InboxContainer.propTypes = {
   getConversationsOfUser: func.isRequired,
   addNewConversation: func.isRequired,
   selectConversation: func.isRequired,
+  isLoading: bool,
   selectedConversation: shape({ _id: string.isRequired }),
   location: shape({ pathname: string.isRequired }).isRequired,
   history: shape({ push: func.isRequired }).isRequired,
@@ -131,6 +134,9 @@ const mapDispatchToProps = dispatch =>
     dispatch
   );
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  withRouter(InboxContainer)
+const enhance = compose(
+  withRouter,
+  connect(mapStateToProps, mapDispatchToProps)
 );
+
+export default enhance(InboxContainer);

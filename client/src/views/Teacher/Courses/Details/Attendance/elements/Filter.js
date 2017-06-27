@@ -6,7 +6,7 @@ import { StyledDropdown } from '../../../../../../components/common/Dropdown';
 
 const Filter = (props) => {
   const {
-    courses: { selectedCourse: { course, groups } },
+    courses: { selectedCourse: { course, groups, schedules } },
     filter: { type, group },
     changeGroup,
     changeType,
@@ -19,11 +19,12 @@ const Filter = (props) => {
     value: group._id
   }));
 
-  const typeOptions = Object.keys(course).length === 0
-    ? []
-    : Object.keys(course.teachingTypes)
-        .filter(type => course.teachingTypes[type] === true)
-        .map(type => ({ key: type, text: type, value: type }));
+  const typeOptions = schedules
+    .reduce(
+      (acc, item) => acc.indexOf(item.type) === -1 ? [...acc, item.type] : acc,
+      []
+    )
+    .map(type => ({ key: type, text: type, value: type }));
 
   return (
     <Wrapper>

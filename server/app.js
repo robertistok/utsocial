@@ -20,8 +20,8 @@ app.use(router);
 app.use('/*', staticFiles);
 
 mongoose.Promise = global.Promise;
+
 if (process.env.NODE_ENV === 'production') {
-	// app.get('*', (req, res) => res.redirect(`https://${req.headers.host}${req.url}`));
 	mongoose.connect(process.env.MONGODB_URI);
 } else {
 	mongoose.connect('mongodb://localhost/universocial');
@@ -29,4 +29,4 @@ if (process.env.NODE_ENV === 'production') {
 
 app.set('port', process.env.PORT || 3001);
 
-module.exports = app;
+export default app;

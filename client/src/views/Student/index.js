@@ -13,7 +13,14 @@ import Settings from '../../components/Settings';
 import Home from './Home';
 import { Wrapper, Content } from '../wrappers';
 
-const links = ['home', 'courses', 'messages', 'schedules', 'grades'];
+const links = [
+  'home',
+  'courses',
+  'messages',
+  'schedules',
+  'grades',
+  'preferences'
+];
 const ForOhFor = () => <h1>No match found</h1>;
 
 const Student = () => (

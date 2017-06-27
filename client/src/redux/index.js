@@ -15,7 +15,9 @@ import gradesReducer from './grades';
 import metadatacourseReducer from './metadatacourse';
 import notificationsReducer from './notifications';
 
-const rootReducer = combineReducers({
+import { DEAUTH_USER } from './account/auth';
+
+const appReducer = combineReducers({
   schedule: scheduleReducer,
   groups: groupsReducer,
   modals: modalsReducer,
@@ -31,5 +33,13 @@ const rootReducer = combineReducers({
   notifications: notificationsReducer,
   burgerMenu
 });
+
+const rootReducer = (state, action) => {
+  if (action.type === DEAUTH_USER) {
+    state = undefined;
+  }
+
+  return appReducer(state, action);
+};
 
 export default rootReducer;

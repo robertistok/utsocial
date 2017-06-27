@@ -8,7 +8,7 @@ const AUTH_USER = 'redux/account/auth/auth';
 const AUTH_USER_SUCCESS = 'redux/account/auth/auth-success';
 const AUTH_USER_ERROR = 'redux/account/auth/autherror';
 
-const DEAUTH_USER = 'redux/account/auth/deauth';
+export const DEAUTH_USER = 'redux/account/auth/deauth';
 const ME_FROM_TOKEN = 'redux/account/auth/mefromtoken';
 const RESET_ERROR = 'redux/account/auth/reset-error';
 const SET_USER = 'redux/account/auth/set-user';
@@ -115,14 +115,6 @@ export default function (state = INITIAL_STATE, action) {
         ...state,
         user: action.payload,
         authenticated: true,
-        error: undefined
-      };
-
-    case DEAUTH_USER:
-      return {
-        ...state,
-        user: undefined,
-        authenticated: false,
         error: undefined
       };
 

@@ -137,7 +137,7 @@ const INITIAL_STATE = {
 export default function (state = INITIAL_STATE, action) {
   switch (action.type) {
     case CHANGE_PASSWORD:
-      return { ...state, password: { ...state.password, loading: true } };
+      return { ...state, password: { error: false, loading: true } };
     case CHANGE_PASSWORD_SUCCESS:
       return {
         ...state,
@@ -158,6 +158,8 @@ export default function (state = INITIAL_STATE, action) {
         ...state,
         account: {
           ...state.account,
+          error: false,
+          status: undefined,
           validation: {
             ...state.account.validation,
             [action.type.validationType]: { loading: true }
@@ -181,10 +183,10 @@ export default function (state = INITIAL_STATE, action) {
     case VALIDATION_ERROR:
       return {
         ...state,
-        changeAccountStatus: {
-          ...state.changeAccountStatus,
+        account: {
+          ...state.account,
           validation: {
-            ...state.changeAccountStatus,
+            ...state.account.validation,
             [action.type.validationType]: {
               loading: false,
               status: action.payload.err
@@ -196,7 +198,7 @@ export default function (state = INITIAL_STATE, action) {
     case CHANGE_ACCOUNT_DETAILS:
       return {
         ...state,
-        account: { loading: true }
+        account: { loading: true, error: false }
       };
     case CHANGE_ACCOUNT_DETAILS_SUCCESS:
       return {
@@ -205,9 +207,7 @@ export default function (state = INITIAL_STATE, action) {
           error: false,
           status: action.payload.message,
           loading: false
-        },
-        error: undefined,
-        loading: false
+        }
       };
     case CHANGE_ACCOUNT_DETAILS_ERROR:
       return {
@@ -216,8 +216,7 @@ export default function (state = INITIAL_STATE, action) {
           error: true,
           status: action.payload,
           loading: false
-        },
-        loading: false
+        }
       };
 
     case RESET_PREFERENCES_STATE:

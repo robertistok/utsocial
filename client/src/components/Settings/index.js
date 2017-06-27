@@ -20,7 +20,8 @@ class Settings extends Component {
   render() {
     return (
       <Wrapper>
-        <PasswordContainer /><AccountContainer />
+        <PasswordContainer />
+        <AccountContainer />
       </Wrapper>
     );
   }

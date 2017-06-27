@@ -30,7 +30,8 @@ class Thread extends Component {
       changeSearchterm,
       customOnClickhandler,
       readMessages,
-      _id: id
+      _id: id,
+      selectedConversation: { _id: selectedConversationID }
     } = this.props;
 
     if (customOnClickhandler !== undefined) {
@@ -38,7 +39,9 @@ class Thread extends Component {
     }
 
     changeSearchterm('');
-    selectConversation(id);
+    if (selectedConversationID !== id) {
+      selectConversation(id);
+    }
     readMessages(id);
   }
 
@@ -99,6 +102,7 @@ Thread.propTypes = {
   readMessages: func.isRequired,
   _id: string.isRequired,
   subject: string.isRequired,
+  selectedConversation: shape({ _id: string.isRequired }),
   user: shape({ username: string.isRequired }).isRequired,
   participants: arrayOf(
     shape({ _id: string.isRequired }).isRequired
@@ -242,7 +246,8 @@ const GenderLogo = styled.img`
 `;
 
 const mapStateToProps = state => ({
-  user: state.account.auth.user
+  user: state.account.auth.user,
+  selectedConversation: state.messages.selectedConversation
 });
 
 const mapDispatchToProps = dispatch =>

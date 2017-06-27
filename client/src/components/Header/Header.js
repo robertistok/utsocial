@@ -149,6 +149,10 @@ const MenuItem = styled(NavLink)`
 	font-size: 16px;
 	transform: perspective(1px) translateZ(0);
 
+	@media screen and (max-width: 850px) {
+		padding: 10px;
+	}
+
 
 	&:before {
 		content: "";

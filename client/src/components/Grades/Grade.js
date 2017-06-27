@@ -31,12 +31,22 @@ const Wrapper = styled.span`
 	width: 100%;
 	text-align: center;
 	padding: 10px;
+	color: ${(props) => {
+  if (props.aboveFive !== null) {
+    if (props.aboveFive === true) {
+      return props.theme.primary;
+    } else if (props.aboveFive === false) {
+      return props.theme.error;
+    }
+  }
+  return props.theme.black;
+}};
 
 	&:hover {
 		cursor: ${props => !props.isStudent && 'pointer'};
 	}
 
-	
+
 `;
 
 export default Grade;

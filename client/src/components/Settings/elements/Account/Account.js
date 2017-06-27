@@ -5,7 +5,13 @@ import { Field } from 'redux-form';
 import StandardInput from '../../../common/StandardInput';
 import SubmitButton from '../../../common/SubmitButton';
 import { requiredWithText } from '../../../common/validation';
-import { SettingTitle, FieldGroup, StyledLabel, StyledForm } from '../styled';
+import {
+  SettingTitle,
+  FieldGroup,
+  StyledLabel,
+  StyledForm,
+  Status
+} from '../common';
 
 const Account = (props) => {
   const {
@@ -21,7 +27,9 @@ const Account = (props) => {
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>
       <SettingTitle>Account</SettingTitle>
-      {accountStatus && accountStatus.status}
+      {accountStatus &&
+        accountStatus.status !== undefined &&
+        <Status {...accountStatus} />}
       <FieldGroup>
         <StyledLabel htmlFor="username">Username</StyledLabel>
         <Field
@@ -29,6 +37,7 @@ const Account = (props) => {
           type="text"
           component={StandardInput}
           validate={requiredWithText}
+          showError
         />
       </FieldGroup>
 
@@ -39,6 +48,7 @@ const Account = (props) => {
           type="text"
           component={StandardInput}
           validate={requiredWithText}
+          showError
         />
       </FieldGroup>
 
@@ -50,6 +60,7 @@ const Account = (props) => {
           component={StandardInput}
           validate={requiredWithText}
           maxLength={11}
+          showError
         />
       </FieldGroup>
       <FieldGroup>
