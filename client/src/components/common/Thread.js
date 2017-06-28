@@ -19,9 +19,9 @@ class Thread extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return JSON.stringify(nextProps.messages[0]) !==
-      JSON.stringify(this.props.messages[0]) ||
-      nextProps.location !== this.props.location;
+    return nextProps.messages[0]._id !== this.props.messages[0]._id ||
+      nextProps.location.pathname.split('/')[2] === nextProps._id ||
+      this.props.location.pathname.split('/')[2] === this.props._id;
   }
 
   onClick() {
@@ -31,7 +31,7 @@ class Thread extends Component {
       customOnClickhandler,
       readMessages,
       _id: id,
-      selectedConversation: { _id: selectedConversationID }
+      selectedConversation
     } = this.props;
 
     if (customOnClickhandler !== undefined) {
@@ -39,7 +39,7 @@ class Thread extends Component {
     }
 
     changeSearchterm('');
-    if (selectedConversationID !== id) {
+    if (selectedConversation !== null && selectedConversation._id !== id) {
       selectConversation(id);
     }
     readMessages(id);

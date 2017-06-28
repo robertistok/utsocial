@@ -3,6 +3,9 @@
 import mongoose, { Schema } from 'mongoose';
 import bcrypt from 'bcrypt-nodejs';
 
+import Student from './student';
+import Teacher from './teacher';
+
 const UserSchema = new Schema({
 	username: {
 		type: String,
@@ -53,6 +56,13 @@ UserSchema.methods.comparePassword = function checkPassword(
 
 		callback(null, isMatch);
 	});
+};
+
+UserSchema.methods.getFullName = function getFullName() {
+	if (this.type === 'admin') return 'BigBoss';
+	const Model = this.type === 'teacher' ? Teacher : Student;
+
+	return Model.findOne({ _id: this._id }).populate('firstname lastname ');
 };
 
 const User = mongoose.model('user', UserSchema);

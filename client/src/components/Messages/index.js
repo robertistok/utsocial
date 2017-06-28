@@ -37,6 +37,7 @@ const MessageaContainer = () => (
 const Wrapper = styled.div`
 	display: flex;
 	height: calc(100vh - 120px);
+	max-height: 600px;
 	max-width: 100%;
 	overflow: auto;
 	border: 1px solid rgba(0, 0, 0, .10);

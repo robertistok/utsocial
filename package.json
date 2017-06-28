@@ -6,8 +6,8 @@
  "license": "MIT",
  "engines": {
   "node": "7.4.0",
-	"npm": "4.0.5",
-	"yarn": "0.24.6"
+  "npm": "4.0.5",
+  "yarn": "0.24.6"
  },
  "dependencies": {
   "concurrently": "^3.4.0",
@@ -29,6 +29,7 @@
   "eslint-plugin-import": "^2.2.0",
   "eslint-plugin-jsx-a11y": "^5.0.1",
   "eslint-plugin-react": "^7.0.1",
+  "prettier": "^1.5.2",
   "prettier-eslint": "^6.1.0",
   "prettier-eslint-cli": "^3.4.2"
  }

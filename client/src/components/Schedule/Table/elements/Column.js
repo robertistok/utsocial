@@ -3,18 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import moment from 'moment';
 
-import { HOURS } from '../../../../utils/constants';
-import ScheduleItem from './ScheduleItem';
+import Week from './Week';
 import { media } from '../../../../utils/style-utils';
-
-const findSchedule = ({ scheduleList, hour, week, semigroup }) =>
-  scheduleList.find(
-    scheduleItem =>
-      hour.key >= scheduleItem.when.from &&
-      hour.key < scheduleItem.when.from + scheduleItem.when.duration &&
-      [0, parseInt(week, 10)].includes(scheduleItem.when.frequency) &&
-      ['0', semigroup].includes(scheduleItem.whom.semigroup)
-  );
 
 const Column = (props) => {
   const { day, week, semigroup, handleCellClick, scheduleList } = props;
@@ -36,29 +26,14 @@ const Column = (props) => {
           <SemigroupColumn key={semigroup}>
             <ColumnWrapper>
               {weeks.map(week => (
-                <Week key={week}>
-                  <WeekNumber>{`W${week}`}</WeekNumber>
-                  {HOURS.map((hour, index) => {
-                    const schedule = findSchedule({
-                      scheduleList,
-                      hour,
-                      week,
-                      semigroup
-                    });
-                    const key = `${day.text + week + semigroup + hour + index}`;
-
-                    return (
-                      <ScheduleItem
-                        onClick={handleCellClick}
-                        key={key}
-                        week={week}
-                        hour={hour}
-                        semigroup={semigroup}
-                        schedule={schedule}
-                      />
-                    );
-                  })}
-                </Week>
+                <Week
+                  key={week}
+                  week={week}
+                  handleCellClick={handleCellClick}
+                  scheduleList={scheduleList}
+                  semigroup={semigroup}
+                  day={day}
+                />
               ))}
             </ColumnWrapper>
           </SemigroupColumn>
@@ -162,32 +137,6 @@ const GroupNumber = styled.div`
   justify-content: center;
   align-items: center;
 	border-left: ${props => props.theme.separator};
-`;
-
-const Week = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	width: 100%;
-	text-align: center;
-
-	&:first-child {
-		border-right: ${props => props.theme.separator};
-	}
-
-	&:last-child {
-		border-right: 0px;
-	}
-`;
-
-const WeekNumber = styled.div`
-	border-bottom: ${props => props.theme.separator};
-	height: 40px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 12px;
-	font-weight: bold;
 `;
 
 export default Column;
