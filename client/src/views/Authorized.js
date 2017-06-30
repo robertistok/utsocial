@@ -13,11 +13,12 @@ import * as notificationsActions from '../redux/notifications';
 import * as teachersActions from '../redux/teachers';
 import Loader from '../components/common/Loader';
 
-export const socket = io.connect('http://localhost:3001/', {
+export const socket = io.connect('//localhost:3001/', {
   reconnection: true,
   reconnectionDelay: 1000,
   reconnectionDelayMax: 5000,
-  reconnectionAttempts: 5
+  reconnectionAttempts: 5,
+  secure: true
 });
 
 class Authorized extends Component {
