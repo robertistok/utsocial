@@ -69,10 +69,10 @@ const Wrapper = styled.div`
 		opacity: 1;
 	}
 
-	${media.phone`
+	@media screen and (max-width: 378px) {
 		height: 270px;
 		width: 220px;
-		`}
+	}
 `;
 
 const Header = styled.div`

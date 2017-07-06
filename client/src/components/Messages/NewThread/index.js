@@ -17,6 +17,18 @@ class NewThreadContainer extends Component {
     this.returnToOnCancel = this.returnToOnCancel.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (
+      nextProps.selectedConversation._id !==
+        this.props.selectedConversation._id &&
+      nextProps.submitSucceeded === true
+    ) {
+      this.props.history.push(
+        `/messages/${nextProps.selectedConversation._id}`
+      );
+    }
+  }
+
   returnToOnCancel() {
     const { selectedConversation } = this.props;
 
@@ -45,11 +57,13 @@ class NewThreadContainer extends Component {
   }
 }
 
-const { shape, string, func } = PropTypes;
+const { shape, string, func, bool } = PropTypes;
 NewThreadContainer.propTypes = {
   sender: shape({ username: string.isRequired }).isRequired,
   selectedConversation: shape({ _id: string.isRequired }),
-  newConversation: func.isRequired
+  newConversation: func.isRequired,
+  submitSucceeded: bool.isRequired,
+  history: shape({ push: func.isRequired })
 };
 
 const mapStateToProps = state => ({
