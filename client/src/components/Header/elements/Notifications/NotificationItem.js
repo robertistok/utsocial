@@ -11,75 +11,85 @@ import taskDoneLogo from '../../../../assets/task-done.svg';
 import cancelLogo from '../../../../assets/cancel.svg';
 
 function formatNotification(type, teacherName, target, info) {
-  const { course } = target;
-  if (type === 'attendanceAdd') {
-    const { enteredFor } = info;
-    return `You've been marked as present by ${teacherName} for the ${onlyFirstLetters(course.id.name)} ${course.type} at ${formatTime(enteredFor)} `;
-  }
+	const { course } = target;
+	if (type === 'attendanceAdd') {
+		const { enteredFor } = info;
+		return `You've been marked as present by ${teacherName} for the ${onlyFirstLetters(
+			course.id.name
+		)} ${course.type} at ${formatTime(enteredFor)} `;
+	}
 
-  if (type === 'attendanceRemove') {
-    const { enteredFor } = info;
-    return `${teacherName} removed your attendance for the ${onlyFirstLetters(course.id.name)} ${course.type} at ${formatTime(enteredFor)} `;
-  }
+	if (type === 'attendanceRemove') {
+		const { enteredFor } = info;
+		return `${teacherName} removed your attendance for the ${onlyFirstLetters(
+			course.id.name
+		)} ${course.type} at ${formatTime(enteredFor)} `;
+	}
 
-  if (type === 'gradeAdd') {
-    const { gradeNumber } = info;
-    return `${teacherName} added your ${gradeNumber}. grade for the ${onlyFirstLetters(course.id.name)} ${course.type}`;
-  }
+	if (type === 'gradeAdd') {
+		const { gradeNumber } = info;
+		return `${teacherName} added your ${gradeNumber}. grade for the ${onlyFirstLetters(
+			course.id.name
+		)} ${course.type}`;
+	}
 
-  if (type === 'gradeDelete') {
-    const { gradeNumber } = info;
-    return `${teacherName} removed your ${gradeNumber}. grade for the ${onlyFirstLetters(course.id.name)} ${course.type}`;
-  }
+	if (type === 'gradeDelete') {
+		const { gradeNumber } = info;
+		return `${teacherName} removed your ${gradeNumber}. grade for the ${onlyFirstLetters(
+			course.id.name
+		)} ${course.type}`;
+	}
 
-  return `No notification of type ${type} found... :(`;
+	return `No notification of type ${type} found... :(`;
 }
 
 const NotificationItem = (props) => {
-  const {
-    type,
-    triggeredBy: { name: teacherName },
-    timestamp,
-    target,
-    seenBy,
-    info,
-    user: { _id: userID, profile },
-    customItemProps: { onClick }
-  } = props;
+	const {
+		type,
+		triggeredBy: { name: teacherName },
+		timestamp,
+		target,
+		seenBy,
+		info,
+		user: { _id: userID, profile },
+		customItemProps: { onClick }
+	} = props;
 
-  const lang = profile.group !== undefined ? profile.group.lang : 'ro';
+	const lang = profile.group !== undefined ? profile.group.lang : 'ro';
 
-  return (
-    <StyledLink
-      to={`/courses/${target.course.id._id}/${lang}`}
-      onClick={onClick}
-    >
-      <Wrapper unSeen={seenBy.find(user => user === userID) === undefined}>
-        <InfoWrapper>
-          <Icon type={type} />
-          <span>
-            {formatNotification(type, teacherName, target, info)}
-          </span>
-        </InfoWrapper>
-        <Timestamp>{formatTime(timestamp, true)}</Timestamp>
-      </Wrapper>
-    </StyledLink>
-  );
+	return (
+		<StyledLink
+			to={`/courses/${target.course.id._id}/${lang}`}
+			onClick={onClick}
+		>
+			<Wrapper unSeen={seenBy.find(user => user === userID) === undefined}>
+				<InfoWrapper>
+					<Icon type={type} />
+					<span>
+						{formatNotification(type, teacherName, target, info)}
+					</span>
+				</InfoWrapper>
+				<Timestamp>
+					{formatTime(timestamp)}
+				</Timestamp>
+			</Wrapper>
+		</StyledLink>
+	);
 };
 
 const { shape, string, arrayOf, object, func } = PropTypes;
 NotificationItem.propTypes = {
-  type: string.isRequired,
-  timestamp: string.isRequired,
-  user: shape({
-    _id: string.isRequired,
-    profile: shape({ name: string.isRequired })
-  }),
-  seenBy: arrayOf(string),
-  triggeredBy: shape({ name: string.isRequired }).isRequired,
-  target: shape({ course: shape({ id: shape({ name: string.isRequired }) }) }),
-  info: object,
-  customItemProps: shape({ onClick: func.isRequired }).isRequired
+	type: string.isRequired,
+	timestamp: string.isRequired,
+	user: shape({
+		_id: string.isRequired,
+		profile: shape({ name: string.isRequired })
+	}),
+	seenBy: arrayOf(string),
+	triggeredBy: shape({ name: string.isRequired }).isRequired,
+	target: shape({ course: shape({ id: shape({ name: string.isRequired }) }) }),
+	info: object,
+	customItemProps: shape({ onClick: func.isRequired }).isRequired
 };
 
 const StyledLink = styled(Link)`
@@ -101,7 +111,8 @@ const StyledLink = styled(Link)`
 const Wrapper = styled.div`
 	display: flex;
 	padding: 12px 16px;
-	background-color: ${props => props.unSeen === true && props.theme.newNotification};
+	background-color: ${props =>
+		props.unSeen === true && props.theme.newNotification};
 	font-size: 14px;
 
 	@media screen and (max-width: 768px) {
@@ -142,16 +153,16 @@ const Icon = styled.img`
 	margin-right: 15px;
 
 	content: url(${(props) => {
-  const { type } = props;
-  if (type === 'attendanceAdd') {
-    return calendarLogo;
-  } else if (type === 'attendanceRemove' || type === 'gradeDelete') {
-    return documentErrorLogo;
-  } else if (type === 'gradeAdd') {
-    return taskDoneLogo;
-  }
-  return cancelLogo;
-}});
+		const { type } = props;
+		if (type === 'attendanceAdd') {
+			return calendarLogo;
+		} else if (type === 'attendanceRemove' || type === 'gradeDelete') {
+			return documentErrorLogo;
+		} else if (type === 'gradeAdd') {
+			return taskDoneLogo;
+		}
+		return cancelLogo;
+	}});
 
 	@media screen and (max-width: 768px) {
 		width: 25px;
