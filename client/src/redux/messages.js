@@ -27,10 +27,10 @@ const SEARCH_CONVERSATIONS = 'redux/messages/search-conversations';
 const ADD_NEW_CONVERSATON = 'redux/messages/add-new-conversation';
 const ADD_NEW_MESSAGE = 'redux/messages/add-new-message';
 
-export function addNewConversation(conversation) {
+export function addNewConversation(conversation, userID) {
   return {
     type: ADD_NEW_CONVERSATON,
-    payload: conversation
+    payload: { conversation, userID }
   };
 }
 
@@ -117,7 +117,7 @@ export function sendMessage(conversationID, text, sender) {
   };
 }
 
-export function newConversation(target, sender, text, subject) {
+export function newConversation(target, sender, text, subject, userID) {
   return (dispatch) => {
     dispatch({ type: NEW_CONVERSATION });
     axios({
@@ -129,10 +129,7 @@ export function newConversation(target, sender, text, subject) {
       }
     })
       .then(response =>
-        dispatch({
-          type: ADD_NEW_CONVERSATON,
-          payload: response.data.newConversation
-        }))
+        dispatch(addNewConversation(response.data.newConversation, userID)))
       .catch(err => dispatch({ type: NEW_CONVERSATION_ERROR, payload: err }));
   };
 }
@@ -188,8 +185,10 @@ export default function (state = INITIAL_STATE, action) {
     case ADD_NEW_CONVERSATON:
       return {
         ...state,
-        conversations: [action.payload, ...state.conversations],
-        selectedConversation: action.payload
+        conversations: [action.payload.conversation, ...state.conversations],
+        selectedConversation: action.payload.userID === undefined
+          ? action.payload.conversation
+          : state.selectedConversation
       };
     case ADD_NEW_MESSAGE: {
       return {

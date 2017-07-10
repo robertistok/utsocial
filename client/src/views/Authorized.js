@@ -65,7 +65,7 @@ class Authorized extends Component {
 
     if (authenticated === true) {
       socket.emit('join', user);
-      socket.on('new:thread', value => addNewConversation(value));
+      socket.on('new:thread', value => addNewConversation(value, user._id));
       socket.on('new:message', message => addNewMessage(message));
 
       if (user.type === 'student') {

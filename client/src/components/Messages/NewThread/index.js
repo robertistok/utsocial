@@ -19,8 +19,10 @@ class NewThreadContainer extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (
-      nextProps.selectedConversation._id !==
-        this.props.selectedConversation._id &&
+      nextProps.selectedConversation !== null &&
+      (this.props.selectedConversation === null ||
+        nextProps.selectedConversation._id !==
+          this.props.selectedConversation._id) &&
       nextProps.submitSucceeded === true
     ) {
       this.props.history.push(

@@ -31,18 +31,25 @@ class Thread extends Component {
       customOnClickhandler,
       readMessages,
       _id: id,
-      selectedConversation
+      messages,
+      selectedConversation,
+      user: { _id: userID }
     } = this.props;
+
+    const lastMessage = messages[0];
 
     if (customOnClickhandler !== undefined) {
       customOnClickhandler();
     }
 
     changeSearchterm('');
-    if (selectedConversation !== null && selectedConversation._id !== id) {
+    if (selectedConversation === null || selectedConversation._id !== id) {
       selectConversation(id);
     }
-    readMessages(id);
+
+    if (userID !== lastMessage.sender && lastMessage.unread === true) {
+      readMessages(id);
+    }
   }
 
   render() {
@@ -62,7 +69,7 @@ class Thread extends Component {
     let { unread } = lastMessage;
     const { timestamp } = lastMessage;
 
-    if (unread && lastMessage.sender !== partner._id) {
+    if (unread === true && lastMessage.sender !== partner._id) {
       unread = false;
     }
 
