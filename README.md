@@ -8,5 +8,7 @@ React, redux, mongoDB, expressJS, webpack, socket.io, mongoose, styled-component
 Link to the application: http://utsocial.herokuapp.com/
 
 Login credentials for the application:
+
 Teacher: user&pass: ionelarotaru18
+
 Student: user&pass: chiformircea69
